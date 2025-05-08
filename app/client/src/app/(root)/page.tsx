@@ -12,7 +12,6 @@ export const metadata: Metadata = {
     title: "Home | GameZone",
     description:
         "E-commerce web application that allows users to browse, purchase, and manage their orders for games, books, and gift cards.",
-    // other metadata
 };
 
 export default function HomePage() {
