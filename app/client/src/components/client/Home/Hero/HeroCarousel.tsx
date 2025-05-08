@@ -7,7 +7,7 @@ import "swiper/css/pagination";
 import "swiper/css";
 
 import Image from "next/image";
-import { CarouselAdverts } from "../../../../../data/advertisement";
+import { CarouselAdverts } from "@/data/advertisement";
 
 
 

@@ -1,6 +1,6 @@
 import Newsletter from "@/components/Common/Newsletter";
 import BestSeller from "@/components/client/Home/BestSeller";
-import Categories from "@/components/client/Home/Categories";
+import CategorList from "@/components/client/Home/Category";
 import CounDown from "@/components/client/Home/Countdown";
 import Hero from "@/components/client/Home/Hero";
 import NewArrival from "@/components/client/Home/NewArrivals";
@@ -18,7 +18,7 @@ export default function HomePage() {
   return (
       <main>
           <Hero />
-          <Categories />
+          <CategorList />
           <NewArrival />
           <PromoBanner />
           <BestSeller />
