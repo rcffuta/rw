@@ -1,0 +1,18 @@
+{
+    "name": "@gamezone/db",
+    "version": "1.0.0",
+    "main": "index.ts",
+    "private": true,
+    "scripts": {
+        "generate": "prisma generate",
+        "migrate": "prisma migrate dev",
+        "seed": "ts-node prisma/seed.ts"
+    },
+    "dependencies": {
+        "@prisma/client": "^4.0.0"
+    },
+    "devDependencies": {
+        "prisma": "^4.0.0",
+        "ts-node": "^10.0.0"
+    }
+}
