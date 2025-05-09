@@ -3,16 +3,14 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { menuData } from "./menuData";
 import Dropdown from "./Dropdown";
-import { useAppSelector } from "@/redux/store";
-import { useSelector } from "react-redux";
-import { selectTotalPrice } from "@/redux/commerce/cart-slice";
 import { useCartModalContext } from "@/context/CartSidebarModalContext";
-import Image from "next/image";
 import Logo from "../Logo";
 import CustomSelect from "./CustomSelect";
-import { CartIcon, PhoneIcon, UserIcon } from "../Icons";
+import { CartIcon, PhoneIcon } from "../Icons";
 import UserAuth from "@/components/client/Account/UserAuth";
 import { phoneNumber } from "@/data/info";
+import cartStore from "@/lib/store/cartStore";
+import { observer } from "mobx-react-lite";
 
 
 const options = [
@@ -84,14 +82,14 @@ function HeaderSearch(){
     );
 }
 
-function HeaderTop({
+const HeaderTop = observer(({
     stickyMenu,
     navigationOpen,
     setNavigationOpen,
-}: HeaderMenuWithSetNavigation) {
+}: HeaderMenuWithSetNavigation) => {
     
-    const product = useAppSelector((state) => state.cartReducer.items);
-    const totalPrice = useSelector(selectTotalPrice);
+    const product = cartStore.items;
+    const totalPrice = cartStore.totalPrice;
 
     const { openCartModal } = useCartModalContext();
 
@@ -213,7 +211,7 @@ function HeaderTop({
             {/* <!-- header top end --> */}
         </div>
     );
-}
+});
 
 
 function HeaderNavigation({ stickyMenu, navigationOpen }: HeaderMenu) {

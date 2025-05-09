@@ -2,11 +2,11 @@
 import React from "react";
 import { Product } from "@/types/product";
 import { useModalContext } from "@/context/QuickViewModalContext";
-import { updateQuickView } from "@/redux/commerce/quickView-slice";
-import { addItemToCart } from "@/redux/commerce/cart-slice";
-import { addItemToWishlist } from "@/redux/commerce/wishlist-slice";
+import { updateQuickView } from "@/lib/redux/commerce/quickView-slice";
+import { addItemToCart } from "@/lib/redux/commerce/cart-slice";
+import { addItemToWishlist } from "@/lib/redux/commerce/wishlist-slice";
 import { useDispatch } from "react-redux";
-import { AppDispatch } from "@/redux/store";
+import { AppDispatch } from "@/lib/redux/store";
 import Link from "next/link";
 import Image from "next/image";
 import { StarRating, ViewProductIcon, WishListIcon } from "../../Common/Icons";

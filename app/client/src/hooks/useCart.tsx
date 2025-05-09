@@ -1,9 +1,10 @@
-import { useAppSelector } from "@/redux/store";
+
+import cartStore from "@/lib/store/cartStore";
 import { useMemo } from "react";
 
 
 export function useCart() {
-    const cartItems = useAppSelector((state) => state.cartReducer.items);
+    const cartItems = cartStore.items;
 
 
     const summaryAmount = useMemo(()=>{

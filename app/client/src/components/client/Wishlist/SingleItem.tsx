@@ -1,9 +1,9 @@
 import React from "react";
-import { AppDispatch } from "@/redux/store";
+import { AppDispatch } from "@/lib/redux/store";
 import { useDispatch } from "react-redux";
 
-import { removeItemFromWishlist } from "@/redux/commerce/wishlist-slice";
-import { addItemToCart } from "@/redux/commerce/cart-slice";
+import { removeItemFromWishlist } from "@/lib/redux/commerce/wishlist-slice";
+import { addItemToCart } from "@/lib/redux/commerce/cart-slice";
 
 import Image from "next/image";
 

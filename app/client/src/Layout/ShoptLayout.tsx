@@ -3,7 +3,7 @@
 import Breadcrumb from "@/components/Common/Breadcrumb";
 import Newsletter from "@/components/Common/Newsletter";
 import RecentlyViewdItems from "@/components/client/Shop";
-import { useAppSelector } from "@/redux/store";
+import { useAppSelector } from "@/lib/redux/store";
 import Image from "next/image";
 import { createContext, PropsWithChildren, useContext, useMemo, useState } from "react";
 

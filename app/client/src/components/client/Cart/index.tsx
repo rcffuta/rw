@@ -2,13 +2,15 @@
 import React from "react";
 import Discount from "./Discount";
 import OrderSummary from "./OrderSummary";
-import { useAppSelector } from "@/redux/store";
+import { useAppSelector } from "@/lib/redux/store";
 import SingleItem from "./SingleItem";
 import Breadcrumb from "../../Common/Breadcrumb";
 import Link from "next/link";
 import { CartItem } from "@/types/cart";
 import { CartIcon2 } from "../../Common/Icons";
 import { SHOP } from "@/constants";
+import cartStore from "@/lib/store/cartStore";
+import { observer } from "mobx-react-lite";
 
 
 function CartTable({items}:{items: CartItem[]}) {
@@ -69,8 +71,8 @@ function CartTable({items}:{items: CartItem[]}) {
   )
 }
 
-const Cart = () => {
-  const cartItems = useAppSelector((state) => state.cartReducer.items);
+const Cart = observer(() => {
+  const cartItems = cartStore.items;
 
   return (
     <>
@@ -101,6 +103,6 @@ const Cart = () => {
       )}
     </>
   );
-};
+});
 
 export default Cart;

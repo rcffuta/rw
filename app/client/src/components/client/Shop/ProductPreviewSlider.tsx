@@ -6,7 +6,7 @@ import "swiper/css";
 import Image from "next/image";
 
 import { usePreviewSlider } from "@/context/PreviewSliderContext";
-import { useAppSelector } from "@/redux/store";
+import { useAppSelector } from "@/lib/redux/store";
 
 const PreviewSliderModal = () => {
   const { closePreviewModal, isModalPreviewOpen } = usePreviewSlider();

@@ -3,12 +3,12 @@ import React from "react";
 import Image from "next/image";
 import { Product } from "@/types/product";
 import { useModalContext } from "@/context/QuickViewModalContext";
-import { updateQuickView } from "@/redux/commerce/quickView-slice";
-import { addItemToCart } from "@/redux/commerce/cart-slice";
-import { addItemToWishlist } from "@/redux/commerce/wishlist-slice";
-import { updateproductDetails } from "@/redux/commerce/product-details";
+import { updateQuickView } from "@/lib/redux/commerce/quickView-slice";
+import { addItemToCart } from "@/lib/redux/commerce/cart-slice";
+import { addItemToWishlist } from "@/lib/redux/commerce/wishlist-slice";
+import { updateproductDetails } from "@/lib/redux/commerce/product-details";
 import { useDispatch } from "react-redux";
-import { AppDispatch } from "@/redux/store";
+import { AppDispatch } from "@/lib/redux/store";
 import Link from "next/link";
 import { StarRating, ViewIcon, WishListIcon } from "../../Common/Icons";
 

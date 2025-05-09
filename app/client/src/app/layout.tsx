@@ -1,7 +1,7 @@
 import "../styles/css/euclid-circular-a-font.css";
 import "../styles/css/style.css";
 
-import { ReduxProvider } from "@/redux/provider";
+import { ReduxProvider } from "@/lib/redux/provider";
 import QuickViewModal from "@/components/Common/QuickViewModal";
 import CartSidebarModal from "@/components/client/Cart/CartSidebarModal";
 import PreviewSliderModal from "@/components/client/Shop/ProductPreviewSlider";
