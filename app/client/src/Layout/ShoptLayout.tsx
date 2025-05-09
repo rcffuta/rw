@@ -3,7 +3,8 @@
 import Breadcrumb from "@/components/Common/Breadcrumb";
 import Newsletter from "@/components/Common/Newsletter";
 import RecentlyViewdItems from "@/components/client/Shop";
-import { useAppSelector } from "@/lib/redux/store";
+import productStore from "@/lib/store/productStore";
+import { observer } from "mobx-react-lite";
 import Image from "next/image";
 import { createContext, PropsWithChildren, useContext, useMemo, useState } from "react";
 
@@ -33,21 +34,14 @@ export function useShopContext() {
 }
 
 
-export function ShopContextProvider(props: ShopLayoutProps) {
+export const ShopContextProvider = observer((props: ShopLayoutProps) => {
 
     const [displayStyle, setDisplayStyle] = useState<DisplayStyle>("grid");
 
     const displayGrid = displayStyle === "grid";
     const displayList = displayStyle === "list";
 
-    const productFromStorage = useAppSelector(
-        (state) => state.productDetailsReducer.value
-    );
-
-    
-
-
-
+    const productFromStorage = productStore.productDetails;
 
     const product = useMemo(()=>{
         const alreadyExist = localStorage.getItem("productDetails");
@@ -80,7 +74,7 @@ export function ShopContextProvider(props: ShopLayoutProps) {
             </main>
         </ShopContext.Provider>
     );
-}
+})
 
 
 export function ShopLayout(props:PropsWithChildren) {

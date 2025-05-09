@@ -1,11 +1,12 @@
 "use client";
 import React from "react";
 import Breadcrumb from "../../Common/Breadcrumb";
-import { useAppSelector } from "@/lib/redux/store";
 import SingleItem from "./SingleItem";
+import { observer } from "mobx-react-lite";
+import wishlistStore from "@/lib/store/wishlistStore";
 
-export const Wishlist = () => {
-  const wishlistItems = useAppSelector((state) => state.wishlistReducer.items);
+export const Wishlist = observer(() => {
+  const wishlistItems = wishlistStore.items;
 
   return (
     <>
@@ -51,4 +52,4 @@ export const Wishlist = () => {
       </section>
     </>
   );
-};
+});

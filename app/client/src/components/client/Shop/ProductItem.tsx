@@ -3,48 +3,19 @@ import React from "react";
 import Image from "next/image";
 import { Product } from "@/types/product";
 import { useModalContext } from "@/context/QuickViewModalContext";
-import { updateQuickView } from "@/lib/redux/commerce/quickView-slice";
-import { addItemToCart } from "@/lib/redux/commerce/cart-slice";
-import { addItemToWishlist } from "@/lib/redux/commerce/wishlist-slice";
-import { updateproductDetails } from "@/lib/redux/commerce/product-details";
-import { useDispatch } from "react-redux";
-import { AppDispatch } from "@/lib/redux/store";
 import Link from "next/link";
 import { StarRating, ViewIcon, WishListIcon } from "../../Common/Icons";
+import { observer } from "mobx-react-lite";
+import { useProductItemContext } from "@/context/ProductItemContext";
 
-const ProductItem = ({ item }: { item: Product }) => {
+export const ProductItem = observer(({ item }: { item: Product }) => {
   const { openModal } = useModalContext();
-
-  const dispatch = useDispatch<AppDispatch>();
-
-  // update the QuickView state
-  const handleQuickViewUpdate = () => {
-    dispatch(updateQuickView({ ...item }));
-  };
-
-  // add to cart
-  const handleAddToCart = () => {
-    dispatch(
-      addItemToCart({
-        ...item,
-        quantity: 1,
-      })
-    );
-  };
-
-  const handleItemToWishList = () => {
-    dispatch(
-      addItemToWishlist({
-        ...item,
-        status: "available",
-        quantity: 1,
-      })
-    );
-  };
-
-  const handleProductDetails = () => {
-    dispatch(updateproductDetails({ ...item }));
-  };
+  const {
+    handleQuickViewUpdate,
+    handleItemToWishList,
+    handleAddToCart,
+    handleProductDetails
+  } = useProductItemContext();
 
   return (
       <div className="group">
@@ -60,7 +31,7 @@ const ProductItem = ({ item }: { item: Product }) => {
                   <button
                       onClick={() => {
                           openModal();
-                          handleQuickViewUpdate();
+                          handleQuickViewUpdate(item);
                       }}
                       id="newOne"
                       aria-label="button for quick view"
@@ -70,14 +41,14 @@ const ProductItem = ({ item }: { item: Product }) => {
                   </button>
 
                   <button
-                      onClick={() => handleAddToCart()}
+                      onClick={() => handleAddToCart(item)}
                       className="inline-flex font-medium text-custom-sm py-[7px] px-5 rounded-[5px] bg-blue text-white ease-out duration-200 hover:bg-blue-dark"
                   >
                       Add to cart
                   </button>
 
                   <button
-                      onClick={() => handleItemToWishList()}
+                      onClick={() => handleItemToWishList(item)}
                       aria-label="button for favorite select"
                       id="favOne"
                       className="flex items-center justify-center w-9 h-9 rounded-[5px] shadow-1 ease-out duration-200 text-dark bg-white hover:text-blue"
@@ -95,7 +66,7 @@ const ProductItem = ({ item }: { item: Product }) => {
 
           <h3
               className="font-medium text-dark ease-out duration-200 hover:text-blue mb-1.5"
-              onClick={() => handleProductDetails()}
+              onClick={() => handleProductDetails(item)}
           >
               <Link href="/shop-details"> {item.title} </Link>
           </h3>
@@ -106,38 +77,17 @@ const ProductItem = ({ item }: { item: Product }) => {
           </span>
       </div>
   );
-};
+});
 
-export default ProductItem;
 
-export const ProductSingleItem = ({ item }: { item: Product }) => {
+export const ProductSingleItem = observer(({ item }: { item: Product }) => {
     const { openModal } = useModalContext();
-    const dispatch = useDispatch<AppDispatch>();
-
-    // update the QuickView state
-    const handleQuickViewUpdate = () => {
-        dispatch(updateQuickView({ ...item }));
-    };
-
-    // add to cart
-    const handleAddToCart = () => {
-        dispatch(
-            addItemToCart({
-                ...item,
-                quantity: 1,
-            })
-        );
-    };
-
-    const handleItemToWishList = () => {
-        dispatch(
-            addItemToWishlist({
-                ...item,
-                status: "available",
-                quantity: 1,
-            })
-        );
-    };
+    const {
+        handleQuickViewUpdate,
+        handleItemToWishList,
+        handleAddToCart,
+        handleProductDetails,
+    } = useProductItemContext();
 
     return (
         <div className="group">
@@ -206,7 +156,7 @@ export const ProductSingleItem = ({ item }: { item: Product }) => {
                 <div className="absolute right-0 bottom-0 translate-x-full u-w-full flex flex-col gap-2 p-5.5 ease-linear duration-300 group-hover:translate-x-0">
                     <button
                         onClick={() => {
-                            handleQuickViewUpdate();
+                            handleQuickViewUpdate(item);
                             openModal();
                         }}
                         aria-label="button for quick view"
@@ -237,7 +187,7 @@ export const ProductSingleItem = ({ item }: { item: Product }) => {
                     </button>
 
                     <button
-                        onClick={() => handleAddToCart()}
+                        onClick={() => handleAddToCart(item)}
                         aria-label="button for add to cart"
                         id="addCartOne"
                         className="flex items-center justify-center w-9 h-9 rounded-[5px] shadow-1 ease-out duration-200 text-dark bg-white hover:text-white hover:bg-blue"
@@ -273,7 +223,7 @@ export const ProductSingleItem = ({ item }: { item: Product }) => {
 
                     <button
                         onClick={() => {
-                            handleItemToWishList();
+                            handleItemToWishList(item);
                         }}
                         aria-label="button for add to fav"
                         id="addFavOne"
@@ -299,5 +249,5 @@ export const ProductSingleItem = ({ item }: { item: Product }) => {
             </div>
         </div>
     );
-};
+});
 

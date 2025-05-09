@@ -2,44 +2,19 @@
 import React from "react";
 import { Product } from "@/types/product";
 import { useModalContext } from "@/context/QuickViewModalContext";
-import { updateQuickView } from "@/lib/redux/commerce/quickView-slice";
-import { addItemToCart } from "@/lib/redux/commerce/cart-slice";
-import { addItemToWishlist } from "@/lib/redux/commerce/wishlist-slice";
-import { useDispatch } from "react-redux";
-import { AppDispatch } from "@/lib/redux/store";
 import Link from "next/link";
 import Image from "next/image";
 import { StarRating, ViewProductIcon, WishListIcon } from "../../Common/Icons";
+import { useProductItemContext } from "@/context/ProductItemContext";
 
 const SingleGridItem = ({ item }: { item: Product }) => {
   const { openModal } = useModalContext();
 
-  const dispatch = useDispatch<AppDispatch>();
-
-  // update the QuickView state
-  const handleQuickViewUpdate = () => {
-    dispatch(updateQuickView({ ...item }));
-  };
-
-  // add to cart
-  const handleAddToCart = () => {
-    dispatch(
-      addItemToCart({
-        ...item,
-        quantity: 1,
-      })
-    );
-  };
-
-  const handleItemToWishList = () => {
-    dispatch(
-      addItemToWishlist({
-        ...item,
-        status: "available",
-        quantity: 1,
-      })
-    );
-  };
+  const {
+    handleQuickViewUpdate,
+    handleAddToCart,
+    handleItemToWishList
+  } = useProductItemContext();
 
   return (
     <div className="group">
@@ -50,7 +25,7 @@ const SingleGridItem = ({ item }: { item: Product }) => {
           <button
             onClick={() => {
               openModal();
-              handleQuickViewUpdate();
+              handleQuickViewUpdate(item);
             }}
             id="newOne"
             aria-label="button for quick view"
@@ -60,14 +35,14 @@ const SingleGridItem = ({ item }: { item: Product }) => {
           </button>
 
           <button
-            onClick={() => handleAddToCart()}
+            onClick={() => handleAddToCart(item)}
             className="inline-flex font-medium text-custom-sm py-[7px] px-5 rounded-[5px] bg-blue text-white ease-out duration-200 hover:bg-blue-dark"
           >
             Add to cart
           </button>
 
           <button
-              onClick={() => handleItemToWishList()}
+              onClick={() => handleItemToWishList(item)}
               aria-label="button for favorite select"
               id="favOne"
               className="flex items-center justify-center w-9 h-9 rounded-[5px] shadow-1 ease-out duration-200 text-dark bg-white hover:text-blue"

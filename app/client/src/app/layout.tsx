@@ -1,7 +1,6 @@
 import "../styles/css/euclid-circular-a-font.css";
 import "../styles/css/style.css";
 
-import { ReduxProvider } from "@/lib/redux/provider";
 import QuickViewModal from "@/components/Common/QuickViewModal";
 import CartSidebarModal from "@/components/client/Cart/CartSidebarModal";
 import PreviewSliderModal from "@/components/client/Shop/ProductPreviewSlider";
@@ -15,6 +14,7 @@ import { PreviewSliderProvider } from "../context/PreviewSliderContext";
 import Footer from "@/components/Common/Footer";
 import { AccountContextProvider } from "@/context/AccountContext";
 import { Metadata } from "next";
+import { ProductItemContextProvider } from "@/context/ProductItemContext";
 
 export const metadata: Metadata = {
     title: "GameZone",
@@ -32,21 +32,21 @@ export default function ClientLayout({
         <html>
             <body>
                 <LayoutLoader>
-                    <ReduxProvider>
-                        <AccountContextProvider>
-                            <CartModalProvider>
-                                <ModalProvider>
-                                    <PreviewSliderProvider>
+                    <AccountContextProvider>
+                        <CartModalProvider>
+                            <ModalProvider>
+                                <PreviewSliderProvider>
+                                    <ProductItemContextProvider>
                                         {children}
+                                    </ProductItemContextProvider>
 
-                                        <QuickViewModal />
-                                        <CartSidebarModal />
-                                        <PreviewSliderModal />
-                                    </PreviewSliderProvider>
-                                </ModalProvider>
-                            </CartModalProvider>
-                        </AccountContextProvider>
-                    </ReduxProvider>
+                                    <QuickViewModal />
+                                    <CartSidebarModal />
+                                    <PreviewSliderModal />
+                                </PreviewSliderProvider>
+                            </ModalProvider>
+                        </CartModalProvider>
+                    </AccountContextProvider>
                     <ScrollToTop />
                     <Toaster />
                     <Footer />

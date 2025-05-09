@@ -2,41 +2,44 @@
 import React, { useEffect, useState } from "react";
 
 import { useModalContext } from "@/context/QuickViewModalContext";
-import { AppDispatch, useAppSelector } from "@/lib/redux/store";
-import { addItemToCart } from "@/lib/redux/commerce/cart-slice";
-import { useDispatch } from "react-redux";
 import Image from "next/image";
 import { usePreviewSlider } from "@/context/PreviewSliderContext";
-import { resetQuickView } from "@/lib/redux/commerce/quickView-slice";
-import { updateproductDetails } from "@/lib/redux/commerce/product-details";
+import productStore from "@/lib/store/productStore";
+import cartStore from "@/lib/store/cartStore";
+import { observer } from "mobx-react-lite";
 
-const QuickViewModal = () => {
+const QuickViewModal = observer(() => {
   const { isModalOpen, closeModal } = useModalContext();
   const { openPreviewModal } = usePreviewSlider();
   const [quantity, setQuantity] = useState(1);
 
-  const dispatch = useDispatch<AppDispatch>();
-
   // get the product data
-  const product = useAppSelector((state) => state.quickViewReducer.value);
+  const product = productStore.quickView;
 
   const [activePreview, setActivePreview] = useState(0);
 
   // preview modal
   const handlePreviewSlider = () => {
-    dispatch(updateproductDetails(product));
+    // dispatch(updateproductDetails(product));
+
+    productStore.updateProductDetails(product);
 
     openPreviewModal();
   };
 
   // add to cart
   const handleAddToCart = () => {
-    dispatch(
-      addItemToCart({
+    // dispatch(
+    //   addItemToCart({
+    //     ...product,
+    //     quantity,
+    //   })
+    // );
+
+    cartStore.addItemToCart({
         ...product,
         quantity,
-      })
-    );
+    });
 
     closeModal();
   };
@@ -472,6 +475,6 @@ const QuickViewModal = () => {
           </div>
       </div>
   );
-};
+});
 
 export default QuickViewModal;

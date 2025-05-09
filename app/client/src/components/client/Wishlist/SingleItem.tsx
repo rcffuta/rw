@@ -1,33 +1,16 @@
 import React from "react";
-import { AppDispatch } from "@/lib/redux/store";
-import { useDispatch } from "react-redux";
-
-import { removeItemFromWishlist } from "@/lib/redux/commerce/wishlist-slice";
-import { addItemToCart } from "@/lib/redux/commerce/cart-slice";
 
 import Image from "next/image";
+import { useProductItemContext } from "@/context/ProductItemContext";
 
 const SingleItem = ({ item }) => {
-  const dispatch = useDispatch<AppDispatch>();
-
-  const handleRemoveFromWishlist = () => {
-    dispatch(removeItemFromWishlist(item.id));
-  };
-
-  const handleAddToCart = () => {
-    dispatch(
-      addItemToCart({
-        ...item,
-        quantity: 1,
-      })
-    );
-  };
+  const { handleAddToCart, handleRemoveFromWishlist } = useProductItemContext();
 
   return (
     <div className="flex items-center border-t border-gray-3 py-5 px-10">
       <div className="min-w-[83px]">
         <button
-          onClick={() => handleRemoveFromWishlist()}
+          onClick={() => handleRemoveFromWishlist(item)}
           aria-label="button for remove product from wishlist"
           className="flex items-center justify-center rounded-lg max-w-[38px] w-full h-9.5 bg-gray-2 border border-gray-3 ease-out duration-200 hover:bg-red-light-6 hover:border-red-light-4 hover:text-red"
         >
@@ -104,7 +87,7 @@ const SingleItem = ({ item }) => {
 
       <div className="min-w-[150px] flex justify-end">
         <button
-          onClick={() => handleAddToCart()}
+          onClick={() => handleAddToCart(item)}
           className="inline-flex text-dark hover:text-white bg-gray-1 border border-gray-3 py-2.5 px-6 rounded-md ease-out duration-200 hover:bg-blue hover:border-gray-3"
         >
           Add to Cart
