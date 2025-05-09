@@ -62,7 +62,6 @@ const CartSidebarModal = observer(() => {
                     <SingleItem
                       key={key}
                       item={item}
-                      removeItemFromCart={cartStore.removeItemFromCart}
                     />
                   ))
                 ) : (
