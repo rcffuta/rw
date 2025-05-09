@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import shopData from "@/components/client/Shop/shopData";
+import shopData from "@/data/shop";
 import ProductItem from "@/components/client/Shop/ProductItem";
 import Image from "next/image";
 import Link from "next/link";

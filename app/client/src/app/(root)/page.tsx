@@ -1,9 +1,9 @@
 import Newsletter from "@/components/Common/Newsletter";
-import BestSeller from "@/components/client/Home/BestSeller";
+import { BooksProductHighlight, GameProductHighlight } from "@/components/client/Home/ProductHighlight";
 import CategorList from "@/components/client/Home/Category";
 import CounDown from "@/components/client/Home/Countdown";
 import Hero from "@/components/client/Home/Hero";
-import NewArrival from "@/components/client/Home/NewArrivals";
+import PromoSection from "@/components/client/Home/PromoBanner";
 import PromoBanner from "@/components/client/Home/PromoBanner";
 import Testimonials from "@/components/client/Home/Testimonials";
 import { Metadata } from "next";
@@ -19,11 +19,12 @@ export default function HomePage() {
       <main>
           <Hero />
           <CategorList />
-          <NewArrival />
-          <PromoBanner />
-          <BestSeller />
-          <CounDown />
-          <Testimonials />
+          <BooksProductHighlight />
+          <PromoSection />
+          <GameProductHighlight />
+          <br/>
+          {/* <CounDown /> */}
+          {/* <Testimonials /> */}
           <Newsletter />
       </main>
   );

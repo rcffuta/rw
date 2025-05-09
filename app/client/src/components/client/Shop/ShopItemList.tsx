@@ -1,7 +1,7 @@
 "use client";
 import { useShopContext } from "@/Layout/ShoptLayout";
 import clsx from "clsx";
-import shopData from "./shopData";
+import shopData from "../../../data/shop";
 import SingleGridItem from "./SingleGridItem";
 import SingleListItem from "./SingleListItem";
 
