@@ -1,7 +1,7 @@
 "use client";
 import InputField from "@/components/Common/Form/InputField";
 import { useAuthForm } from "@/hooks/useForm";
-import { useNavigate } from "@/hooks/useNavigate";
+import { useNavigate } from "@gamezone/lib";
 import Link from "next/link";
 import { FormWrapper } from "../../Common/Form/FormUtils";
 import { UserAccountForm } from "@/types/form";

@@ -1,7 +1,7 @@
 "use client";
 
 import { useAccountContext } from "@/context/AccountContext";
-import { useNavigate } from "@/hooks/useNavigate";
+import { useNavigate } from "@gamezone/lib";
 import { isEmpty } from "@/utils/functions";
 import { PropsWithChildren, useEffect } from "react";
 import PreLoader from "./PreLoader";

@@ -1,5 +1,5 @@
 "use client";
-import { useNavigate } from "@/hooks/useNavigate";
+import { useNavigate } from "@gamezone/lib";
 import { UserAccount } from "@/types/form";
 import { wait } from "@/utils/functions";
 import { createContext, PropsWithChildren, useCallback, useContext, useState } from "react";
