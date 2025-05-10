@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 import { GlobeIcon } from "@/components/Icons";
-import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
+// import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 import DatePickerOne from "@/components/FormElements/DatePicker/DatePickerOne";
 import DatePickerTwo from "@/components/FormElements/DatePicker/DatePickerTwo";
 import InputGroup from "@/components/FormElements/InputGroup";
@@ -20,7 +20,7 @@ export const metadata: Metadata = {
 export default function FormElementsPage() {
   return (
     <>
-      <Breadcrumb pageName="Form Elements" />
+      {/* <Breadcrumb pageName="Form Elements" /> */}
 
       <div className="grid grid-cols-1 gap-9 sm:grid-cols-2">
         <div className="flex flex-col gap-9">

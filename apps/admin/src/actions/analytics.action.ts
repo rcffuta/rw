@@ -1,3 +1,4 @@
+import { FetchedOrder, getAllOrders, Order, OrderItem, prisma } from "@gamezone/db";
 
 export async function getTopProducts() {
   // Fake delay
@@ -39,34 +40,46 @@ export async function getTopProducts() {
   ];
 }
 
-export async function getInvoiceTableData() {
-  // Fake delay
-  await new Promise((resolve) => setTimeout(resolve, 1400));
+export async function getInvoiceTableData(): Promise<FetchedOrder> {
+    // Fake delay
+    // await new Promise((resolve) => setTimeout(resolve, 1400));
 
-  return [
-    {
-      name: "Free package",
-      price: 0.0,
-      date: "2023-01-13T18:00:00.000Z",
-      status: "Paid",
-    },
-    {
-      name: "Standard Package",
-      price: 59.0,
-      date: "2023-01-13T18:00:00.000Z",
-      status: "Paid",
-    },
-    {
-      name: "Business Package",
-      price: 99.0,
-      date: "2023-01-13T18:00:00.000Z",
-      status: "Unpaid",
-    },
-    {
-      name: "Standard Package",
-      price: 59.0,
-      date: "2023-01-13T18:00:00.000Z",
-      status: "Pending",
-    },
-  ];
+    return getAllOrders();
+
+    // const order = await prisma.order.findMany({ include: { items: true } });
+
+    // return [
+    //   {
+    //     name: "Free package",
+    //     price: 0.0,
+    //     date: "2023-01-13T18:00:00.000Z",
+    //     status: "Paid",
+    //   },
+    //   {
+    //     name: "Standard Package",
+    //     price: 59.0,
+    //     date: "2023-01-13T18:00:00.000Z",
+    //     status: "Paid",
+    //   },
+    //   {
+    //     name: "Business Package",
+    //     price: 99.0,
+    //     date: "2023-01-13T18:00:00.000Z",
+    //     status: "Unpaid",
+    //   },
+    //   {
+    //     name: "Standard Package",
+    //     price: 59.0,
+    //     date: "2023-01-13T18:00:00.000Z",
+    //     status: "Pending",
+    //   },
+    // ];
+
+    // return order.map((each)=>({
+    //     id: each.id,
+    //     createdAt: each.createdAt,
+    //     user: each.userId,
+    //     status: each.status,
+    //     item: each.items
+    // }))
 }

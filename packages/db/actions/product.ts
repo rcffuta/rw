@@ -1,27 +1,22 @@
 import { prisma } from "../client";
 import { ProductFormData } from "./types";
 
-export async function getAllProducts() {
-  return await prisma.product.findMany({
-    include: { category: true, game: true, book: true, giftCard: true },
-  });
-}
+export const getAllProducts = async () => {
+  return await prisma.product.findMany({ include: { category: true, reviews: true } });
+};
 
-export async function getProductById(id: number) {
-  return await prisma.product.findUnique({
-    where: { id },
-    include: { category: true, game: true, book: true, giftCard: true },
-  });
-}
+export const getProductById = async (id: number) => {
+  return await prisma.product.findUnique({ where: { id }, include: { category: true, reviews: true } });
+};
 
-export async function createProduct(data: ProductFormData) {
+export const createProduct = async (data: ProductFormData) => {
   return await prisma.product.create({ data });
-}
+};
 
-export async function updateProduct(id: number, data: any) {
+export const updateProduct = async (id: number, data: Partial<Parameters<typeof createProduct>[0]>) => {
   return await prisma.product.update({ where: { id }, data });
-}
+};
 
-export async function deleteProduct(id: number) {
+export const deleteProduct = async (id: number) => {
   return await prisma.product.delete({ where: { id } });
-}
+};

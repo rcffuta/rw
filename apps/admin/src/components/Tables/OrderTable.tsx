@@ -7,14 +7,13 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { cn } from "@/utils/utils";
-import dayjs from "dayjs";
 import { DownloadIcon, PreviewIcon } from "./icons";
+import { FetchedOrder } from "@gamezone/db";
 
 
 type OrderProps = {
-  orders: any[];
-}
+    orders: FetchedOrder;
+};
 
 export async function InvoiceTable({ orders }: OrderProps) {
 
@@ -35,14 +34,14 @@ export async function InvoiceTable({ orders }: OrderProps) {
                 </TableHeader>
 
                 <TableBody>
-                    {orders.map((item, index) => (
+                    {orders.map((order, index) => (
                         <TableRow
                             key={index}
                             className="border-[#eee] dark:border-dark-3"
                         >
-                            <TableCell className="min-w-[155px] xl:pl-7.5">
+                            {/* <TableCell className="min-w-[155px] xl:pl-7.5">
                                 <h5 className="text-dark dark:text-white">
-                                    {item.name}
+                                    {order.items.}
                                 </h5>
                                 <p className="mt-[3px] text-body-sm font-medium">
                                     ${item.price}
@@ -61,7 +60,7 @@ export async function InvoiceTable({ orders }: OrderProps) {
                                         "max-w-fit rounded-full px-3.5 py-1 text-sm font-medium",
                                         {
                                             "bg-[#219653]/[0.08] text-[#219653]":
-                                                item.status === "Paid",
+                                                order.status === "Paid",
                                             "bg-[#D34053]/[0.08] text-[#D34053]":
                                                 item.status === "Unpaid",
                                             "bg-[#FFA70B]/[0.08] text-[#FFA70B]":
@@ -96,7 +95,7 @@ export async function InvoiceTable({ orders }: OrderProps) {
                                         <DownloadIcon />
                                     </button>
                                 </div>
-                            </TableCell>
+                            </TableCell> */}
                         </TableRow>
                     ))}
                 </TableBody>

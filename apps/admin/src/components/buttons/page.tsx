@@ -1,5 +1,5 @@
 import { MessageOutlineIcon } from "@/components/Icons";
-import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
+// import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 import { ShowcaseSection } from "@/components/Layouts/showcase-section";
 import { Button } from "@/components/ui-elements/button";
 import { Metadata } from "next";
@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 export default function Page() {
   return (
     <>
-      <Breadcrumb pageName="Buttons" />
+      {/* <Breadcrumb pageName="Buttons" /> */}
 
       <div className="space-y-10">
         <ShowcaseSection title="Normal Button">
