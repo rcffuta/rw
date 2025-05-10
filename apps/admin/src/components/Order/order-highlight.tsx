@@ -1,5 +1,5 @@
 import { DotIcon } from "@/components/Icons";
-import { formatMessageTime } from "@/utils/format-message-time";
+import { formatTime } from "@/utils/format-message-time";
 import Image from "next/image";
 import Link from "next/link";
 import { getUnResolvedOrder } from "@/actions/order.action";
@@ -41,7 +41,7 @@ export async function OrderHighlight() {
                   <DotIcon />
 
                   <time className="text-xs" dateTime={order.date.toString()}>
-                    {formatMessageTime(order.date.toString())}
+                    {formatTime(order.date.toString())}
                   </time>
                   {/* <DotIcon />
                   <span className="text-xs">{standardFormat(order.quantity * order.price)}</span> */}

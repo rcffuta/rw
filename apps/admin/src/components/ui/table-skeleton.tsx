@@ -8,11 +8,8 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import clsx from "clsx";
+import { TableSkeletonHead } from "./types";
 
-export type TableSkeletonHead = {
-  label: string;
-  side?: "left" | "right";
-};
 
 type Props = {
   title: string;

@@ -1,0 +1,112 @@
+
+import Image from "next/image";
+import { TableRowItem } from "../ui/types";
+import {
+    Table,
+    TableBody,
+    TableCell,
+    TableHead,
+    TableHeader,
+    TableRow,
+} from "../ui/table";
+import { Product } from "@gamezone/db";
+import { TableSkeleton } from "../ui/table-skeleton";
+import clsx from "clsx";
+import { formatTime } from "@/utils/format-message-time";
+
+const tableHeads: TableRowItem[] = [
+    {
+        label: "Item",
+        // side: "left",
+    },
+    { label: "Category" },
+    { label: "Price" },
+    // { label: "Sales" },
+    // { label: "Profit" },
+];
+
+const TableLabel = "Top Sales";
+
+
+type ProductListProps = {
+    title: string;
+    products: Product[];
+};
+
+export function ProductTable(props: ProductListProps) {
+    const { title, products } = props;
+
+    return (
+        <div className="rounded-[10px] bg-white shadow-1 dark:bg-gray-dark dark:shadow-card">
+            {/* <div className="px-6 py-4 sm:px-7 sm:py-5 xl:px-8.5">
+                <h2 className="text-2xl font-bold text-dark dark:text-white">
+                    {title}
+                </h2>
+            </div> */}
+
+            <Table>
+                <TableHeader>
+                    <TableRow className="border-none uppercase [&>th]:text-center">
+                        {tableHeads.map((item, i) => (
+                            <TableHead
+                                key={i}
+                                className={clsx(
+                                    {
+                                        "!text-left": item.side === "left",
+                                        "!text-right": item.side === "right",
+                                        "min-w-[120px]": i === 0,
+                                    },
+                                    item.className,
+                                )}
+                            >
+                                {item.label}
+                            </TableHead>
+                        ))}
+                    </TableRow>
+                </TableHeader>
+
+                <TableBody>
+                    {products.map((product) => (
+                        <TableRow
+                            className="text-base font-medium text-dark dark:text-white"
+                            key={product.id}
+                        >
+                            <TableCell className="flex items-center justify-center gap-3 pl-5 sm:pl-6 xl:pl-7.5">
+                                <Image
+                                    src={
+                                        product.images.at(0) ??
+                                        "/logos/github.svg"
+                                    }
+                                    className="aspect-[6/5] w-15 rounded-[5px] object-cover"
+                                    width={60}
+                                    height={50}
+                                    alt={"Image for product " + product.title}
+                                    role="presentation"
+                                />
+                                <div>{product.title}</div>
+                            </TableCell>
+
+                            {/* <TableCell>{product.price}</TableCell> */}
+
+                            <TableCell className="text-center">
+                                ${product.price}
+                            </TableCell>
+
+                            <TableCell className="text-center">
+                                {formatTime(product.createdAt.toDateString())}
+                            </TableCell>
+
+                            {/* <TableCell className="pr-5 text-right text-green-light-1 sm:pr-6 xl:pr-7.5">
+                                ${product.profit}
+                            </TableCell> */}
+                        </TableRow>
+                    ))}
+                </TableBody>
+            </Table>
+        </div>
+    );
+}
+
+export function ProductTableSkeleton() {
+    return <TableSkeleton title={TableLabel} tableHeads={tableHeads} />;
+}

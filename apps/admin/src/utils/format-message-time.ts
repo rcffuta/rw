@@ -1,4 +1,4 @@
-export function formatMessageTime(timestamp: string) {
+export function formatTime(timestamp: string) {
   const messageDate = new Date(timestamp);
   const now = new Date();
   const diffInMinutes = Math.floor(

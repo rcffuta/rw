@@ -9,12 +9,13 @@ import {
 import { compactFormat, standardFormat } from "@/utils/format-number";
 import { cn } from "@/utils/utils";
 import Image from "next/image";
-import { TableSkeleton, TableSkeletonHead } from "@/components/ui/table-skeleton";
+import { TableSkeleton } from "@/components/ui/table-skeleton";
 import clsx from "clsx";
-import { getTopChannels, getTopProducts } from "@/actions/analytics.action";
+import { getTopProducts } from "@/actions/analytics.action";
 import { slugify } from "@/utils/format-text";
+import { TableRowItem } from "../ui/types";
 
-const TableHeads: TableSkeletonHead[] = [
+const TableHeads: TableRowItem[] = [
   {
     label: "Source",
     side: "left",
