@@ -11,17 +11,17 @@ datasource db {
 }
 
 model Product {
-  id              Int       @id @default(autoincrement())
+  id              Int         @id @default(autoincrement())
   title           String
   description     String
   price           Float
   discountedPrice Float
   stock           Int
   images          String[]
-  category        Category? @relation(fields: [categoryId], references: [id])
+  category        Category?   @relation(fields: [categoryId], references: [id])
   categoryId      Int?
   // type            ProductType
-  createdAt       DateTime  @default(now())
+  createdAt       DateTime    @default(now())
   reviews         Review[]
   OrderItems      OrderItem[]
   game            Game?
@@ -30,62 +30,62 @@ model Product {
 }
 
 model Game {
-  id          Int     @id @default(autoincrement())
-  productId   Int     @unique
-  product     Product @relation(fields: [productId], references: [id])
-  platform    String  // e.g., "PC", "Xbox", etc.
-  genre       String  // e.g., "Action", "Adventure", etc.
+  id          Int      @id @default(autoincrement())
+  productId   Int      @unique
+  product     Product  @relation(fields: [productId], references: [id])
+  platform    String // e.g., "PC", "Xbox", etc.
+  genre       String // e.g., "Action", "Adventure", etc.
   releaseDate DateTime
 }
 
 model GiftCard {
-  id          Int     @id @default(autoincrement())
-  productId   Int     @unique
-  product     Product @relation(fields: [productId], references: [id])
-  code        String  // e.g., "XYS12345"
-  value       Float
-  expiration  DateTime
+  id         Int      @id @default(autoincrement())
+  productId  Int      @unique
+  product    Product  @relation(fields: [productId], references: [id])
+  code       String // e.g., "XYS12345"
+  value      Float
+  expiration DateTime
 }
 
 model Book {
-  id          Int     @id @default(autoincrement())
-  productId   Int     @unique
-  product     Product @relation(fields: [productId], references: [id])
-  author      String  // e.g., "J.K. Rowling"
-  genre       String  // e.g., "Fantasy"
-  isbn        String  // ISBN number
-  pages       Int     // Number of pages
-  language    String  // e.g., "English"
+  id        Int     @id @default(autoincrement())
+  productId Int     @unique
+  product   Product @relation(fields: [productId], references: [id])
+  author    String // e.g., "J.K. Rowling"
+  genre     String // e.g., "Fantasy"
+  isbn      String // ISBN number
+  pages     Int // Number of pages
+  language  String // e.g., "English"
 }
 
 model Category {
-  id    Int      @id @default(autoincrement())
-  name  String
+  id       Int       @id @default(autoincrement())
+  name     String
   products Product[]
 }
 
 model Review {
-  id       Int      @id @default(autoincrement())
-  content  String
+  id        Int     @id @default(autoincrement())
+  content   String
   productId Int
   product   Product @relation(fields: [productId], references: [id])
 }
 
 model OrderItem {
-  id          Int      @id @default(autoincrement())
-  quantity    Int
-  productId   Int
-  orderId     Int
-  product     Product @relation(fields: [productId], references: [id])
+  id        Int     @id @default(autoincrement())
+  quantity  Int
+  productId Int
+  orderId   Int
+  product   Product @relation(fields: [productId], references: [id])
 
   Order Order[]
 }
 
 model Order {
-  id          Int      @id @default(autoincrement())
-  userId      Int
-  status      String
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  items       OrderItem[]
+  id        Int         @id @default(autoincrement())
+  userId    Int
+  status    String
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
+  items     OrderItem[]
 }

@@ -1,10 +1,16 @@
 import React from "react";
 
 import { Metadata } from "next";
-import ShopDiplayHeader from "@/components/client/Shop/ShopHeader";
-import ShopPagination from "@/components/client/Shop/ShopPagination";
+import ShopDiplayHeader from "@/components/client/Products/ProductDiplayHeader";
+import ShopPagination from "@/components/client/Products/ProductPagination";
 import ShopItemList from "@/components/client/Shop/ShopItemList";
 import { ShopLayout } from "@/Layout/ShoptLayout";
+import ProductList from "@/components/client/Products";
+import shopData from "@/data/shop";
+import { ProductItem } from "@/components/client/Shop/ProductItem";
+import ProductDiplayHeader from "@/components/client/Products/ProductDiplayHeader";
+import ProductPagination from "@/components/client/Products/ProductPagination";
+import { getAllProducts } from "@gamezone/db";
 
 export const metadata: Metadata = {
     title: "Shop | GameZone",
@@ -12,18 +18,19 @@ export const metadata: Metadata = {
     // other metadata
 };
 
-export default function ShopPage() {
+export const dynamic = "force-dynamic";
+
+export default async function ShopPage() {
+    const products = await getAllProducts();
     return (
         <ShopLayout>
             <div className="w-full">
                 {/* <!-- Products Grid Tab Content Start --> */}
-                <ShopDiplayHeader />
+                <ProductDiplayHeader total={0} current={products.length} />
                 {/* <!-- Products Grid Tab Content End --> */}
-
-                <ShopItemList />
-
+                <ProductList products={products}/>
                 {/* <!-- Products Pagination Start --> */}
-                <ShopPagination />
+                <ProductPagination />
                 {/* <!-- Products Pagination End --> */}
             </div>
         </ShopLayout>

@@ -2,8 +2,7 @@
 import { useShopContext } from "@/Layout/ShoptLayout";
 import clsx from "clsx";
 import shopData from "../../../data/shop";
-import SingleGridItem from "./SingleGridItem";
-import SingleListItem from "./SingleListItem";
+import ProductList from "../Products/ProductItem";
 
 
 export default function ShopItemList() {
@@ -22,10 +21,9 @@ export default function ShopItemList() {
                     }
                 )}
             >
-                {shopData.map((item, key) => {
-                    if (displayGrid) return <SingleGridItem item={item} key={key}/>
-                    if (displayList) return <SingleListItem item={item} key={key}/>
-                })}
+                {shopData.map((item, key) => (
+                    <ProductList key={key} item={item}/>
+                ))}
             </div>
             {/* <!-- Products Grid Tab Content End --> */}
         </>

@@ -250,4 +250,3 @@ export const ProductSingleItem = observer(({ item }: { item: Product }) => {
         </div>
     );
 });
-

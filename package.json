@@ -31,6 +31,9 @@
     "scripts": {
         "dev": "turbo run dev",
         "build": "turbo run build",
-        "lint": "turbo run lint"
+        "lint": "turbo run lint",
+        "build:client": "pnpm --filter database db:deploy && pnpm --filter database db:generate  && pnpm --filter client build",
+        "dev:client": "pnpm --filter database db:generate && pnpm --filter client dev",
+        "studio": "pnpm --filter database db:studio"
     }
 }
