@@ -2,9 +2,8 @@
 import cartStore from "@/lib/store/cartStore";
 import productStore from "@/lib/store/productStore";
 import wishlistStore from "@/lib/store/wishlistStore";
-import { Product } from "@/types/product";
 import {createContext, PropsWithChildren, useContext} from "react";
-
+import { Product } from "@gamezone/db";
 
 // TODO: Reduce this file to a hook
 

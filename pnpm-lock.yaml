@@ -123,6 +123,9 @@ importers:
       '@gamezone/lib':
         specifier: workspace:*
         version: link:../../packages/lib
+      '@prisma/client':
+        specifier: 6.7.0
+        version: 6.7.0(prisma@6.7.0(typescript@5.8.3))(typescript@5.8.3)
       i:
         specifier: ^0.3.7
         version: 0.3.7

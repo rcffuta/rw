@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { Product } from "@/types/product";
+import { Product } from "@gamezone/db";
 import { useModalContext } from "@/context/QuickViewModalContext";
 import Link from "next/link";
 import Image from "next/image";

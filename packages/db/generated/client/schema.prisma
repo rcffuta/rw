@@ -10,6 +10,19 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model User {
+  id        Int      @id @default(autoincrement())
+  email     String   @unique
+  password  String
+  name      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  orders  Order[]
+  reviews Review[]
+}
+
 model Product {
   id              Int         @id @default(autoincrement())
   title           String
@@ -71,6 +84,8 @@ model Review {
   content   String
   productId Int
   product   Product @relation(fields: [productId], references: [id])
+
+  User User[]
 }
 
 model OrderItem {
@@ -90,4 +105,6 @@ model Order {
   createdAt DateTime    @default(now())
   updatedAt DateTime    @updatedAt
   items     OrderItem[]
+
+  User User[]
 }

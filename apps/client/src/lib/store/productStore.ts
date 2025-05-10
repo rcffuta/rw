@@ -1,6 +1,6 @@
 // stores/ProductStore.ts
 import { makeAutoObservable } from "mobx";
-import { Product } from "@/types/product";
+import { Product } from "@gamezone/db";
 
 class ProductStore {
   quickView: Product = this.createEmptyProduct();
