@@ -1,4 +1,4 @@
-import { UploadPhotoForm } from "@/app/settings/_components/upload-photo";
+import PhotoUploader from "@/app/settings/_components/upload-photo";
 import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 import { GameProductForm } from "@/components/Product/GameProductForm";
 import { ProductForm } from "@/components/Product/ProductForm";
@@ -17,11 +17,7 @@ export default function Page() {
       <div className="grid grid-cols-1 gap-9 sm:grid-cols-2">
         {/* <div className="flex flex-col gap-9">
         </div> */}
-        <div>
-
-        <UploadPhotoForm />
-        <ProductForm />
-        </div>
+          <ProductForm />
 
         <GameProductForm />
         {/* <div className="flex flex-col gap-9">

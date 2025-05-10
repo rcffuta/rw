@@ -2,7 +2,8 @@ import * as Icons from "../icons";
 
 export const NAV_DATA = [
   {
-    label: "MAIN MENU",
+    // label: "MAIN MENU",
+    label: "",
     items: [
       {
         title: "Dashboard",
@@ -51,17 +52,11 @@ export const NAV_DATA = [
           // },
         ],
       },
-      {
-        title: "Settings",
-        icon: Icons.Alphabet,
-        url: "/settings",
-        items: [
-          // {
-          //   title: "Settings",
-          //   url: "/pages/settings",
-          // },
-        ],
-      },
+      // {
+      //   title: "Settings",
+      //   icon: Icons.Alphabet,
+      //   url: "/settings",
+      // },
     ],
   },
   // {

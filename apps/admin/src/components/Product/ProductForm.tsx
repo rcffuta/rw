@@ -1,4 +1,4 @@
-import { UploadPhotoForm } from "@/app/settings/_components/upload-photo";
+import PhotoUploader from "@/app/settings/_components/upload-photo";
 import InputGroup from "@/components/FormElements/InputGroup";
 import { TextAreaGroup } from "@/components/FormElements/InputGroup/text-area";
 import { Select } from "@/components/FormElements/select";
@@ -8,6 +8,7 @@ export function ProductForm() {
   return (
     <ShowcaseSection title="Add New Product" className="!p-6.5">
       <form action="#">
+        <PhotoUploader />
         <InputGroup
           label="Title"
           type="text"
