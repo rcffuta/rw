@@ -1,5 +1,5 @@
 import { PeriodPicker } from "@/components/period-picker";
-import { cn } from "@/lib/utils";
+import { cn } from "@/utils/utils";
 import { getDevicesUsedData } from "@/actions/charts.actions";
 import { DonutChart } from "./chart-items";
 

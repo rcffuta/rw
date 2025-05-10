@@ -1,6 +1,8 @@
-import darkLogo from "@/assets/logos/dark.svg";
-import logo from "@/assets/logos/main.svg";
+
 import Image from "next/image";
+
+const logo = "/logos/main.svg";
+const darkLogo = "/logos/dark.svg";
 
 export function Logo() {
   return (

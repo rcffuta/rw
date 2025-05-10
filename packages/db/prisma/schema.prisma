@@ -16,7 +16,6 @@ model Product {
   description     String
   price           Float
   discountedPrice Float
-  stock           Int
   images          String[]
   category        Category? @relation(fields: [categoryId], references: [id])
   categoryId      Int?
@@ -36,6 +35,7 @@ model Game {
   platform    String  // e.g., "PC", "Xbox", etc.
   genre       String  // e.g., "Action", "Adventure", etc.
   releaseDate DateTime
+  // stock           Int
 }
 
 model GiftCard {
@@ -45,6 +45,7 @@ model GiftCard {
   code        String  // e.g., "XYS12345"
   value       Float
   expiration  DateTime
+  // stock           Int
 }
 
 model Book {
@@ -56,6 +57,7 @@ model Book {
   isbn        String  // ISBN number
   pages       Int     // Number of pages
   language    String  // e.g., "English"
+  // stock           Int
 }
 
 model Category {

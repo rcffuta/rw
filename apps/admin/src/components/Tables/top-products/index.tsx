@@ -1,3 +1,4 @@
+import { getTopProducts } from "@/actions/analytics.action";
 import {
   Table,
   TableBody,
@@ -7,7 +8,6 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import Image from "next/image";
-import { getTopProducts } from "../fetch";
 
 export async function TopProducts() {
   const data = await getTopProducts();

@@ -1,4 +1,4 @@
-import { GoogleIcon } from "@/assets/icons";
+import { GoogleIcon } from "@/components/Icons";
 
 export default function GoogleSigninButton({ text }: { text: string }) {
   return (

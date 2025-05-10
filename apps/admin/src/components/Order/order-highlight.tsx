@@ -1,4 +1,4 @@
-import { DotIcon } from "@/assets/icons";
+import { DotIcon } from "@/components/Icons";
 import { formatMessageTime } from "@/utils/format-message-time";
 import Image from "next/image";
 import Link from "next/link";

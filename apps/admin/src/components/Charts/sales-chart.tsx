@@ -1,6 +1,6 @@
 import { PeriodPicker } from "@/components/period-picker";
 import { standardFormat } from "@/utils/format-number";
-import { cn } from "@/lib/utils";
+import { cn } from "@/utils/utils";
 import { getPaymentsOverviewData, getWeeksProfitData } from "@/actions/charts.actions";
 import { AreaChart, BarChart } from "./chart-items";
 

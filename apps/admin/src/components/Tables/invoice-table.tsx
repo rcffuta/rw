@@ -1,4 +1,4 @@
-import { TrashIcon } from "@/assets/icons";
+import { TrashIcon } from "@/components/Icons";
 import {
   Table,
   TableBody,
@@ -7,10 +7,10 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { cn } from "@/lib/utils";
+import { cn } from "@/utils/utils";
 import dayjs from "dayjs";
-import { getInvoiceTableData } from "./fetch";
 import { DownloadIcon, PreviewIcon } from "./icons";
+import { getInvoiceTableData } from "@/actions/analytics.action";
 
 export async function InvoiceTable() {
   const data = await getInvoiceTableData();

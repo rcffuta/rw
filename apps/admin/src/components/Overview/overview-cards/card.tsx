@@ -1,5 +1,5 @@
-import { ArrowDownIcon, ArrowUpIcon } from "@/assets/icons";
-import { cn } from "@/lib/utils";
+import { ArrowDownIcon, ArrowUpIcon } from "@/components/Icons";
+import { cn } from "@/utils/utils";
 import type { JSX, SVGProps } from "react";
 
 type PropsType = {

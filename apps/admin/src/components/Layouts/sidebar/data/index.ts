@@ -10,53 +10,58 @@ export const NAV_DATA = [
         icon: Icons.HomeIcon,
         items: [],
       },
-    //   {
-    //     title: "Calendar",
-    //     url: "/calendar",
-    //     icon: Icons.Calendar,
-    //     items: [],
-    //   },
-    //   {
-    //     title: "Profile",
-    //     url: "/profile",
-    //     icon: Icons.User,
-    //     items: [],
-    //   },
-    //   {
-    //     title: "Forms",
-    //     icon: Icons.Alphabet,
-    //     items: [
-    //       {
-    //         title: "Form Elements",
-    //         url: "/forms/form-elements",
-    //       },
-    //       {
-    //         title: "Form Layout",
-    //         url: "/forms/form-layout",
-    //       },
-    //     ],
-    //   },
-    //   {
-    //     title: "Tables",
-    //     url: "/tables",
-    //     icon: Icons.Table,
-    //     items: [
-    //       {
-    //         title: "Tables",
-    //         url: "/tables",
-    //       },
-    //     ],
-    //   },
-    //   {
-    //     title: "Pages",
-    //     icon: Icons.Alphabet,
-    //     items: [
-    //       {
-    //         title: "Settings",
-    //         url: "/pages/settings",
-    //       },
-    //     ],
-    //   },
+      // {
+      //   title: "Calendar",
+      //   url: "/calendar",
+      //   icon: Icons.Calendar,
+      //   items: [],
+      // },
+      // {
+      //   title: "Profile",
+      //   url: "/profile",
+      //   icon: Icons.User,
+      //   items: [],
+      // },
+      {
+        title: "Products",
+        icon: Icons.Alphabet,
+        items: [
+          {
+            title: "Games",
+            url: "/products/games",
+          },
+          {
+            title: "Books",
+            url: "/products/books",
+          },
+          {
+            title: "Gift Cards",
+            url: "/products/gift-cards",
+          },
+        ],
+      },
+      {
+        title: "Orders",
+        url: "/orders",
+        icon: Icons.Table,
+        items: [
+          // {
+          //   title: "Tables",
+          //   url: "/tables",
+          // },
+        ],
+      },
+      {
+        title: "Settings",
+        icon: Icons.Alphabet,
+        url: "/settings",
+        items: [
+          // {
+          //   title: "Settings",
+          //   url: "/pages/settings",
+          // },
+        ],
+      },
     ],
   },
   // {

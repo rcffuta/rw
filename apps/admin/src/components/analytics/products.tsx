@@ -7,7 +7,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { compactFormat, standardFormat } from "@/utils/format-number";
-import { cn } from "@/lib/utils";
+import { cn } from "@/utils/utils";
 import Image from "next/image";
 import { TableSkeleton, TableSkeletonHead } from "@/components/ui/table-skeleton";
 import clsx from "clsx";

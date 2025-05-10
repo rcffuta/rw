@@ -4,7 +4,11 @@ import { Calendar } from "@/components/Layouts/sidebar/icons";
 import flatpickr from "flatpickr";
 import { useEffect } from "react";
 
-const DatePickerOne = () => {
+type DatePickerProps = {
+  title?:string;
+}
+
+const DatePickerOne = (props: DatePickerProps) => {
   useEffect(() => {
     // Init flatpickr
     flatpickr(".form-datepicker", {
@@ -18,7 +22,7 @@ const DatePickerOne = () => {
   return (
     <div>
       <label className="mb-3 block text-body-sm font-medium text-dark dark:text-white">
-        Date picker
+        {props.title || "Date Picker"}
       </label>
       <div className="relative">
         <input
