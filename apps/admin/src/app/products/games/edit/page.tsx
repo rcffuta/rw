@@ -1,4 +1,3 @@
-import PhotoUploader from "@/app/settings/_components/upload-photo";
 import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 import { GameProductForm } from "@/components/Product/GameProductForm";
 import { ProductForm } from "@/components/Product/ProductForm";
@@ -11,20 +10,20 @@ export const metadata: Metadata = {
 
 export default function Page() {
   return (
-    <>
-      <Breadcrumb pageName="Form Layout" />
+      <>
+          <Breadcrumb pageName="Form Layout" />
 
-      <div className="grid grid-cols-1 gap-9 sm:grid-cols-2">
-        {/* <div className="flex flex-col gap-9">
+          <div className="grid grid-cols-1 gap-9 sm:grid-cols-2">
+              {/* <div className="flex flex-col gap-9">
         </div> */}
-          <ProductForm />
+              <ProductForm redirect="/products/games" />
 
-        <GameProductForm />
-        {/* <div className="flex flex-col gap-9">
+              <GameProductForm />
+              {/* <div className="flex flex-col gap-9">
 
           <SignUpForm />
         </div> */}
-      </div>
-    </>
+          </div>
+      </>
   );
 }

@@ -7,8 +7,8 @@ import { UploadIcon } from "@/components/Icons";
 import toast from "react-hot-toast";
 
 
-export default function PhotoUploader() {
-  const [imageUrl, setImageUrl] = useState<string | null>(null);
+export default function PhotoUploader({imageUrl, onUpload}:{imageUrl:string|null; onUpload:(url:string | null)=>void}) {
+  // const [imageUrl, setImageUrl] = useState<string | null>(null);
   const [isUploading, setIsUploading] = useState(false);
   const [publicId, setPublicId] = useState<string | null>(null);
 
@@ -23,7 +23,7 @@ export default function PhotoUploader() {
 
     try {
       const result: any = await uploadProfileImage(formData);
-      setImageUrl(result.secure_url);
+      onUpload(result.secure_url);
       setPublicId(result.public_id);
       toast.success("Uploaded Image");
     } catch (err) {
@@ -42,7 +42,7 @@ export default function PhotoUploader() {
 
     try {
       await deleteProfileImage(publicId);
-      setImageUrl(null);
+      onUpload(null);
       setPublicId(null);
       toast.success("Deleted Image", { id: toastId });
     } catch (err) {

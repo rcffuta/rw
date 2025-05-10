@@ -1,6 +1,6 @@
 import { createPaymentLink } from "@/app/actions/checkout";
 import toast, { ToastOptions } from "react-hot-toast";
-import { useNavigate } from "./useNavigate";
+import { useNavigate } from "../../../../packages/lib/hooks/useNavigate";
 import { useAuthForm } from "./useForm";
 import { Address, UserAccountForm } from "@/types/form";
 import { useState } from "react";

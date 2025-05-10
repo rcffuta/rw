@@ -1,6 +1,6 @@
 
 import { useState } from "react";
-import { useNavigate } from "./useNavigate";
+import { useNavigate } from "../../../../packages/lib/hooks/useNavigate";
 import toast, { ToastOptions } from "react-hot-toast";
 import { useAccountContext } from "@/context/AccountContext";
 import { validateCreateAccountData, validateLoginData } from "@/utils/validators";

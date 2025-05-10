@@ -2,7 +2,7 @@
     "name": "gamezone",
     "private": true,
     "workspaces": [
-        "app/*",
+        "apps/*",
         "packages/*"
     ],
     "dependencies": {

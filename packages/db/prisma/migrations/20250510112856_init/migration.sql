@@ -5,7 +5,6 @@ CREATE TABLE "Product" (
     "description" TEXT NOT NULL,
     "price" DOUBLE PRECISION NOT NULL,
     "discountedPrice" DOUBLE PRECISION NOT NULL,
-    "stock" INTEGER NOT NULL,
     "images" TEXT[],
     "categoryId" INTEGER,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,

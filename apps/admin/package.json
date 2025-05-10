@@ -9,6 +9,8 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@gamezone/db": "workspace:*",
+    "@gamezone/lib": "workspace:*",
     "apexcharts": "^4.5.0",
     "class-variance-authority": "^0.7.1",
     "cloudinary": "^2.6.1",

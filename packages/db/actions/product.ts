@@ -1,4 +1,5 @@
 import { prisma } from "../client";
+import { ProductFormData } from "./types";
 
 export async function getAllProducts() {
   return await prisma.product.findMany({
@@ -13,7 +14,7 @@ export async function getProductById(id: number) {
   });
 }
 
-export async function createProduct(data: any) {
+export async function createProduct(data: ProductFormData) {
   return await prisma.product.create({ data });
 }
 
