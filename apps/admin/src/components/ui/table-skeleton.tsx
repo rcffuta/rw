@@ -8,12 +8,12 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import clsx from "clsx";
-import { TableSkeletonHead } from "./types";
+import { TableRowItem } from "./types";
 
 
 type Props = {
   title: string;
-  tableHeads: TableSkeletonHead[];
+  tableHeads: TableRowItem[];
 };
 
 export function TableSkeleton(props: Props) {

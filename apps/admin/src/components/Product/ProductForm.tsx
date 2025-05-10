@@ -1,6 +1,5 @@
 "use client";
 import { saveProduct } from "@/actions/form.action";
-import PhotoUploader from "@/app/settings/_components/upload-photo";
 import InputGroup from "@/components/FormElements/InputGroup";
 import { TextAreaGroup } from "@/components/FormElements/InputGroup/text-area";
 import { Select } from "@/components/FormElements/select";
@@ -9,6 +8,7 @@ import { ProductFormData } from "@gamezone/db";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import {useNavigate} from "@gamezone/lib"
+import PhotoUploader from "../FormElements/upload-photo";
 
 
 type Props = {
