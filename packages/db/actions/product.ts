@@ -1,7 +1,7 @@
 import { prisma } from "../client";
-import { ProductFormData } from "./types";
+import { FullProduct, ProductFormData } from "./types";
 
-export const getAllProducts = async () => {
+export const getAllProducts = async ():Promise<FullProduct[]> => {
   return await prisma.product.findMany({ include: { category: true, reviews: true } });
 };
 

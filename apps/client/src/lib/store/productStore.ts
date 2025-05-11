@@ -4,7 +4,7 @@ import { Product } from "@gamezone/db";
 
 class ProductStore {
   quickView: Product = this.createEmptyProduct();
-  productDetails: Product = this.createEmptyProduct();
+  productDetails: Product | null = null; //this.createEmptyProduct();
 
   constructor() {
     makeAutoObservable(this);
@@ -12,12 +12,14 @@ class ProductStore {
 
   private createEmptyProduct(): Product {
     return {
+      id: 0,
       title: "",
-      reviews: 0,
+      description: "",
       price: 0,
       discountedPrice: 0,
-      id: 0,
-      imgs: { thumbnails: [], previews: [] },
+      images: [],
+      categoryId: 1,
+      createdAt: new Date(),
     };
   }
 

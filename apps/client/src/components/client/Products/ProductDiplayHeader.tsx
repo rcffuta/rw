@@ -1,31 +1,22 @@
-
 "use client";
-import { useShopContext } from "@/Layout/ShoptLayout";
-import CustomSelect from "../../Common/Header/CustomSelect";
-import clsx from "clsx";
 
-
-
-const options = [
-    { label: "Latest Products", value: "0" },
-    { label: "Best Selling", value: "1" },
-    { label: "Old Products", value: "2" },
-];
+import CategorySelect from "../../Common/Header/CategorySelect";
 
 type ProductDisplayHeaderProps = {
     total: number;
     current: number;
 }
 
+
 export default function ProductDiplayHeader({total, current}:ProductDisplayHeaderProps) {
-    // const { displayGrid, displayList, changeDisplayStyle } = useShopContext();
+
 
     return (
         <div className="rounded-lg bg-white shadow-1 pl-3 pr-2.5 py-2.5 mb-6">
             <div className="flex items-center justify-between">
                 {/* <!-- top bar left --> */}
                 <div className="flex flex-wrap items-center gap-4">
-                    <CustomSelect options={options} />
+                    <CategorySelect />
 
                     <p>
                         Showing <span className="text-dark">{current} of {total}</span>{" "}

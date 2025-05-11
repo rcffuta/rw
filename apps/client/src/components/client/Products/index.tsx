@@ -1,9 +1,8 @@
-import shopData from "@/data/shop";
-import { useShopContext } from "@/Layout/ShoptLayout";
-import clsx from "clsx";
+
+import { FullProduct } from "@gamezone/db";
 import ProductItem from "./ProductItem";
 
-export default function ProductList({ products }: { products: any[] }) {
+export default function ProductList({ products }: { products: FullProduct[] }) {
     // const { displayGrid, displayList } = useShopContext();
     return (
         <>

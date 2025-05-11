@@ -1,6 +1,15 @@
 import { prisma } from "../client";
 
 export const getAllCategories = async () => {
+  try {
+    return await prisma.category.findMany();
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+};
+
+export const getAllCategoriesWithProducts = async () => {
   return await prisma.category.findMany({ include: { products: true } });
 };
 

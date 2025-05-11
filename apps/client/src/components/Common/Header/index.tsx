@@ -5,7 +5,7 @@ import { menuData } from "./menuData";
 import Dropdown from "./Dropdown";
 import { useCartModalContext } from "@/context/CartSidebarModalContext";
 import Logo from "../Logo";
-import CustomSelect from "./CustomSelect";
+import CustomSelect from "./CategorySelect";
 import { CartIcon, PhoneIcon } from "../Icons";
 import { UserHighlight } from "@/components/Common/Header/UserHighlight";
 import { phoneNumber } from "@/data/info";

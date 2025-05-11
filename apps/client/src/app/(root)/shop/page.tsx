@@ -26,9 +26,12 @@ export default async function ShopPage() {
         <ShopLayout>
             <div className="w-full">
                 {/* <!-- Products Grid Tab Content Start --> */}
-                <ProductDiplayHeader total={0} current={products.length} />
+                <ProductDiplayHeader
+                    total={products.length}
+                    current={1}
+                />
                 {/* <!-- Products Grid Tab Content End --> */}
-                <ProductList products={products}/>
+                <ProductList products={products} />
                 {/* <!-- Products Pagination Start --> */}
                 <ProductPagination />
                 {/* <!-- Products Pagination End --> */}

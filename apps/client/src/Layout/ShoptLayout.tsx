@@ -14,11 +14,11 @@ type DisplayStyle = "grid" | "list";
 
 
 type ShopContextProps = {
-    displayGrid?: boolean;
-    displayList?: boolean;
-    changeDisplayStyle: (style: DisplayStyle) => void;
+    // displayGrid?: boolean;
+    // displayList?: boolean;
+    // changeDisplayStyle: (style: DisplayStyle) => void;
 
-    product: any | undefined;
+    // product: any | undefined;
 };
 
 const ShopContext = createContext<ShopContextProps>(null);
@@ -36,17 +36,12 @@ export function useShopContext() {
 
 export const ShopContextProvider = observer((props: ShopLayoutProps) => {
 
-    const [displayStyle, setDisplayStyle] = useState<DisplayStyle>("grid");
+    // const [displayStyle, setDisplayStyle] = useState<DisplayStyle>("grid");
 
-    const displayGrid = displayStyle === "grid";
-    const displayList = displayStyle === "list";
+    // const displayGrid = displayStyle === "grid";
+    // const displayList = displayStyle === "list";
 
-    const productFromStorage = productStore.productDetails;
-
-    const product = useMemo(()=>{
-        const alreadyExist = localStorage.getItem("productDetails");
-        return alreadyExist ? JSON.parse(alreadyExist) : productFromStorage;
-    },[]);
+    const product = productStore.productDetails;
 
     // useEffect(() => {
     //     localStorage.setItem("productDetails", JSON.stringify(product));
@@ -55,16 +50,16 @@ export const ShopContextProvider = observer((props: ShopLayoutProps) => {
     console.dir(product);
 
     const context: ShopContextProps = {
-        displayGrid,
-        displayList,
-        product: {
-            ...product,
-            title: "Prodi!"
-        },
-        changeDisplayStyle: (style) => {
-            if (style === displayStyle) return;
-            setDisplayStyle(style);
-        }
+        // displayGrid,
+        // displayList,
+        // product: {
+        //     ...product,
+        //     title: "Prodi!"
+        // },
+        // changeDisplayStyle: (style) => {
+        //     if (style === displayStyle) return;
+        //     setDisplayStyle(style);
+        // }
     }
 
     return (

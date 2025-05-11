@@ -21,6 +21,7 @@ export default function LayoutLoader(props: PropsWithChildren) {
         };
     }, [loadTime]);
 
+    // TODO: Remove this component
 
     if (loading) return <PreLoader/>
 
