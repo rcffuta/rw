@@ -6,4 +6,5 @@ export * from './category';
 export * from './review';
 export * from './order';
 export * from './user';
+export * from './wishlist';
 export * from './types';

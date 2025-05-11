@@ -30,8 +30,8 @@ export function useProductAction(item: FullProduct) {
 
         wishlistStore.addItem({
             ...item,
-            status: "available",
-            quantity: 1,
+            // status: "available",
+            // quantity: 1,
         });
         toast.success("Added Product to wishlist", {id:"wishListAddToast", duration: 800});
     };

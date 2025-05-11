@@ -1,5 +1,9 @@
 // stores/WishlistStore.ts
+import { clearAllInWishList, deleteFromWishList, loadWishList, saveWishList } from "@/actions/wishlist.action";
 import { makeAutoObservable } from "mobx";
+import authStore from "./authStore";
+import { FullWishList } from "db/actions";
+import { Product } from "db/index";
 
 export type WishListItem = {
     id: number;
@@ -15,28 +19,60 @@ export type WishListItem = {
 };
 
 class WishlistStore {
-    items: WishListItem[] = [];
+    items: FullWishList[] = [];
 
     constructor() {
-      makeAutoObservable(this);
+        makeAutoObservable(this);
+
+        if (authStore.user) {
+
+            loadWishList(authStore.user.id)
+            .then((data)=>{
+                this.items = data;
+            })
+            .catch((err)=>{
+                console.error(err);
+            })
+        }
     }
 
-    addItem(item: WishListItem) {
-      const existingItem = this.items.find((i) => i.id === item.id);
+    async addItem(product: Product) {
+        const existingItem = this.items.find((i) => i.productId === product.id);
 
-      if (existingItem) {
-        existingItem.quantity += item.quantity;
-      } else {
-        this.items.push({ ...item });
-      }
+        if (existingItem) {
+            // existingItem.quantity += item.quantity;
+            return
+        }
+        
+        const data = await saveWishList(authStore.user.id, product.id);
+
+        this.items.push({
+            ...data,
+            product
+        })
     }
 
-    removeItem(itemId: number) {
-      this.items = this.items.filter((item) => item.id !== itemId);
+    async removeItem(productId: number) {
+
+        let prod = false;
+
+        this.items = this.items.filter((item) =>{
+            if (item.productId === productId) {
+                prod = true;
+                return false;
+            }
+            // return item.id !== itemId
+            return true;
+        });
+
+        if (prod) {
+            await deleteFromWishList(authStore.user.id, productId);
+        }
     }
 
-    clear() {
-      this.items = [];
+    async clear() {
+        await clearAllInWishList(authStore.user.id);
+        this.items = [];
     }
 
     isItemInWishlist(id:number) {
