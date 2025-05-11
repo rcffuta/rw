@@ -3,10 +3,10 @@ import React from "react";
 import { useModalContext } from "@/context/QuickViewModalContext";
 import Link from "next/link";
 import { StarRating, ViewProductIcon, WishListIcon } from "../../Common/Icons";
-import { useProductItemContext } from "@/context/ProductItemContext";
 import { FullProduct, Product } from "@gamezone/db";
 import { useFormatCurrency } from "@gamezone/lib";
 import CustomImage from "@/components/Common/CustomImage";
+import { useProductAction } from "@/hooks/useProduct";
 
 export default function ProductList({ item }: { item: FullProduct }) {
     const { openModal } = useModalContext();
@@ -16,8 +16,8 @@ export default function ProductList({ item }: { item: FullProduct }) {
     const {
         handleQuickViewUpdate,
         handleAddToCart,
-        handleItemToWishList
-    } = useProductItemContext();
+        handleAddItemToWishList
+    } = useProductAction(item);
 
     return (
         <div className="group">
@@ -31,7 +31,7 @@ export default function ProductList({ item }: { item: FullProduct }) {
                     <button
                         onClick={() => {
                             openModal();
-                            handleQuickViewUpdate(item);
+                            handleQuickViewUpdate();
                         }}
                         id="newOne"
                         aria-label="button for quick view"
@@ -41,14 +41,14 @@ export default function ProductList({ item }: { item: FullProduct }) {
                     </button>
 
                     <button
-                        onClick={() => handleAddToCart(item)}
+                        onClick={() => handleAddToCart()}
                         className="inline-flex font-medium text-custom-sm py-[7px] px-5 rounded-[5px] bg-blue text-white ease-out duration-200 hover:bg-blue-dark"
                     >
                         Add to cart
                     </button>
 
                     <button
-                        onClick={() => handleItemToWishList(item)}
+                        onClick={() => handleAddItemToWishList()}
                         aria-label="button for favorite select"
                         id="favOne"
                         className="flex items-center justify-center w-9 h-9 rounded-[5px] shadow-1 ease-out duration-200 text-dark bg-white hover:text-blue"
@@ -58,11 +58,13 @@ export default function ProductList({ item }: { item: FullProduct }) {
                 </div>
             </div>
 
-            {item.reviews.length === 0 ? null : (<div className="flex items-center gap-2.5 mb-2">
-                <StarRating rate={item.reviews.length} />
+            {item.reviews.length === 0 ? null : (
+                <div className="flex items-center gap-2.5 mb-2">
+                    <StarRating rate={item.reviews.length} />
 
-                <p className="text-custom-sm">({item.reviews.length})</p>
-            </div>)}
+                    <p className="text-custom-sm">({item.reviews.length})</p>
+                </div>
+            )}
 
             <h3 className="font-medium text-dark ease-out duration-200 hover:text-blue mb-1.5">
                 <Link href={`/shop/${item.id}`}> {item.title} </Link>

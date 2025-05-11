@@ -20,7 +20,7 @@ class CartStore {
 
     get totalPrice() {
         return this.items.reduce((total, item) => {
-        return total + item.discountedPrice * item.quantity;
+        return total + item.price * item.quantity;
         }, 0);
     }
 
@@ -40,13 +40,26 @@ class CartStore {
 
     updateCartItemQuantity(id: number, quantity: number) {
         const item = this.items.find((i) => i.id === id);
-        if (item) {
-        item.quantity = quantity;
+
+        if (!item) {
+            return;
         }
+        
+        if (quantity < 1) {
+            this.items = this.items.filter(e=>e.id !== id);
+            return
+        }
+
+        item.quantity = quantity;
+        
     }
 
     removeAllItemsFromCart() {
         this.items = [];
+    }
+
+    getItemQuantity(id:number) {
+        return this.items.find((i) => i.id === id)?.quantity || 0;
     }
 }
 

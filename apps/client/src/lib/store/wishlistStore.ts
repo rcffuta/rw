@@ -2,42 +2,46 @@
 import { makeAutoObservable } from "mobx";
 
 export type WishListItem = {
-  id: number;
-  title: string;
-  price: number;
-  discountedPrice: number;
-  quantity: number;
-  status?: string;
-  imgs?: {
-    thumbnails: string[];
-    previews: string[];
-  };
+    id: number;
+    title: string;
+    price: number;
+    discountedPrice: number;
+    quantity: number;
+    status?: string;
+    imgs?: {
+      thumbnails: string[];
+      previews: string[];
+    };
 };
 
 class WishlistStore {
-  items: WishListItem[] = [];
+    items: WishListItem[] = [];
 
-  constructor() {
-    makeAutoObservable(this);
-  }
-
-  addItem(item: WishListItem) {
-    const existingItem = this.items.find((i) => i.id === item.id);
-
-    if (existingItem) {
-      existingItem.quantity += item.quantity;
-    } else {
-      this.items.push({ ...item });
+    constructor() {
+      makeAutoObservable(this);
     }
-  }
 
-  removeItem(itemId: number) {
-    this.items = this.items.filter((item) => item.id !== itemId);
-  }
+    addItem(item: WishListItem) {
+      const existingItem = this.items.find((i) => i.id === item.id);
 
-  clear() {
-    this.items = [];
-  }
+      if (existingItem) {
+        existingItem.quantity += item.quantity;
+      } else {
+        this.items.push({ ...item });
+      }
+    }
+
+    removeItem(itemId: number) {
+      this.items = this.items.filter((item) => item.id !== itemId);
+    }
+
+    clear() {
+      this.items = [];
+    }
+
+    isItemInWishlist(id:number) {
+        return Boolean(this.items.find((i) => i.id === id));
+    }
 }
 
 const wishlistStore = new WishlistStore();

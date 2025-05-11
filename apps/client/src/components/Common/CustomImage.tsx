@@ -10,6 +10,8 @@ type CustomImageProps = {
     fallbackSrc?: string;
     className?: string;
     aspectRatio?: string; // e.g. "1/1", "4/3"
+    width?: number;
+    height?: number;
 };
 
 const shimmer = `
@@ -19,7 +21,7 @@ const shimmer = `
 export default function CustomImage({
     src,
     alt,
-    fallbackSrc = "/fallback.jpg",
+    fallbackSrc = "/assets/fallback.svg",
     className = "",
     aspectRatio = "1/1",
 }: CustomImageProps) {
@@ -55,5 +57,38 @@ export default function CustomImage({
                 sizes="(max-width: 768px) 100vw, 250px"
             />
         </div>
+    );
+}
+
+export function ProductImage({
+    src,
+    alt,
+    fallbackSrc = "/assets/fallback.svg",
+    className = "",
+    width = 50,
+    height = 50,
+}: CustomImageProps) {
+    const [isLoaded, setLoaded] = useState(false);
+    const [error, setError] = useState(false);
+
+    const validSrc = error || !src ? fallbackSrc : src;
+
+    return (
+        <Image
+            src={validSrc}
+            alt={alt}
+            onLoad={() => setLoaded(true)}
+            onError={() => setError(true)}
+            className={clsx(
+                "object-contain object-center transition-opacity duration-500",
+                {
+                    "opacity-0": !isLoaded,
+                    "opacity-100": isLoaded,
+                },
+                className
+            )}
+            width={width}
+            height={height}
+        />
     );
 }

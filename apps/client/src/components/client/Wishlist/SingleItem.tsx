@@ -1,16 +1,16 @@
 import React from "react";
 
 import Image from "next/image";
-import { useProductItemContext } from "@/context/ProductItemContext";
+import { useProductAction } from "@/hooks/useProduct";
 
 const SingleItem = ({ item }) => {
-  const { handleAddToCart, handleRemoveFromWishlist } = useProductItemContext();
+  const { handleAddToCart, handleRemoveFromWishlist } = useProductAction(item);
 
   return (
     <div className="flex items-center border-t border-gray-3 py-5 px-10">
       <div className="min-w-[83px]">
         <button
-          onClick={() => handleRemoveFromWishlist(item)}
+          onClick={() => handleRemoveFromWishlist()}
           aria-label="button for remove product from wishlist"
           className="flex items-center justify-center rounded-lg max-w-[38px] w-full h-9.5 bg-gray-2 border border-gray-3 ease-out duration-200 hover:bg-red-light-6 hover:border-red-light-4 hover:text-red"
         >
@@ -87,7 +87,7 @@ const SingleItem = ({ item }) => {
 
       <div className="min-w-[150px] flex justify-end">
         <button
-          onClick={() => handleAddToCart(item)}
+          onClick={() => handleAddToCart()}
           className="inline-flex text-dark hover:text-white bg-gray-1 border border-gray-3 py-2.5 px-6 rounded-md ease-out duration-200 hover:bg-blue hover:border-gray-3"
         >
           Add to Cart

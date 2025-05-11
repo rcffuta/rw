@@ -14,7 +14,6 @@ import { PreviewSliderProvider } from "../context/PreviewSliderContext";
 import Footer from "@/components/Common/Footer";
 import { AccountContextProvider } from "@/context/AccountContext";
 import { Metadata } from "next";
-import { ProductItemContextProvider } from "@/context/ProductItemContext";
 
 export const metadata: Metadata = {
     title: "GameZone",
@@ -36,9 +35,7 @@ export default function ClientLayout({
                         <CartModalProvider>
                             <ModalProvider>
                                 <PreviewSliderProvider>
-                                    <ProductItemContextProvider>
-                                        {children}
-                                    </ProductItemContextProvider>
+                                    {children}
 
                                     <QuickViewModal />
                                     <CartSidebarModal />

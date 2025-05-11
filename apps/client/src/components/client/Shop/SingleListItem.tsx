@@ -1,36 +1,35 @@
 "use client";
 import React from "react";
 
-import { Product } from "@gamezone/db";
+import { FullProduct, Product } from "@gamezone/db";
 import { useModalContext } from "@/context/QuickViewModalContext";
 import Link from "next/link";
 import Image from "next/image";
-import { useProductItemContext } from "@/context/ProductItemContext";
+import { useProductAction } from "@/hooks/useProduct";
+import CustomImage from "@/components/Common/CustomImage";
 
-const SingleListItem = ({ item }: { item: Product }) => {
+const SingleListItem = ({ item }: { item: FullProduct }) => {
   const { openModal } = useModalContext();
   const {
       handleQuickViewUpdate,
       handleAddToCart,
-      handleItemToWishList
-    } = useProductItemContext();
+      handleAddItemToWishList
+    } = useProductAction(item);
 
   return (
       <div className="group rounded-lg bg-white shadow-1">
           <div className="flex">
               <div className="shadow-list relative overflow-hidden flex items-center justify-center max-w-[270px] w-full sm:min-h-[270px] p-4">
-                  <Image
-                      src={item.imgs.previews[0]}
+                  <CustomImage
+                      src={item.images.at(0)}
                       alt=""
-                      width={250}
-                      height={250}
                   />
 
                   <div className="absolute left-0 bottom-0 translate-y-full w-full flex items-center justify-center gap-2.5 pb-5 ease-linear duration-200 group-hover:translate-y-0">
                       <button
                           onClick={() => {
                               openModal();
-                              handleQuickViewUpdate(item);
+                              handleQuickViewUpdate();
                           }}
                           aria-label="button for quick view"
                           className="flex items-center justify-center w-9 h-9 rounded-[5px] shadow-1 ease-out duration-200 text-dark bg-white hover:text-blue"
@@ -59,14 +58,14 @@ const SingleListItem = ({ item }: { item: Product }) => {
                       </button>
 
                       <button
-                          onClick={() => handleAddToCart(item)}
+                          onClick={() => handleAddToCart()}
                           className="inline-flex font-medium text-custom-sm py-[7px] px-5 rounded-[5px] bg-blue text-white ease-out duration-200 hover:bg-blue-dark"
                       >
                           Add to cart
                       </button>
 
                       <button
-                          onClick={() => handleItemToWishList(item)}
+                          onClick={() => handleAddItemToWishList()}
                           aria-label="button for favorite select"
                           className="flex items-center justify-center w-9 h-9 rounded-[5px] shadow-1 ease-out duration-200 text-dark bg-white hover:text-blue"
                       >
@@ -139,7 +138,7 @@ const SingleListItem = ({ item }: { item: Product }) => {
                           />
                       </div>
 
-                      <p className="text-custom-sm">({item.reviews})</p>
+                      {/* <p className="text-custom-sm">({item.reviews})</p> */}
                   </div>
               </div>
           </div>
