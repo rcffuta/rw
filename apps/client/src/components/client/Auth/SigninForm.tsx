@@ -1,34 +1,77 @@
 "use client";
-import InputField from "@/components/Common/Form/InputField";
-import { useAuthForm } from "@/hooks/useForm";
+
+import InputField, { FormError } from "@/components/Common/Form/InputField";
 import { useNavigate } from "@gamezone/lib";
-import { LoginData } from "@/types/form";
 import Link from "next/link";
+import { z } from "zod";
+import { loginSchema } from "@/lib/validators/auth.validator";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import {loginUser} from "@/actions/auth.action";
+import toast from "react-hot-toast";
+import { useAccountContext } from "@/context/AccountContext";
+import { observer } from "mobx-react-lite";
+import authStore from "@/lib/store/authStore";
 
 
+type FormData = z.infer<typeof loginSchema>;
 
-export default function SignInForm() {
-    const { handleLogin, errors, loading } = useAuthForm<LoginData>();
+function SignInForm() {
+    // const { updateUser } = useAccountContext();
+    const toastID = "authInId";
 
-    const {makeRedirectUrl} = useNavigate();
+    const {
+        register,
+        handleSubmit,
+        formState: { errors, isSubmitting:loading },
+    } = useForm<FormData>({
+        resolver: zodResolver(loginSchema),
+    });
+
+    const {makeRedirectUrl, navigate} = useNavigate();
+
+
+    const onSubmit = async (data: FormData) => {
+
+        try {
+            const user = await loginUser(data.email, data.password);
+
+            authStore.updateUser(user);
+
+            toast.success("You're Authenticated!", {
+                id: toastID,
+                duration: 3500,
+            });
+
+            setTimeout(() => {
+                navigate("/", { toRedirect: true, replace: true });
+            }, 1000);
+        } catch (err) {
+            console.error("Login failed:", err);
+            toast.error(err.message || "Could not authenticate you", {
+                id: toastID,
+            });
+        }
+    };
 
     return (
         <div>
-            <form onSubmit={handleLogin}>
+            <form onSubmit={handleSubmit(onSubmit)}>
+                <FormError error={errors.root?.message}/>
                 <InputField
                     label="Email"
                     type="email"
-                    name="email"
                     placeholder="Enter your email"
-                    error={errors.email}
+                    error={errors.email?.message}
                     required
+                    {...register("email")}
                 />
                 <InputField
                     label="Password"
                     type="password"
-                    name="password"
                     placeholder="Enter your password"
-                    error={errors.password}
+                    {...register("password")}
+                    error={errors.password?.message}
                     required
                 />
 
@@ -64,3 +107,6 @@ export default function SignInForm() {
         </div>
     );
 }
+
+
+export default observer(SignInForm);

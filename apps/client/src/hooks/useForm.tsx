@@ -1,13 +1,12 @@
 
 import { useState } from "react";
-import { useNavigate } from "../../../../packages/lib/hooks/useNavigate";
+import { useNavigate } from "@gamezone/lib";
+import { authenticateUser, createUser } from "@gamezone/db";
 import toast, { ToastOptions } from "react-hot-toast";
 import { useAccountContext } from "@/context/AccountContext";
 import { validateCreateAccountData, validateLoginData } from "@/utils/validators";
 import { OrderForm, UserAccount, UserAccountForm, ValidationErrors } from "@/types/form";
 import { isEmpty, wait } from "@/utils/functions";
-
-
 
 
 export function useContactForm<T>(intitialData: T = {} as T) {
@@ -112,80 +111,61 @@ export function useAuthForm<T>(intitialData: T= {} as T) {
         };
     }
 
-
-    async function performUpdateUser(data: UserAccountForm, toastConfig: {loadingMsg: string; successMsg: string; errorMsg:string} & ToastOptions) {
-        setLoading(true);
-        if(!isEmpty(errors)) setErrors(()=>({}))
-
-        const { loadingMsg, successMsg, errorMsg, ...config } = toastConfig;
-
-        toast.loading(loadingMsg, {...config, duration:0});
-
-        const _errors = validateCreateAccountData(data);
-
-        const { rePassword, ...rest } = data;
-
-        if (!isEmpty(_errors)) {
-            // console.debug(JSON.stringify(_errors));
-            setErrors(() => _errors as any);
-            toast.error(errorMsg, config);
-            setLoading(false);
-            return;
-        }
-
-
-        await wait(2);
-
-        toast.success(successMsg, config);
-
-        updateUser(rest);
-        setLoading(false);
-
-        return rest;
-    }
-
     const handleCreateAccount = async (e: React.FormEvent, simple=true) => {
         e.preventDefault();
 
-        const data = resolveData(e);
-
-        console.debug(data);
-
-        const rest = await performUpdateUser(data, {
-            errorMsg: "Could not Create account",
-            loadingMsg: "Creating account...",
-            successMsg: "Created account",
-            duration: 4000,
-            id: "authToastId"
-        });
-
-
-        if(simple) return rest;
-
-        setTimeout(() => {
-            navigate("/", { toRedirect: true, replace: true });
-        }, 1000);
-    };
-
-    const updateAccount = async (e: React.FormEvent, simple=true) => {
-        e.preventDefault();
+        const toastID = "authInId";
+        setLoading(true);
+        toast.loading("Creating account", { id: toastID });
 
         const data = resolveData(e);
 
-        const rest = await performUpdateUser(data, {
-            errorMsg: "Could not update account",
-            loadingMsg: "Updating account...",
-            successMsg: "Updated account",
-            duration: 4000,
-            id: "authToastId",
-        });
+        // const _errors = validateLoginData(data);
 
-        if (simple) return rest;
+        // console.debug(data);
 
-        setTimeout(() => {
-            navigate("/", { toRedirect: true, replace: true });
-        }, 2000);
+        // const rest = await performUpdateUser(data, false, {
+        //     errorMsg: "Could not Create account",
+        //     loadingMsg: "Creating account...",
+        //     successMsg: "Created account",
+        //     duration: 4000,
+        //     id: "authToastId"
+        // });
+
+        // TODO: Validate data
+
+        createUser({
+            name: data.firstname,
+            email: data.email,
+            password: data.password,
+        })
+            .then((user) => {
+                if (isEmpty(user)) {
+                    throw new Error("Account not found!");
+                }
+
+                toast.success("Your account has been created!", {
+                    id: toastID,
+                    duration: 3500,
+                });
+
+                updateUser(user);
+
+                if (simple) return;
+
+                setTimeout(() => {
+                    navigate("/", { toRedirect: true, replace: true });
+                }, 1000);
+            })
+            .catch((error) => {
+                console.error(error);
+                toast.error(error.message || "Could not create accout", {
+                    id: toastID,
+                });
+            })
+            .finally(() => setLoading(false));
     };
+
 
     const handleLogin = async (e: React.FormEvent, simple=false) => {
 
@@ -200,7 +180,7 @@ export function useAuthForm<T>(intitialData: T= {} as T) {
 
         const _errors = validateLoginData(data);
 
-        const {email:reEmail, password} = data;
+        const {email, password} = data;
 
 
         if (!isEmpty(_errors)) {
@@ -211,32 +191,29 @@ export function useAuthForm<T>(intitialData: T= {} as T) {
             return;
         }
 
-        wait(5).then(() => {
-            const {email, data} = findUser(reEmail);
-
-            if (!email || !isEmpty(data)) {
+        authenticateUser(email, password)
+        .then((user)=>{
+            if (isEmpty(user)) {
                 throw new Error("Account not found!");
             }
 
-            toast.success("You're Authenticated!", {
-                id: toastID,
-                duration: 3500,
-            });
+            
 
-
-
-            updateUser({
-                ...data
-            });
+            updateUser(user);
 
             if (simple) return;
 
             setTimeout(() => {
-                navigate("/", {toRedirect:true, replace:true});
+                navigate("/", { toRedirect: true, replace: true });
             }, 1000);
-        }).catch((err)=>{
-            toast.error(err.message || "Could not authenticate you", { id: toastID });
-        }).finally(()=>setLoading(false));
+        })
+        .catch((err)=>{
+            console.error(err);
+            toast.error(err.message || "Could not authenticate you", {
+                id: toastID,
+            });
+        })
+        .finally(()=>setLoading(false));
 
     };
 
@@ -245,9 +222,7 @@ export function useAuthForm<T>(intitialData: T= {} as T) {
         loading,
         handleLogin,
         handleCreateAccount,
-        updateAccount,
         resolveData,
-        performUpdateUser,
         user,
     };
 }

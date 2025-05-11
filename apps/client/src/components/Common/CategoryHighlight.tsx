@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { ShopIcon } from "./Icons";
 import { ProductItem, ProductSingleItem } from "../client/Shop/ProductItem";
-import { Product } from @gamezone/db
+import { Product } from "@gamezone/db"
 import Image from "next/image";
 
 

@@ -1,15 +1,16 @@
 "use client";
 
 import Link from "next/link";
-import { UserIcon } from "../../Common/Icons";
-import { useAccountContext } from "@/context/AccountContext";
+import { UserIcon } from "../Icons";
+import authStore from "@/lib/store/authStore";
+import { observer } from "mobx-react-lite";
 
-export default function UserAuth() {
-    const {user} = useAccountContext();
+export const UserHighlight = observer(() => {
+    const user = authStore.user;
+    const isAuthenticated = authStore.isAuthenticated;
 
-    const link = user ? "/account": "/signin";
-    const title = user ? user?.firstname : "Sign In";
-
+    const link = isAuthenticated ? "/account" : "/signin";
+    const title = user ? user?.username : "Sign In";
 
     return (
         <Link href={link} className="flex items-center gap-2.5">
@@ -23,4 +24,4 @@ export default function UserAuth() {
             </div>
         </Link>
     );
-}
+});

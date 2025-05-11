@@ -1,50 +1,90 @@
 "use client";
-import InputField from "@/components/Common/Form/InputField";
-import { useAuthForm } from "@/hooks/useForm";
+import InputField, { FormError } from "@/components/Common/Form/InputField";
 import { useNavigate } from "@gamezone/lib";
 import Link from "next/link";
 import { FormWrapper } from "../../Common/Form/FormUtils";
-import { UserAccountForm } from "@/types/form";
+import { registerSchema } from "@/lib/validators/auth.validator";
+import { z } from "zod";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { createAccount } from "@/actions/auth.action";
+import toast from "react-hot-toast";
+import authStore from "@/lib/store/authStore";
+import { observer } from "mobx-react-lite";
+
+type FormData = z.infer<typeof registerSchema>;
 
 
-export default function SignUpForm() {
-    const { handleCreateAccount, errors, loading } =
-        useAuthForm<UserAccountForm>();
-    const { makeRedirectUrl } = useNavigate();
+function SignUpForm() {
+    const toastID = "authInId";
+
+    const {
+        register,
+        handleSubmit,
+        formState: { errors, isSubmitting:loading },
+    } = useForm<FormData>({
+        resolver: zodResolver(registerSchema),
+    });
+
+    const { makeRedirectUrl, navigate } = useNavigate();
+
+    const onSubmit = async (data: FormData) => {
+
+        try {
+            const user = await createAccount(data);
+
+            authStore.updateUser(user);
+
+            toast.success("Your account has been created!", {
+                id: toastID,
+                duration: 3500,
+            });
+
+            setTimeout(() => {
+                navigate("/", { toRedirect: true, replace: true });
+            }, 1000);
+        } catch (err) {
+            console.error("Accout was not created:", err);
+            toast.error(err.message || "Accout was not created", {
+                id: toastID,
+            });
+        }
+    };
+
+
     return (
-        <form onSubmit={(e)=>handleCreateAccount(e, false)}>
-            <FormWrapper>
+        <form onSubmit={handleSubmit(onSubmit)}>
+            <FormError error={errors.root?.message} />
+            {/* <FormWrapper>
                 <InputField
                     className="w-full"
                     label="First Name"
-                    name="firstname"
                     placeholder="e.g John"
                     type="text"
-                    error={errors.firstname}
+                    error={errors.firstname?.message}
+                    {...register("firstname")}
                     required
                 />
 
                 <InputField
                     className="w-full"
                     label="Last Name"
-                    name="lastname"
                     placeholder="e.g Fumise"
                     type="text"
-                    error={errors.lastname}
+                    error={errors.lastname?.message}
+                    {...register("lastname")}
                     required
                 />
-            </FormWrapper>
+            </FormWrapper> */}
 
-            {/* <FormWrapper> */}
             <InputField
-                // className="w-full"
-                label="Phone Number"
-                name="contact"
+                // className="m"
+                label="Username"
                 placeholder=""
-                type="tel"
+                type="text"
                 required
-                error={errors.contact}
-                // value={user?.contact}
+                error={errors.username?.message}
+                {...register("username")}
             />
 
             <InputField
@@ -54,9 +94,21 @@ export default function SignUpForm() {
                 placeholder=""
                 type="email"
                 required
-                error={errors.email}
-                // value={user?.email}
+                error={errors.email?.message}
+                {...register("email")}
             />
+
+            {/* <FormWrapper> */}
+            <InputField
+                // className="w-full"
+                label="Phone Number"
+                placeholder=""
+                type="tel"
+                required
+                error={errors.phoneNumber?.message}
+                {...register("phoneNumber")}
+            />
+
             {/* </FormWrapper> */}
 
             <FormWrapper>
@@ -64,10 +116,9 @@ export default function SignUpForm() {
                     className="w-full"
                     label="Password"
                     type="password"
-                    name="password"
-                    id="password"
                     placeholder="Enter your password"
-                    error={errors.password}
+                    error={errors.password?.message}
+                    {...register("password")}
                     required
                 />
 
@@ -75,10 +126,9 @@ export default function SignUpForm() {
                     className="w-full"
                     label="Re-type Password"
                     type="password"
-                    name="re-type-password"
-                    id="re-type-password"
                     placeholder="Re-type your password"
-                    error={errors.password}
+                    error={errors.confirmPassword?.message}
+                    {...register("confirmPassword")}
                     required
                 />
             </FormWrapper>
@@ -103,3 +153,5 @@ export default function SignUpForm() {
         </form>
     );
 }
+
+export default observer(SignUpForm);

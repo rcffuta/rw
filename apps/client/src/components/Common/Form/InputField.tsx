@@ -1,26 +1,30 @@
-interface InputFieldProps {
+interface InputFieldProps extends React.InputHTMLAttributes<HTMLInputElement> {
     label: string;
     type: string;
-    name: string;
     placeholder: string;
     error?: string;
     required?: boolean;
-    id?: string;
     className?: string;
-    value?:string;
+    // name: string;
+    // id?: string;
+    // value?:string;
     // autoComplete?: "on" | "off";
 }
+
 
 export default function InputField({
     label,
     type,
-    name,
+    // name,
     placeholder,
     error,
     required,
+    className="mb-5",
     id,
-    value,
-    className="mb-5"
+    name,
+    ...rest
+    // id,
+    // value,
 }: InputFieldProps) {
     const Id = id ? id : name;
 
@@ -36,7 +40,7 @@ export default function InputField({
                 type={type}
                 name={name}
                 id={Id}
-                defaultValue={value}
+                // defaultValue={value}
                 placeholder={placeholder}
                 required={required}
                 autoComplete={type === "password" ? "on" : "off"}
@@ -45,8 +49,14 @@ export default function InputField({
                         ? "border-red-light focus:ring-red-light"
                         : "border-gray-3 bg-gray-1"
                 }`}
+                {...rest}
             />
-            {error && <p className="mt-2 text-sm text-red-dark">{error}</p>}
+            {error && <FormError error={error}/>}
         </div>
     );
 };
+
+export function FormError({error}:{error?:string}) {
+    if (!error) return null;
+    return <p className="mt-2 text-sm text-red-dark">{error}</p>;
+}

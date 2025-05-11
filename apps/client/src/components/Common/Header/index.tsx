@@ -7,7 +7,7 @@ import { useCartModalContext } from "@/context/CartSidebarModalContext";
 import Logo from "../Logo";
 import CustomSelect from "./CustomSelect";
 import { CartIcon, PhoneIcon } from "../Icons";
-import UserAuth from "@/components/client/Account/UserAuth";
+import { UserHighlight } from "@/components/Common/Header/UserHighlight";
 import { phoneNumber } from "@/data/info";
 import cartStore from "@/lib/store/cartStore";
 import { observer } from "mobx-react-lite";
@@ -108,11 +108,11 @@ const HeaderTop = observer(({
                 {/* <!-- header top left --> */}
                 <div className="xl:w-auto flex-col sm:flex-row w-full flex sm:justify-between sm:items-center gap-5 sm:gap-10">
                     <Link className="flex-shrink-0" href="/">
-                        <Logo/>
+                        <Logo />
                     </Link>
 
                     <div className="max-w-[475px] w-full">
-                        <HeaderSearch/>
+                        <HeaderSearch />
                     </div>
                 </div>
 
@@ -136,14 +136,14 @@ const HeaderTop = observer(({
 
                     <div className="flex w-full lg:w-auto justify-between items-center gap-5">
                         <div className="flex items-center gap-5">
-                            <UserAuth/>
+                            <UserHighlight />
 
                             <button
                                 onClick={handleOpenCartModal}
                                 className="flex items-center gap-2.5"
                             >
                                 <span className="inline-block relative">
-                                    <CartIcon/>
+                                    <CartIcon />
 
                                     <span className="flex items-center justify-center font-medium text-2xs absolute -right-2 -top-2.5 bg-blue w-4.5 h-4.5 rounded-full text-white">
                                         {product.length}
