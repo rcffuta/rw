@@ -12,13 +12,9 @@ export type Option = {
 export function useCategoryOption() {
     const [options, setOptions] = useState<Option[]>([
         {
-            label: "No Category",
-            value: "-1",
-        },
-        {
-            label: "--Select Category--",
+            label: "All Categories",
             value: "0",
-        }
+        },
     ]);
 
     useEffect(() => {

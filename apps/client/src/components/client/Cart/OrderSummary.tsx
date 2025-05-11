@@ -1,5 +1,6 @@
 import { CHECKOUT } from "@/constants";
 import cartStore from "@/lib/store/cartStore";
+import { useFormatCurrency } from "@gamezone/lib";
 import { observer } from "mobx-react-lite";
 import Link from "next/link";
 import React from "react";
@@ -7,6 +8,8 @@ import React from "react";
 const OrderSummary = observer(() => {
   const cartItems = cartStore.items;
   const totalPrice = cartStore.totalPrice;
+
+  const parseFigure = useFormatCurrency();
 
   return (
       <div className="lg:max-w-[455px] w-full">
@@ -38,11 +41,13 @@ const OrderSummary = observer(() => {
                           className="flex items-center justify-between py-5 border-b border-gray-3"
                       >
                           <div>
-                              <p className="text-dark">{item.title}</p>
+                              <p className="text-dark">{item.product.title} {item.quantity > 1 ?`(x${item.quantity})`: null}</p>
                           </div>
                           <div>
                               <p className="text-dark text-right">
-                                  ${item.discountedPrice * item.quantity}
+                                  {parseFigure(
+                                      item.product.price * item.quantity
+                                  )}
                               </p>
                           </div>
                       </div>
@@ -55,7 +60,7 @@ const OrderSummary = observer(() => {
                       </div>
                       <div>
                           <p className="font-medium text-lg text-dark text-right">
-                              ${totalPrice}
+                              {parseFigure(totalPrice)}
                           </p>
                       </div>
                   </div>

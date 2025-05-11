@@ -4,15 +4,14 @@ import Discount from "./Discount";
 import OrderSummary from "./OrderSummary";
 import SingleItem from "./SingleItem";
 import Breadcrumb from "../../Common/Breadcrumb";
-import Link from "next/link";
-import { CartItem } from "@/types/cart";
-import { CartIcon2 } from "../../Common/Icons";
-import { SHOP } from "@/constants";
 import cartStore from "@/lib/store/cartStore";
 import { observer } from "mobx-react-lite";
+import EmptyCart from "./EmptyCart";
+import { FullOrder } from "db/actions";
+import toast from "react-hot-toast";
 
 
-function CartTable({items}:{items: CartItem[]}) {
+const CartTable = observer(({items}:{items: FullOrder[]}) => {
   return (
     <section className="overflow-hidden py-20 bg-gray-2">
       <div className="max-w-[1170px] w-full mx-auto px-4 sm:px-8 xl:px-0">
@@ -20,7 +19,14 @@ function CartTable({items}:{items: CartItem[]}) {
         {/* Header */}
         <div className="flex flex-wrap items-center justify-between gap-5 mb-7.5">
           <h2 className="font-medium text-dark text-2xl">Your Cart</h2>
-          <button className="text-blue">Clear Shopping Cart</button>
+          <button className="text-blue" onClick={()=>{
+            cartStore.removeAllItemsFromCart();
+            toast.success("Updated Cart", {
+                id: "updateCartToast",
+            });
+          }}>
+            Clear Shopping Cart
+          </button>
         </div>
 
         {/* Listing area */}
@@ -68,7 +74,7 @@ function CartTable({items}:{items: CartItem[]}) {
       </div>
     </section>
   )
-}
+});
 
 const Cart = observer(() => {
   const cartItems = cartStore.items;
@@ -83,22 +89,7 @@ const Cart = observer(() => {
       {cartItems.length > 0 ? (
         <CartTable items={cartItems}/>
       ) : (
-        <>
-          <div className="text-center mt-8">
-            <div className="mx-auto pb-7.5">
-              <CartIcon2/>
-            </div>
-
-            <p className="pb-6">Your cart is empty!</p>
-
-            <Link
-              href={SHOP}
-              className="w-96 mx-auto flex justify-center font-medium text-white bg-dark py-[13px] px-6 rounded-md ease-out duration-200 hover:bg-opacity-95"
-            >
-              Continue Shopping
-            </Link>
-          </div>
-        </>
+        <EmptyCart/>
       )}
     </>
   );

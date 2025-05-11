@@ -1,4 +1,5 @@
 import Header from "../../components/Common/Header";
+import InitializeStores from "../../components/Common/InitilizeStores";
 
 export default function RootLayout({
   children,
@@ -11,6 +12,7 @@ export default function RootLayout({
       <>
           <Header />
           {children}
+          <InitializeStores />
       </>
   );
 }

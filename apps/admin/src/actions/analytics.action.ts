@@ -1,4 +1,4 @@
-import { FetchedOrder, getAllOrders, Order, OrderItem, prisma } from "@gamezone/db";
+import { FetchedOrder } from "@gamezone/db";
 
 export async function getTopProducts() {
   // Fake delay
@@ -44,7 +44,7 @@ export async function getInvoiceTableData(): Promise<FetchedOrder> {
     // Fake delay
     // await new Promise((resolve) => setTimeout(resolve, 1400));
 
-    return getAllOrders();
+    return [];
 
     // const order = await prisma.order.findMany({ include: { items: true } });
 

@@ -1,9 +1,14 @@
 import React from "react";
+import toast from "react-hot-toast";
 
 const Discount = () => {
   return (
     <div className="lg:max-w-[670px] w-full">
-      <form>
+      <form onSubmit={(e)=>{
+          e.preventDefault();
+          toast.error("Not Implemented", {id:"notImplementedToast", duration: 800})
+          }}
+      >
         {/* <!-- coupon box --> */}
         <div className="bg-white shadow-1 rounded-[10px]">
           <div className="border-b border-gray-3 py-5 px-4 sm:px-5.5">

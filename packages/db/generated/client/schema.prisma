@@ -28,23 +28,24 @@ model User {
 }
 
 model Product {
-  id              Int         @id @default(autoincrement())
+  id              Int       @id @default(autoincrement())
   title           String
   description     String
   price           Float
   discountedPrice Float
   images          String[]
-  category        Category?   @relation(fields: [categoryId], references: [id])
+  category        Category? @relation(fields: [categoryId], references: [id])
   categoryId      Int?
   // type            ProductType
-  createdAt       DateTime    @default(now())
+  createdAt       DateTime  @default(now())
   reviews         Review[]
-  OrderItems      OrderItem[]
   game            Game?
   giftCard        GiftCard?
   book            Book?
 
   Wishlist Wishlist[]
+
+  Order Order[]
 }
 
 model Game {
@@ -83,6 +84,7 @@ model Category {
   id       Int       @id @default(autoincrement())
   name     String
   products Product[]
+  image    String
 }
 
 model Review {
@@ -94,23 +96,32 @@ model Review {
   User User[]
 }
 
-model OrderItem {
-  id        Int     @id @default(autoincrement())
-  quantity  Int
-  productId Int
-  orderId   Int
-  product   Product @relation(fields: [productId], references: [id])
+// model OrderItem {
+//   id          Int      @id @default(autoincrement())
+//   quantity    Int
+//   productId   Int
+//   orderId     Int
+//   product     Product @relation(fields: [productId], references: [id])
 
-  Order Order[]
+//   Order Order[]
+// }
+
+enum OrderStatus {
+  cart
+  paid
+  disbursed
+  cancelled
 }
 
 model Order {
   id        Int         @id @default(autoincrement())
   userId    Int
-  status    String
+  quantity  Int
+  productId Int
+  product   Product     @relation(fields: [productId], references: [id])
+  status    OrderStatus @default(cart)
   createdAt DateTime    @default(now())
   updatedAt DateTime    @updatedAt
-  items     OrderItem[]
 
   User User[]
 }

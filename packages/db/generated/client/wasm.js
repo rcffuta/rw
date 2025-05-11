@@ -170,7 +170,8 @@ exports.Prisma.BookScalarFieldEnum = {
 
 exports.Prisma.CategoryScalarFieldEnum = {
   id: 'id',
-  name: 'name'
+  name: 'name',
+  image: 'image'
 };
 
 exports.Prisma.ReviewScalarFieldEnum = {
@@ -179,16 +180,11 @@ exports.Prisma.ReviewScalarFieldEnum = {
   productId: 'productId'
 };
 
-exports.Prisma.OrderItemScalarFieldEnum = {
-  id: 'id',
-  quantity: 'quantity',
-  productId: 'productId',
-  orderId: 'orderId'
-};
-
 exports.Prisma.OrderScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
+  quantity: 'quantity',
+  productId: 'productId',
   status: 'status',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -215,7 +211,12 @@ exports.Prisma.NullsOrder = {
   first: 'first',
   last: 'last'
 };
-
+exports.OrderStatus = exports.$Enums.OrderStatus = {
+  cart: 'cart',
+  paid: 'paid',
+  disbursed: 'disbursed',
+  cancelled: 'cancelled'
+};
 
 exports.Prisma.ModelName = {
   User: 'User',
@@ -225,7 +226,6 @@ exports.Prisma.ModelName = {
   Book: 'Book',
   Category: 'Category',
   Review: 'Review',
-  OrderItem: 'OrderItem',
   Order: 'Order',
   Wishlist: 'Wishlist'
 };

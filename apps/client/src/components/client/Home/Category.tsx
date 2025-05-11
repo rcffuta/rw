@@ -1,18 +1,23 @@
 "use client";
 // import { Swiper, SwiperSlide } from "swiper/react";
 // TODO: remove swipper package
-import { useCallback, useRef, useEffect } from "react";
+import { useCallback, useRef, useEffect, useState } from "react";
 import Image from "next/image";
 
 // Import Swiper styles
 import "swiper/css/navigation";
 import "swiper/css";
 import { CategoryIcon } from "@/components/Common/Icons";
-import { Category } from "@/types/category";
-import { categories } from "@/data/categories";
+import { observer } from "mobx-react-lite";
+import { getCategoryList } from "@/actions/category.action";
+import toast from "react-hot-toast";
+import { ProductImage } from "@/components/Common/CustomImage";
+import { Category } from "db/index";
 
-export default function CategorList () {
+function CategorList () {
     const sliderRef = useRef(null);
+
+    const [categories, setCategories] = useState<Category[] | null>(null);
 
     const handlePrev = useCallback(() => {
         if (!sliderRef.current) return;
@@ -29,6 +34,27 @@ export default function CategorList () {
         sliderRef.current.swiper.init();
         }
     }, []);
+
+    useEffect(() => {
+        async function loadCategories() {
+            if (Array.isArray(categories)) return;
+
+            try {
+
+                const data = await getCategoryList();
+    
+                setCategories(()=>data);
+            } catch(error) {
+                console.error("Error Loading Categories", error);
+                toast.error("Could not load categories")
+            }
+        }
+
+        loadCategories()
+    }, [categories]);
+
+
+    if ((categories || []).length < 1) return null;
 
     return (
         <section className="overflow-hidden pt-17.5">
@@ -112,9 +138,9 @@ export default function CategorList () {
                     </Swiper> */}
 
                     <div className="flex justify-evenly w-full">
-                        {categories.map((item, key) => (
+                        {categories.map((item) => (
                             // <SwiperSlide key={key}>
-                                <SingleItem item={item} key={key}/>
+                                <SingleItem item={item} key={item.id}/>
                             // </SwiperSlide>
                         ))}
                     </div>
@@ -124,17 +150,19 @@ export default function CategorList () {
     );
 };
 
+export default observer(CategorList)
+
 
 const SingleItem = ({ item }: { item: Category }) => {
   return (
       <a href="#" className="group flex flex-col items-center max-w-[130px] w-svw">
           <div className="w-full bg-[#f2f3f856] h-32.5 rounded-full flex items-center justify-center mb-4 overflow-hidden">
-              <Image src={item.img} alt="Category" width={82} height={62} />
+              <ProductImage src={item.image} alt="Category" width={82} height={62} />
           </div>
 
           <div className="flex justify-center">
               <h3 className="inline-block font-medium text-center text-dark bg-gradient-to-r from-blue to-blue bg-[length:0px_1px] bg-left-bottom bg-no-repeat transition-[background-size] duration-500 hover:bg-[length:100%_3px] group-hover:bg-[length:100%_1px] group-hover:text-blue">
-                  {item.title}
+                  {item.name}
               </h3>
           </div>
       </a>

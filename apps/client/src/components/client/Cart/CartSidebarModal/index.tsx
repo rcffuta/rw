@@ -4,14 +4,16 @@ import React, { useEffect } from "react";
 import { useCartModalContext } from "@/context/CartSidebarModalContext";
 import SingleItem from "./SingleItem";
 import Link from "next/link";
-import EmptyCart from "./EmptyCart";
+import EmptyCart from "../EmptyCart";
 import { CrossIcon } from "@/components/Common/Icons";
 import toast from "react-hot-toast";
 import { observer } from "mobx-react-lite";
 import cartStore from "@/lib/store/cartStore";
+import { useFormatCurrency } from "@gamezone/lib";
 
 const CartSidebarModal = observer(() => {
     const { isCartModalOpen, closeCartModal } = useCartModalContext();
+    const parseFigure = useFormatCurrency();
     const cartItems = cartStore.items;
 
     const totalPrice = cartStore.totalPrice;
@@ -74,7 +76,7 @@ const CartSidebarModal = observer(() => {
               <div className="flex items-center justify-between gap-5 mb-6">
                 <p className="font-medium text-xl text-dark">Subtotal:</p>
 
-                <p className="font-medium text-xl text-dark">${totalPrice}</p>
+                <p className="font-medium text-xl text-dark">{parseFigure(totalPrice)}</p>
               </div>
 
               <div className="flex items-center gap-4">

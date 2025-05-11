@@ -1,41 +1,82 @@
 import { prisma } from "../client";
 
-export const getAllOrders = async () => {
-  return await prisma.order.findMany({ include: { items: true } });
-};
+// ✅ Get all items in a user's cart
+export async function getUserCart(userId: number) {
+    return prisma.order.findMany({
+        where: { userId, status: "cart" },
+        include: { product: true }
+    });
+}
 
-export const getOrderById = async (id: number) => {
-  return await prisma.order.findUnique({ where: { id }, include: { items: true } });
-};
+// ✅ Add product to cart (or update quantity if it already exists)
+export async function addToCart(userId: number, productId: number, quantity: number = 1) {
+  const existing = await prisma.order.findFirst({
+    where: {
+      userId,
+      productId,
+      status: "cart"
+    }
+  });
 
-export const createOrder = async (data: { userId: number; status: string }) => {
-  return await prisma.order.create({ data });
-};
+  if (existing) {
+    return prisma.order.update({
+      where: { id: existing.id },
+      data: { quantity: existing.quantity + quantity }
+    });
+  }
 
-export const updateOrder = async (id: number, data: Partial<{ userId: number; status: string }>) => {
-  return await prisma.order.update({ where: { id }, data });
-};
+  return prisma.order.create({
+    data: {
+      userId,
+      productId,
+      quantity,
+      status: "cart"
+    }
+  });
+}
 
-export const deleteOrder = async (id: number) => {
-  return await prisma.order.delete({ where: { id } });
-};
+// ✅ Update cart item quantity
+export async function updateCartItem(userId: number, productId: number, quantity: number) {
+  return prisma.order.updateMany({
+    where: {
+      userId,
+      productId,
+      status: "cart"
+    },
+    data: { quantity }
+  });
+}
 
-export const getAllOrderItems = async () => {
-  return await prisma.orderItem.findMany({ include: { product: true, Order: true } });
-};
+// ✅ Remove item from cart
+export async function removeFromCart(userId: number, productId: number) {
+  return prisma.order.deleteMany({
+    where: {
+      userId,
+      productId,
+      status: "cart"
+    }
+  });
+}
 
-export const getOrderItemById = async (id: number) => {
-  return await prisma.orderItem.findUnique({ where: { id }, include: { product: true, Order: true } });
-};
+// ✅ Clear the cart
+export async function clearCart(userId: number) {
+  return prisma.order.deleteMany({
+    where: {
+      userId,
+      status: "cart"
+    }
+  });
+}
 
-export const createOrderItem = async (data: { quantity: number; productId: number; orderId: number }) => {
-  return await prisma.orderItem.create({ data });
-};
-
-export const updateOrderItem = async (id: number, data: Partial<{ quantity: number }>) => {
-  return await prisma.orderItem.update({ where: { id }, data });
-};
-
-export const deleteOrderItem = async (id: number) => {
-  return await prisma.orderItem.delete({ where: { id } });
-};
+// ✅ Checkout — mark all cart items as paid
+export async function checkoutCart(userId: number) {
+  return prisma.order.updateMany({
+    where: {
+      userId,
+      status: "cart"
+    },
+    data: {
+      status: "paid"
+    }
+  });
+}

@@ -1,6 +1,6 @@
 "use client";
 import { useNavigate } from "@gamezone/lib";
-import { createContext, PropsWithChildren, useContext } from "react";
+import { createContext, PropsWithChildren, useContext, useEffect } from "react";
 import toast from "react-hot-toast";
 import authStore from "@/lib/store/authStore";
 

@@ -1,65 +1,113 @@
 // stores/CartStore.ts
-import { CartItem } from "@/types/cart";
-import { makeAutoObservable } from "mobx";
+import { 
+  addProductToCart,
+  checkoutProduct,
+  clearProductFromCart,
+  loadCart,
+  removeProductFromCart,
+  updateProductInCart 
+} from "@/actions/cart.action";
 
-// export interface CartItem {
-//     id: number;
-//     title: string;
-//     price: number;
-//     quantity: number;
-//     discountedPrice: number;
-//     imgs: string[];
-// }
+import { FullOrder, Product } from "db/index";
+import { makeAutoObservable, runInAction } from "mobx";
+import authStore from "./authStore";
 
 class CartStore {
-    items: CartItem[] = [];
+    items: FullOrder[] = [];
 
     constructor() {
-        makeAutoObservable(this); // makes everything observable and actions
+        makeAutoObservable(this);
     }
 
     get totalPrice() {
         return this.items.reduce((total, item) => {
-        return total + item.price * item.quantity;
+            return total + item.product.price * item.quantity;
         }, 0);
     }
 
-    addItemToCart(item: CartItem) {
-        const existingItem = this.items.find((i) => i.id === item.id);
+    async reloadCart() {
+        try {
+        const orders = await loadCart(authStore.user.id);
+        runInAction(() => {
+            this.items = orders;
+        });
+        } catch (err) {
+        console.error("Failed to reload cart:", err);
+        }
+    }
 
-        if (existingItem) {
-        existingItem.quantity += item.quantity;
+    async addItemToCart(product: Product, quantity: number = 1) {
+        const existing = this.items.find(i => i.productId === product.id);
+
+        if (existing) {
+        runInAction(() => {
+            existing.quantity += quantity;
+        });
         } else {
-        this.items.push({ ...item });
+        runInAction(() => {
+            this.items.push({
+            id: -1,
+            userId: authStore.user.id,
+            productId: product.id,
+            product,
+            quantity,
+            status: "cart",
+            createdAt: new Date(),
+            updatedAt: new Date()
+            });
+        });
         }
+
+        await addProductToCart(authStore.user.id, product.id, quantity);
+        await this.reloadCart();
     }
 
-    removeItemFromCart(id: number) {
-        this.items = this.items.filter((item) => item.id !== id);
+    async removeItemFromCart(productId: number) {
+        runInAction(() => {
+        this.items = this.items.filter(item => item.productId !== productId);
+        });
+
+        await removeProductFromCart(authStore.user.id, productId);
+        await this.reloadCart();
     }
 
-    updateCartItemQuantity(id: number, quantity: number) {
-        const item = this.items.find((i) => i.id === id);
-
-        if (!item) {
-            return;
-        }
-        
+    async updateCartItemQuantity(productId: number, quantity: number) {
         if (quantity < 1) {
-            this.items = this.items.filter(e=>e.id !== id);
-            return
+        await this.removeItemFromCart(productId);
+        return;
         }
 
+        const item = this.items.find(i => i.productId === productId);
+        if (!item) return;
+
+        runInAction(() => {
         item.quantity = quantity;
-        
+        });
+
+        await updateProductInCart(authStore.user.id, productId, quantity);
+        await this.reloadCart();
     }
 
-    removeAllItemsFromCart() {
+    async removeAllItemsFromCart() {
+        runInAction(() => {
         this.items = [];
+        });
+
+        await clearProductFromCart(authStore.user.id);
+        await this.reloadCart();
     }
 
-    getItemQuantity(id:number) {
-        return this.items.find((i) => i.id === id)?.quantity || 0;
+    async checkoutCart() {
+        runInAction(() => {
+        this.items = [];
+        });
+
+        await checkoutProduct(authStore.user.id);
+        await this.reloadCart();
+    }
+
+    getItemQuantity(productId: number): number {
+        return this.items.find(i => i.productId === productId)?.quantity || 0;
     }
 }
 

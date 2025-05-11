@@ -1,29 +1,33 @@
 import React from "react";
-import shopData from "@/data/shop";
-import { SHOP } from "@/constants";
 import CategoryHighlight from "@/components/Common/CategoryHighlight";
+import { getBookProducts, getGameProducts, } from "@/actions/category.action";
 
-export function BooksProductHighlight() {
+export async function BooksProductHighlight() {
+    const data = await getBookProducts();
+
+    if (data.length < 1) return null;
+
     return (
         <CategoryHighlight
             ctaLink={"#"}
             ctaText="View More"
-            data={shopData}
+            data={data.slice(1,10)}
             subTitle="Books available for you"
             title="Books"
         />
     );
 };
 
-export function GameProductHighlight() {
+export async function GameProductHighlight() {
+    const data = await getGameProducts();
+    if (data.length < 1) return null;
     return (
         <CategoryHighlight
             ctaLink={"#"}
             ctaText="View More"
-            data={shopData}
+            data={data.slice(1, 10)}
             subTitle="Games available for you"
             title="Games"
-            vertical
         />
     );
 };

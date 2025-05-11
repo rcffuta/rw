@@ -1,12 +1,11 @@
 import Newsletter from "@/components/Common/Newsletter";
 import { BooksProductHighlight, GameProductHighlight } from "@/components/client/Home/ProductHighlight";
 import CategorList from "@/components/client/Home/Category";
-import CounDown from "@/components/client/Home/Countdown";
 import Hero from "@/components/client/Home/Hero";
 import PromoSection from "@/components/client/Home/PromoBanner";
-import PromoBanner from "@/components/client/Home/PromoBanner";
-import Testimonials from "@/components/client/Home/Testimonials";
 import { Metadata } from "next";
+import { Suspense } from "react";
+import { ProductListSkeleton } from "@/components/client/Shop/ProductSkeleton";
 
 export const metadata: Metadata = {
     title: "Home | GameZone",
@@ -19,9 +18,16 @@ export default function HomePage() {
       <main>
           <Hero />
           <CategorList />
-          <BooksProductHighlight />
+          
+          <Suspense fallback={<ProductListSkeleton/>}>
+            <BooksProductHighlight />
+          </Suspense>
+          
           <PromoSection />
-          <GameProductHighlight />
+          
+          <Suspense fallback={<ProductListSkeleton/>}>
+            <GameProductHighlight />
+          </Suspense>
           <br/>
           {/* <CounDown /> */}
           {/* <Testimonials /> */}
