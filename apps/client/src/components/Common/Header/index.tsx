@@ -5,25 +5,12 @@ import { menuData } from "./menuData";
 import Dropdown from "./Dropdown";
 import { useCartModalContext } from "@/context/CartSidebarModalContext";
 import Logo from "../Logo";
-import CustomSelect from "./CategorySelect";
 import { CartIcon, PhoneIcon } from "../Icons";
 import { UserHighlight } from "@/components/Common/Header/UserHighlight";
 import { phoneNumber } from "@/data/info";
 import cartStore from "@/lib/store/cartStore";
 import { observer } from "mobx-react-lite";
-
-
-const options = [
-    { label: "All Categories", value: "0" },
-    { label: "Desktop", value: "1" },
-    { label: "Laptop", value: "2" },
-    { label: "Monitor", value: "3" },
-    { label: "Phone", value: "4" },
-    { label: "Watch", value: "5" },
-    { label: "Mouse", value: "6" },
-    { label: "Tablet", value: "7" },
-];
-
+import CategorySelect from "../CategorySelect";
 
 type HeaderMenu = {
     stickyMenu: boolean;
@@ -41,7 +28,7 @@ function HeaderSearch(){
     return (
         <form>
             <div className="flex items-center">
-                <CustomSelect options={options} />
+                <CategorySelect />
 
                 <div className="relative max-w-[333px] sm:min-w-[333px] w-full">
                     {/* <!-- divider --> */}

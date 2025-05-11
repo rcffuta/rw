@@ -1,8 +1,8 @@
 import Link from "next/link";
 import { ShopIcon } from "./Icons";
-import { ProductItem, ProductSingleItem } from "../client/Shop/ProductItem";
-import { Product } from "@gamezone/db"
+import { FullProduct } from "@gamezone/db"
 import Image from "next/image";
+import ProductItem from "../client/Shop/ProductItem";
 
 
 type CategoryHighlightProps = {
@@ -10,7 +10,7 @@ type CategoryHighlightProps = {
     subTitle: string;
     ctaText: string;
     ctaLink: string;
-    data: Product[];
+    data: FullProduct[];
 };
 
 
@@ -38,7 +38,7 @@ function VerticalActionHighlight(props: CategoryHighlightProps) {
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-7.5">
                 {/* <!-- Best Sellers item --> */}
                 {data.slice(1, 7).map((item, key) => (
-                    <ProductSingleItem item={item} key={key} />
+                    <ProductItem item={item} key={key} />
                 ))}
             </div>
 

@@ -6,12 +6,12 @@ import "swiper/css";
 import Image from "next/image";
 
 import { usePreviewSlider } from "@/context/PreviewSliderContext";
-import productStore from "@/lib/store/productStore";
+// import productStore from "@/lib/store/productStore";
 
 const PreviewSliderModal = () => {
   const { closePreviewModal, isModalPreviewOpen } = usePreviewSlider();
 
-  const data = productStore.productDetails;
+  // const data = productStore.productDetails;
 
   const sliderRef = useRef(null);
 

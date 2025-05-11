@@ -11,7 +11,7 @@ const SingleItem = ({ item }) => {
     <div className="flex items-center justify-between gap-5">
       <div className="w-full flex items-center gap-6">
         <div className="flex items-center justify-center rounded-[10px] bg-gray-3 max-w-[90px] w-full h-22.5">
-          <ProductImage src={item.images.at(0)} alt="product" width={100} height={100} />
+          <ProductImage src={item.images?.at(0)} alt="product" width={100} height={100} />
         </div>
 
         <div>

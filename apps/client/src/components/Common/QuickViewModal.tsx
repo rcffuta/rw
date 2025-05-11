@@ -11,156 +11,9 @@ import { CrossIcon2, FullScreenIcon, MinusIcon, PlusIcon, Star, StockCheck, Wish
 import { FullProduct, Review } from "@gamezone/db";
 import { ProductImage } from "./CustomImage";
 import wishlistStore from "@/lib/store/wishlistStore";
+import { Cta, Price, Rating } from "../client/Shop/utils";
 
 
-function Price({product}:{product: FullProduct}) {
-    return (
-        <div>
-            <h4 className="font-semibold text-lg text-dark mb-3.5">Price</h4>
-
-            {product.discountedPrice > 0 ? (
-                <span className="flex items-center gap-2">
-                    <span className="font-semibold text-dark text-xl xl:text-heading-4">
-                        ${product.discountedPrice}
-                    </span>
-                    <span className="font-medium text-dark-4 text-lg xl:text-2xl line-through">
-                        ${product.price}
-                    </span>
-                </span>
-            ) : (
-                <span className="flex items-center gap-2">
-                    <span className="font-semibold text-dark text-xl xl:text-heading-4">
-                        ${product.price}
-                    </span>
-                </span>
-            )}
-        </div>
-    );
-}
-
-function Rating({reviews}:{reviews: Review[]}) {
-    if (reviews.length === 0) return null;
-
-    return (
-        <div className="flex flex-wrap items-center gap-5 mb-6">
-            <div className="flex items-center gap-1.5">
-                {/* <!-- stars --> */}
-                <div className="flex items-center gap-1">
-                    {Array.from({ length: 5 }).map((e, i) => {
-                        return <Star filled={i < reviews.length - 1} />;
-                    })}
-                </div>
-
-                <span>
-                    <span className="font-medium text-dark">
-                        {" "}
-                        {reviews.length} Rating{" "}
-                    </span>
-                    <span className="text-dark-2">
-                        {" "}
-                        ({reviews.length} reviews){" "}
-                    </span>
-                </span>
-            </div>
-
-            <div className="flex items-center gap-2">
-                <StockCheck />
-
-                <span className="font-medium text-dark"> In Stock </span>
-            </div>
-        </div>
-    );
-}
-
-
-const Cta = observer(({product}:{product: FullProduct}) => {
-    const quantity = cartStore.getItemQuantity(product.id);
-    const isInWishList = wishlistStore.isItemInWishlist(product.id);
-
-    const {
-        handleupdateQuantity,
-        handleAddToCart,
-        handleAddItemToWishList,
-        handleRemoveFromWishlist,
-    } = useProductAction(product);
-    return (
-        <>
-            <div className="flex flex-wrap justify-between gap-5 mt-6 mb-7.5">
-                <Price product={product} />
-
-                <div>
-                    <h4 className="font-semibold text-lg text-dark mb-3.5">
-                        Quantity
-                    </h4>
-
-                    <div className="flex items-center gap-3">
-                        <button
-                            onClick={() =>
-                                quantity > 0 &&
-                                handleupdateQuantity(quantity - 1)
-                            }
-                            aria-label="button for remove product"
-                            className="flex items-center justify-center w-10 h-10 rounded-[5px] bg-gray-2 text-dark ease-out duration-200 hover:text-blue"
-                            disabled={quantity < 1}
-                        >
-                            <MinusIcon />
-                        </button>
-
-                        <span
-                            className="flex items-center justify-center w-20 h-10 rounded-[5px] border border-gray-4 bg-white font-medium text-dark"
-                            x-text="quantity"
-                        >
-                            {quantity}
-                        </span>
-
-                        <button
-                            onClick={() => handleupdateQuantity(quantity + 1)}
-                            aria-label="button for add product"
-                            className="flex items-center justify-center w-10 h-10 rounded-[5px] bg-gray-2 text-dark ease-out duration-200 hover:text-blue"
-                            disabled={quantity < 1}
-                        >
-                            <PlusIcon />
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <div className="flex flex-wrap items-center gap-4">
-                <button
-                    disabled={quantity > 0}
-                    onClick={() => {
-                        handleAddToCart();
-                        // closeModal();
-                    }}
-                    className={`inline-flex font-medium text-white bg-blue py-3 px-7 rounded-md ease-out duration-200 hover:bg-blue-dark`}
-                >
-                    Add to Cart
-                </button>
-
-                <button
-                    className={`inline-flex items-center gap-2 font-medium text-white bg-dark py-3 px-6 rounded-md ease-out duration-200 hover:bg-opacity-95 `}
-                    onClick={() =>
-                        isInWishList
-                            ? handleRemoveFromWishlist()
-                            : handleAddItemToWishList()
-                    }
-                >
-                    {isInWishList ? (
-                        <>
-                            {/* <WishListIcon2 /> */}
-                            Remove from Wishlist
-                        </>
-                    ) : (
-                        <>
-                            <WishListIcon2 />
-                            Add to Wishlist
-                        </>
-                    )}
-                </button>
-            </div>
-        </>
-    );
-})
 
 const QuickViewModal = observer(() => {
     const { isModalOpen, closeModal } = useModalContext();
@@ -280,9 +133,15 @@ const QuickViewModal = observer(() => {
                                 {product.title}
                             </h3>
 
+                            <Price product={product} />
+                            <br />
+
                             <Rating reviews={product.reviews} />
+                            <br />
 
                             <p>{product.description}</p>
+                            <br />
+                            <br />
 
                             <Cta product={product} />
                         </div>

@@ -1,6 +1,6 @@
 "use client";
-
-import CategorySelect from "../../Common/Header/CategorySelect";
+import React from 'react';
+import CategorySelect from "../../Common/CategorySelect";
 
 type ProductDisplayHeaderProps = {
     total: number;

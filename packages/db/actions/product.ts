@@ -5,7 +5,7 @@ export const getAllProducts = async ():Promise<FullProduct[]> => {
   return await prisma.product.findMany({ include: { category: true, reviews: true } });
 };
 
-export const getProductById = async (id: number) => {
+export const getProductById = async (id: number): Promise<FullProduct | null> => {
   return await prisma.product.findUnique({ where: { id }, include: { category: true, reviews: true } });
 };
 

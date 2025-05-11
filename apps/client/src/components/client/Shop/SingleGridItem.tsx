@@ -20,7 +20,7 @@ const SingleGridItem = ({ item }: { item: FullProduct }) => {
   return (
     <div className="group">
       <div className="relative overflow-hidden flex items-center justify-center rounded-lg bg-white shadow-1 min-h-[270px] mb-4">
-        <CustomImage src={item.images.at(0)} alt={item.title} />
+        <CustomImage src={item.images?.at(0)} alt={item.title} />
 
         <div className="absolute left-0 bottom-0 translate-y-full w-full flex items-center justify-center gap-2.5 pb-5 ease-linear duration-200 group-hover:translate-y-0">
           <button

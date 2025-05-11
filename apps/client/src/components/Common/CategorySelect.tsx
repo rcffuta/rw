@@ -2,7 +2,7 @@
 import { useCategoryOption } from "@/hooks/useCategories";
 import React, { useState, useEffect } from "react";
 
-const CustomSelect = () => {
+const CategorySelect = () => {
     const options = useCategoryOption();
     const [isOpen, setIsOpen] = useState(false);
     const [selectedOption, setSelectedOption] = useState(options[0]);
@@ -63,4 +63,4 @@ const CustomSelect = () => {
     );
 };
 
-export default CustomSelect;
+export default CategorySelect;

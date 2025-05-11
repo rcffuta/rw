@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 
-import { FullProduct, Product } from "@gamezone/db";
+import { FullProduct } from "@gamezone/db";
 import { useModalContext } from "@/context/QuickViewModalContext";
 import Link from "next/link";
 import Image from "next/image";
@@ -21,7 +21,7 @@ const SingleListItem = ({ item }: { item: FullProduct }) => {
           <div className="flex">
               <div className="shadow-list relative overflow-hidden flex items-center justify-center max-w-[270px] w-full sm:min-h-[270px] p-4">
                   <CustomImage
-                      src={item.images.at(0)}
+                      src={item.images?.at(0)}
                       alt=""
                   />
 

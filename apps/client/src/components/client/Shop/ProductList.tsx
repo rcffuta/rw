@@ -2,7 +2,7 @@
 import { FullProduct } from "@gamezone/db";
 import ProductItem from "./ProductItem";
 
-export default function ProductList({ products }: { products: FullProduct[] }) {
+export function ProductList({ products }: { products: FullProduct[] }) {
     // const { displayGrid, displayList } = useShopContext();
     return (
         <>

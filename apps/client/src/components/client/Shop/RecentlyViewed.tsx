@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import shopData from "@/data/shop";
-import {ProductItem} from "@/components/client/Shop/ProductItem";
+
 import Image from "next/image";
 import Link from "next/link";
 
@@ -9,6 +9,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { useCallback, useRef } from "react";
 import "swiper/css/navigation";
 import "swiper/css";
+import ProductItem from "./ProductItem";
 
 const RecentlyViewdItems = () => {
   const sliderRef = useRef(null);
@@ -89,7 +90,7 @@ const RecentlyViewdItems = () => {
             spaceBetween={20}
             className="justify-between"
           >
-            {shopData.map((item, key) => (
+            {[].map((item, key) => (
               <SwiperSlide key={key}>
                 <ProductItem item={item} />
               </SwiperSlide>
