@@ -14,9 +14,9 @@ export default function EmptyRow() {
                     stroke="currentColor"
                 >
                     <path
-                        stroke-linecap="round"
+                        strokeLinecap="round"
                         stroke-linejoin="round"
-                        stroke-width="2"
+                        strokeWidth="2"
                         d="M9 17v-6h6v6m2 4H7a2 2 0 01-2-2V5a2 2 0 012-2h6l5 5v11a2 2 0 01-2 2z"
                     />
                 </svg>

@@ -13,6 +13,9 @@ export async function getAllOrder(): Promise<FullOrderWithPayment[]> {
     return prisma.order.findMany({
         where: {},
         include: { product: true, payment: true },
+        orderBy: {
+          status: "asc",
+        }
     });
 }
 

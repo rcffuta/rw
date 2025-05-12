@@ -4,9 +4,9 @@ import Breadcrumb from "@/components/ui/BreadCrumb";
 
 import type { Metadata } from "next";
 
-export const metadata: Metadata = {
-  title: "Form Layout",
-};
+// export const metadata: Metadata = {
+//   title: "Form Layout",
+// };
 
 export default function Page() {
   return (

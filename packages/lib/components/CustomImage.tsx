@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import { AriaRole, useState } from "react";
 import clsx from "clsx";
 
 type CustomImageProps = {
@@ -12,6 +12,7 @@ type CustomImageProps = {
     aspectRatio?: string; // e.g. "1/1", "4/3"
     width?: number;
     height?: number;
+    role?: AriaRole;
 };
 
 const shimmer = `
@@ -67,6 +68,7 @@ export function ProductImage({
     className = "",
     width = 50,
     height = 50,
+    role
 }: CustomImageProps) {
     const [isLoaded, setLoaded] = useState(false);
     const [error, setError] = useState(false);
@@ -89,6 +91,42 @@ export function ProductImage({
             )}
             width={width}
             height={height}
+            role={role}
+        />
+    );
+}
+
+export function CategoryImage({
+    src,
+    alt,
+    fallbackSrc = "/assets/fallback.svg",
+    className = "",
+    width = 50,
+    height = 50,
+    role,
+}: CustomImageProps) {
+    const [isLoaded, setLoaded] = useState(false);
+    const [error, setError] = useState(false);
+
+    const validSrc = error || !src ? fallbackSrc : src;
+
+    return (
+        <Image
+            src={validSrc}
+            alt={alt}
+            onLoad={() => setLoaded(true)}
+            onError={() => setError(true)}
+            className={clsx(
+                "object-cover object-center transition-opacity duration-500",
+                {
+                    "opacity-0": !isLoaded,
+                    "opacity-100": isLoaded,
+                },
+                className
+            )}
+            width={width}
+            height={height}
+            role={role}
         />
     );
 }

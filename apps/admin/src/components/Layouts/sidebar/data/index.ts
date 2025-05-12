@@ -11,18 +11,18 @@ export const NAV_DATA = [
         icon: Icons.HomeIcon,
         items: [],
       },
-      // {
-      //   title: "Calendar",
-      //   url: "/calendar",
-      //   icon: Icons.Calendar,
-      //   items: [],
-      // },
-      // {
-      //   title: "Profile",
-      //   url: "/profile",
-      //   icon: Icons.User,
-      //   items: [],
-      // },
+      {
+        title: "Categories",
+        url: "/categories",
+        icon: Icons.Calendar,
+        items: [],
+      },
+      {
+        title: "Profile",
+        url: "/profile",
+        icon: Icons.User,
+        items: [],
+      },
       {
         title: "Products",
         icon: Icons.Alphabet,

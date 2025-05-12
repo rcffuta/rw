@@ -23,6 +23,6 @@
       "db/*": ["../../packages/db/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "../../packages/lib/hooks/useNavigate.tsx", "../../packages/lib/functions.ts"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "../../packages/lib/hooks/useNavigate.tsx", "../../packages/lib/functions.ts", "../../packages/lib/components/CustomImage.tsx"],
   "exclude": ["node_modules", "unused"]
 }

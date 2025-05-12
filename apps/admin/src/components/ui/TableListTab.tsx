@@ -4,9 +4,10 @@ import { DotIcon } from "../Icons";
 interface Props {
   pageName: string;
   createLink: string;
+  createLinkLabel: string;
 }
 
-export default function TableListTab({ pageName, createLink }: Props) {
+export default function TableListTab({ pageName, createLink, createLinkLabel }: Props) {
     return (
         <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
             <h2 className="text-[26px] font-bold leading-[30px] text-dark dark:text-white">
@@ -17,7 +18,7 @@ export default function TableListTab({ pageName, createLink }: Props) {
                 <ol className="flex items-center gap-2">
                     <li className="font-medium text-primary">
                         <Link className="font-medium" href={createLink}>
-                            Add Product
+                            {createLinkLabel}
                         </Link>
                     </li>
                     <li>
