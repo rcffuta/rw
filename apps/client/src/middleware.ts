@@ -1,22 +1,19 @@
-// src/middleware.ts
-import { NextResponse } from "next/server";
-import type { NextRequest } from "next/server";
+// import { AUTH_KEY } from "@gamezone/auth/token";
+import { NextRequest, NextResponse } from "next/server";
 
-export function middleware(request: NextRequest) {
-  const pathname = request.nextUrl.pathname;
+export function middleware(req: NextRequest) {
+  // const token = req.cookies.get(AUTH_KEY)?.value;
 
-  if (pathname.startsWith("/admin")) {
-    const token = request.cookies.get("token")?.value;
-    const isAdmin = true; //decodeTokenAndCheckAdmin(token);
+  // const isLoggedIn = !!token;
+  // const isLoginPage = req.nextUrl.pathname.startsWith('/signin');
 
-    if (!isAdmin) {
-      return NextResponse.redirect(new URL("/", request.url));
-    }
-  }
+  // if (!isLoggedIn && !isLoginPage) {
+  //   return NextResponse.redirect(new URL('/signin', req.url));
+  // }
 
   return NextResponse.next();
 }
 
-export const config = {
-  matcher: ["/admin/:path*"],
-};
+// export const config = {
+//   matcher: ['/dashboard/:path*', '/admin/:path*'], // or whatever you protect
+// };

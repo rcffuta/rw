@@ -1,7 +1,7 @@
-import { wait } from "@/utils/functions";
+
 import { User } from "@gamezone/db";
+import { wait } from "@gamezone/lib";
 import { makeAutoObservable } from "mobx";
-import toast from "react-hot-toast";
 
 class AuthStore {
     user: User = null;
@@ -19,7 +19,7 @@ class AuthStore {
     }
 
     async logout() {
-        wait(2);
+        await wait(2);
         
 
         

@@ -1,8 +1,8 @@
 "use server"
 
 import { CreateAccountFormData } from "@/lib/validators/auth.validator";
-import { isEmpty } from "@/utils/functions";
 import { authenticateUser, createUser } from "@gamezone/db/actions";
+import { isEmpty } from "@gamezone/lib";
 
 
 export async function loginUser(email:string, password:string) {
@@ -10,6 +10,17 @@ export async function loginUser(email:string, password:string) {
     if (isEmpty(user)) {
         throw new Error("Account not found!");
     }
+
+    // const token = signToken({ userId: user.id, role: user.isAdmin ? "admin":"user" });
+
+    // (await cookies()).set(AUTH_KEY, token, {
+    //     httpOnly: true,
+    //     secure: true,
+    //     sameSite: 'lax',
+    //     domain: '.gamezone.com',
+    //     path: '/',
+    //     maxAge: 60 * 60 * 24 * 7,
+    // });
 
     return user;
 }

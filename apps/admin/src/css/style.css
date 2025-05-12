@@ -9,6 +9,9 @@
 }
 
 @layer utilities {
+  .text-capitalize {
+    text-transform: capitalize;
+  }
   /* Chrome, Safari and Opera */
   .no-scrollbar::-webkit-scrollbar {
     display: none;
@@ -19,7 +22,7 @@
     scrollbar-width: none; /* Firefox */
   }
 
-   .custom-scrollbar {
+  .custom-scrollbar {
     @apply overflow-auto;
   }
 

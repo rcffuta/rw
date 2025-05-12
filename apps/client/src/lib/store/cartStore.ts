@@ -8,7 +8,7 @@ import {
   updateProductInCart 
 } from "@/actions/cart.action";
 
-import { FullOrder, OrderStatus, Product } from "db/index";
+import { FullOrder, OrderStatus, Product } from "@gamezone/db";
 import { makeAutoObservable, runInAction } from "mobx";
 import authStore from "./authStore";
 
