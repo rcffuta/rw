@@ -1,7 +1,5 @@
 import React from "react";
 
-import Image from "next/image";
-import { useProductAction } from "@/hooks/useProduct";
 import { CrossIcon3, StockCheck } from "@/components/Common/Icons";
 import { FullWishList } from "db/actions";
 import wishlistStore from "@/lib/store/wishlistStore";
@@ -56,13 +54,7 @@ const SingleItem = ({ item }: {item: FullWishList}) => {
 
       <div className="min-w-[150px] flex justify-end">
         <button
-          onClick={() => cartStore.addItemToCart({
-            id: item.product.id,
-            images: item.product.images,
-            price: item.product.price,
-            quantity: 1,
-            title: item.product.title
-          })}
+          onClick={() => cartStore.addItemToCart(item.product)}
           className="inline-flex text-dark hover:text-white bg-gray-1 border border-gray-3 py-2.5 px-6 rounded-md ease-out duration-200 hover:bg-blue hover:border-gray-3"
         >
           Add to Cart

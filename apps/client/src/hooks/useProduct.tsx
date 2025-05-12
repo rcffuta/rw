@@ -13,13 +13,7 @@ export function useProductAction(item: FullProduct) {
         productStore.updateQuickView({ ...item });
     };
     const handleAddToCart = async () => {
-        cartStore.addItemToCart({
-            id: item.id,
-            price: item.price,
-            images: item.images || [],
-            quantity: 1,
-            title: item.title,
-        });
+        cartStore.addItemToCart(item);
         toast.success("Added Product to cart", { id: "cartAddToast" , duration: 800});
     };
 

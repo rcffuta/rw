@@ -11,16 +11,18 @@ export const metadata: Metadata = {
     description: "View Product from GameZone",
 };
 
-type Props = {
-    params: {
-        id: string;
-    };
-};
+// type Props = {
+//     params: {
+//         id: string;
+//     };
+// };
+
+type Props = { params: Promise<{ id: string }> };
 
 export default async function ShopPage({ params }: Props) {
-    const productId = Number(params.id);
+    const productId = Number((await params).id);
 
-    let template;
+    let template: any;
 
     if (isNaN(productId)) {
         template = (

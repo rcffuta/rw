@@ -1,13 +1,14 @@
 "use client";
 
-import { useAccountContext } from "@/context/AccountContext";
 import { useNavigate } from "@gamezone/lib";
 import { isEmpty } from "@/utils/functions";
 import { PropsWithChildren, useEffect } from "react";
 import PreLoader from "./PreLoader";
+import authStore from "@/lib/store/authStore";
+import { observer } from "mobx-react-lite";
 
-export default function EnsureAuth(props: PropsWithChildren) {
-    const {user} = useAccountContext();
+function EnsureAuth(props: PropsWithChildren) {
+    const user = authStore.user;
 
     const { redirect } = useNavigate();
 
@@ -24,3 +25,5 @@ export default function EnsureAuth(props: PropsWithChildren) {
     if (!user) return <PreLoader/>;
     return props.children;
 }
+
+export default observer(EnsureAuth);

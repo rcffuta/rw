@@ -1,9 +1,7 @@
 "use client";
 import React from "react";
-import shopData from "@/data/shop";
 
 import Image from "next/image";
-import Link from "next/link";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import { useCallback, useRef } from "react";

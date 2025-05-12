@@ -12,7 +12,7 @@ import { FormWrapper } from "@/components/Common/Form/FormUtils";
 import InputField, { FormError } from "@/components/Common/Form/InputField";
 import toast, { ToastOptions } from "react-hot-toast";
 import { FullOrder } from "db/actions";
-import { checkoutAction } from "@/app/actions/checkout";
+import { checkoutAction } from "@/actions/checkout";
 
 type CheckoutFormProps = {
     items: FullOrder[];

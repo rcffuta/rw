@@ -17,8 +17,8 @@ export const getCategoryById = async (id: number) => {
   return await prisma.category.findUnique({ where: { id }, include: { products: true } });
 };
 
-export const createCategory = async (data: { name: string }) => {
-  return await prisma.category.create({ data });
+export const createCategory = async (data: { name: string, image: string }) => {
+  return await prisma.category.create({data});
 };
 
 export const updateCategory = async (id: number, data: Partial<{ name: string }>) => {

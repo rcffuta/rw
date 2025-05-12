@@ -54,7 +54,7 @@ export function useContactForm<T>(intitialData: T = {} as T) {
 
 
 export function useAuthForm<T>(intitialData: T= {} as T) {
-    const { updateUser, findUser, user, } = useAccountContext();
+    // const { updateUser, findUser, user, } = useAccountContext();
     const [errors, setErrors] = useState<ValidationErrors<T>>({});
     const [loading, setLoading] = useState(false);
 
@@ -149,7 +149,7 @@ export function useAuthForm<T>(intitialData: T= {} as T) {
                     duration: 3500,
                 });
 
-                updateUser(user);
+                // updateUser(user);
 
                 if (simple) return;
 
@@ -199,7 +199,7 @@ export function useAuthForm<T>(intitialData: T= {} as T) {
 
             
 
-            updateUser(user);
+            // updateUser(user);
 
             if (simple) return;
 
@@ -223,6 +223,6 @@ export function useAuthForm<T>(intitialData: T= {} as T) {
         handleLogin,
         handleCreateAccount,
         resolveData,
-        user,
+        // user,
     };
 }

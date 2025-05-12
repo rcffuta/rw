@@ -1,12 +1,12 @@
 "use client";
 
-import { useAccountContext } from "@/context/AccountContext";
-import Link from "next/link";
+import authStore from "@/lib/store/authStore";
 import { useState } from "react";
 
 export default function AccountDashboard() {
     const [activeTab, setActiveTab] = useState("dashboard");
-    const {user, logout} = useAccountContext();
+
+    const user = authStore.user;
 
     return (
         <div
@@ -15,18 +15,7 @@ export default function AccountDashboard() {
             }`}
         >
             <p className="text-dark">
-                Hello {user?.firstname} (not {user?.firstname}?{" "}
-                <Link
-                    href="/#"
-                    className="text-red ease-out duration-200 hover:underline"
-                    onClick={(e)=>{
-                        e.preventDefault();
-                        logout();
-                    }}
-                >
-                    Log Out
-                </Link>
-                )
+                Hello {user?.username}
             </p>
 
             <p className="text-custom-sm mt-4">

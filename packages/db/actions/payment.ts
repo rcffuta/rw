@@ -21,7 +21,7 @@ export async function createPaymentWithOrders({
         reference,
         userId,
         amount,
-        status: "pending",
+        status: PaymentStatus.pending,
       },
     });
 
@@ -40,12 +40,27 @@ export async function createPaymentWithOrders({
     return payment;
   });
 }
-export async function verifyAndMarkPaymentAsPaid(reference: string) {
+export async function verifyAndMarkPayment(reference: string, status: PaymentStatus) {
+
+  let orderStatus: OrderStatus = OrderStatus.cart;
+
+  switch (status) {
+    case PaymentStatus.completed:
+      orderStatus = OrderStatus.paid;
+      break;
+
+    case PaymentStatus.failed:
+      orderStatus = OrderStatus.cancelled;
+      break;
+    default:
+      break;
+  }
+
   try {
     const payment = await prisma.payment.update({
       where: { reference },
       data: {
-        status: PaymentStatus.completed,
+        status,
         paidAt: new Date(),
       },
       include: {
@@ -54,7 +69,7 @@ export async function verifyAndMarkPaymentAsPaid(reference: string) {
     });
 
     // Mark the associated order as paid
-    await markOrdersAsPaid(payment.id);
+    await markOrders(payment.id, orderStatus);
 
     return payment;
   } catch (err) {
@@ -63,11 +78,11 @@ export async function verifyAndMarkPaymentAsPaid(reference: string) {
   }
 }
 
-export async function markOrdersAsPaid(paymentId: number) {
+export async function markOrders(paymentId: number, status: OrderStatus) {
     return await prisma.$transaction(async (tx) => {
         await tx.order.updateMany({
             where: { paymentId },
-            data: { status: OrderStatus.paid },
+            data: { status },
         });
 
         // // 2. Delete or mark the payment

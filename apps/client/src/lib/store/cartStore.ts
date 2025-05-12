@@ -8,7 +8,7 @@ import {
   updateProductInCart 
 } from "@/actions/cart.action";
 
-import { FullOrder, Product } from "db/index";
+import { FullOrder, OrderStatus, Product } from "db/index";
 import { makeAutoObservable, runInAction } from "mobx";
 import authStore from "./authStore";
 
@@ -46,19 +46,31 @@ class CartStore {
         } else {
         runInAction(() => {
             this.items.push({
-            id: -1,
-            userId: authStore.user.id,
-            productId: product.id,
-            product,
-            quantity,
-            status: "cart",
-            createdAt: new Date(),
-            updatedAt: new Date()
-            });
+                id: Date.now(),
+                paymentId: 0,
+                userId: 0,
+                quantity: 0,
+                product,
+                status: OrderStatus.cart,
+                productId: product.id,
+                createdAt: new Date(),
+                updatedAt: new Date(),
+            })
+            // this.items.push({
+            // id: -1,
+            // userId: authStore.user.id,
+            // productId: product.id,
+            // product,
+            // quantity,
+            // status: "cart",
+            // createdAt: new Date(),
+            // updatedAt: new Date()
+            // });
         });
         }
 
         await addProductToCart(authStore.user.id, product.id, quantity);
+
         await this.reloadCart();
     }
 

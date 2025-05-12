@@ -1,12 +1,12 @@
 "use server";
 
 import { CheckoutFormData } from "@/lib/validators/checkout.validator";
-import { createPaymentWithOrders, FullOrder } from "db/actions";
+import { createPaymentWithOrders, FullOrder, verifyAndMarkPayment } from "db/actions";
 import { User } from "db/index";
 
-const PAY_LINK = "https://sandbox-api-d.squadco.com/transaction/initiate";
+const PAY_LINK = "https://sandbox-api-d.squadco.com/transaction";
 
-
+// https://sandbox-api-d.squadco.com/transaction/verify/{{transaction_ref}}
 type PaymentLinkData = {
     email:string;
     amount: number,
@@ -48,7 +48,7 @@ async function createPaymentLink(data: PaymentLinkData) {
             "Content-Type": "application/json",
         };
 
-        const result = await fetch(PAY_LINK, {
+        const result = await fetch(`${PAY_LINK}/initiate`, {
             method: "POST",
             headers,
             body: JSON.stringify(body),
@@ -76,6 +76,47 @@ async function createPaymentLink(data: PaymentLinkData) {
     }
 }
 
+export async function verifyPayment(reference: string) {
+    
+    try {
+
+        const headers = {
+            Authorization: `Bearer ${process.env.SQUAD_SK}`,
+            "Content-Type": "application/json",
+        };
+
+        const result = await fetch(`${PAY_LINK}/verify/${reference}`, {
+            method: "GET",
+            headers,
+            // body: JSON.stringify(body),
+        });
+
+        if (!result.ok) {
+            console.error(new Error(`Verify Payment API Error: ${result.statusText}`));
+
+            // console.error(result.)
+
+            return false;
+
+        }
+
+        const resp = await result.json();
+
+        const obj = {
+            ref: resp.data.transaction_ref,
+            amount: resp.data.transaction_amount,
+            email: resp.data.merchant_email,
+        }
+
+        console.dir(obj);
+
+        return true; // Return the response so frontend can use it
+    } catch (error: any) {
+        console.error("Payment Error:", error.message);
+        console.dir(error);
+        throw new Error("Failed to create payment link");
+    }
+}
 
 export const checkoutAction = async (data: CheckoutConfig) => {
         // e.preventDefault();
@@ -130,3 +171,11 @@ export const checkoutAction = async (data: CheckoutConfig) => {
 
     return payObj.checkout_url;
 };
+
+export const markPaymentPaid = async (ref: string) => {
+    await verifyAndMarkPayment(ref, "completed");
+}
+
+export const markPaymentFailed = async (ref: string) => {
+    await verifyAndMarkPayment(ref, "failed");
+}
