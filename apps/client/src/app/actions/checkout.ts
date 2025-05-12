@@ -1,5 +1,9 @@
 "use server";
 
+import { CheckoutFormData } from "@/lib/validators/checkout.validator";
+import { createPaymentWithOrders, FullOrder } from "db/actions";
+import { User } from "db/index";
+
 const PAY_LINK = "https://sandbox-api-d.squadco.com/transaction/initiate";
 
 
@@ -11,8 +15,24 @@ type PaymentLinkData = {
     redirect?:string;
 }
 
-export async function createPaymentLink(data: PaymentLinkData) {
-    const { amount, name: customer_name, currency="USD", redirect, ...rest} = data;
+
+type CheckoutConfig = {
+    totalPrice: number;
+    items: FullOrder[];
+    billingDetails: CheckoutFormData;
+    user: User;
+    redirect: string;
+}
+
+type PaymentPayload = {
+    ref: string;
+    amount: any;
+    checkout_url: string;
+};
+
+
+async function createPaymentLink(data: PaymentLinkData) {
+    const { amount, name: customer_name, currency="USD", redirect, email} = data;
     try {
         const body = {
             amount: amount * 100, // Amount in Kobo (50000 Kobo = 500 NGN)
@@ -20,7 +40,7 @@ export async function createPaymentLink(data: PaymentLinkData) {
             customer_name,
             initiate_type: "inline",
             callback_url: redirect || "http://localhost:3000/verify", // Fix this
-            ...rest,
+            email
         };
 
         const headers = {
@@ -55,3 +75,58 @@ export async function createPaymentLink(data: PaymentLinkData) {
         throw new Error("Failed to create payment link");
     }
 }
+
+
+export const checkoutAction = async (data: CheckoutConfig) => {
+        // e.preventDefault();
+
+    const {user, ...config} = data;
+
+    if (config.totalPrice === 0) {
+
+        throw new Error("Invalid cart items, please shop");
+    }
+
+    if (!user) {
+
+        throw new Error("No User to process, please login");
+    }
+
+    const {
+        billingDetails, totalPrice,
+        items, redirect
+    } = config
+
+
+    let payObj: PaymentPayload; //payment: Payment;
+
+    try {
+
+        payObj = await createPaymentLink({
+            email: billingDetails.email,
+            amount: totalPrice,
+            redirect,
+            name:
+                [billingDetails.firstname, billingDetails.lastname].filter(Boolean).join(" ") ||
+                "Guest User",
+        })
+    } catch(err) {
+        console.error("Checkout Error:", err);
+        throw new Error("Could not reach payment service");
+    }
+
+    try{
+        await createPaymentWithOrders({
+            amount: payObj.amount,
+            reference: payObj.ref,
+            orderIds: items.map((e)=>e.id),
+            userId: user.id,
+        });
+    }catch(err){
+        console.error("Checkout Error:", err);
+        throw new Error("Could not create payment");
+    }
+
+
+    return payObj.checkout_url;
+};

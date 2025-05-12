@@ -5,6 +5,7 @@ export * from './book';
 export * from './category';
 export * from './review';
 export * from './order';
+export * from './payment';
 export * from './user';
 export * from './wishlist';
 export * from './types';

@@ -2,6 +2,8 @@ import React from "react";
 import Checkout from "@/components/client/Checkout";
 
 import { Metadata } from "next";
+import Breadcrumb from "@/components/Common/Breadcrumb";
+
 export const metadata: Metadata = {
     title: "Checkout | GameZone",
     description: "Complete your orders on GameZone",
@@ -9,11 +11,16 @@ export const metadata: Metadata = {
 };
 
 const CheckoutPage = () => {
-  return (
-    <main>
-      <Checkout />
-    </main>
-  );
+    return (
+        <main>
+            <Breadcrumb title={"Checkout"} pages={["checkout"]} />
+            <section className="overflow-hidden py-20 bg-gray-2">
+                <div className="max-w-[1170px] w-full mx-auto px-4 sm:px-8 xl:px-0">
+                    <Checkout />
+                </div>
+            </section>
+        </main>
+    );
 };
 
 export default CheckoutPage;

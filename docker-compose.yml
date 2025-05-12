@@ -2,6 +2,11 @@ version: "3.8"
 
 services:
   postgres:
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "admin"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
     image: postgres:latest
     container_name: gamezone_postgres
     restart: unless-stopped

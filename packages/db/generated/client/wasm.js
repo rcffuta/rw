@@ -187,7 +187,8 @@ exports.Prisma.OrderScalarFieldEnum = {
   productId: 'productId',
   status: 'status',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  paymentId: 'paymentId'
 };
 
 exports.Prisma.WishlistScalarFieldEnum = {
@@ -195,6 +196,17 @@ exports.Prisma.WishlistScalarFieldEnum = {
   userId: 'userId',
   productId: 'productId',
   createdAt: 'createdAt'
+};
+
+exports.Prisma.PaymentScalarFieldEnum = {
+  id: 'id',
+  reference: 'reference',
+  userId: 'userId',
+  amount: 'amount',
+  status: 'status',
+  paidAt: 'paidAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 };
 
 exports.Prisma.SortOrder = {
@@ -218,6 +230,12 @@ exports.OrderStatus = exports.$Enums.OrderStatus = {
   cancelled: 'cancelled'
 };
 
+exports.PaymentStatus = exports.$Enums.PaymentStatus = {
+  pending: 'pending',
+  completed: 'completed',
+  failed: 'failed'
+};
+
 exports.Prisma.ModelName = {
   User: 'User',
   Product: 'Product',
@@ -227,7 +245,8 @@ exports.Prisma.ModelName = {
   Category: 'Category',
   Review: 'Review',
   Order: 'Order',
-  Wishlist: 'Wishlist'
+  Wishlist: 'Wishlist',
+  Payment: 'Payment'
 };
 
 /**

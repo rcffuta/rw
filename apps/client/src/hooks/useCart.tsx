@@ -7,29 +7,29 @@ export function useCart() {
     const cartItems = cartStore.items;
 
 
-    const summaryAmount = useMemo(()=>{
-        return cartItems.reduce((acc, each)=>{
+    // const summaryAmount = useMemo(()=>{
+    //     return cartItems.reduce((acc, each)=>{
 
-            const amount = each.price * each.quantity;
+    //         const amount = each.price * each.quantity;
 
-            acc += amount;
+    //         acc += amount;
 
-            // acc.items.push({
-            //     id: each.id,
-            //     title: each
-            //     amount: each.price,
-            //     quantity: each.quantity
+    //         // acc.items.push({
+    //         //     id: each.id,
+    //         //     title: each
+    //         //     amount: each.price,
+    //         //     quantity: each.quantity
 
-            // });
+    //         // });
 
 
-            return acc;
-        }, 0)
-    }, [cartItems])
+    //         return acc;
+    //     }, 0)
+    // }, [cartItems])
 
 
     return {
         items: cartItems,
-        summary: summaryAmount,
+        summary: 0,
     };
 }

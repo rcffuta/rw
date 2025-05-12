@@ -8,7 +8,8 @@ import { isEmpty } from "@/utils/functions";
 import { LoginData } from "@/types/form";
 
 const Login = () => {
-  const {user} = useAccountContext();
+  // const {user} = useAccountContext();
+  const user = null;
   const [dropdown, setDropdown] = useState(()=>{
     return isEmpty(user);
   });

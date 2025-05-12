@@ -25,6 +25,8 @@ model User {
   reviews     Review[]
 
   Wishlist Wishlist[]
+
+  Payment Payment[]
 }
 
 model Product {
@@ -114,18 +116,20 @@ enum OrderStatus {
 }
 
 model Order {
-  id          Int      @id @default(autoincrement())
+  id          Int        @id @default(autoincrement())
   userId      Int
   quantity    Int
   productId   Int
-  product     Product @relation(fields: [productId], references: [id])
+  product     Product    @relation(fields: [productId], references: [id])
   status      OrderStatus @default(cart)
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
 
-  User User[]
+  user        User       @relation(fields: [userId], references: [id])
+  paymentId   Int?       // Foreign key to Payment
+  payment     Payment?   @relation(fields: [paymentId], references: [id]) // 1-to-1 relation
+
 }
-
 model Wishlist {
   id        Int      @id @default(autoincrement())
   user      User     @relation(fields: [userId], references: [id])
@@ -135,4 +139,25 @@ model Wishlist {
   createdAt DateTime @default(now())
 
   @@unique([userId, productId])
+}
+
+enum PaymentStatus {
+  pending
+  completed
+  failed
+}
+
+model Payment {
+  id             Int       @id @default(autoincrement())
+  reference      String    @unique
+  userId         Int
+  amount         Float
+  status         PaymentStatus @default(pending)
+  paidAt         DateTime? // can be null until confirmed
+
+  user           User      @relation(fields: [userId], references: [id])
+  orders         Order[]   // 1-to-many relationship with Order
+
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
 }

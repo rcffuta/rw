@@ -1,3 +1,4 @@
+"use client";
 import { useState } from "react";
 import { CheckIcon } from "../Icons";
 
@@ -10,8 +11,8 @@ interface InputFieldProps {
     required?: boolean;
     id?: string;
     className?: string;
-    onCheck:()=>void;
-    checked?:boolean;
+    onCheck: () => void;
+    checked?: boolean;
     // autoComplete?: "on" | "off";
 }
 
@@ -25,7 +26,7 @@ export default function CheckField({
     id,
     onCheck,
     checked,
-    className="mb-5"
+    className = "mb-5",
 }: InputFieldProps) {
     const Id = id ? id : name;
 
@@ -42,7 +43,7 @@ export default function CheckField({
                         id={Id}
                         className="sr-only"
                         onClick={onCheck}
-                        onChange={()=>{}}
+                        onChange={() => {}}
                         checked={checked}
                         aria-checked={checked}
                     />
@@ -54,4 +55,4 @@ export default function CheckField({
             </label>
         </div>
     );
-};
+}
