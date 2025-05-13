@@ -56,10 +56,10 @@ export default function FormElementsPage() {
             <Switch background="dark" />
           </ShowcaseSection>
 
-          <ShowcaseSection title="Time and date" className="space-y-5.5 !p-6.5">
+          {/* <ShowcaseSection title="Time and date" className="space-y-5.5 !p-6.5">
             <DatePickerOne />
             <DatePickerTwo />
-          </ShowcaseSection>
+          </ShowcaseSection> */}
 
           <ShowcaseSection title="File upload" className="space-y-5.5 !p-6.5">
             <InputGroup

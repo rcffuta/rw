@@ -28,7 +28,7 @@ export function useCategoryOption() {
                 );
 
                 setOptions(() => opts);
-            } catch (error) {
+            } catch (error: any) {
                 toast.error(error.message || "Could not load categories");
             }
         }

@@ -1,13 +1,12 @@
 
 
-import { saveGame, saveProduct } from "@/actions/form.action";
-import { GameProductFormData } from "@gamezone/db";
+import { saveBook, saveGame, saveGiftCard, saveProduct } from "@/actions/form.action";
+import { BookProductFormData, GameProductFormData, GiftCardProductFormData } from "@gamezone/db";
 import { makeAutoObservable } from "mobx";
 
 class ProductStore {
     // Product Details
-    imageUrl =
-        "https://res.cloudinary.com/con-so-nant/image/upload/v1746875866/gamezone/profiles/sg6lze681nyyklpqgziz.jpg";
+    imageUrl ="";
     title = "";
     category = "";
     description = "";
@@ -19,8 +18,47 @@ class ProductStore {
     genre = "";
     releaseDate = "";
 
+    // Book Product Details
+    author = "";
+    bookGenre = "";
+    language = "";
+    isbn = "";
+    pages="";
+
+    // Giftcard product details
+    code="";
+    number="";
+    date="";
+
     constructor() {
         makeAutoObservable(this);
+    }
+
+
+    private reset() {
+        this.imageUrl = "";
+        this.title = "";
+        this.category = "";
+        this.description = "";
+        this.price = "";
+        this.discountPrice = "";
+
+        // Games Product Details
+        this.platform = "";
+        this.genre = "";
+        this.releaseDate = "";
+
+        // Book Product Details
+        this.author = "";
+        this.bookGenre = "";
+        this.language = "";
+        this.isbn = "";
+        this.pages = "";
+
+        // Giftcard product details
+        this.code = "";
+        this.number = "";
+        this.date = "";
     }
 
     async saveProduct() {
@@ -54,7 +92,9 @@ class ProductStore {
         const data: GameProductFormData = {
             platform: this.platform,
             genre: this.genre,
-            releaseDate: this.releaseDate ? new Date(this.releaseDate) : new Date(),
+            releaseDate: this.releaseDate
+                ? new Date(this.releaseDate)
+                : new Date(),
             productId,
         };
 
@@ -73,6 +113,65 @@ class ProductStore {
             // toast.error("Product could not save!", { id: toastId });
             throw new Error("Game could not save!");
         }
+        this.reset();
+        return true;
+    }
+
+    async saveBookProduct(productId: number) {
+        const data: BookProductFormData = {
+            genre: this.bookGenre,
+            productId,
+            author: this.author,
+            isbn: this.isbn,
+            language: this.language,
+            pages: parseInt(this.pages),
+        };
+
+        try {
+            await saveBook(data);
+            // toast.success("Product saved!", { id: toastId });
+
+            // setTimeout(() => {
+            //     if (!props.redirect) return;
+
+            //     navigate(props.redirect);
+            // }, 1500);
+        } catch (err) {
+            console.error("Failed to create book:", err);
+            // alert("Error creating product");
+            // toast.error("Product could not save!", { id: toastId });
+            throw new Error("Book could not save!");
+        }
+
+        this.reset();
+        return true;
+    }
+
+    async saveGiftCardProduct(productId: number) {
+        const data: GiftCardProductFormData = {
+            code: this.code,
+            expiration: new Date(this.date),
+            productId,
+            value: Number(this.number),
+
+        };
+
+        try {
+            await saveGiftCard(data);
+            // toast.success("Product saved!", { id: toastId });
+
+            // setTimeout(() => {
+            //     if (!props.redirect) return;
+
+            //     navigate(props.redirect);
+            // }, 1500);
+        } catch (err) {
+            console.error("Failed to create gift card:", err);
+            // alert("Error creating product");
+            // toast.error("Product could not save!", { id: toastId });
+            throw new Error("Gift card could not save!");
+        }
+        this.reset();
         return true;
     }
 

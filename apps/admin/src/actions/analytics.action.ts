@@ -1,4 +1,3 @@
-import { FetchedOrder } from "@gamezone/db";
 
 export async function getTopProducts() {
   // Fake delay
@@ -40,7 +39,7 @@ export async function getTopProducts() {
   ];
 }
 
-export async function getInvoiceTableData(): Promise<FetchedOrder> {
+export async function getInvoiceTableData() {
     // Fake delay
     // await new Promise((resolve) => setTimeout(resolve, 1400));
 

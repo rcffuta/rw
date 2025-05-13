@@ -9,8 +9,9 @@ export default function ProductPageRoot({ children }: PropsWithChildren) {
             <TableListTab
                 pageName="Books"
                 createLink="/products/books/add"
+                createLinkLabel="Add Book Product"
             />
             {children}
         </>
-    )
+    );
 }
