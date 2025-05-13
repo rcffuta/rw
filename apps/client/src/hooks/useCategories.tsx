@@ -2,7 +2,6 @@
 
 import { getCategoryList } from "@/actions/category.action";
 import { useEffect, useState } from "react";
-import toast from "react-hot-toast";
 
 export type Option = {
     label: string;
@@ -29,7 +28,7 @@ export function useCategoryOption() {
 
                 setOptions(() => opts);
             } catch (error: any) {
-                toast.error(error.message || "Could not load categories");
+                console.error(error);
             }
         }
 
