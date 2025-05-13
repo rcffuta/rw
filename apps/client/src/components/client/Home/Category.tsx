@@ -11,7 +11,7 @@ import { CategoryIcon } from "@/components/Common/Icons";
 import { observer } from "mobx-react-lite";
 import { getCategoryList } from "@/actions/category.action";
 import toast from "react-hot-toast";
-import { ProductImage } from "@gamezone/lib";
+import { CategoryImage } from "@gamezone/lib";
 import { CategoryItem } from "db/actions";
 
 function CategorList () {
@@ -41,8 +41,7 @@ function CategorList () {
 
             try {
 
-                const data = await getCategoryList();
-    
+                const data = await getCategoryList();    
                 setCategories(()=>data);
             } catch(error) {
                 console.error("Error Loading Categories", error);
@@ -157,7 +156,7 @@ const SingleItem = ({ item }: { item: CategoryItem }) => {
   return (
       <a href="#" className="group flex flex-col items-center max-w-[130px] w-svw">
           <div className="w-full bg-[#f2f3f856] h-32.5 rounded-full flex items-center justify-center mb-4 overflow-hidden">
-              <ProductImage src={item.image} alt="Category" width={82} height={62} />
+              <CategoryImage src={item.image} alt={item.name} width={82} height={62} />
           </div>
 
           <div className="flex justify-center">

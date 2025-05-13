@@ -9,7 +9,9 @@ import { CrossIcon } from "@/components/Common/Icons";
 import toast from "react-hot-toast";
 import { observer } from "mobx-react-lite";
 import cartStore from "@/lib/store/cartStore";
-import { useFormatCurrency } from "@gamezone/lib";
+import { useFormatCurrency, useNavigate } from "@gamezone/lib";
+import authStore from "@/lib/store/authStore";
+import { CHECKOUT, SIGNIN } from "@/constants";
 
 const CartSidebarModal = observer(() => {
     const { isCartModalOpen, closeCartModal } = useCartModalContext();
@@ -17,6 +19,10 @@ const CartSidebarModal = observer(() => {
     const cartItems = cartStore.items;
 
     const totalPrice = cartStore.totalPrice;
+
+    const isAuthenticated = authStore.isAuthenticated;
+
+    const { redirect } = useNavigate();
 
     useEffect(() => {
       // closing modal while clicking outside
@@ -89,12 +95,17 @@ const CartSidebarModal = observer(() => {
                 </Link>
 
                 <Link
-                  href="/checkout"
+                  href={CHECKOUT}
                   onClick={(e)=>{
                     if(totalPrice === 0) {
                       e.preventDefault();
                       const toastId = "emptyCart";
                       toast.error("Your Cart is empty", {id: toastId})
+                    }
+
+                    if (!isAuthenticated) {
+                      e.preventDefault();
+                      redirect(SIGNIN);
                     }
                     closeCartModal();
                   }}

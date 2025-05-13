@@ -6,6 +6,7 @@ import PromoSection from "@/components/client/Home/PromoBanner";
 import { Metadata } from "next";
 import { Suspense } from "react";
 import { ProductListSkeleton } from "@/components/client/Shop/ProductSkeleton";
+import { CategoryHighlightWrapper } from "@/components/Common/CategoryHighlight";
 
 export const metadata: Metadata = {
     title: "Home | GameZone",
@@ -19,13 +20,21 @@ export default function HomePage() {
           <Hero />
           <CategorList />
           
-          <Suspense fallback={<ProductListSkeleton/>}>
+          <Suspense fallback={
+            <CategoryHighlightWrapper>
+              <ProductListSkeleton/>
+            </CategoryHighlightWrapper>
+          }>
             <BooksProductHighlight />
           </Suspense>
           
           <PromoSection />
           
-          <Suspense fallback={<ProductListSkeleton/>}>
+          <Suspense fallback={
+            <CategoryHighlightWrapper>
+              <ProductListSkeleton/>
+            </CategoryHighlightWrapper>
+          }>
             <GameProductHighlight />
           </Suspense>
           <br/>

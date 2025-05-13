@@ -11,7 +11,7 @@ export async function BooksProductHighlight() {
         <CategoryHighlight
             ctaLink={"#"}
             ctaText="View More"
-            data={data.slice(1,10)}
+            data={data}
             subTitle="Books available for you"
             title="Books"
         />
@@ -25,7 +25,7 @@ export async function GameProductHighlight() {
         <CategoryHighlight
             ctaLink={"#"}
             ctaText="View More"
-            data={data.slice(1, 10)}
+            data={data}
             subTitle="Games available for you"
             title="Games"
         />

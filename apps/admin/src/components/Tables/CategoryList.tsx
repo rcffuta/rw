@@ -1,5 +1,4 @@
 
-import Image from "next/image";
 import { TableRowItem } from "../ui/types";
 import {
     Table,
@@ -9,12 +8,11 @@ import {
     TableHeader,
     TableRow,
 } from "../ui/table";
-import { Categories, FullCategory, Product } from "@gamezone/db";
+import { FullCategory } from "@gamezone/db";
 import { TableSkeleton } from "../ui/table-skeleton";
 
-import { formatTimeFromNow } from "@/utils/format-time";
-import { compactFormat, standardFormat } from "@/utils/format-number";
-import { CategoryImage, ProductImage } from "@gamezone/lib";
+import { compactFormat } from "@/utils/format-number";
+import { CategoryImage } from "@gamezone/lib";
 
 const tableHeads: TableRowItem[] = [
     {

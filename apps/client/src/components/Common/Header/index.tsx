@@ -105,7 +105,7 @@ const HeaderTop = observer(({
 
                 {/* <!-- header top right --> */}
                 <div className="flex w-full lg:w-auto items-center gap-7.5">
-                    <div className="hidden xl:flex items-center gap-3.5">
+                    {/* <div className="hidden xl:flex items-center gap-3.5">
                         <PhoneIcon />
 
                         <div>
@@ -116,10 +116,10 @@ const HeaderTop = observer(({
                                 {phoneNumber}
                             </p>
                         </div>
-                    </div>
+                    </div> */}
 
                     {/* <!-- divider --> */}
-                    <span className="hidden xl:block w-px h-7.5 bg-gray-4"></span>
+                    {/* <span className="hidden xl:block w-px h-7.5 bg-gray-4"></span> */}
 
                     <div className="flex w-full lg:w-auto justify-between items-center gap-5">
                         <div className="flex items-center gap-5">

@@ -9,7 +9,7 @@ import {
     TableHeader,
     TableRow,
 } from "../ui/table";
-import { Product } from "@gamezone/db";
+import { ProductItem as Product } from "@gamezone/db";
 import { TableSkeleton } from "../ui/table-skeleton";
 
 import { formatTimeFromNow } from "@/utils/format-time";

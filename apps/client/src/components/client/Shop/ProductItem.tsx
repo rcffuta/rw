@@ -4,7 +4,7 @@ import { useModalContext } from "@/context/QuickViewModalContext";
 import Link from "next/link";
 import { StarRating, ViewProductIcon, WishListIcon } from "../../Common/Icons";
 import { FullProduct } from "@gamezone/db";
-import { CustomImage, useFormatCurrency } from "@gamezone/lib";
+import { ProductImage, useFormatCurrency } from "@gamezone/lib";
 import { useProductAction } from "@/hooks/useProduct";
 
 export default function ProductItem({ item }: { item: FullProduct }) {
@@ -21,8 +21,8 @@ export default function ProductItem({ item }: { item: FullProduct }) {
     return (
         <div className="group">
             <div className="relative overflow-hidden flex items-center justify-center rounded-lg bg-white shadow-1 min-h-[270px] mb-4">
-                <CustomImage
-                    src={item.images?.at(0)}
+                <ProductImage
+                    src={item.images.at(0)}
                     alt={item.title + " " + "Photo"}
                 />
 
@@ -57,7 +57,7 @@ export default function ProductItem({ item }: { item: FullProduct }) {
                 </div>
             </div>
 
-            {item.reviews.length === 0 ? null : (
+            {(item.reviews || [])?.length === 0 ? null : (
                 <div className="flex items-center gap-2.5 mb-2">
                     <StarRating rate={item.reviews.length} />
 

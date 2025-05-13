@@ -66,9 +66,8 @@ export function ProductImage({
     alt,
     fallbackSrc = "/assets/fallback.svg",
     className = "",
-    width = 50,
-    height = 50,
-    role
+    width = 200,
+    height = 200,
 }: CustomImageProps) {
     const [isLoaded, setLoaded] = useState(false);
     const [error, setError] = useState(false);
@@ -91,7 +90,6 @@ export function ProductImage({
             )}
             width={width}
             height={height}
-            role={role}
         />
     );
 }
@@ -101,8 +99,8 @@ export function CategoryImage({
     alt,
     fallbackSrc = "/assets/fallback.svg",
     className = "",
-    width = 50,
-    height = 50,
+    width = 120,
+    height = 120,
     role,
 }: CustomImageProps) {
     const [isLoaded, setLoaded] = useState(false);
@@ -126,7 +124,7 @@ export function CategoryImage({
             )}
             width={width}
             height={height}
-            role={role}
+            // role={role}
         />
     );
 }

@@ -4,12 +4,13 @@ import Link from "next/link";
 import { UserIcon } from "../Icons";
 import authStore from "@/lib/store/authStore";
 import { observer } from "mobx-react-lite";
+import { HASH, SIGNIN } from "@/constants";
 
 export const UserHighlight = observer(() => {
     const user = authStore.user;
     const isAuthenticated = authStore.isAuthenticated;
 
-    const link = isAuthenticated ? "/account" : "/signin";
+    const link = isAuthenticated ? HASH : SIGNIN;
     const title = user ? user?.username : "Sign In";
 
     return (

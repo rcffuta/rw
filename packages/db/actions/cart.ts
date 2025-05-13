@@ -1,9 +1,10 @@
 import { prisma } from "../client";
+import { FullOrder, OrdStatus } from "./types";
 
 // ✅ Get all items in a user's cart
 export async function getUserCart(userId: number) {
     return prisma.order.findMany({
-        where: { userId, status: "cart" },
+        where: { userId, status: OrdStatus.cart },
         include: { product: true }
     });
 }
@@ -14,7 +15,7 @@ export async function addToCart(userId: number, productId: number, quantity: num
     where: {
       userId,
       productId,
-      status: "cart"
+      status: OrdStatus.cart
     }
   });
 
@@ -30,9 +31,43 @@ export async function addToCart(userId: number, productId: number, quantity: num
       userId,
       productId,
       quantity,
-      status: "cart"
+      status: OrdStatus.cart
     }
   });
+}
+
+
+export async function updateCart(userId: number, items: FullOrder[]) {
+  for (const item of items) {
+
+    if (!item.id){
+      addToCart(userId, item.productId, item.quantity);
+      return;
+    }
+    
+    await prisma.order.upsert({
+      where: {
+        id: item.id,
+        userId,
+        productId: item.productId,
+        status: OrdStatus.cart,
+        // userId,
+        // productId: item.productId,
+        // userId_productId: {
+        // },
+      },
+      update: {
+        quantity: item.quantity,
+      },
+      create: {
+        userId,
+        productId: item.productId,
+        quantity: item.quantity,
+        status: OrdStatus.cart
+        // add other fields if needed
+      },
+    });
+  }
 }
 
 // ✅ Update cart item quantity
@@ -41,7 +76,7 @@ export async function updateCartItem(userId: number, productId: number, quantity
     where: {
       userId,
       productId,
-      status: "cart"
+      status: OrdStatus.cart
     },
     data: { quantity }
   });
@@ -53,7 +88,7 @@ export async function removeFromCart(userId: number, productId: number) {
     where: {
       userId,
       productId,
-      status: "cart"
+      status: OrdStatus.cart
     }
   });
 }
@@ -63,7 +98,7 @@ export async function clearCart(userId: number) {
   return prisma.order.deleteMany({
     where: {
       userId,
-      status: "cart"
+      status: OrdStatus.cart
     }
   });
 }
@@ -73,7 +108,7 @@ export async function checkoutCart(userId: number) {
   return prisma.order.updateMany({
     where: {
       userId,
-      status: "cart"
+      status: OrdStatus.cart
     },
     data: {
       status: "paid"

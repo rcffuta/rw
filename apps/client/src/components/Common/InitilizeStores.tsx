@@ -7,11 +7,13 @@ import { useEffect } from "react";
 
 function InitializeStores() {
 
-    useEffect(()=>{
+    useEffect(() => {
         (()=>{
-            cartStore.reloadCart();
+            if (authStore.user) {
+                cartStore.reloadCart();
+            }
         })()
-    }, [])
+    }, [authStore.user]);
     return null;
 }
 
