@@ -1,8 +1,11 @@
-import { Book, Category, Game, Order, Payment, Product, Review, Wishlist } from "../generated/client"
+import { Book, Category, Game, GiftCard, Order, Payment, Product, Review, Wishlist } from "../generated/client"
 
 export {OrderStatus as OrdStatus } from "../generated/client";
 
 export type ProductFormData = Omit<Product, "id"|"createdAt">
+export type GameProductFormData = Omit<Game, "id"|"createdAt">
+export type BookProductFormData = Omit<Book, "id"|"createdAt">
+export type GiftCardProductFormData = Omit<GiftCard, "id"|"createdAt">
 export type CategoryFormData = Omit<Category, "id">
 // export type FetchedOrder = (Order & {items: OrderItem[]})[];
 

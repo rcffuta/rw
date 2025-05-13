@@ -14,7 +14,18 @@ export const createGiftCard = async (data: {
   value: number;
   expiration: Date;
 }) => {
-  return await prisma.giftCard.create({ data });
+  return await prisma.giftCard.create({
+    data: {
+      code: data.code,
+      value: data.value,
+      expiration: data.expiration,
+      product: {
+        connect: {
+          id: data.productId,
+        },
+      },
+    },
+  });
 };
 
 export const updateGiftCard = async (id: number, data: Partial<Parameters<typeof createGiftCard>[0]>) => {

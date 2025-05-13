@@ -1,56 +1,104 @@
+"use client";
 
 import InputGroup from "@/components/FormElements/InputGroup";
 import { ShowcaseSection } from "@/components/Layouts/showcase-section";
 import { Select } from "../FormElements/select";
 import DatePickerOne from "../FormElements/DatePicker/DatePickerOne";
+import ProductWrapperForm from "./ProductFormWrapper";
+import ProductForm from "./ProductForm";
+import { observer } from "mobx-react-lite";
+import productStore from "@/store/productStore";
+import toast from "react-hot-toast";
+import { useNavigate } from "@gamezone/lib";
 
-export function GameProductForm() {
+
+const redirect = "/products/games";
+
+const gameOptions = [{ label: "Personal Computer games", value: "PC" }];
+
+
+const MainProductForm = observer(() => {
   return (
-    <ShowcaseSection title="Enter Game Product Info" className="!p-6.5">
-      <form action="#">
-        {/* <InputGroup
-          label="Email"
-          type="email"
-          placeholder="Enter your email address"
-          className="mb-4.5"
-        /> */}
+      <ShowcaseSection title="Enter Game Product Info" className="!p-6.5">
+          <Select
+              label="Platform"
+              placeholder="Select game platform"
+              className="mb-4.5"
+              items={gameOptions}
+              value={productStore.platform}
+              handleChange={(e) =>
+                  productStore.setField("platform", e.target.value)
+              }
+              required
+          />
 
-        <Select
-          label="Platform"
-          placeholder="Select game platform"
-          className="mb-4.5"
-          items={[{ label: "Personal Computer games", value: "PC" }]}
-        />
+          <InputGroup
+              label="Genre"
+              type="text"
+              placeholder="Enter game genre"
+              // className="w-full xl:w-1/2"
+              className="mb-4.5"
+              value={productStore.genre}
+              handleChange={(e) =>
+                  productStore.setField("genre", e.target.value)
+              }
+              required
+          />
 
-        <Select
-          label="Category"
-          placeholder="Select game category"
-          className="mb-4.5"
-          items={[{ label: "Category 1", value: "cat1" }]}
-        />
-
-        <InputGroup
-          label="Genre"
-          type="text"
-          placeholder="Enter game genre"
-          // className="w-full xl:w-1/2"
-          className="mb-4.5"
-        />
-
-        <DatePickerOne title="Release Date" />
-        <br/><br/>
-        {/* <div className="mb-5.5 mt-5 flex items-center justify-between"> */}
-          {/* <Checkbox label="Remember me" minimal withBg withIcon="check" />
-
-          <Link href="#" className="text-body-sm text-primary hover:underline">
-            Forgot password?
-          </Link> */}
-        {/* </div> */}
-
-        <button className="flex w-full justify-center rounded-lg bg-primary p-[13px] font-medium text-white hover:bg-opacity-90">
-          Sign In
-        </button>
-      </form>
-    </ShowcaseSection>
+          <DatePickerOne
+              title="Release Date"
+              value={productStore.releaseDate}
+              onChange={(date) => {
+                  productStore.setField("releaseDate", date?.toString() || "");
+              }}
+              required
+          />
+      </ShowcaseSection>
   );
+})
+
+
+export default function GameProductForm() {
+
+    const {navigate} = useNavigate();
+
+
+    return (
+        <ProductWrapperForm handleSubmit={async (e)=>{
+            const toastId = "formSaveToast";
+            e.preventDefault();
+
+            toast.loading("Saving product...", { id: toastId });
+
+            let product;
+
+            try {
+                product = await productStore.saveProduct();
+            } catch (err) {
+                toast.error("Product could not save!", { id: toastId });
+
+                return;
+            }
+
+            try {
+                await productStore.saveGameProduct(product.id);
+            } catch (err) {
+                toast.error("Game could not save!", { id: toastId });
+                return;
+            }
+
+            toast.success("Saved product", { id: toastId });
+
+            setTimeout(() => {
+                if (!redirect) return;
+
+                navigate(redirect);
+            }, 1500);
+        }}>
+            <ProductForm />
+
+            <MainProductForm/>
+
+        </ProductWrapperForm>
+    )
 }

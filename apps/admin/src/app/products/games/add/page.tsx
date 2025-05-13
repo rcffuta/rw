@@ -1,5 +1,4 @@
-import { GameProductForm } from "@/components/Product/GameProductForm";
-import { ProductForm } from "@/components/Product/ProductForm";
+import GameProductForm from "@/components/Product/GameProductForm";
 import Breadcrumb from "@/components/ui/BreadCrumb";
 
 import type { Metadata } from "next";
@@ -27,11 +26,7 @@ export default function Page() {
               ]}
           />
 
-          <div className="grid grid-cols-1 gap-9 sm:grid-cols-2">
-              <ProductForm redirect="/products/games" />
-
-              <GameProductForm />
-          </div>
+          <GameProductForm/>
       </>
   );
 }

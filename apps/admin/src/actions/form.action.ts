@@ -1,6 +1,6 @@
 "use server";
 
-import {createProduct, ProductFormData} from "@gamezone/db";
+import {BookProductFormData, createBook, createGame, createGiftCard, createProduct, GameProductFormData, GiftCardProductFormData, ProductFormData} from "@gamezone/db";
 
 export async function saveProduct(data: ProductFormData) {
     const product = await createProduct({
@@ -14,7 +14,19 @@ export async function saveProduct(data: ProductFormData) {
 
     // return product;
 
-    console.dir(data);
+    // console.dir(data);
     return product;
     
+}
+
+export async function saveGame(data: GameProductFormData) {
+    return await createGame(data);
+}
+
+export async function saveBook(data: BookProductFormData) {
+    return await createBook(data);
+}
+
+export async function saveGiftCard(data: GiftCardProductFormData) {
+    return await createGiftCard(data);
 }

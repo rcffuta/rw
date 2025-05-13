@@ -16,7 +16,20 @@ export const createBook = async (data: {
   pages: number;
   language: string;
 }) => {
-  return await prisma.book.create({ data });
+  return await prisma.book.create({
+    data: {
+      author: data.author,
+      genre: data.genre,
+      isbn: data.isbn,
+      pages: data.pages,
+      language: data.language,
+      product: {
+        connect: {
+          id: data.productId,
+        },
+      },
+    },
+  });
 };
 
 export const updateBook = async (id: number, data: Partial<Parameters<typeof createBook>[0]>) => {

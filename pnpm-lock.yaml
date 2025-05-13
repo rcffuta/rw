@@ -207,7 +207,14 @@ importers:
         specifier: ^5.8.3
         version: 5.8.3
 
-  packages/lib: {}
+  packages/lib:
+    dependencies:
+      '@gamezone/db':
+        specifier: workspace:*
+        version: link:../db
+      react-hot-toast:
+        specifier: ^2.5.2
+        version: 2.5.2(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
 
 packages:
 
