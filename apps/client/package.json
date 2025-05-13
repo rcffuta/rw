@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build",
-    "build:dev": "next build",
+    "build:vercel": "prisma generate && prisma migrate deploy && next build",
     "start": "next start",
     "lint": "next lint"
   },
@@ -15,7 +15,6 @@
     "@gamezone/lib": "workspace:*",
     "@hookform/resolvers": "^5.0.1",
     "@prisma/client": "6.7.0",
-    "@prisma/nextjs-monorepo-workaround-plugin": "^6.7.0",
     "@tailwindcss/aspect-ratio": "^0.4.2",
     "i": "^0.3.7",
     "lodash.debounce": "^4.0.8",
