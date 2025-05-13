@@ -119,5 +119,9 @@ export function ProductTable(props: ProductListProps) {
 }
 
 export function ProductTableSkeleton() {
-    return <TableSkeleton title={TableLabel} tableHeads={tableHeads} />;
+    return (
+        <div className="max-w-[750px] mx-auto rounded-[10px] border border-stroke bg-white p-4 shadow-1 dark:border-dark-3 dark:bg-gray-dark dark:shadow-card sm:p-7.5">
+            <TableSkeleton title={TableLabel} tableHeads={tableHeads} />
+        </div>
+    );
 }

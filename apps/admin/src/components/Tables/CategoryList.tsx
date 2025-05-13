@@ -109,6 +109,6 @@ export function CategoryTable(props: Props) {
     );
 }
 
-export function ProductTableSkeleton() {
+export function CategoryTableSkeleton() {
     return <TableSkeleton title={TableLabel} tableHeads={tableHeads} />;
 }
