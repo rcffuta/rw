@@ -46,7 +46,7 @@ const OrderSummary = observer(() => {
                           <div>
                               <p className="text-dark text-right">
                                   {parseFigure(
-                                      item.product.price * item.quantity
+                                      (item.product.discountedPrice || item.product.price) * item.quantity
                                   )}
                               </p>
                           </div>

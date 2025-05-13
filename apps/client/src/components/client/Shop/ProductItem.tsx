@@ -5,12 +5,12 @@ import Link from "next/link";
 import { StarRating, ViewProductIcon, WishListIcon } from "../../Common/Icons";
 import { FullProduct } from "@gamezone/db";
 import { ProductImage, useFormatCurrency } from "@gamezone/lib";
-import { useProductAction } from "@/hooks/useProduct";
+import { useProduct, useProductAction } from "@/hooks/useProduct";
 
 export default function ProductItem({ item }: { item: FullProduct }) {
     const { openModal } = useModalContext();
 
-    const parseFigure = useFormatCurrency();
+    const { priceText, discountedPriceText, isDiscount } = useProduct(item);
 
     const {
         handleQuickViewUpdate,
@@ -69,14 +69,18 @@ export default function ProductItem({ item }: { item: FullProduct }) {
                 <Link href={`/shop/${item.id}`}> {item.title} </Link>
             </h3>
 
-            <span className="flex items-center gap-2 font-medium text-lg">
-                <span className="text-dark">{parseFigure(item.price)}</span>
-                {item.discountedPrice > 0 && (
+            {isDiscount ? (
+                <span className="flex items-center gap-2 font-medium text-lg">
+                    <span className="text-dark">{discountedPriceText}</span>
                     <span className="text-dark-4 line-through">
-                        {parseFigure(item.discountedPrice)}
+                        {priceText}
                     </span>
-                )}
-            </span>
+                </span>
+            ) : (
+                <span className="flex items-center gap-2 font-medium text-lg">
+                    <span className="text-dark">{priceText}</span>
+                </span>
+            )}
         </div>
     );
 };

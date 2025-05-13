@@ -34,7 +34,7 @@ class CartStore {
 
     get totalPrice() {
         return this._items.reduce((total, item) => {
-            return total + item.product.price * item.quantity;
+            return total + (item.product.discountedPrice || item.product.price) * item.quantity;
         }, 0);
     }
 

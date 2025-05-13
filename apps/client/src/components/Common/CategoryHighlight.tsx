@@ -11,12 +11,13 @@ type CategoryHighlightProps = {
     ctaText: string;
     ctaLink: string;
     data: FullProduct[] | FullBookProduct[] | FullGameProduct[];
+    maxDisplay?: number;
 };
 
 
 export default function CategoryHighlight(props: CategoryHighlightProps) {
 
-    const {title, subTitle, ctaLink, ctaText, data} = props;
+    const {title, subTitle, ctaLink, ctaText, data, maxDisplay=12} = props;
 
     
     return (
@@ -44,7 +45,7 @@ export default function CategoryHighlight(props: CategoryHighlightProps) {
             {/* <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-7.5"> */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-7.5 gap-y-9">
                 {/* <!-- Best Sellers item --> */}
-                {data.map((item, key) => (
+                {data.slice(0, maxDisplay).map((item, key) => (
                     <ProductDisplay item={(item as any).product} key={key} />
                     // <ProductCardSkeleton key={key} />
                 ))}

@@ -9,6 +9,7 @@ import { observer } from "mobx-react-lite";
 import EmptyCart from "./EmptyCart";
 import { FullOrder } from "db/actions";
 import toast from "react-hot-toast";
+import { useProduct } from "@/hooks/useProduct";
 
 
 const CartTable = observer(({items}:{items: FullOrder[]}) => {

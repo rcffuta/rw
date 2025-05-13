@@ -75,22 +75,28 @@ export function ProductImage({
     const validSrc = error || !src ? fallbackSrc : src;
 
     return (
-        <Image
-            src={validSrc}
-            alt={alt}
-            onLoad={() => setLoaded(true)}
-            onError={() => setError(true)}
-            className={clsx(
-                "object-contain object-center transition-opacity duration-500",
-                {
-                    "opacity-0": !isLoaded,
-                    "opacity-100": isLoaded,
-                },
-                className
-            )}
-            width={width}
-            height={height}
-        />
+        <div
+            style={{ width, height }}
+            className="relative flex items-center justify-center overflow-hidden"
+        >
+
+            <Image
+                src={validSrc}
+                alt={alt}
+                onLoad={() => setLoaded(true)}
+                onError={() => setError(true)}
+                className={clsx(
+                    "object-contain transition-opacity duration-500",
+                    {
+                        "opacity-0": !isLoaded,
+                        "opacity-100": isLoaded,
+                    },
+                    className
+                )}
+                width={width}
+                height={height}
+            />
+        </div>
     );
 }
 

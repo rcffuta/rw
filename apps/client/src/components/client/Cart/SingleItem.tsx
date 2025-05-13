@@ -4,21 +4,26 @@ import cartStore from "@/lib/store/cartStore";
 import { MinusIcon, PlusIcon, TrashIcon } from "@/components/Common/Icons";
 import toast from "react-hot-toast";
 import { ProductImage, useFormatCurrency } from "@gamezone/lib";
+import { useProduct } from "@/hooks/useProduct";
+import Link from "next/link";
+import { SHOP } from "@/constants";
 
 const SingleItem = ({ item }: {item: FullOrder}) => {
   // const [quantity, setQuantity] = useState(item.quantity);
 
-  const parseFigure = useFormatCurrency();
+  const { priceText, getOrderPrice } = useProduct(item.product);
+
+  const orderPrice = getOrderPrice(item);
 
   return (
       <div className="flex items-center border-t border-gray-3 py-5 px-7.5">
           <div className="min-w-[400px]">
               <div className="flex items-center justify-between gap-5">
-                  <div className="w-full flex items-center gap-5.5">
+                  <div className="w-full flex items-center gap-5.5 my-5">
                       <div className="flex items-center justify-center rounded-[5px] bg-gray-2 max-w-[80px] w-full h-17.5">
                           <ProductImage
-                              width={200}
-                              height={200}
+                              width={100}
+                              height={100}
                               src={item.product.images?.at(0)}
                               alt={item.product.title}
                           />
@@ -26,7 +31,7 @@ const SingleItem = ({ item }: {item: FullOrder}) => {
 
                       <div>
                           <h3 className="text-dark ease-out duration-200 hover:text-blue">
-                              <a href="#"> {item.product.title} </a>
+                              <Link href={`${SHOP}/${item.productId}`}> {item.product.title} </Link>
                           </h3>
                       </div>
                   </div>
@@ -34,7 +39,7 @@ const SingleItem = ({ item }: {item: FullOrder}) => {
           </div>
 
           <div className="min-w-[180px]">
-              <p className="text-dark">{parseFigure(item.product.price)}</p>
+              <p className="text-dark">{priceText}</p>
           </div>
 
           <div className="min-w-[275px]">
@@ -84,9 +89,7 @@ const SingleItem = ({ item }: {item: FullOrder}) => {
           </div>
 
           <div className="min-w-[200px]">
-              <p className="text-dark">
-                  {parseFigure(item.product.price * item.quantity)}
-              </p>
+              <p className="text-dark">{orderPrice.amountText}</p>
           </div>
 
           <div className="min-w-[50px] flex justify-end">
