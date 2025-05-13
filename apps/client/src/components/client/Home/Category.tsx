@@ -11,8 +11,8 @@ import { CategoryIcon } from "@/components/Common/Icons";
 import { observer } from "mobx-react-lite";
 import { getCategoryList } from "@/actions/category.action";
 import toast from "react-hot-toast";
-import { ProductImage } from "@/components/Common/CustomImage";
 import { Category } from "db/index";
+import { ProductImage } from "@gamezone/lib";
 
 function CategorList () {
     const sliderRef = useRef(null);

@@ -6,7 +6,7 @@ import { useModalContext } from "@/context/QuickViewModalContext";
 import Link from "next/link";
 import Image from "next/image";
 import { useProductAction } from "@/hooks/useProduct";
-import CustomImage from "@/components/Common/CustomImage";
+import { CustomImage } from "@gamezone/lib";
 
 const SingleListItem = ({ item }: { item: FullProduct }) => {
   const { openModal } = useModalContext();

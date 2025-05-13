@@ -4,8 +4,7 @@ import { useModalContext } from "@/context/QuickViewModalContext";
 import Link from "next/link";
 import { StarRating, ViewProductIcon, WishListIcon } from "../../Common/Icons";
 import { FullProduct, Product } from "@gamezone/db";
-import { useFormatCurrency } from "@gamezone/lib";
-import CustomImage from "@/components/Common/CustomImage";
+import { CustomImage, useFormatCurrency } from "@gamezone/lib";
 import { useProductAction } from "@/hooks/useProduct";
 
 export default function ProductItem({ item }: { item: FullProduct }) {

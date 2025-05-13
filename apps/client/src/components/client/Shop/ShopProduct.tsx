@@ -3,8 +3,8 @@
 import { FullProduct } from "@gamezone/db";
 
 import { Cta, Price, ProductGallery, Rating } from "./utils";
-import { ProductImage } from "@/components/Common/CustomImage";
 import { useState } from "react";
+import { ProductImage } from "@gamezone/lib";
 
 
 function ShopProductInformation() {

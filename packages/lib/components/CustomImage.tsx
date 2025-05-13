@@ -19,7 +19,7 @@ const shimmer = `
   bg-gradient-to-r from-gray-300 via-gray-100 to-gray-300 animate-pulse
 `;
 
-export default function CustomImage({
+export function CustomImage({
     src,
     alt,
     fallbackSrc = "/assets/fallback.svg",

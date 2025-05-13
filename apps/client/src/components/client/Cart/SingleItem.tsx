@@ -1,10 +1,9 @@
 import React from "react";
 import { FullOrder } from "db/actions";
-import { ProductImage } from "@/components/Common/CustomImage";
 import cartStore from "@/lib/store/cartStore";
 import { MinusIcon, PlusIcon, TrashIcon } from "@/components/Common/Icons";
 import toast from "react-hot-toast";
-import { useFormatCurrency } from "@gamezone/lib";
+import { ProductImage, useFormatCurrency } from "@gamezone/lib";
 
 const SingleItem = ({ item }: {item: FullOrder}) => {
   // const [quantity, setQuantity] = useState(item.quantity);

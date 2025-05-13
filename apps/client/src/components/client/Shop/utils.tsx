@@ -1,12 +1,12 @@
 "use client";
 
-import { ProductImage } from "@/components/Common/CustomImage";
 import { FullScreenIcon, MinusIcon, PlusIcon, Star, StockCheck, WishListIcon2 } from "@/components/Common/Icons";
 import { usePreviewSlider } from "@/context/PreviewSliderContext";
 import { useProductAction } from "@/hooks/useProduct";
 import cartStore from "@/lib/store/cartStore";
 import wishlistStore from "@/lib/store/wishlistStore";
 import { FullProduct, Review } from "@gamezone/db";
+import { ProductImage } from "@gamezone/lib";
 import clsx from "clsx";
 import { observer } from "mobx-react-lite";
 import { useState } from "react";
