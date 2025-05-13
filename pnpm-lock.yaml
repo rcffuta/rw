@@ -17,6 +17,9 @@ importers:
       clsx:
         specifier: ^2.1.1
         version: 2.1.1
+      jsonwebtoken:
+        specifier: ^9.0.2
+        version: 9.0.2
       mobx:
         specifier: ^6.13.7
         version: 6.13.7
@@ -33,6 +36,9 @@ importers:
         specifier: 19.0.0
         version: 19.0.0(react@19.0.0)
     devDependencies:
+      '@types/jsonwebtoken':
+        specifier: ^9.0.9
+        version: 9.0.9
       '@types/node':
         specifier: ^22
         version: 22.15.14
@@ -99,9 +105,6 @@ importers:
       flatpickr:
         specifier: ^4.6.13
         version: 4.6.13
-      jsonwebtoken:
-        specifier: ^9.0.2
-        version: 9.0.2
       jsvectormap:
         specifier: ^1.6.0
         version: 1.6.0
@@ -124,9 +127,6 @@ importers:
         specifier: ^11.1.0
         version: 11.1.0
     devDependencies:
-      '@types/jsonwebtoken':
-        specifier: ^9.0.9
-        version: 9.0.9
       dotenv-cli:
         specifier: ^8.0.0
         version: 8.0.0
