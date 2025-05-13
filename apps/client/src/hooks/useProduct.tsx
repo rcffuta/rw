@@ -30,7 +30,8 @@ function sum(numbers: number[]): number {
 
 
 function determinePrice(item: ProductItem) {
-    if (item.discountedPrice > 0) return item.discountedPrice;
+    if (item.discountedPrice < item.discountedPrice)
+        return item.discountedPrice;
 
     return item.price;
 }
