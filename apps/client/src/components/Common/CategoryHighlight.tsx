@@ -2,7 +2,6 @@ import Link from "next/link";
 import { ShopIcon } from "./Icons";
 import { FullBookProduct, FullGameProduct, FullProduct } from "@gamezone/db"
 import ProductItem from "../client/Shop/ProductItem";
-import { ProductCardSkeleton } from "../client/Shop/ProductSkeleton";
 
 
 type CategoryHighlightProps = {

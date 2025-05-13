@@ -11,13 +11,13 @@ import { CategoryIcon } from "@/components/Common/Icons";
 import { observer } from "mobx-react-lite";
 import { getCategoryList } from "@/actions/category.action";
 import toast from "react-hot-toast";
-import { Category } from "db/index";
 import { ProductImage } from "@gamezone/lib";
+import { CategoryItem } from "db/actions";
 
 function CategorList () {
     const sliderRef = useRef(null);
 
-    const [categories, setCategories] = useState<Category[] | null>(null);
+    const [categories, setCategories] = useState<CategoryItem[] | null>(null);
 
     const handlePrev = useCallback(() => {
         if (!sliderRef.current) return;
@@ -153,7 +153,7 @@ function CategorList () {
 export default observer(CategorList)
 
 
-const SingleItem = ({ item }: { item: Category }) => {
+const SingleItem = ({ item }: { item: CategoryItem }) => {
   return (
       <a href="#" className="group flex flex-col items-center max-w-[130px] w-svw">
           <div className="w-full bg-[#f2f3f856] h-32.5 rounded-full flex items-center justify-center mb-4 overflow-hidden">

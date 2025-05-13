@@ -1,7 +1,6 @@
 "use server"
 
-import { addToCart, checkoutCart, clearCart, FullOrder, getUserCart, removeFromCart, updateCartItem } from "db/actions"
-import { Order } from "db/index";
+import { addToCart, checkoutCart, clearCart, FullOrder, getUserCart, OrderItem, removeFromCart, updateCartItem } from "@gamezone/db"
 
 export async function saveCartItemToDb() {
 
@@ -11,7 +10,7 @@ export async function loadCart(userId: number): Promise<FullOrder[]> {
     return await getUserCart(userId);
 }
 
-export async function addProductToCart(userId: number, productId: number, quantity: number = 1): Promise<Order> {
+export async function addProductToCart(userId: number, productId: number, quantity: number = 1): Promise<OrderItem> {
     return await addToCart(userId, productId, quantity);
 }
 

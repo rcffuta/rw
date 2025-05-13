@@ -2,8 +2,7 @@
 import { clearAllInWishList, deleteFromWishList, loadWishList, saveWishList } from "@/actions/wishlist.action";
 import { makeAutoObservable } from "mobx";
 import authStore from "./authStore";
-import { FullWishList } from "db/actions";
-import { Product } from "db/index";
+import { FullWishList, ProductItem } from "db/actions";
 
 export type WishListItem = {
     id: number;
@@ -36,7 +35,7 @@ class WishlistStore {
         }
     }
 
-    async addItem(product: Product) {
+    async addItem(product: ProductItem) {
         const existingItem = this.items.find((i) => i.productId === product.id);
 
         if (existingItem) {

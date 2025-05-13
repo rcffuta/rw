@@ -3,7 +3,7 @@ import React from "react";
 import { useModalContext } from "@/context/QuickViewModalContext";
 import Link from "next/link";
 import { StarRating, ViewProductIcon, WishListIcon } from "../../Common/Icons";
-import { FullProduct, Product } from "@gamezone/db";
+import { FullProduct } from "@gamezone/db";
 import { CustomImage, useFormatCurrency } from "@gamezone/lib";
 import { useProductAction } from "@/hooks/useProduct";
 

@@ -5,7 +5,7 @@ import { usePreviewSlider } from "@/context/PreviewSliderContext";
 import { useProductAction } from "@/hooks/useProduct";
 import cartStore from "@/lib/store/cartStore";
 import wishlistStore from "@/lib/store/wishlistStore";
-import { FullProduct, Review } from "@gamezone/db";
+import { FullProduct, ReviewItem } from "@gamezone/db";
 import { ProductImage } from "@gamezone/lib";
 import clsx from "clsx";
 import { observer } from "mobx-react-lite";
@@ -180,7 +180,7 @@ export function Price({product}:{product: FullProduct}) {
     );
 }
 
-export function Rating({reviews, className}:{reviews: Review[], className?:string}) {
+export function Rating({reviews, className}:{reviews: ReviewItem[], className?:string}) {
     if (reviews.length === 0) return null;
 
     return (

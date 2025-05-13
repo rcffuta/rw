@@ -4,13 +4,10 @@ import React, { useEffect, useState } from "react";
 import { useModalContext } from "@/context/QuickViewModalContext";
 import { usePreviewSlider } from "@/context/PreviewSliderContext";
 import productStore from "@/lib/store/productStore";
-import cartStore from "@/lib/store/cartStore";
 import { observer } from "mobx-react-lite";
 import { useProductAction } from "@/hooks/useProduct";
-import { CrossIcon2, FullScreenIcon, MinusIcon, PlusIcon, Star, StockCheck, WishListIcon2 } from "./Icons";
-import { FullProduct, Review } from "@gamezone/db";
+import { CrossIcon2, FullScreenIcon } from "./Icons";
 import { ProductImage } from "@gamezone/lib/components/CustomImage";
-import wishlistStore from "@/lib/store/wishlistStore";
 import { Cta, Price, Rating } from "../client/Shop/utils";
 
 

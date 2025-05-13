@@ -8,9 +8,15 @@ import {
   updateProductInCart 
 } from "@/actions/cart.action";
 
-import { FullOrder, OrderStatus, Product } from "@gamezone/db";
+
+import { FullOrder, ProductItem } from "@gamezone/db";
 import { makeAutoObservable, runInAction } from "mobx";
 import authStore from "./authStore";
+
+
+// type FullOrder = any;
+// type OrdStatus = any;
+// type ProductItem = any;
 
 class CartStore {
     items: FullOrder[] = [];
@@ -26,17 +32,19 @@ class CartStore {
     }
 
     async reloadCart() {
+        if (!authStore.user) return;
+
         try {
-        const orders = await loadCart(authStore.user.id);
-        runInAction(() => {
-            this.items = orders;
-        });
+            const orders = await loadCart(authStore.user.id);
+            runInAction(() => {
+                this.items = orders;
+            });
         } catch (err) {
-        console.error("Failed to reload cart:", err);
+            console.error("Failed to reload cart:", err);
         }
     }
 
-    async addItemToCart(product: Product, quantity: number = 1) {
+    async addItemToCart(product: ProductItem, quantity: number = 1) {
         const existing = this.items.find(i => i.productId === product.id);
 
         if (existing) {
@@ -51,7 +59,7 @@ class CartStore {
                 userId: 0,
                 quantity: 0,
                 product,
-                status: OrderStatus.cart,
+                status: "cart",
                 productId: product.id,
                 createdAt: new Date(),
                 updatedAt: new Date(),

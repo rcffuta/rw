@@ -1,9 +1,8 @@
 "use client";
 
-import { getCategories, getCategoryList } from "@/actions/category.action";
+import { getCategories } from "@/actions/category.action";
 import { ChevronUpIcon } from "@/components/Icons";
 import { cn } from "@/utils/utils";
-import { CategoryItem } from "@gamezone/db";
 import { useEffect, useId, useState } from "react";
 
 

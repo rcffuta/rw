@@ -1,7 +1,9 @@
 
-import { User } from "@gamezone/db";
+import { UserItem } from "@gamezone/db";
 import { wait } from "@gamezone/lib";
 import { makeAutoObservable } from "mobx";
+
+type User = UserItem;
 
 class AuthStore {
     user: User = null;

@@ -1,8 +1,8 @@
 "use server";
 
-import { Category, FullBookProduct, FullGameProduct, getAllBooks, getAllCategories, getAllGames } from "@gamezone/db";
+import { CategoryItem, FullBookProduct, FullGameProduct, getAllBooks, getAllCategories, getAllGames } from "@gamezone/db";
 
-export async function getCategoryList(): Promise<Category[]> {
+export async function getCategoryList(): Promise<CategoryItem[]> {
     return await getAllCategories();
 }
 

@@ -1,10 +1,9 @@
 "use client";
 import React from "react";
-import { FullProduct, Product } from "@gamezone/db";
+import { FullProduct } from "@gamezone/db";
 import { useModalContext } from "@/context/QuickViewModalContext";
 import Link from "next/link";
-import Image from "next/image";
-import { StarRating, ViewProductIcon, WishListIcon } from "../../Common/Icons";
+import { ViewProductIcon, WishListIcon } from "../../Common/Icons";
 import { useProductAction } from "@/hooks/useProduct";
 import { CustomImage } from "@gamezone/lib";
 

@@ -2,7 +2,7 @@
 import cartStore from "@/lib/store/cartStore";
 import productStore from "@/lib/store/productStore";
 import wishlistStore from "@/lib/store/wishlistStore";
-import { FullProduct, Product } from "@gamezone/db";
+import { FullProduct } from "@gamezone/db";
 import { useMemo } from "react";
 import toast from "react-hot-toast";
 

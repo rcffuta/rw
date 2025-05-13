@@ -1,7 +1,7 @@
 "use server"
 
 import { CreateAccountFormData } from "@/lib/validators/auth.validator";
-import { authenticateUser, createUser } from "@gamezone/db/actions";
+import { authenticateUser, createUser } from "@gamezone/db";
 import { isEmpty } from "@gamezone/lib";
 
 

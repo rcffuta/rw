@@ -1,16 +1,16 @@
 // stores/ProductStore.ts
 import { makeAutoObservable } from "mobx";
-import { FullProduct, Product } from "@gamezone/db";
+import { FullProduct, ProductItem } from "@gamezone/db";
 
 class ProductStore {
   quickView: FullProduct | null = null; //this.createEmptyProduct();
-  productDetails: Product | null = null; //this.createEmptyProduct();
+  productDetails: ProductItem | null = null; //this.createEmptyProduct();
 
   constructor() {
     makeAutoObservable(this);
   }
 
-  private createEmptyProduct(): Product {
+  private createEmptyProduct(): ProductItem {
     return {
       id: 0,
       title: "",
@@ -31,7 +31,7 @@ class ProductStore {
     this.quickView = null; //this.createEmptyProduct();
   }
 
-  updateProductDetails(product: Product) {
+  updateProductDetails(product: ProductItem) {
     this.productDetails = { ...product };
   }
 }

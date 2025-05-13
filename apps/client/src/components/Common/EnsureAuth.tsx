@@ -1,7 +1,6 @@
 "use client";
 
-import { useNavigate } from "@gamezone/lib";
-import { isEmpty } from "@/utils/functions";
+import { isEmpty, useNavigate } from "@gamezone/lib";
 import { PropsWithChildren, useEffect } from "react";
 import PreLoader from "./PreLoader";
 import authStore from "@/lib/store/authStore";
