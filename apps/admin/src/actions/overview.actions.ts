@@ -7,23 +7,23 @@ export async function getOverviewData() {
     return {
         sales: {
             label: "Total Sales",
-            value: 3456,
-            growthRate: 0.43,
+            value: 0,
+            growthRate: 0,
         },
         orders: {
             label:"Orders",
-            value: 4220,
-            growthRate: 4.35,
+            value: 0,
+            growthRate: 0,
         },
         avgOrder: {
             label: "Avg. Order Value",
-            value: 3456,
-            growthRate: 2.59,
+            value: 0,
+            growthRate: 0,
         },
         converserion: {
             label: "Conversion Rate",
-            value: 3456,
-            growthRate: -0.95,
+            value: 0,
+            growthRate: 0,
         },
     };
 }

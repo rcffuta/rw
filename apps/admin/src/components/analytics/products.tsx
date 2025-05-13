@@ -31,6 +31,9 @@ const TableLabel = "Top Sales";
 export async function TopSellingProducts({ className }: { className?: string }) {
   const data = await getTopProducts();
 
+
+  if (data.length < 1) return null;
+
   return (
     <div
       className={cn(
