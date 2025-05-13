@@ -820,7 +820,7 @@ export default function ShopProduct({product}:{product: FullProduct}) {
                             </h2>
                         </div>
 
-                        <Rating className="mb-4.5" reviews={product.reviews} />
+                        {/* <Rating className="mb-4.5" reviews={product.reviews} /> */}
 
                         <br />
                         <Price product={product} />

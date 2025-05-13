@@ -1,4 +1,4 @@
-import { Book, Category,OrderStatus, Game, GiftCard, Order, Payment, Product, Review, User, Wishlist } from "../generated/client"
+import { Book, Category,OrderStatus, Game, GiftCard, Order, Payment, Product, User, Wishlist } from "../generated/client"
 
 export const OrdStatus = {
     ...OrderStatus
@@ -14,7 +14,7 @@ export type CategoryFormData = Omit<Category, "id">
 export type UserItem = User;
 
 export type ProductItem = Product;
-export type FullProduct = Product & {category: Category | null} & {reviews: Review[]}
+export type FullProduct = Product & {category: Category | null};
 
 export type FullBookProduct = Book & {product: Product};
 export type FullGameProduct = Game & {product: Product};
@@ -28,5 +28,3 @@ export type FullOrderWithPayment = Order & {product: Product} & {payment: Paymen
 export type Categories = Category[] ;
 export type CategoryItem = Category;
 export type FullCategory = Category & {products: Product[]} ;
-
-export type ReviewItem = Review;

@@ -21,8 +21,8 @@ model User {
   updatedAt   DateTime @updatedAt
 
   // Relations
-  orders  Order[]
-  reviews Review[]
+  orders Order[]
+  // reviews     Review[]
 
   Wishlist Wishlist[]
 
@@ -40,7 +40,7 @@ model Product {
   categoryId      Int?
   // type            ProductType
   createdAt       DateTime  @default(now())
-  reviews         Review[]
+  // reviews         Review[]
   game            Game?
   giftCard        GiftCard?
   book            Book?
@@ -89,14 +89,14 @@ model Category {
   image    String
 }
 
-model Review {
-  id        Int     @id @default(autoincrement())
-  content   String
-  productId Int
-  product   Product @relation(fields: [productId], references: [id])
+// model Review {
+//   id       Int      @id @default(autoincrement())
+//   content  String
+//   productId Int
+//   product   Product @relation(fields: [productId], references: [id])
 
-  User User[]
-}
+//   User User[]
+// }
 
 // model OrderItem {
 //   id          Int      @id @default(autoincrement())

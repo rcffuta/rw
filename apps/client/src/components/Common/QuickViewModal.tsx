@@ -133,7 +133,7 @@ const QuickViewModal = observer(() => {
                             <Price product={product} />
                             <br />
 
-                            <Rating reviews={product.reviews} />
+                            {/* <Rating reviews={product.reviews} /> */}
                             <br />
 
                             <p>{product.description}</p>

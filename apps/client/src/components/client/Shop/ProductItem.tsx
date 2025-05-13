@@ -57,13 +57,13 @@ export default function ProductItem({ item }: { item: FullProduct }) {
                 </div>
             </div>
 
-            {(item.reviews || [])?.length === 0 ? null : (
+            {/* {(item.reviews || [])?.length === 0 ? null : (
                 <div className="flex items-center gap-2.5 mb-2">
                     <StarRating rate={item.reviews.length} />
 
                     <p className="text-custom-sm">({item.reviews.length})</p>
                 </div>
-            )}
+            )} */}
 
             <h3 className="font-medium text-dark ease-out duration-200 hover:text-blue mb-1.5">
                 <Link href={`/shop/${item.id}`}> {item.title} </Link>

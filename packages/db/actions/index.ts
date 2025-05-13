@@ -3,7 +3,6 @@ export * from './game';
 export * from './giftCard';
 export * from './book';
 export * from './category';
-export * from './review';
 export * from './order';
 export * from './cart';
 export * from './payment';

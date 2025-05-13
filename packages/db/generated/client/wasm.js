@@ -174,12 +174,6 @@ exports.Prisma.CategoryScalarFieldEnum = {
   image: 'image'
 };
 
-exports.Prisma.ReviewScalarFieldEnum = {
-  id: 'id',
-  content: 'content',
-  productId: 'productId'
-};
-
 exports.Prisma.OrderScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
@@ -243,7 +237,6 @@ exports.Prisma.ModelName = {
   GiftCard: 'GiftCard',
   Book: 'Book',
   Category: 'Category',
-  Review: 'Review',
   Order: 'Order',
   Wishlist: 'Wishlist',
   Payment: 'Payment'

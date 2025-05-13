@@ -2,11 +2,11 @@ import { prisma } from "../client";
 import { FullProduct, ProductFormData } from "./types";
 
 export const getAllProducts = async ():Promise<FullProduct[]> => {
-  return await prisma.product.findMany({ include: { category: true, reviews: true } });
+  return await prisma.product.findMany({ include: { category: true } });
 };
 
 export const getProductById = async (id: number): Promise<FullProduct | null> => {
-  return await prisma.product.findUnique({ where: { id }, include: { category: true, reviews: true } });
+  return await prisma.product.findUnique({ where: { id }, include: { category: true } });
 };
 
 export const createProduct = async (data: ProductFormData) => {
