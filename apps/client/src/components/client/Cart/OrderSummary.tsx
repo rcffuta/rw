@@ -1,15 +1,15 @@
 import { CHECKOUT } from "@/constants";
+import { getOrderSummary } from "@/hooks/useProduct";
 import cartStore from "@/lib/store/cartStore";
-import { useFormatCurrency } from "@gamezone/lib";
+
 import { observer } from "mobx-react-lite";
 import Link from "next/link";
 import React from "react";
 
 const OrderSummary = observer(() => {
   const cartItems = cartStore.items;
-  const totalPrice = cartStore.totalPrice;
 
-  const parseFigure = useFormatCurrency();
+  const orderSummary = getOrderSummary(cartItems);
 
   return (
       <div className="lg:max-w-[455px] w-full">
@@ -35,19 +35,21 @@ const OrderSummary = observer(() => {
                   </div>
 
                   {/* <!-- product item --> */}
-                  {cartItems.map((item, key) => (
+                  {orderSummary.summary.map((item, key) => (
                       <div
                           key={key}
                           className="flex items-center justify-between py-5 border-b border-gray-3"
                       >
                           <div>
-                              <p className="text-dark">{item.product.title} {item.quantity > 1 ?`(x${item.quantity})`: null}</p>
+                              <p className="text-dark">
+                                    {
+                                        item.title
+                                    }
+                              </p>
                           </div>
                           <div>
                               <p className="text-dark text-right">
-                                  {parseFigure(
-                                      (item.product.discountedPrice || item.product.price) * item.quantity
-                                  )}
+                                  {item.amountText}
                               </p>
                           </div>
                       </div>
@@ -60,7 +62,7 @@ const OrderSummary = observer(() => {
                       </div>
                       <div>
                           <p className="font-medium text-lg text-dark text-right">
-                              {parseFigure(totalPrice)}
+                              {orderSummary.orderTotal}
                           </p>
                       </div>
                   </div>

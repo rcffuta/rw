@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import { FullOrder } from "db/actions";
 import cartStore from "@/lib/store/cartStore";
@@ -7,13 +9,14 @@ import { ProductImage, useFormatCurrency } from "@gamezone/lib";
 import { useProduct } from "@/hooks/useProduct";
 import Link from "next/link";
 import { SHOP } from "@/constants";
+import { observer } from "mobx-react-lite";
 
-const SingleItem = ({ item }: {item: FullOrder}) => {
+const SingleItem = observer(({ item }: {item: FullOrder}) => {
   // const [quantity, setQuantity] = useState(item.quantity);
 
-  const { priceText, getOrderPrice } = useProduct(item.product);
+  const { priceText, getOrderItemPrice } = useProduct(item.product);
 
-  const orderPrice = getOrderPrice(item);
+  const orderPrice = getOrderItemPrice(item);
 
   return (
       <div className="flex items-center border-t border-gray-3 py-5 px-7.5">
@@ -106,6 +109,6 @@ const SingleItem = ({ item }: {item: FullOrder}) => {
           </div>
       </div>
   );
-};
+});
 
 export default SingleItem;

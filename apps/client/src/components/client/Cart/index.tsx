@@ -12,7 +12,7 @@ import toast from "react-hot-toast";
 import { useProduct } from "@/hooks/useProduct";
 
 
-const CartTable = observer(({items}:{items: FullOrder[]}) => {
+const CartTable = ({items}:{items: FullOrder[]}) => {
   return (
     <section className="overflow-hidden py-20 bg-gray-2">
       <div className="max-w-[1170px] w-full mx-auto px-4 sm:px-8 xl:px-0">
@@ -75,7 +75,7 @@ const CartTable = observer(({items}:{items: FullOrder[]}) => {
       </div>
     </section>
   )
-});
+};
 
 const Cart = observer(() => {
   const cartItems = cartStore.items;

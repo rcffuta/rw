@@ -3,8 +3,8 @@
 import cartStore from "@/lib/store/cartStore";
 import productStore from "@/lib/store/productStore";
 import wishlistStore from "@/lib/store/wishlistStore";
-import { FullProduct, OrderItem, ProductItem } from "@gamezone/db";
-import { useFormatCurrency } from "@gamezone/lib";
+import { FullOrder, FullProduct, OrderItem, ProductItem } from "@gamezone/db";
+import { formatCurrency, useFormatCurrency } from "@gamezone/lib";
 import { useCallback, useMemo } from "react";
 import toast from "react-hot-toast";
 
@@ -15,13 +15,56 @@ type OrderPrice = {
 }
 
 type OrderSummary = {
-    [k: string]: OrderPrice;
+    orderTotal: number;
+    summary: {
+        title: string;
+        amount: number;
+        amountText: string;
+    }[]
 };
 
 
 function sum(numbers: number[]): number {
     return numbers.reduce((total, num) => total + num, 0);
 }
+
+
+function determinePrice(item: ProductItem) {
+    if (item.discountedPrice > 0) return item.discountedPrice;
+
+    return item.price;
+}
+
+function getOrderPrice(order: FullOrder) {
+    const total = determinePrice(order.product) * order.quantity;
+
+    return {
+        amount: total,
+        amountText: formatCurrency(total)
+    };
+}
+
+
+export function getOrderSummary(orders: FullOrder[]): OrderSummary {
+    return orders.reduce(
+        (acc, order): OrderSummary => {
+            const ordPrice = getOrderPrice(order);
+
+            acc.orderTotal = acc.orderTotal + ordPrice.amount;
+            acc.summary.push({
+                ...ordPrice,
+                title: `${order.product.title} ${order.quantity > 1 ? `(x${order.quantity})` : ""}`,
+            });
+
+            return acc;
+        },
+        {
+            orderTotal: 0,
+            summary: [],
+        }
+    );
+};
+
 
 export function useProductAction(item: FullProduct) {
     const handleQuickViewUpdate = () => {
@@ -98,27 +141,21 @@ export function useProductAction(item: FullProduct) {
 }
 
 
-export function useProduct(item: ProductItem) {
+export function useProduct(product: ProductItem) {
 
-    const {price:normalPrice, discountedPrice, ...rest} = item;
+    const { price: normalPrice, discountedPrice, ...rest } = product;
 
     const parseFigure = useFormatCurrency();
 
-    function determinePrice(item: ProductItem) {
-        if (item.discountedPrice > 0) return item.discountedPrice;
-
-        return item.price;
-    }
-
     const price = useMemo(()=>{
-        return determinePrice(item);
+        return determinePrice(product);
     }, [normalPrice, discountedPrice])
 
     const isDiscount = useMemo(()=>{
         return (discountedPrice < normalPrice)
     }, [normalPrice, discountedPrice])
 
-    const getOrderPrice = useCallback((order: OrderItem)=>{
+    const getOrderItemPrice = useCallback((order: OrderItem)=>{
         const total = price * order.quantity;
 
         return {
@@ -130,46 +167,13 @@ export function useProduct(item: ProductItem) {
 
     },[price, discountedPrice]);
 
-    const getAnyOrderPrice = useCallback((order: OrderItem, item: ProductItem): OrderPrice =>{
-        const total = determinePrice(item) * order.quantity;
-
-        return {
-            amount: total,
-
-            amountText: parseFigure(total)
-
-        }
-
-    },[price, discountedPrice])
-
-    const getOrderSummary = useCallback((orders: OrderItem[])=>{
-        let sumTotal = 0;
-        const totals: OrderSummary = orders.reduce((acc, val) => {
-            const tot = getAnyOrderPrice(val, item);
-
-            sumTotal += tot.amount;
-
-            return {
-                ...acc,
-                [val.productId]: tot.amountText,
-            };
-        }, {} as OrderSummary);
-
-        return {
-            total: sumTotal,
-            totals
-        }
-
-    },[])
-
     return {
         price,
         discountedPrice,
         priceText: parseFigure(price),
         discountedPriceText: parseFigure(price),
         isDiscount,
-        getOrderPrice,
-        getOrderSummary,
+        getOrderItemPrice,
         ...rest,
     };
 }
