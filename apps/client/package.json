@@ -6,8 +6,8 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
-    "build:vercel": "pnpm --filter @gamezone/db exec prisma generate --schema=packages/db/schema.prisma && next build"
+    "build:vercel": "pnpm --filter @gamezone/db exec prisma generate --schema=packages/db/schema.prisma && next build",
+    "lint": "next lint"
   },
   "dependencies": {
     "@gamezone/auth": "workspace:*",
