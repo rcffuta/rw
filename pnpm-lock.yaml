@@ -99,6 +99,9 @@ importers:
       flatpickr:
         specifier: ^4.6.13
         version: 4.6.13
+      jsonwebtoken:
+        specifier: ^9.0.2
+        version: 9.0.2
       jsvectormap:
         specifier: ^1.6.0
         version: 1.6.0
@@ -121,6 +124,9 @@ importers:
         specifier: ^11.1.0
         version: 11.1.0
     devDependencies:
+      '@types/jsonwebtoken':
+        specifier: ^9.0.9
+        version: 9.0.9
       dotenv-cli:
         specifier: ^8.0.0
         version: 8.0.0
