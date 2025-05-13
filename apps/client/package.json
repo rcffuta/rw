@@ -5,9 +5,9 @@
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build",
-    "build:vercel": "prisma generate && prisma migrate deploy && next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "build:vercel": "prisma --schema=../../packages/db/schema.prisma generate && next build"
   },
   "dependencies": {
     "@gamezone/auth": "workspace:*",
