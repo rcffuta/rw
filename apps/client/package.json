@@ -6,7 +6,7 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "build:vercel": "pnpm --filter @gamezone/db exec prisma generate && next build",
+    "build:vercel": "pnpm --filter @gamezone/db exec prisma generate && pnpm build",
     "lint": "next lint",
     "db:push:dev": "pnpm --filter @gamezone/db exec -- prisma db push",
     "db:migrate:dev": "pnpm --filter @gamezone/db exec -- prisma migrate dev",
