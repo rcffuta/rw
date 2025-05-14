@@ -3,29 +3,72 @@
 import { addToCart, checkoutCart, clearCart, FullOrder, getUserCart, OrderItem, removeFromCart, updateCart, updateCartItem } from "@gamezone/db"
 
 export async function saveCartItemToDb(user:number, items: FullOrder[]) {
-    return await updateCart(user, items);
+    try {
+
+        return await updateCart(user, items);
+    } catch (err) {
+        console.error(err);
+
+        throw new Error("Could not save cart item");
+    }
 }
 
 export async function loadCart(userId: number): Promise<FullOrder[]> {
-    return await getUserCart(userId);
+    try {
+
+        return await getUserCart(userId);
+    } catch (err) {
+        console.error(err);
+        throw new Error("Could not load cart");
+    }
 }
 
 export async function addProductToCart(userId: number, productId: number, quantity: number = 1): Promise<OrderItem> {
-    return await addToCart(userId, productId, quantity);
+    try {
+
+        return await addToCart(userId, productId, quantity);
+    } catch (err){
+        console.error(err);
+        throw new Error("Could not add product to cart");
+    }
 }
 
 export async function removeProductFromCart(userId: number, productId: number) {
-    return await removeFromCart(userId, productId);
+    try {
+
+        return await removeFromCart(userId, productId);
+    } catch (err) {
+        console.error(err);
+        throw new Error("Could not remove product from cart");
+    }
 }
 
 export async function clearProductFromCart(userId: number) {
-    return await clearCart(userId);
+    try {
+
+        return await clearCart(userId);
+    } catch (err) {
+        console.error(err);
+        throw new Error("Could not clear Cart");
+    }
 }
 
 export async function updateProductInCart(userId: number, productId: number, quantity: number){
-    return await updateCartItem(userId, productId, quantity);
+    try {
+
+        return await updateCartItem(userId, productId, quantity);
+    } catch(err){
+        console.error(err);
+        throw new Error("Could not Update product in Cart");
+    }
 }
 
 export async function checkoutProduct(userId: number){
-    return await checkoutCart(userId);
+    try {
+
+        return await checkoutCart(userId);
+    } catch(err) {
+        console.error(err);
+        throw new Error("Could not checkout product");
+    }
 }

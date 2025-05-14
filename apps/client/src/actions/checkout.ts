@@ -172,9 +172,20 @@ export const checkoutAction = async (data: CheckoutConfig) => {
 };
 
 export const markPaymentPaid = async (ref: string) => {
-    await verifyAndMarkPayment(ref, "completed");
+    try {
+
+        await verifyAndMarkPayment(ref, "completed");
+    } catch (err) {
+        console.error(err);
+        throw new Error("Could not verify payment");
+    }
 }
 
 export const markPaymentFailed = async (ref: string) => {
-    await verifyAndMarkPayment(ref, "failed");
+    try {
+        await verifyAndMarkPayment(ref, "failed");
+    } catch (err) {
+        console.error(err);
+        throw new Error("Could not update payment");
+    }
 }

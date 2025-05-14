@@ -5,8 +5,10 @@ import Hero from "@/components/client/Home/Hero";
 import PromoSection from "@/components/client/Home/PromoBanner";
 import { Metadata } from "next";
 import { Suspense } from "react";
-import { ProductListSkeleton } from "@/components/client/Shop/ProductSkeleton";
-import { CategoryHighlightWrapper } from "@/components/Common/CategoryHighlight";
+import { CategoryHighlightWrapper, ProductListSkeleton } from "@/components/Common/ProductUtils";
+
+
+const maxDisplay = 12;
 
 export const metadata: Metadata = {
     title: "Home | GameZone",
@@ -19,25 +21,29 @@ export default function HomePage() {
       <main>
           <Hero />
           <CategorList />
-          
-          <Suspense fallback={
-            <CategoryHighlightWrapper>
-              <ProductListSkeleton/>
-            </CategoryHighlightWrapper>
-          }>
-            <BooksProductHighlight />
+
+          <Suspense
+              fallback={
+                  <CategoryHighlightWrapper>
+                      <ProductListSkeleton length={maxDisplay} />
+                  </CategoryHighlightWrapper>
+              }
+          >
+              <BooksProductHighlight maxDisplay={maxDisplay}/>
           </Suspense>
-          
+
           <PromoSection />
-          
-          <Suspense fallback={
-            <CategoryHighlightWrapper>
-              <ProductListSkeleton/>
-            </CategoryHighlightWrapper>
-          }>
-            <GameProductHighlight />
+
+          <Suspense
+              fallback={
+                  <CategoryHighlightWrapper>
+                      <ProductListSkeleton length={maxDisplay} />
+                  </CategoryHighlightWrapper>
+              }
+          >
+              <GameProductHighlight maxDisplay={maxDisplay}/>
           </Suspense>
-          <br/>
+          <br />
           {/* <CounDown /> */}
           {/* <Testimonials /> */}
           <Newsletter />

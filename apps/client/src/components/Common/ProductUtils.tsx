@@ -1,21 +1,22 @@
 import Link from "next/link";
 import { ShopIcon } from "./Icons";
-import { FullBookProduct, FullGameProduct, FullProduct } from "@gamezone/db"
+import { ProductItem } from "@gamezone/db"
 import ProductDisplay from "../client/Shop/ProductItem";
 import { PropsWithChildren } from "react";
 
 
-type CategoryHighlightProps = {
+
+export type CategoryHighlightProps<T extends ProductItem = ProductItem> = {
     title: string;
     subTitle: string;
     ctaText: string;
     ctaLink: string;
-    data: FullProduct[] | FullBookProduct[] | FullGameProduct[];
+    data: T[];
     maxDisplay?: number;
 };
 
 
-export default function CategoryHighlight(props: CategoryHighlightProps) {
+export function CategoryHighlight(props: CategoryHighlightProps) {
 
     const {title, subTitle, ctaLink, ctaText, data, maxDisplay=12} = props;
 
@@ -72,4 +73,51 @@ export function CategoryHighlightWrapper(props: PropsWithChildren) {
             </div>
         </section>
     )
+}
+
+export function ProductCardSkeleton() {
+    return (
+        <div className="group animate-pulse">
+            {/* Image area */}
+            <div className="relative overflow-hidden flex items-center justify-center rounded-lg bg-gray-2 min-h-[270px] mb-4">
+                {/* fake image */}
+            </div>
+
+            {/* Buttons area */}
+            <div className="flex items-center justify-center gap-2.5 pb-5">
+                <div className="w-9 h-9 rounded-[5px] bg-gray-2"></div>
+                <div className="w-24 h-9 rounded-[5px] bg-gray-2"></div>
+                <div className="w-9 h-9 rounded-[5px] bg-gray-2"></div>
+            </div>
+
+            {/* Ratings */}
+            <div className="flex items-center gap-2.5 mb-2">
+                <div className="w-20 h-4 bg-gray-2 rounded"></div>
+                <div className="w-10 h-4 bg-gray-2 rounded"></div>
+            </div>
+
+            {/* Title */}
+            <div className="h-5 w-3/4 bg-gray-2 rounded mb-1.5"></div>
+
+            {/* Price */}
+            <div className="flex items-center gap-2">
+                <div className="w-16 h-5 bg-gray-2 rounded"></div>
+                <div className="w-12 h-5 bg-gray-2 rounded"></div>
+            </div>
+        </div>
+    );
+}
+
+export function ProductListSkeleton({ length = 12 }: { length?: number }) {
+    return (
+        <>
+            {/* <!-- Products Grid Tab Content Start --> */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-7.5 gap-y-9">
+                {Array.from({ length }).map((item, key) => (
+                    <ProductCardSkeleton key={key} />
+                ))}
+            </div>
+            {/* <!-- Products Grid Tab Content End --> */}
+        </>
+    );
 }
