@@ -18,6 +18,18 @@
     xl:translate-y-10 xl:opacity-0 xl:invisible xl:absolute xl:flex
     xl:group-hover:opacity-100 xl:group-hover:visible;
   }
+
+  .product-display {
+    @apply hover:shadow-md p-1 hover:bg-gray-1 hover:rounded-lg ease-out duration-200;
+  }
+
+  .product-display:hover .product-thumbmail {
+    @apply bg-transparent shadow-none;
+  }
+
+  .product-thumbmail {
+    @apply bg-white shadow-1 ease-out duration-200;
+  }
 }
 
 @layer utilities {
@@ -33,6 +45,7 @@
 }
 
 /* third-party libraries CSS */
+
 
 /* clears the ‘X’ from Internet Explorer */
 input[type='search']::-ms-clear {

@@ -47,7 +47,7 @@ export function CategoryHighlight(props: CategoryHighlightProps) {
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-7.5 gap-y-9">
                 {/* <!-- Best Sellers item --> */}
                 {data.slice(0, maxDisplay).map((item, key) => (
-                    <ProductDisplay item={(item as any).product} key={key} />
+                    <ProductDisplay item={item} key={key} />
                     // <ProductCardSkeleton key={key} />
                 ))}
             </div>

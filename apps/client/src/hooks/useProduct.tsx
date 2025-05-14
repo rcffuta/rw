@@ -153,7 +153,7 @@ export function useProduct(product: ProductItem) {
     }, [normalPrice, discountedPrice])
 
     const isDiscount = useMemo(()=>{
-        return (discountedPrice < normalPrice)
+        return (discountedPrice > 0) && (discountedPrice < normalPrice)
     }, [normalPrice, discountedPrice])
 
     const getOrderItemPrice = useCallback((order: OrderItem)=>{
@@ -172,7 +172,7 @@ export function useProduct(product: ProductItem) {
         price,
         discountedPrice,
         priceText: parseFigure(price),
-        discountedPriceText: parseFigure(price),
+        discountedPriceText: parseFigure(discountedPrice),
         isDiscount,
         getOrderItemPrice,
         ...rest,

@@ -16,8 +16,8 @@ export default function ProductDisplayItem({ item }: { item: ProductItem }) {
         useProductAction(item);
 
     return (
-        <div className="group">
-            <div className="relative overflow-hidden flex items-center justify-center rounded-lg bg-white shadow-1 min-h-[270px] mb-4">
+        <div className="group product-display">
+            <div className="product-thumbmail relative overflow-hidden flex items-center justify-center rounded-lg min-h-[270px] mb-4">
                 <ProductImage
                     src={item.images.at(0)}
                     alt={item.title + " " + "Photo"}
@@ -62,22 +62,25 @@ export default function ProductDisplayItem({ item }: { item: ProductItem }) {
                 </div>
             )} */}
 
-            <h3 className="font-medium text-dark ease-out duration-200 hover:text-blue mb-1.5">
-                <Link href={`/shop/${item.id}`}> {item.title} </Link>
-            </h3>
+            <Link
+                href={`/shop/${item.id}`}
+                className="block text-dark font-medium text-center ease-out duration-200 hover:text-blue mb-1.5"
+            >
+                <h3>{item.title}</h3>
 
-            {isDiscount ? (
-                <span className="flex items-center gap-2 font-medium text-lg">
-                    <span className="text-dark">{discountedPriceText}</span>
-                    <span className="text-dark-4 line-through">
+                {isDiscount ? (
+                    <span className="text-2xl">
+                        <b>{discountedPriceText}</b>{" "}
+                        <small className="text-dark-4 line-through">
+                            {priceText}
+                        </small>
+                    </span>
+                ) : (
+                    <span className="text-dark gap-2 font-medium  text-2xl">
                         {priceText}
                     </span>
-                </span>
-            ) : (
-                <span className="flex items-center gap-2 font-medium text-lg">
-                    <span className="text-dark">{priceText}</span>
-                </span>
-            )}
+                )}
+            </Link>
         </div>
     );
 };
