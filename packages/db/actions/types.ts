@@ -14,7 +14,7 @@ export type CategoryFormData = Omit<Category, "id">
 export type UserItem = User;
 
 export type ProductItem = Product;
-export type FullProduct = Product & {category: Category | null};
+export type ProductWithCategory = Product & {category: Category | null};
 
 export type FullBookProduct = Book & {product: Product};
 export type FullGameProduct = Game & {product: Product};

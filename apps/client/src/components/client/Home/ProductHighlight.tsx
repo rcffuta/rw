@@ -2,7 +2,7 @@ import React from "react";
 import {
     CategoryHighlight, CategoryHighlightProps
 } from "@/components/Common/ProductUtils";
-import { getBookProducts, getGameProducts, } from "@/actions/category.action";
+import { getBookProducts, getGameProducts, } from "@/actions/product.action";
 import { FullBookProduct, FullGameProduct } from "db/actions";
 import ToastFeedback from "@/components/Common/ToastFeedback";
 
@@ -16,7 +16,7 @@ export async function BooksProductHighlight(props: Props) {
 
         data = await getBookProducts();
     } catch(err: any) {
-        return <ToastFeedback message={err.message || "Error!"} id="bookHighlightToast"/>
+        return <ToastFeedback message={err.message || "Error!"} id="bookHighlightToast" type="error"/>
     }
 
     if (data.length < 1) return null;
@@ -43,6 +43,7 @@ export async function GameProductHighlight(props: Props) {
             <ToastFeedback
                 message={err.message || "Error!"}
                 id="gameHighlightToast"
+                type="error"
             />
         );
     }

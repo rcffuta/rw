@@ -1,90 +1,111 @@
 "use client";
 
-import { useContactForm } from "@/hooks/useForm";
+import { FormWrapper } from "@/components/Common/Form/FormUtils";
+import InputField, { FormError } from "@/components/Common/Form/InputField";
+import TextareaField from "@/components/Common/Form/TextareaField";
+import { ContactFormData, contactSchema } from "@/lib/validators/contact.validator";
+import { wait } from "@gamezone/lib";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 
 export default function ContactForm() {
-    const { handleSubmitContactForm } = useContactForm();
+
+    const toastID = "contactToast";
+
+    const {
+        register,
+        handleSubmit,
+        formState: { errors, isSubmitting: loading },
+    } = useForm<ContactFormData>({
+        resolver: zodResolver(contactSchema),
+    });
+
+
+    const onSubmit = async (data: ContactFormData) => {
+        try {
+            // TODO: Send message login here
+            // toast.success("Your message was sent!", {
+            //     id: toastID,
+            //     duration: 3500,
+            // });
+
+            await wait(0.9);
+            throw new Error("Not Implemented!");
+        } catch (err) {
+            console.error("Login failed:", err);
+            toast.error(err.message || "Could not send your message", {
+                id: toastID,
+            });
+        }
+    };
+
+
     return (
-        <form onSubmit={handleSubmitContactForm}>
-            <div className="flex flex-col lg:flex-row gap-5 sm:gap-8 mb-5">
-                <div className="w-full">
-                    <label htmlFor="firstName" className="block mb-2.5">
-                        First Name <span className="text-red">*</span>
-                    </label>
+        <form onSubmit={handleSubmit(onSubmit)}>
+            <FormError error={errors.root?.message} />
 
-                    <input
-                        type="text"
-                        name="firstName"
-                        id="firstName"
-                        placeholder="Jhon"
-                        className="rounded-md border border-gray-3 bg-gray-1 placeholder:text-dark-5 w-full py-2.5 px-5 outline-none duration-200 focus:border-transparent focus:shadow-input focus:ring-2 focus:ring-blue/20"
-                    />
-                </div>
+            <FormWrapper>
+                <InputField
+                    className="w-full"
+                    label="First name"
+                    type="text"
+                    placeholder="Enter your first name"
+                    error={errors.firstname?.message}
+                    {...register("firstname")}
+                    required
+                />
 
-                <div className="w-full">
-                    <label htmlFor="lastName" className="block mb-2.5">
-                        Last Name <span className="text-red">*</span>
-                    </label>
+                <InputField
+                    className="w-full"
+                    label="Last name"
+                    type="text"
+                    placeholder="Enter your last name"
+                    error={errors.lastname?.message}
+                    {...register("lastname")}
+                    required
+                />
+            </FormWrapper>
 
-                    <input
-                        type="text"
-                        name="lastName"
-                        id="lastName"
-                        placeholder="Deo"
-                        className="rounded-md border border-gray-3 bg-gray-1 placeholder:text-dark-5 w-full py-2.5 px-5 outline-none duration-200 focus:border-transparent focus:shadow-input focus:ring-2 focus:ring-blue/20"
-                    />
-                </div>
-            </div>
+            <FormWrapper>
+                <InputField
+                    className="w-full"
+                    label="Subject"
+                    type="text"
+                    placeholder="Enter as haedline for your message"
+                    error={errors.subject?.message}
+                    {...register("subject")}
+                    // required
+                />
 
-            <div className="flex flex-col lg:flex-row gap-5 sm:gap-8 mb-5">
-                <div className="w-full">
-                    <label htmlFor="subject" className="block mb-2.5">
-                        Subject
-                    </label>
+                <InputField
+                    className="w-full"
+                    label="Email address"
+                    type="email"
+                    placeholder="Enter your email address"
+                    error={errors.email?.message}
+                    {...register("email")}
+                    required
+                />
+            </FormWrapper>
 
-                    <input
-                        type="text"
-                        name="subject"
-                        id="subject"
-                        placeholder="Type your subject"
-                        className="rounded-md border border-gray-3 bg-gray-1 placeholder:text-dark-5 w-full py-2.5 px-5 outline-none duration-200 focus:border-transparent focus:shadow-input focus:ring-2 focus:ring-blue/20"
-                    />
-                </div>
+            <TextareaField
+                label="Message"
+                name="message"
+                placeholder="Enter your message"
+                error={errors.message?.message}
+                {...register("message")}
+                required
+                // className=""
+            />
 
-                <div className="w-full">
-                    <label htmlFor="phone" className="block mb-2.5">
-                        Phone
-                    </label>
-
-                    <input
-                        type="text"
-                        name="phone"
-                        id="phone"
-                        placeholder="Enter your phone"
-                        className="rounded-md border border-gray-3 bg-gray-1 placeholder:text-dark-5 w-full py-2.5 px-5 outline-none duration-200 focus:border-transparent focus:shadow-input focus:ring-2 focus:ring-blue/20"
-                    />
-                </div>
-            </div>
-
-            <div className="mb-7.5">
-                <label htmlFor="message" className="block mb-2.5">
-                    Message
-                </label>
-
-                <textarea
-                    name="message"
-                    id="message"
-                    rows={5}
-                    placeholder="Type your message"
-                    className="rounded-md border border-gray-3 bg-gray-1 placeholder:text-dark-5 w-full p-5 outline-none duration-200 focus:border-transparent focus:shadow-input focus:ring-2 focus:ring-blue/20"
-                ></textarea>
-            </div>
-
+            <br/>
             <button
                 type="submit"
+                disabled={loading}
                 className="inline-flex font-medium text-white bg-blue py-3 px-7 rounded-md ease-out duration-200 hover:bg-blue-dark"
             >
-                Send Message
+                {loading ? "Sending..." :"Send Message"}
             </button>
         </form>
     );
