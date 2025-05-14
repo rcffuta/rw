@@ -6,7 +6,7 @@ import ProductDiplayHeader from "@/components/client/Shop/ProductDiplayHeader";
 import ProductPagination from "@/components/client/Shop/ProductPagination";
 import { ProductList } from "@/components/client/Shop/ProductList";
 import { getAllProductList } from "@/actions/product.action";
-import { ProductItem } from "db/actions";
+import { ProductItem } from "@gamezone/db";
 import ToastFeedback from "@/components/Common/ToastFeedback";
 
 export const metadata: Metadata = {

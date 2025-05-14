@@ -1,7 +1,7 @@
 "use client";
 
 import { useFormatCurrency } from "@gamezone/lib";
-import { FullOrder } from "db/actions";
+import { FullOrder } from "@gamezone/db";
 
 
 type CheckoutListProps = {

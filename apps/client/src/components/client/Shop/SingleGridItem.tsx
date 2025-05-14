@@ -1,13 +1,13 @@
 "use client";
 import React from "react";
-import { FullProduct } from "@gamezone/db";
 import { useModalContext } from "@/context/QuickViewModalContext";
 import Link from "next/link";
 import { ViewProductIcon, WishListIcon } from "../../Common/Icons";
 import { useProductAction } from "@/hooks/useProduct";
 import { CustomImage } from "@gamezone/lib";
+import { ProductItem } from "@gamezone/db";
 
-const SingleGridItem = ({ item }: { item: FullProduct }) => {
+const SingleGridItem = ({ item }: { item: ProductItem }) => {
   const { openModal } = useModalContext();
 
   const {

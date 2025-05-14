@@ -4,7 +4,7 @@ import SingleItem from "./SingleItem";
 import { observer } from "mobx-react-lite";
 import wishlistStore from "@/lib/store/wishlistStore";
 import EmptyWishList from "./EmptyWishList";
-import { FullWishList } from "db/actions";
+import { FullWishList } from "@gamezone/db";
 import { CartIcon2 } from "@/components/Common/Icons";
 import Link from "next/link";
 import { SHOP } from "@/constants";

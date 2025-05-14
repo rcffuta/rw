@@ -3,7 +3,7 @@
 import cartStore from "@/lib/store/cartStore";
 import productStore from "@/lib/store/productStore";
 import wishlistStore from "@/lib/store/wishlistStore";
-import { FullOrder, FullProduct, OrderItem, ProductItem } from "@gamezone/db";
+import { FullOrder, OrderItem, ProductItem } from "@gamezone/db";
 import { formatCurrency, useFormatCurrency } from "@gamezone/lib";
 import { useCallback, useMemo } from "react";
 import toast from "react-hot-toast";
@@ -67,7 +67,7 @@ export function getOrderSummary(orders: FullOrder[]): OrderSummary {
 };
 
 
-export function useProductAction(item: FullProduct) {
+export function useProductAction(item: ProductItem) {
     const handleQuickViewUpdate = () => {
         // dispatch(updateQuickView({ ...item }));
         productStore.updateQuickView({ ...item });

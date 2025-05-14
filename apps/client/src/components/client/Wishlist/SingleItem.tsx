@@ -1,7 +1,7 @@
 import React from "react";
 
 import { CrossIcon3, StockCheck } from "@/components/Common/Icons";
-import { FullWishList } from "db/actions";
+import { FullWishList } from "@gamezone/db";
 import wishlistStore from "@/lib/store/wishlistStore";
 import { ProductImage, useFormatCurrency } from "@gamezone/lib";
 import cartStore from "@/lib/store/cartStore";

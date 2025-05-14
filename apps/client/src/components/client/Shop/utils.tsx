@@ -5,14 +5,14 @@ import { usePreviewSlider } from "@/context/PreviewSliderContext";
 import { useProductAction } from "@/hooks/useProduct";
 import cartStore from "@/lib/store/cartStore";
 import wishlistStore from "@/lib/store/wishlistStore";
-import { FullProduct } from "@gamezone/db";
+import { ProductItem } from "@gamezone/db";
 import { ProductImage } from "@gamezone/lib";
 import clsx from "clsx";
 import { observer } from "mobx-react-lite";
 import { useState } from "react";
 
 
-export const Cta = observer(({ product, mini }: { product: FullProduct, mini?:boolean}) => {
+export const Cta = observer(({ product, mini }: { product: ProductItem, mini?:boolean}) => {
     const quantity = cartStore.getItemQuantity(product.id);
     const isInWishList = wishlistStore.isItemInWishlist(product.id);
 
@@ -155,7 +155,7 @@ export const Cta = observer(({ product, mini }: { product: FullProduct, mini?:bo
     // );
 });
 
-export function Price({product}:{product: FullProduct}) {
+export function Price({product}:{product: ProductItem}) {
     return (
         <div>
             {/* <h4 className="font-semibold text-lg text-dark mb-3.5">Price</h4> */}
@@ -219,7 +219,7 @@ export function Rating({ className}:{className?:string}) {
 }
 
 
-export function ProductGallery({product}:{product: FullProduct}) {
+export function ProductGallery({product}:{product: ProductItem}) {
     const { openPreviewModal } = usePreviewSlider();
     const [previewImg, setPreviewImg] = useState(0);
 

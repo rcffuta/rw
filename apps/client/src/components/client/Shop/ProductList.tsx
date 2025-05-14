@@ -1,8 +1,8 @@
 
-import { FullProduct } from "@gamezone/db";
-import ProductItem from "./ProductItem";
+import { ProductItem } from "@gamezone/db";
+import ProductDisplayItem from "./ProductItem";
 
-export function ProductList({ products }: { products: FullProduct[] }) {
+export function ProductList({ products }: { products: ProductItem[] }) {
     // const { displayGrid, displayList } = useShopContext();
     return (
         <>
@@ -21,7 +21,7 @@ export function ProductList({ products }: { products: FullProduct[] }) {
                 className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-7.5 gap-y-9"
             >
                 {products.map((item, key) => (
-                    <ProductItem key={key} item={item} />
+                    <ProductDisplayItem key={key} item={item} />
                 ))}
             </div>
             {/* <!-- Products Grid Tab Content End --> */}

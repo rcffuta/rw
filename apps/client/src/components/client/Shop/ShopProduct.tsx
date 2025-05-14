@@ -1,10 +1,10 @@
 "use client";
 
-import { FullProduct } from "@gamezone/db";
 
 import { Cta, Price, ProductGallery, Rating } from "./utils";
 import { useState } from "react";
 import { ProductImage } from "@gamezone/lib";
+import { ProductItem } from "@gamezone/db";
 
 
 function ShopProductInformation() {
@@ -804,7 +804,7 @@ function ShopProductInformation() {
     );
 }
 
-export default function ShopProduct({product}:{product: FullProduct}) {
+export default function ShopProduct({product}:{product: ProductItem}) {
 
     return (
         <section className="overflow-hidden relative pb-20 pt-5 lg:pt-20 xl:pt-28">

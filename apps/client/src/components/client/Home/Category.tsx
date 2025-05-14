@@ -11,7 +11,7 @@ import { observer } from "mobx-react-lite";
 import { getCategoryList } from "@/actions/product.action";
 import toast from "react-hot-toast";
 import { CategoryImage } from "@gamezone/lib";
-import { CategoryItem } from "db/actions";
+import { CategoryItem } from "@gamezone/db";
 
 function CategorList () {
     const sliderRef = useRef(null);

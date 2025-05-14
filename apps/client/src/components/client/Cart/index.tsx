@@ -7,7 +7,7 @@ import Breadcrumb from "../../Common/Breadcrumb";
 import cartStore from "@/lib/store/cartStore";
 import { observer } from "mobx-react-lite";
 import EmptyCart from "./EmptyCart";
-import { FullOrder } from "db/actions";
+import { FullOrder } from "@gamezone/db";
 import toast from "react-hot-toast";
 import { useProduct } from "@/hooks/useProduct";
 

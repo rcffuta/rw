@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { FullOrder } from "db/actions";
+import { FullOrder } from "@gamezone/db";
 import cartStore from "@/lib/store/cartStore";
 import { MinusIcon, PlusIcon, TrashIcon } from "@/components/Common/Icons";
 import toast from "react-hot-toast";

@@ -1,14 +1,14 @@
 "use client";
 import React from "react";
 
-import { FullProduct } from "@gamezone/db";
+import { ProductItem } from "@gamezone/db";
 import { useModalContext } from "@/context/QuickViewModalContext";
 import Link from "next/link";
 import Image from "next/image";
 import { useProductAction } from "@/hooks/useProduct";
 import { CustomImage } from "@gamezone/lib";
 
-const SingleListItem = ({ item }: { item: FullProduct }) => {
+const SingleListItem = ({ item }: { item: ProductItem }) => {
   const { openModal } = useModalContext();
   const {
       handleQuickViewUpdate,

@@ -3,7 +3,7 @@ import React from "react";
 import { ProductImage } from "@gamezone/lib";
 
 import cartStore from "@/lib/store/cartStore";
-import { FullOrder } from "db/actions";
+import { FullOrder } from "@gamezone/db";
 import toast from "react-hot-toast";
 import { TrashIcon } from "@/components/Common/Icons";
 import { useProduct } from "@/hooks/useProduct";

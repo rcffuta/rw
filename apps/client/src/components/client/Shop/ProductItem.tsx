@@ -3,20 +3,17 @@ import React from "react";
 import { useModalContext } from "@/context/QuickViewModalContext";
 import Link from "next/link";
 import { StarRating, ViewProductIcon, WishListIcon } from "../../Common/Icons";
-import { FullProduct } from "@gamezone/db";
+import { ProductItem } from "@gamezone/db";
 import { ProductImage, useFormatCurrency } from "@gamezone/lib";
 import { useProduct, useProductAction } from "@/hooks/useProduct";
 
-export default function ProductItem({ item }: { item: FullProduct }) {
+export default function ProductDisplayItem({ item }: { item: ProductItem }) {
     const { openModal } = useModalContext();
 
     const { priceText, discountedPriceText, isDiscount } = useProduct(item);
 
-    const {
-        handleQuickViewUpdate,
-        handleAddToCart,
-        handleAddItemToWishList
-    } = useProductAction(item);
+    const { handleQuickViewUpdate, handleAddToCart, handleAddItemToWishList } =
+        useProductAction(item);
 
     return (
         <div className="group">
