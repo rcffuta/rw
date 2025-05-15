@@ -3,6 +3,7 @@
 import { CreateAccountFormData } from "@/lib/validators/auth.validator";
 import { authenticateUser, createUser } from "@gamezone/db";
 import { isEmpty } from "@gamezone/lib";
+import { createSession } from "@gamezone/auth";
 
 
 export async function loginUser(email:string, password:string) {
@@ -11,18 +12,14 @@ export async function loginUser(email:string, password:string) {
         throw new Error("Account not found!");
     }
 
-    // const token = signToken({ userId: user.id, role: user.isAdmin ? "admin":"user" });
+    const token = await createSession({
+        email: user.email,
+        isAdmin: user.isAdmin,
+        userId: user.id,
+        username: user.username,
+    })
 
-    // (await cookies()).set(AUTH_KEY, token, {
-    //     httpOnly: true,
-    //     secure: true,
-    //     sameSite: 'lax',
-    //     domain: '.gamezone.com',
-    //     path: '/',
-    //     maxAge: 60 * 60 * 24 * 7,
-    // });
-
-    return user;
+    return {user, token};
 }
 
 export async function createAccount(data: CreateAccountFormData) {

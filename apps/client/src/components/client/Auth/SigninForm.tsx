@@ -33,7 +33,7 @@ function SignInForm() {
     const onSubmit = async (data: FormData) => {
 
         try {
-            const user = await loginUser(data.email, data.password);
+            const {token, user} = await loginUser(data.email, data.password);
 
             authStore.updateUser(user);
 
