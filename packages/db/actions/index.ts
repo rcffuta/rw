@@ -8,4 +8,5 @@ export * from './cart';
 export * from './payment';
 export * from './user';
 export * from './wishlist';
+export * from './analytics';
 export * from './types';

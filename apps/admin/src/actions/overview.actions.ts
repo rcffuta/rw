@@ -1,97 +1,32 @@
-export async function getOverviewData() {
-    // Fake delay
-    await new Promise((resolve) => setTimeout(resolve, 2000));
+import { getConversionRate, getTotalOrders, getTotalRevenue, getTotalUsers } from "@gamezone/db";
 
-    // TODO: implement logic
+export async function getOverviewData() {
+
+    const store = await getTotalOrders()
+    const revenue = await getTotalRevenue()
+    const users = await getTotalUsers()
+    const conversionRate = await getConversionRate(users);
 
     return {
         sales: {
             label: "Total Sales",
-            value: 0,
+            value: store,
             growthRate: 0,
         },
-        orders: {
-            label:"Orders",
-            value: 0,
+        revenue: {
+            label:"Total Revenue",
+            value: revenue,
             growthRate: 0,
         },
-        avgOrder: {
-            label: "Avg. Order Value",
-            value: 0,
+        users: {
+            label: "Total User" + (users > 1 ? "s":""),
+            value: users,
             growthRate: 0,
         },
         converserion: {
             label: "Conversion Rate",
-            value: 0,
+            value: conversionRate,
             growthRate: 0,
         },
     };
-}
-
-export async function getChatsData() {
-  // Fake delay
-  await new Promise((resolve) => setTimeout(resolve, 1000));
-
-  return [
-    {
-      name: "Jacob Jones",
-      profile: "/images/user/user-01.png",
-      isActive: true,
-      lastMessage: {
-        content: "See you tomorrow at the meeting!",
-        type: "text",
-        timestamp: "2024-12-19T14:30:00Z",
-        isRead: false,
-      },
-      unreadCount: 3,
-    },
-    {
-      name: "Wilium Smith",
-      profile: "/images/user/user-03.png",
-      isActive: true,
-      lastMessage: {
-        content: "Thanks for the update",
-        type: "text",
-        timestamp: "2024-12-19T10:15:00Z",
-        isRead: true,
-      },
-      unreadCount: 0,
-    },
-    {
-      name: "Johurul Haque",
-      profile: "/images/user/user-04.png",
-      isActive: false,
-      lastMessage: {
-        content: "What's up?",
-        type: "text",
-        timestamp: "2024-12-19T10:15:00Z",
-        isRead: true,
-      },
-      unreadCount: 0,
-    },
-    {
-      name: "M. Chowdhury",
-      profile: "/images/user/user-05.png",
-      isActive: false,
-      lastMessage: {
-        content: "Where are you now?",
-        type: "text",
-        timestamp: "2024-12-19T10:15:00Z",
-        isRead: true,
-      },
-      unreadCount: 2,
-    },
-    {
-      name: "Akagami",
-      profile: "/images/user/user-07.png",
-      isActive: false,
-      lastMessage: {
-        content: "Hey, how are you?",
-        type: "text",
-        timestamp: "2024-12-19T10:15:00Z",
-        isRead: true,
-      },
-      unreadCount: 0,
-    },
-  ];
 }
