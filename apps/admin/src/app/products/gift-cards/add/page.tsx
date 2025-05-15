@@ -5,7 +5,7 @@ import Breadcrumb from "@/components/ui/BreadCrumb";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Form Layout",
+  title: "Gift Card Product",
 };
 
 export default function Page() {

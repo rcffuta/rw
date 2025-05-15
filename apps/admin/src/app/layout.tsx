@@ -12,14 +12,14 @@ import NextTopLoader from "nextjs-toploader";
 import type { PropsWithChildren } from "react";
 import { Providers } from "./providers";
 import { Toaster } from "react-hot-toast";
+import { APP_ADMIN_DESCRIPTION, APP_ADMIN_NAME } from "@gamezone/lib";
 
 export const metadata: Metadata = {
-  title: {
-    template: "%s | NextAdmin - Next.js Dashboard Kit",
-    default: "NextAdmin - Next.js Dashboard Kit",
-  },
-  description:
-    "Next.js admin dashboard toolkit with 200+ templates, UI components, and integrations for fast dashboard development.",
+    title: {
+        template: `%s | ${APP_ADMIN_NAME}`,
+        default: APP_ADMIN_NAME,
+    },
+    description: APP_ADMIN_DESCRIPTION,
 };
 
 export default function RootLayout({ children }: PropsWithChildren) {

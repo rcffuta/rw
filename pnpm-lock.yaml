@@ -81,9 +81,6 @@ importers:
 
   apps/admin:
     dependencies:
-      '@gamezone/assets':
-        specifier: workspace:*
-        version: link:../../packages/assets
       '@gamezone/auth':
         specifier: workspace:*
         version: link:../../packages/auth
@@ -139,9 +136,6 @@ importers:
 
   apps/client:
     dependencies:
-      '@gamezone/assets':
-        specifier: workspace:*
-        version: link:../../packages/assets
       '@gamezone/auth':
         specifier: workspace:*
         version: link:../../packages/auth
@@ -203,8 +197,6 @@ importers:
       prisma:
         specifier: ^6.7.0
         version: 6.7.0(typescript@5.8.3)
-
-  packages/assets: {}
 
   packages/auth:
     dependencies:
