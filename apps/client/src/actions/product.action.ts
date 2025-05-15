@@ -5,7 +5,7 @@ import { CategoryItem, FullBookProduct, FullGameProduct, getAllBooks, getAllCate
 export async function getCategoryList(): Promise<CategoryItem[]> {
     try {
 
-        return await getAllCategories();
+        return await getAllCategories() || [];
     } catch(err) {
         console.error(err);
         throw new Error("Could not get category list");
@@ -15,7 +15,7 @@ export async function getCategoryList(): Promise<CategoryItem[]> {
 export async function getBookProducts(): Promise<FullBookProduct[]> {
     try {
 
-        return await getAllBooks();
+        return await getAllBooks() || [];
     } catch(err) {
         console.error(err);
         throw new Error("Could not get book products");
@@ -24,7 +24,7 @@ export async function getBookProducts(): Promise<FullBookProduct[]> {
 
 export async function getGameProducts(): Promise<FullGameProduct[]> {
     try {
-        return await getAllGames();
+        return await getAllGames() || [];
     } catch (err) {
         console.error(err);
         throw new Error("Could not get game products");
@@ -33,7 +33,7 @@ export async function getGameProducts(): Promise<FullGameProduct[]> {
 
 export async function getAllProductList(): Promise<ProductItem[]> {
     try {
-        return await getAllProducts();
+        return await getAllProducts() || [];
     } catch (err) {
         console.error(err);
         throw new Error("Could not get all products");

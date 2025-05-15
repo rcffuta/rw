@@ -1,11 +1,11 @@
 "use client";
 
 import { useFormatCurrency } from "@gamezone/lib";
-import { FullOrder } from "@gamezone/db";
+import { OrderWithProduct } from "@gamezone/db";
 
 
 type CheckoutListProps = {
-    items: FullOrder[];
+    items: OrderWithProduct[];
     totalPrice: number;
 };
 
@@ -51,7 +51,7 @@ export const CheckoutList = ({items, totalPrice}:CheckoutListProps) => {
     );
 };
 
-function OrderListItem({ item }: { item: FullOrder }) {
+function OrderListItem({ item }: { item: OrderWithProduct }) {
     const parseFigure = useFormatCurrency();
     return (
         <div className="flex items-center justify-between py-5 border-b border-gray-3">

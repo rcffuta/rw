@@ -1,5 +1,5 @@
 import { prisma } from "../client";
-import { FullOrder, OrdStatus } from "./types";
+import { OrderItem, OrdStatus } from "./types";
 
 // ✅ Get all items in a user's cart
 export async function getUserCart(userId: number) {
@@ -37,7 +37,7 @@ export async function addToCart(userId: number, productId: number, quantity: num
 }
 
 
-export async function updateCart(userId: number, items: FullOrder[]) {
+export async function updateCart(userId: number, items: OrderItem[]) {
   for (const item of items) {
 
     if (!item.id){

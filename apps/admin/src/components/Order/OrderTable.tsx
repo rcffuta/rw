@@ -13,11 +13,11 @@ import { useFormatCurrency, wait } from "@gamezone/lib";
 import { TableRowItem } from "../ui/types";
 import { TableSkeleton } from "../ui/table-skeleton";
 import clsx from "clsx";
-import { FullOrderWithPayment } from "@gamezone/db";
+import { OrderWithProductWithPayment } from "@gamezone/db";
 import toast from "react-hot-toast";
 
 
-type OrderType = FullOrderWithPayment;
+type OrderType = OrderWithProductWithPayment;
 
 type OrderProps = {
     userId: number;

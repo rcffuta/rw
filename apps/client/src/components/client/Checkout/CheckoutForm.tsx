@@ -11,11 +11,11 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { FormWrapper } from "@/components/Common/Form/FormUtils";
 import InputField, { FormError } from "@/components/Common/Form/InputField";
 import toast, { ToastOptions } from "react-hot-toast";
-import { FullOrder } from "@gamezone/db";
+import { OrderWithProduct } from "@gamezone/db";
 import { checkoutAction } from "@/actions/checkout";
 
 type CheckoutFormProps = {
-    items: FullOrder[];
+    items: OrderWithProduct[];
     totalPrice: number;
 }
 

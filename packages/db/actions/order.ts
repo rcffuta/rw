@@ -1,15 +1,15 @@
 import { prisma } from "../client";
-import { FullOrder, FullOrderWithPayment } from "./types";
+import { OrderWithProductWithPayment } from "./types";
 
 // ✅ Get all items in a user's cart
-export async function getPaidOrder(userId: number): Promise<FullOrderWithPayment[]> {
+export async function getPaidOrder(userId: number): Promise<OrderWithProductWithPayment[]> {
     return prisma.order.findMany({
         where: { status: "paid" },
         include: { product: true, payment: true },
     });
 }
 
-export async function getAllOrder(): Promise<FullOrderWithPayment[]> {
+export async function getAllOrder(): Promise<OrderWithProductWithPayment[]> {
     return prisma.order.findMany({
         where: {},
         include: { product: true, payment: true },

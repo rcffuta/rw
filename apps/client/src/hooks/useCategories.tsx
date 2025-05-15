@@ -1,6 +1,6 @@
 "use client";
 
-import { getCategoryList } from "@/actions/product.action";
+import { getCategoryList } from "../actions/product.action";
 import { useEffect, useState } from "react";
 
 export type Option = {

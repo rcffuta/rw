@@ -8,21 +8,21 @@ const EmptyCart = () => {
   const { closeCartModal } = useCartModalContext();
 
   return (
-    <div className="text-center">
-      <div className="mx-auto pb-7.5">
-        <CartIcon2/>
+      <div className="text-center max-w-md mx-auto">
+          <div className=" pb-7.5">
+              <CartIcon2 />
+          </div>
+
+          <p className="pb-6">Your cart is empty!</p>
+
+          <Link
+              onClick={() => closeCartModal()}
+              href={SHOP}
+              className="w-full lg:w-10/12 mx-auto flex justify-center font-medium text-white bg-dark py-[13px] px-6 rounded-md ease-out duration-200 hover:bg-opacity-95"
+          >
+              Continue Shopping
+          </Link>
       </div>
-
-      <p className="pb-6">Your cart is empty!</p>
-
-      <Link
-        onClick={() => closeCartModal()}
-        href={SHOP}
-        className="w-full lg:w-10/12 mx-auto flex justify-center font-medium text-white bg-dark py-[13px] px-6 rounded-md ease-out duration-200 hover:bg-opacity-95"
-      >
-        Continue Shopping
-      </Link>
-    </div>
   );
 };
 

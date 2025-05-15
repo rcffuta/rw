@@ -9,7 +9,7 @@ import {
 } from "@/actions/cart.action";
 
 
-import { FullOrder, ProductItem } from "@gamezone/db";
+import { OrderWithProduct, ProductItem } from "@gamezone/db";
 import { makeAutoObservable, runInAction, toJS } from "mobx";
 import authStore from "./authStore";
 import debounce from "lodash.debounce";
@@ -17,7 +17,7 @@ import debounce from "lodash.debounce";
 
 const LOCAL_CART_KEY = "guest_cart";
 
-type LocalOrder = Partial<Pick<FullOrder, "id">> & Omit<FullOrder, "id">;
+type LocalOrder = Partial<Pick<OrderWithProduct, "id">> & Omit<OrderWithProduct, "id">;
 
 class CartStore {
     _items: LocalOrder[] = [];
@@ -29,7 +29,7 @@ class CartStore {
     }
 
     get items() {
-        return this._items as FullOrder[];
+        return this._items as OrderWithProduct[];
     }
 
     get totalPrice() {
@@ -92,7 +92,7 @@ class CartStore {
 
                 
                 runInAction(() => { this.syncing = true });
-                this.syncCartWithServer(authStore.user.id, this._items as FullOrder[]);
+                this.syncCartWithServer(authStore.user.id, this._items as OrderWithProduct[]);
                 runInAction(() => { this.syncing = false });
             });
         } catch (err) {
@@ -101,7 +101,7 @@ class CartStore {
     }
 
 
-    private async syncCartWithServer(userId: number, items: FullOrder[]) {
+    private async syncCartWithServer(userId: number, items: OrderWithProduct[]) {
         try {
             await saveCartItemToDb(userId, toJS(items));
             console.debug("Cart successfully synced to backend.");
@@ -149,8 +149,10 @@ class CartStore {
             this._items = this._items.filter(item => item.productId !== productId);
         });
 
-        await removeProductFromCart(authStore.user.id, productId);
-        await this.debouncedReload();
+        if (authStore.user) {
+            await removeProductFromCart(authStore.user.id, productId);
+            this.debouncedReload();
+        }
     }
 
     updateCartItemQuantity = debounce(async (productId: number, quantity: number) =>{
@@ -166,8 +168,11 @@ class CartStore {
             item.quantity = quantity;
         });
 
-        await updateProductInCart(authStore.user.id, productId, quantity);
-        await this.debouncedReload();
+        if (authStore.user) {
+            await updateProductInCart(authStore.user.id, productId, quantity);
+            await this.debouncedReload();
+        }
+
     }, 300);
 
     async removeAllItemsFromCart() {
@@ -175,8 +180,10 @@ class CartStore {
             this._items = [];
         });
 
-        await clearProductFromCart(authStore.user.id);
-        await this.debouncedReload();
+        if (authStore.user) {
+            await clearProductFromCart(authStore.user.id);
+            await this.debouncedReload();
+        }
     }
 
     async checkoutCart() {
@@ -184,8 +191,12 @@ class CartStore {
             this._items = [];
         });
 
-        await checkoutProduct(authStore.user.id);
-        await this.debouncedReload();
+
+        if (authStore.user) {
+            await checkoutProduct(authStore.user.id);
+            await this.debouncedReload();
+        }
+        
     }
 
     getItemQuantity(productId: number): number {
