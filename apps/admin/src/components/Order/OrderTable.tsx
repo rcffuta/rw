@@ -20,7 +20,6 @@ import toast from "react-hot-toast";
 type OrderType = OrderWithProductWithPayment;
 
 type OrderProps = {
-    userId: number;
     orders: OrderType[];
 };
 
@@ -48,7 +47,7 @@ const tableHead: TableRowItem[] = [
     },
 ];
 
-export function OrderTable({ userId, orders}: OrderProps) {
+export function OrderTable({ orders}: OrderProps) {
 
 
     return (

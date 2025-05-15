@@ -1,18 +1,13 @@
 "use client";
 
-import { useSession } from "@gamezone/lib";
 import { OrderTable, OrderTableSkeleton } from "./OrderTable";
 import EmptyRow from "../Tables/EmptyTable";
 import { useEffect, useState } from "react";
 import { OrderWithProductWithPayment } from "@gamezone/db";
 import { loadAllPaidOrder } from "@/actions/order.actions";
-// import { TableSkeleton } from "../ui/table-skeleton";
-// import { ProductTableSkeleton } from "../Tables/ProductList";
-
-
 
 export function OrderList() {
-    const user = useSession();
+
     const [loading, setLoading] = useState(true);
     const [orders, setOrder] = useState<OrderWithProductWithPayment[]>([]);
 
@@ -28,13 +23,11 @@ export function OrderList() {
         if(loading) loadOrder();
     },[loading]);
 
-
-
-    if (!user) return <EmptyRow />;
-
     if (loading) return <OrderTableSkeleton />;
 
+    if (orders.length < 1) return <EmptyRow/>;
+
     return (
-        <OrderTable userId={user.id} orders={orders} />
+        <OrderTable orders={orders} />
     );
 }
