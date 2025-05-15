@@ -3,11 +3,12 @@ import React from "react";
 import { Metadata } from "next";
 import SignUpForm from "@/components/client/Auth/SignupForm";
 import Logo from "@/components/Common/Logo";
+import { APP_NAME } from "@gamezone/lib";
 
 
 export const metadata: Metadata = {
-    title: "Sign Up | GameZone",
-    description: "Easily create an account with GameZone",
+    title: `Sign Up | ${APP_NAME}`,
+    description: `Easily create an account with ${APP_NAME}`,
     // other metadata
 };
 

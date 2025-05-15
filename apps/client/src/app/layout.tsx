@@ -14,11 +14,11 @@ import { PreviewSliderProvider } from "../context/PreviewSliderContext";
 import Footer from "@/components/Common/Footer";
 import { AccountContextProvider } from "@/context/AccountContext";
 import { Metadata } from "next";
+import { APP_DESCRIPTION, APP_NAME } from "@gamezone/lib";
 
 export const metadata: Metadata = {
-    title: "GameZone",
-    description:
-        "E-commerce web application that allows users to browse, purchase, and manage their orders for games, books, and gift cards.",
+    title: APP_NAME,
+    description:APP_DESCRIPTION,
     // other metadata
 };
 

@@ -10,11 +10,12 @@ import AccountAddress from "@/components/client/Account/Address";
 import AccountDetails from "@/components/client/Account/Details";
 import AccountMenu from "@/components/client/Account/AccountMenu";
 import EnsureAuth from "@/components/Common/EnsureAuth";
+import { APP_NAME } from "@gamezone/lib";
 
 
 export const metadata: Metadata = {
-    title: "My Account | GameZone",
-    description: "Your space on GameZone",
+    title: `My Account | ${APP_NAME}`,
+    description: `Your space on ${APP_NAME}`,
     // other metadata
 };
 

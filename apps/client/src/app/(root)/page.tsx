@@ -6,14 +6,14 @@ import PromoSection from "@/components/client/Home/PromoBanner";
 import { Metadata } from "next";
 import { Suspense } from "react";
 import { CategoryHighlightWrapper, ProductListSkeleton } from "@/components/Common/ProductUtils";
+import { APP_DESCRIPTION, APP_NAME } from "@gamezone/lib";
 
 
 const maxDisplay = 12;
 
 export const metadata: Metadata = {
-    title: "Home | GameZone",
-    description:
-        "E-commerce web application that allows users to browse, purchase, and manage their orders for games, books, and gift cards.",
+    title: `Home | ${APP_NAME}`,
+    description: APP_DESCRIPTION,
 };
 
 export default function HomePage() {

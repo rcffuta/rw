@@ -2,10 +2,11 @@ import React from "react";
 import { Wishlist } from "@/components/client/Wishlist";
 import { Metadata } from "next";
 import Breadcrumb from "@/components/Common/Breadcrumb";
+import { APP_NAME } from "@gamezone/lib";
 
 export const metadata: Metadata = {
-    title: "Your Wishlist | GameZone",
-    description: "Check your wishlist on GameZone",
+    title: `Your Wishlist | ${APP_NAME}`,
+    description: `Check your wishlist on ${APP_NAME}`,
     // other metadata
 };
 

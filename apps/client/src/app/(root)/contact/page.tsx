@@ -2,10 +2,11 @@ import ContactForm from "@/components/client/Contact/ContactForm";
 import Breadcrumb from "@/components/Common/Breadcrumb";
 import { EmailIcon, LocationIcon, PhoneIcon, UserIcon } from "@/components/Common/Icons";
 import { ADMIN_CONTACT } from "@/data/contact";
+import { APP_NAME } from "@gamezone/lib";
 
 import { Metadata } from "next";
 export const metadata: Metadata = {
-    title: "Contact | GameZone",
+    title: `Contact | ${APP_NAME}`,
     description: "Send us a mesasge",
     // other metadata
 };

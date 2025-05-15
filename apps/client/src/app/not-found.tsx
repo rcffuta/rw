@@ -4,8 +4,9 @@ import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowIcon } from "@/components/Common/Icons";
+import { APP_NAME } from "@gamezone/lib";
 export const metadata: Metadata = {
-    title: "Page Not Found | GameZone",
+    title: `Page Not Found | ${APP_NAME}`,
     description: "This Page you seek is not found!",
     // other metadata
 };

@@ -5,10 +5,11 @@ import { getProductById } from "@gamezone/db";
 import Breadcrumb from "@/components/Common/Breadcrumb";
 import RecentlyViewdItems from "@/components/client/Shop/RecentlyViewed";
 import Newsletter from "@/components/Common/Newsletter";
+import { APP_NAME } from "@gamezone/lib";
 
 export const metadata: Metadata = {
-    title: "Product | GameZone",
-    description: "View Product from GameZone",
+    title: `Product | ${APP_NAME}`,
+    description: `View Product from ${APP_NAME}`,
 };
 
 // type Props = {

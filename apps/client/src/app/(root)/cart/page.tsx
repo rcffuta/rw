@@ -2,9 +2,10 @@ import React from "react";
 import Cart from "@/components/client/Cart";
 
 import { Metadata } from "next";
+import { APP_NAME } from "@gamezone/lib";
 export const metadata: Metadata = {
-    title: "Cart | GameZone",
-    description: "Checkout your cart on GameZone",
+    title: `Cart | ${APP_NAME}`,
+    description: `Checkout your cart on ${APP_NAME}`,
     // other metadata
 };
 

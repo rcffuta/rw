@@ -3,10 +3,11 @@ import Checkout from "@/components/client/Checkout";
 
 import { Metadata } from "next";
 import Breadcrumb from "@/components/Common/Breadcrumb";
+import { APP_NAME } from "@gamezone/lib";
 
 export const metadata: Metadata = {
-    title: "Checkout | GameZone",
-    description: "Complete your orders on GameZone",
+    title: `Checkout | ${APP_NAME}`,
+    description: `Complete your orders on ${APP_NAME}`,
     // other metadata
 };
 

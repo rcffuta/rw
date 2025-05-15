@@ -8,10 +8,11 @@ import { ProductList } from "@/components/client/Shop/ProductList";
 import { getAllProductList } from "@/actions/product.action";
 import { ProductItem } from "@gamezone/db";
 import ToastFeedback from "@/components/Common/ToastFeedback";
+import { APP_NAME } from "@gamezone/lib";
 
 export const metadata: Metadata = {
-    title: "Shop | GameZone",
-    description: "View products and items on GameZone",
+    title: `Shop | ${APP_NAME}`,
+    description: `View products and items on ${APP_NAME}`,
     // other metadata
 };
 
