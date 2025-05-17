@@ -16,18 +16,18 @@ export const metadata: Metadata = {
 };
 
 type ProductsPageProps = {
-    searchParams: {
+    searchParams: Promise<{
         category?: string;
-    };
+    }>;
 }
 
 export const dynamic = "force-dynamic";
 
 export default async function ShopPage({ searchParams }: ProductsPageProps) {
 
-    const categoryId = searchParams.category
-        ? Number(searchParams.category)
-        : undefined;
+    const params = await searchParams;
+
+    const categoryId = params.category ? Number(params.category) : undefined;
 
     let products: ProductItem[] = [];
     let error: Error | null = null;
