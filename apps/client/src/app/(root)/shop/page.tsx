@@ -3,12 +3,10 @@ import React from "react";
 import { Metadata } from "next";
 import { ShopLayout } from "@/Layout/ShoptLayout";
 import ProductDiplayHeader from "@/components/client/Shop/ProductDiplayHeader";
-import ProductPagination from "@/components/client/Shop/ProductPagination";
 import { ProductList } from "@/components/client/Shop/ProductList";
-import { getProductsByCategory, ProductItem } from "@gamezone/db";
+import { getFilteredProducts, ProductItem } from "@gamezone/db";
 import ToastFeedback from "@/components/Common/ToastFeedback";
 import { APP_NAME } from "@gamezone/lib";
-import EmptyCart from "@/components/client/Cart/EmptyCart";
 import EmptyList from "@/components/client/Shop/EmptyList";
 
 export const metadata: Metadata = {
@@ -20,6 +18,7 @@ export const metadata: Metadata = {
 type ProductsPageProps = {
     searchParams: Promise<{
         category?: string;
+        search?: string;
     }>;
 }
 
@@ -30,6 +29,7 @@ export default async function ShopPage({ searchParams }: ProductsPageProps) {
     const params = await searchParams;
 
     const categoryId = params.category ? Number(params.category) : undefined;
+    const search = params.search;
 
     let products: ProductItem[] = [];
     let error: Error | null = null;
@@ -37,7 +37,7 @@ export default async function ShopPage({ searchParams }: ProductsPageProps) {
 
 
     try {
-        products = await getProductsByCategory(categoryId);
+        products = await getFilteredProducts({search, categoryId});
     } catch (err) {
         error = err as Error;
 

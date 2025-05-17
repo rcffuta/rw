@@ -21,16 +21,29 @@ export const deleteProduct = async (id: number) => {
   return await prisma.product.delete({ where: { id } });
 };
 
-export async function getProductsByCategory(categoryId?: number) {
-    try {
-
-        return await prisma.product.findMany({
-            where: categoryId ? { categoryId } : {},
-            // include: { category: true, images: true }, // Adjust as needed
-        });
-    } catch (err) {
-        console.error(err);
-
-        return []
-    }
+export async function getFilteredProducts({
+    search,
+    categoryId,
+}: {
+    search?: string;
+    categoryId?: number;
+}) {
+    return prisma.product.findMany({
+      where: {
+        AND: [
+          categoryId ? { categoryId } : {},
+          search
+            ? {
+                OR: [
+                  { title: { contains: search, mode: 'insensitive' } },
+                  { description: { contains: search, mode: 'insensitive' } },
+                ],
+              }
+            : {},
+        ],
+      },
+      orderBy: {
+        createdAt: 'desc',
+      },
+    });
 }

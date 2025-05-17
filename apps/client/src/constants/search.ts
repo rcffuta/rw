@@ -1,3 +1,3 @@
 
 export const categoryFilterKey = "category";
-export const searchFilterKey = "q";
+export const searchFilterKey = "search";
