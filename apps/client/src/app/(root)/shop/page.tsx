@@ -63,7 +63,7 @@ export default async function ShopPage({ searchParams }: ProductsPageProps) {
                 {/* <!-- Products Grid Tab Content End --> */}
                 <ProductList products={products} />
                 {/* <!-- Products Pagination Start --> */}
-                <ProductPagination />
+                {/* <ProductPagination /> */}
                 {/* <!-- Products Pagination End --> */}
             </div>
         </ShopLayout>
