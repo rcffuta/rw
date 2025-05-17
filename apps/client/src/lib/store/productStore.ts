@@ -6,7 +6,7 @@ import { Option } from "@/hooks/useCategories";
 
 export const defaultOption = {
     label: "All Categories",
-    value: undefined,
+    value: "",
 }
 
 class ProductStore {

@@ -8,6 +8,8 @@ import { ProductList } from "@/components/client/Shop/ProductList";
 import { getProductsByCategory, ProductItem } from "@gamezone/db";
 import ToastFeedback from "@/components/Common/ToastFeedback";
 import { APP_NAME } from "@gamezone/lib";
+import EmptyCart from "@/components/client/Cart/EmptyCart";
+import EmptyList from "@/components/client/Shop/EmptyList";
 
 export const metadata: Metadata = {
     title: `Shop | ${APP_NAME}`,
@@ -41,8 +43,13 @@ export default async function ShopPage({ searchParams }: ProductsPageProps) {
 
     }
 
-    // const lenght = products.length;
-    // const current = lenght > 0 ? 1 : 0;
+    const template =
+        products.length < 1 ? (
+            <EmptyList />
+        ) : (
+            <ProductList products={products} />
+        );
+
 
     return (
         <ShopLayout>
@@ -56,12 +63,9 @@ export default async function ShopPage({ searchParams }: ProductsPageProps) {
             )}
             <div className="w-full">
                 {/* <!-- Products Grid Tab Content Start --> */}
-                <ProductDiplayHeader
-                    total={products.length}
-                    current={1}
-                />
+                <ProductDiplayHeader total={products.length} current={1} />
                 {/* <!-- Products Grid Tab Content End --> */}
-                <ProductList products={products} />
+                {template}
                 {/* <!-- Products Pagination Start --> */}
                 {/* <ProductPagination /> */}
                 {/* <!-- Products Pagination End --> */}

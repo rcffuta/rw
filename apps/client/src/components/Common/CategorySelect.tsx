@@ -75,20 +75,25 @@ const CategorySelect = () => {
                 {selectedOption.label}
             </div>
             <div className={`select-items ${isOpen ? "" : "select-hide"}`}>
-                {options.slice(1, -1).map((option, index) => (
-                    <div
-                        key={index}
-                        onClick={() => {
-                            handleOptionClick(option);
-                            handleSelect(option.value)
-                        }}
-                        className={`select-item ${
-                            selectedOption === option ? "same-as-selected" : ""
-                        }`}
-                    >
-                        {option.label}
-                    </div>
-                ))}
+                {options.map((option, index) => {
+
+                    // if (option.value === selectedOption.value) return null;
+                    
+                    return (
+                        <div
+                            key={index}
+                            onClick={() => {
+                                handleOptionClick(option);
+                                handleSelect(option.value)
+                            }}
+                            className={`select-item ${
+                                selectedOption === option ? "same-as-selected" : ""
+                            }`}
+                        >
+                            {option.label}
+                        </div>
+                    )
+                })}
             </div>
         </div>
     );
