@@ -43,6 +43,18 @@ const CategorySelect = () => {
         toggleDropdown();
     };
 
+    useEffect(()=>{
+        (()=>{
+            const catId = searchParams.get(categoryFilterKey) || "";
+
+            const option = options.find((e)=>e.value === catId);
+
+            if (option) {
+                productStore.setSelectedCategory(option);
+            }
+        })()
+    }, [])
+
     useEffect(() => {
         // closing modal while clicking outside
         function handleClickOutside(event) {

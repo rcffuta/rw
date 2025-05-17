@@ -8,14 +8,6 @@ export function SearchProduct() {
     const params = useSearchParams();
     const {navigate} = useNavigate();
     const [query, setQuery] = useState(()=> params.get(searchFilterKey) || "");
-
-
-    const filterProducts = (formData: FormData) => {
-        // const query = formData.get(searchFilterKey)?.toString() || "";
-        // const category = params.get(categoryFilterKey);//formData.get("category")?.toString() || "";
-
-        goToUrl();
-    }
     
     const goToUrl = useCallback(() =>{
         // You can persist this in the URL
@@ -24,8 +16,8 @@ export function SearchProduct() {
 
         // if (query) search.set(searchFilterKey, query);
         search.set(searchFilterKey, query);
-        // if (category) search.set(categoryFilterKey, category);
-        search.set(categoryFilterKey, category);
+        if (category) search.set(categoryFilterKey, category);
+        // search.set(categoryFilterKey, category);
     
         navigate(`${SHOP}?${search.toString()}`);
     }, [query]);
