@@ -1,7 +1,7 @@
 import { TrendingUpIcon } from "@/components/Icons";
 import { compactFormat } from "@/utils/format-number";
 import { cn } from "@/utils/utils";
-import { getCampaignVisitorsData } from "@/actions/charts.actions";
+import { getCampaignVisitorsData } from "@/actions/analytics.actions";
 import { ApexOptions } from "apexcharts";
 import { BarChart } from "./chart-items";
 

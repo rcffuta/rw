@@ -5,6 +5,8 @@ import { Suspense } from "react";
 import { OverviewCardsGroup } from "../../components/Overview/overview-cards";
 import { OverviewCardsSkeleton } from "../../components/Overview/overview-cards/skeleton";
 import { OrderHighlight } from "@/components/Order/order-highlight";
+import { WeekStat } from "@/actions/analytics.actions";
+import { TrendChart } from "@/components/Charts/TrendChart";
 
 type PropsType = {
   searchParams: Promise<{
@@ -26,27 +28,29 @@ export default async function Home({ searchParams }: PropsType) {
                 <SalesOverview
                     className="col-span-12 xl:col-span-7"
                     key={extractTimeFrame("payments_overview")}
-                    timeFrame={extractTimeFrame("payments_overview")?.split(":")[1]}
+                    timeFrame={extractTimeFrame("payments_overview")}
                 />
 
                 <SalesWeeksProfit
                     key={extractTimeFrame("weeks_profit")}
-                    timeFrame={extractTimeFrame("weeks_profit")?.split(":")[1]}
+                    timeFrame={extractTimeFrame("weeks_profit") as WeekStat}
                     className="col-span-12 xl:col-span-5"
                 />
 
-                {/* <UsedDevices
-                className="col-span-12 xl:col-span-5"
-                key={extractTimeFrame("used_devices")}
-                timeFrame={extractTimeFrame("used_devices")?.split(":")[1]}
-                />
+                {/* <RegionLabels /> */}
 
-                <RegionLabels />
-                */}
                 <div className="col-span-12 grid xl:col-span-8">
                     <Suspense fallback={<TopSellingProductsSkeleton />}>
                         <TopSellingProducts />
                     </Suspense>
+                </div>
+
+                <div className="col-span-12 grid xl:col-span-4">
+                    <TrendChart
+                        // className="col-span-12 xl:col-span-5"
+                        key={extractTimeFrame("used_devices")}
+                        // timeFrame={extractTimeFrame("used_devices")?.split(":")[1]}
+                    />
                 </div>
 
                 <Suspense fallback={null}>

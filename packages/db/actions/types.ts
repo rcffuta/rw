@@ -28,3 +28,5 @@ export type OrderWithProductWithPayment = Order & {product: Product} & {payment:
 export type Categories = Category[] ;
 export type CategoryItem = Category;
 export type FullCategory = Category & {products: Product[]} ;
+
+export type StatTimeFrame = "this week" | "last week" | "monthly" | "yearly";

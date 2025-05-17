@@ -25,6 +25,7 @@ export function CustomImage({
     fallbackSrc = "/assets/fallback.svg",
     className = "",
     aspectRatio = "1/1",
+    role= undefined
 }: CustomImageProps) {
     const [isLoaded, setLoaded] = useState(false);
     const [error, setError] = useState(false);
@@ -56,6 +57,7 @@ export function CustomImage({
                     }
                 )}
                 sizes="(max-width: 768px) 100vw, 250px"
+                role={role}
             />
         </div>
     );

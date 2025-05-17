@@ -10,7 +10,7 @@ type AreaPropsType = {
   due: { x: unknown; y: number }[];
 };
 
-type DonutPropsType = { name: string; amount: number }[];
+type DonutPropsType = { label: string; value: number }[];
 
 // type BarPropsType = {
 //   sales: { x: string; y: number }[];
@@ -24,7 +24,8 @@ type BarPropsType = {
 
 type ChartType<T> = {
   options?: ApexOptions;
-  data: T
+  data: T,
+  title?: string;
 };
 
 const Chart = dynamic(() => import("react-apexcharts"), {
@@ -213,87 +214,88 @@ export function BarChart({ data, options: comingOptions }: ChartType<BarPropsTyp
 
 export function DonutChart({
   data,
+  title,
   options: comingOptions,
 }: ChartType<DonutPropsType>) {
   
   const options: ApexOptions = comingOptions || {
-    chart: {
-      type: "donut",
-      fontFamily: "inherit",
-    },
-    colors: ["#5750F1", "#5475E5", "#8099EC", "#ADBCF2"],
-    labels: data.map((item) => item.name),
-    legend: {
-      show: true,
-      position: "bottom",
-      itemMargin: {
-        horizontal: 10,
-        vertical: 5,
+      chart: {
+          type: "donut",
+          fontFamily: "inherit",
       },
-      formatter: (legendName, opts) => {
-        const { seriesPercent } = opts.w.globals;
-        return `${legendName}: ${seriesPercent[opts.seriesIndex]}%`;
-      },
-    },
-    plotOptions: {
-      pie: {
-        donut: {
-          size: "80%",
-          background: "transparent",
-          labels: {
-            show: true,
-            total: {
-              show: true,
-              showAlways: true,
-              label: "Visitors",
-              fontSize: "16px",
-              fontWeight: "400",
-            },
-            value: {
-              show: true,
-              fontSize: "28px",
-              fontWeight: "bold",
-              formatter: (val) => compactFormat(+val),
-            },
+      colors: ["#5750F1", "#5475E5", "#8099EC", "#ADBCF2"],
+      labels: data.map((item) => item.label),
+      legend: {
+          show: true,
+          position: "bottom",
+          itemMargin: {
+              horizontal: 10,
+              vertical: 5,
           },
-        },
-      },
-    },
-    dataLabels: {
-      enabled: false,
-    },
-    responsive: [
-      {
-        breakpoint: 2600,
-        options: {
-          chart: {
-            width: 415,
+          formatter: (legendName, opts) => {
+              const { seriesPercent } = opts.w.globals;
+              return `${legendName}: ${seriesPercent[opts.seriesIndex]}%`;
           },
-        },
       },
-      {
-        breakpoint: 640,
-        options: {
-          chart: {
-            width: "100%",
+      plotOptions: {
+          pie: {
+              donut: {
+                  size: "80%",
+                  background: "transparent",
+                  labels: {
+                      show: true,
+                      total: {
+                          show: Boolean(title),
+                          showAlways: true,
+                          label: title,
+                          fontSize: "16px",
+                          fontWeight: "400",
+                      },
+                      value: {
+                          show: Boolean(title),
+                          fontSize: "28px",
+                          fontWeight: "bold",
+                          formatter: (val) => compactFormat(+val),
+                      },
+                  },
+              },
           },
-        },
       },
-      {
-        breakpoint: 370,
-        options: {
-          chart: {
-            width: 260,
+      dataLabels: {
+          enabled: false,
+      },
+      responsive: [
+          {
+              breakpoint: 2600,
+              options: {
+                  chart: {
+                      width: 415,
+                  },
+              },
           },
-        },
-      },
-    ],
+          {
+              breakpoint: 640,
+              options: {
+                  chart: {
+                      width: "100%",
+                  },
+              },
+          },
+          {
+              breakpoint: 370,
+              options: {
+                  chart: {
+                      width: 260,
+                  },
+              },
+          },
+      ],
   };
 
   return (
     <Chart
       options={options}
-      series={data.map((item) => item.amount)}
+      series={data.map((item) => item.value)}
       type="donut"
     />
   );

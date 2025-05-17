@@ -1,5 +1,5 @@
 import { prisma } from "../client";
-import { OrdStatus } from "./types";
+import { OrdStatus, ProductItem, StatTimeFrame } from "./types";
 
 // Get total number of orders
 export async function getTotalOrders() {
@@ -110,20 +110,115 @@ export async function getConversionRate(totalVisitors: number) {
     }
 }
 
-// (Optional) Get revenue grouped by day/week/month for a chart
-export async function getRevenueOverTime(granularity: "day" | "month" = "day") {
-    const groupBy = granularity === "day" ? "%Y-%m-%d" : "%Y-%m";
+
+export async function fetchPaymentStats(timeFrame: StatTimeFrame = "monthly") {
+    const format = timeFrame === "yearly" ? "YYYY" : "MM";
+
+    const stats = await prisma.$queryRawUnsafe<any[]>(`
+        SELECT 
+        to_char(o."createdAt", '${format}') AS period,
+        SUM(
+            CASE 
+            WHEN o.status IN ('${OrdStatus.paid}', '${OrdStatus.disbursed}') 
+            THEN 
+                CASE 
+                WHEN p."discountedPrice" IS NOT NULL AND p."discountedPrice" > 0 
+                THEN p."discountedPrice" * o.quantity
+                ELSE p.price * o.quantity
+                END
+            ELSE 0 
+            END
+        ) AS received,
+        SUM(
+            CASE 
+            WHEN o.status = '${OrdStatus.cart}' 
+            THEN 
+                CASE 
+                WHEN p."discountedPrice" IS NOT NULL AND p."discountedPrice" > 0 
+                THEN p."discountedPrice" * o.quantity
+                ELSE p.price * o.quantity
+                END
+            ELSE 0 
+            END
+        ) AS due
+        FROM "Order" o
+        JOIN "Product" p ON o."productId" = p.id
+        GROUP BY period
+        ORDER BY period;
+    `);
+
+    return stats;
+}
+
+export async function getWeeklyStatsFromDB(timeFrame: StatTimeFrame = "this week") {
+    const today = new Date();
+
+    const start = new Date();
+    start.setDate(today.getDate() - (timeFrame === "this week" ? 6 : 13));
+    start.setHours(0, 0, 0, 0);
+
+    const end = new Date();
+    end.setDate(today.getDate() - (timeFrame === "this week" ? 0 : 7));
+    end.setHours(23, 59, 59, 999);
 
     const results = await prisma.$queryRawUnsafe<any[]>(`
         SELECT
-        to_char("createdAt", '${groupBy}') AS period,
-        SUM(p.price * o.quantity) AS total
+        to_char(o."createdAt", 'YYYY-MM-DD') AS date,
+        EXTRACT(DOW FROM o."createdAt") AS dow,
+        COUNT(*) AS sales,
+        SUM(
+            CASE 
+            WHEN p."discountedPrice" IS NOT NULL AND p."discountedPrice" > 0 THEN p."discountedPrice" * o.quantity
+            ELSE p.price * o.quantity
+            END
+        ) AS revenue
         FROM "Order" o
         JOIN "Product" p ON o."productId" = p.id
-        WHERE o.status IN ('paid', 'disbursed')
-        GROUP BY period
-        ORDER BY period ASC;
+        WHERE o.status IN ('${OrdStatus.paid}', '${OrdStatus.disbursed}') AND o."createdAt" BETWEEN $1 AND $2
+        GROUP BY date, dow
+        ORDER BY date;
+    `, start, end);
+
+    return results;
+}
+
+
+export async function getTopSellingProducts(limit: number = 10) {
+    const results = await prisma.$queryRawUnsafe<any[]>(`
+        SELECT 
+        p.id,
+        p.title,
+        p.images,
+        SUM(o.quantity) AS totalSold,
+        SUM(
+            CASE 
+            WHEN p."discountedPrice" IS NOT NULL AND p."discountedPrice" > 0 
+            THEN p."discountedPrice" * o.quantity
+            ELSE p.price * o.quantity
+            END
+        ) AS totalRevenue
+        FROM "Order" o
+        JOIN "Product" p ON o."productId" = p.id
+        WHERE o.status IN ('${OrdStatus.paid}', '${OrdStatus.disbursed}')
+        GROUP BY p.id, p."title", p."images"
+        ORDER BY totalSold DESC
+        LIMIT ${limit};
     `);
 
     return results;
+}
+
+export async function getOrderStatusStats() {
+  const results = await prisma.$queryRawUnsafe<any[]>(`
+    SELECT
+      o.status,
+      COUNT(*) AS count
+    FROM "Order" o
+    GROUP BY o.status
+  `);
+
+  return results.map((item) => ({
+    status: item.status,
+    count: Number(item.count),
+  }));
 }
