@@ -19,11 +19,13 @@ export function SearchProduct() {
     
     const goToUrl = useCallback(() =>{
         // You can persist this in the URL
-        const category = params.get(categoryFilterKey);
+        const category = params.get(categoryFilterKey) || "";
         const search = new URLSearchParams(Array.from(params.entries()));
 
-        if (query) search.set(searchFilterKey, query);
-        if (category) search.set(categoryFilterKey, category);
+        // if (query) search.set(searchFilterKey, query);
+        search.set(searchFilterKey, query);
+        // if (category) search.set(categoryFilterKey, category);
+        search.set(categoryFilterKey, category);
     
         navigate(`${SHOP}?${search.toString()}`);
     }, [query]);
