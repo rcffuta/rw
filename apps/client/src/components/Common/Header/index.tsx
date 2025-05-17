@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Suspense } from "react";
 import Link from "next/link";
 import { menuData } from "./menuData";
 import Dropdown from "./Dropdown";
@@ -11,6 +11,7 @@ import cartStore from "@/lib/store/cartStore";
 import { observer } from "mobx-react-lite";
 import CategorySelect from "../CategorySelect";
 import { useFormatCurrency } from "@gamezone/lib";
+import { SearchProduct } from "./Search";
 
 type HeaderMenu = {
     stickyMenu: boolean;
@@ -24,36 +25,15 @@ type HeaderMenuWithSetNavigation = HeaderMenu & {
 
 
 function HeaderSearch(){ 
-    const [searchQuery, setSearchQuery] = useState("");
+
     return (
-        <form>
+        <Suspense fallback={null}>
             <div className="flex items-center">
                 <CategorySelect />
 
-                <div className="relative max-w-[333px] sm:min-w-[333px] w-full">
-                    {/* <!-- divider --> */}
-                    <span className="absolute left-0 top-1/2 -translate-y-1/2 inline-block w-px h-5.5 bg-gray-4"></span>
-                    <input
-                        onChange={(e) => setSearchQuery(e.target.value)}
-                        value={searchQuery}
-                        type="search"
-                        name="search"
-                        id="search"
-                        placeholder="I am shopping for..."
-                        autoComplete="off"
-                        className="custom-search w-full rounded-r-[5px] bg-gray-1 !border-l-0 border border-gray-3 py-2.5 pl-4 pr-10 outline-none ease-in duration-200"
-                    />
-
-                    <button
-                        id="search-btn"
-                        aria-label="Search"
-                        className="flex items-center justify-center absolute right-3 top-1/2 -translate-y-1/2 ease-in duration-200 hover:text-blue"
-                    >
-                        <SearchIcon/>
-                    </button>
-                </div>
+                <SearchProduct/>
             </div>
-        </form>
+        </Suspense>
     );
 }
 

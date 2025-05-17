@@ -1,5 +1,5 @@
 "use client";
-import { SHOP } from "@/constants";
+import { categoryFilterKey, SHOP } from "@/constants";
 import { Option, useCategoryOption } from "@/hooks/useCategories";
 import productStore from "@/lib/store/productStore";
 import { useNavigate } from "@gamezone/lib";
@@ -24,9 +24,9 @@ const CategorySelect = () => {
         const params = new URLSearchParams(searchParams.toString());
 
         if (categoryId) {
-            params.set("category", categoryId);
+            params.set(categoryFilterKey, categoryId);
         } else {
-            params.delete("category");
+            params.delete(categoryFilterKey);
         }
 
         navigate(`${SHOP}?${params.toString()}`);
