@@ -5,16 +5,16 @@ import { useEffect, useState } from "react";
 
 export type Option = {
     label: string;
-    value: string;
+    value?: string;
 };
 
+const defaultOption = {
+    label: "All Categories",
+    value: undefined,
+}
+
 export function useCategoryOption() {
-    const [options, setOptions] = useState<Option[]>([
-        {
-            label: "All Categories",
-            value: "0",
-        },
-    ]);
+    const [options, setOptions] = useState<Option[]>([defaultOption]);
 
     useEffect(() => {
         async function loadOptions() {
@@ -26,7 +26,7 @@ export function useCategoryOption() {
                     })
                 );
 
-                setOptions(() => opts);
+                setOptions(() => [defaultOption, ...opts]);
             } catch (error: any) {
                 console.error(error);
             }

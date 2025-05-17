@@ -32,10 +32,10 @@ const CategorySelect = () => {
         setIsOpen(!isOpen);
     };
 
-    // const handleOptionClick = (option) => {
-    //     setSelectedOption(option);
-    //     toggleDropdown();
-    // };
+    const handleOptionClick = (option: any) => {
+        setSelectedOption(option);
+        toggleDropdown();
+    };
 
     useEffect(() => {
         // closing modal while clicking outside
@@ -72,7 +72,7 @@ const CategorySelect = () => {
                     <div
                         key={index}
                         onClick={() => {
-                            setSelectedOption(()=>option);
+                            handleOptionClick(option);
                             handleSelect(option.value)
                         }}
                         className={`select-item ${
