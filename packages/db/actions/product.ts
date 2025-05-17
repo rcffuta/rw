@@ -20,3 +20,17 @@ export const updateProduct = async (id: number, data: Partial<Parameters<typeof 
 export const deleteProduct = async (id: number) => {
   return await prisma.product.delete({ where: { id } });
 };
+
+export async function getProductsByCategory(categoryId?: number) {
+    try {
+
+        return await prisma.product.findMany({
+            where: categoryId ? { categoryId } : {},
+            // include: { category: true, images: true }, // Adjust as needed
+        });
+    } catch (err) {
+        console.error(err);
+
+        return []
+    }
+}

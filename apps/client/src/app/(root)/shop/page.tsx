@@ -5,8 +5,7 @@ import { ShopLayout } from "@/Layout/ShoptLayout";
 import ProductDiplayHeader from "@/components/client/Shop/ProductDiplayHeader";
 import ProductPagination from "@/components/client/Shop/ProductPagination";
 import { ProductList } from "@/components/client/Shop/ProductList";
-import { getAllProductList } from "@/actions/product.action";
-import { ProductItem } from "@gamezone/db";
+import { getProductsByCategory, ProductItem } from "@gamezone/db";
 import ToastFeedback from "@/components/Common/ToastFeedback";
 import { APP_NAME } from "@gamezone/lib";
 
@@ -16,21 +15,38 @@ export const metadata: Metadata = {
     // other metadata
 };
 
+type ProductsPageProps = {
+    searchParams: {
+        category?: string;
+    };
+}
+
 export const dynamic = "force-dynamic";
 
-export default async function ShopPage() {
+export default async function ShopPage({ searchParams }: ProductsPageProps) {
+
+    const categoryId = searchParams.category
+        ? Number(searchParams.category)
+        : undefined;
+
     let products: ProductItem[] = [];
-    let error:Error | null = null;
+    let error: Error | null = null;
+
+
 
     try {
-        products = await getAllProductList();
+        products = await getProductsByCategory(categoryId);
     } catch (err) {
         error = err as Error;
+
     }
+
+    const lenght = products.length;
+    const current = lenght > 0 ? 1 : 0;
 
     return (
         <ShopLayout>
-            {!Boolean(error) ? null :(
+            {!Boolean(error) ? null : (
                 <ToastFeedback
                     message={error.message || "Error!"}
                     duration={2000}
@@ -40,7 +56,7 @@ export default async function ShopPage() {
             )}
             <div className="w-full">
                 {/* <!-- Products Grid Tab Content Start --> */}
-                <ProductDiplayHeader total={products.length} current={1} />
+                <ProductDiplayHeader total={length} current={current} />
                 {/* <!-- Products Grid Tab Content End --> */}
                 <ProductList products={products} />
                 {/* <!-- Products Pagination Start --> */}

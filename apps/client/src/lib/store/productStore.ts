@@ -1,39 +1,29 @@
 // stores/ProductStore.ts
 import { makeAutoObservable } from "mobx";
 import { ProductItem } from "@gamezone/db";
+// import { getAllProductList } from "@/actions/product.action";
 
 class ProductStore {
-  quickView: ProductItem | null = null; //this.createEmptyProduct();
-  productDetails: ProductItem | null = null; //this.createEmptyProduct();
+    quickView: ProductItem | null = null;
+    productDetails: ProductItem | null = null;
 
-  constructor() {
-    makeAutoObservable(this);
-  }
+    productItems: ProductItem[] = [];
 
-  private createEmptyProduct(): ProductItem {
-    return {
-      id: 0,
-      title: "",
-      description: "",
-      price: 0,
-      discountedPrice: 0,
-      images: [],
-      categoryId: 1,
-      createdAt: new Date(),
-    };
-  }
+    constructor() {
+        makeAutoObservable(this);
+    }
 
-  updateQuickView(product: ProductItem) {
-    this.quickView = { ...product };
-  }
+    updateQuickView(product: ProductItem) {
+        this.quickView = { ...product };
+    }
 
-  resetQuickView() {
-    this.quickView = null; //this.createEmptyProduct();
-  }
+    resetQuickView() {
+        this.quickView = null;
+    }
 
-  updateProductDetails(product: ProductItem) {
-    this.productDetails = { ...product };
-  }
+    updateProductDetails(product: ProductItem) {
+        this.productDetails = { ...product };
+    }
 }
 
 const productStore = new ProductStore();
