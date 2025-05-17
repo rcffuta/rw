@@ -4,6 +4,10 @@ import { ProductItem } from "@gamezone/db";
 import { Option } from "@/hooks/useCategories";
 // import { getAllProductList } from "@/actions/product.action";
 
+export const defaultOption = {
+    label: "All Categories",
+    value: undefined,
+}
 
 class ProductStore {
     quickView: ProductItem | null = null;
@@ -11,13 +15,13 @@ class ProductStore {
 
     productItems: ProductItem[] = [];
 
-    selectedCategory: Option | undefined = undefined;
+    selectedCategory: Option = defaultOption;
 
     constructor() {
         makeAutoObservable(this);
     }
 
-    setSelectedCategory(option?: Option) {
+    setSelectedCategory(option: Option) {
         this.selectedCategory = option;
     }
 
