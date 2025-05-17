@@ -7,7 +7,6 @@ import { useCartModalContext } from "@/context/CartSidebarModalContext";
 import Logo from "../Logo";
 import { CartIcon, PhoneIcon, SearchIcon } from "../Icons";
 import { UserHighlight } from "@/components/Common/Header/UserHighlight";
-import { phoneNumber } from "@/data/info";
 import cartStore from "@/lib/store/cartStore";
 import { observer } from "mobx-react-lite";
 import CategorySelect from "../CategorySelect";

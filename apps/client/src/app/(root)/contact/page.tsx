@@ -1,8 +1,7 @@
 import ContactForm from "@/components/client/Contact/ContactForm";
 import Breadcrumb from "@/components/Common/Breadcrumb";
 import { EmailIcon, LocationIcon, PhoneIcon, UserIcon } from "@/components/Common/Icons";
-import { ADMIN_CONTACT } from "@/data/contact";
-import { APP_NAME } from "@gamezone/lib";
+import { APP_ADMIN_ADDRESS, APP_ADMIN_CONTACT, APP_ADMIN_EMAIL, APP_ADMIN_USERNAME, APP_NAME } from "@gamezone/lib";
 
 import { Metadata } from "next";
 export const metadata: Metadata = {
@@ -28,22 +27,22 @@ const ContactPage = () => {
                           <div className="p-4 sm:p-7.5">
                               <div className="flex flex-col gap-4">
                                   <p className="flex items-center gap-4">
-                                      <UserIcon/>
-                                      Name: {ADMIN_CONTACT.name}
+                                      <UserIcon />
+                                      Name: {APP_ADMIN_USERNAME}
                                   </p>
                                   <p className="flex items-center gap-4">
-                                      <EmailIcon/>
-                                      Email: {ADMIN_CONTACT.email}
+                                      <EmailIcon />
+                                      Email: {APP_ADMIN_EMAIL}
                                   </p>
 
                                   <p className="flex items-center gap-4">
-                                      <PhoneIcon/>
-                                      Phone: {ADMIN_CONTACT.phoneNumber}
+                                      <PhoneIcon />
+                                      Phone: {APP_ADMIN_CONTACT}
                                   </p>
 
                                   <p className="flex gap-4">
-                                      <LocationIcon/>
-                                      Address: {ADMIN_CONTACT.address}
+                                      <LocationIcon />
+                                      Address: {APP_ADMIN_ADDRESS}
                                   </p>
                               </div>
                           </div>

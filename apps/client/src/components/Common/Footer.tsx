@@ -1,8 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import { CallIcon, LocationIcon, MailIcon } from "./Icons";
-import { address, email, phoneNumber } from "@/data/info";
-import { APP_NAME } from "@gamezone/lib";
+import { APP_ADMIN_ADDRESS, APP_ADMIN_CONTACT, APP_ADMIN_EMAIL, APP_NAME } from "@gamezone/lib";
 
 
 function AppLinks() {
@@ -182,20 +181,20 @@ const Footer = () => {
                 <span className="flex-shrink-0">
                   <LocationIcon/>
                 </span>
-                {address}
+                {APP_ADMIN_ADDRESS}
               </li>
 
               <li>
                 <a href="#" className="flex items-center gap-4.5">
                   <CallIcon/>
-                  {phoneNumber}
+                  {APP_ADMIN_CONTACT}
                 </a>
               </li>
 
               <li>
                 <a href="#" className="flex items-center gap-4.5">
                   <MailIcon/>
-                  {email}
+                  {APP_ADMIN_EMAIL}
                 </a>
               </li>
             </ul>
