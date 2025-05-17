@@ -7,6 +7,8 @@ import { OverviewCardsSkeleton } from "../../components/Overview/overview-cards/
 import { WeekStat } from "@/actions/analytics.actions";
 import { TrendChart } from "@/components/Charts/TrendChart";
 
+export const dynamic = "force-dynamic";
+
 type PropsType = {
   searchParams: Promise<{
     selected_time_frame?: string;
