@@ -1,10 +1,17 @@
+"use client";
+
 import React from "react";
 import Image from "next/image";
 import { CallIcon, LocationIcon, MailIcon } from "./Icons";
 import { APP_ADMIN_ADDRESS, APP_ADMIN_CONTACT, APP_ADMIN_EMAIL, APP_NAME } from "@gamezone/lib";
+import authStore from "@/lib/store/authStore";
+import { observer } from "mobx-react-lite";
+import { ACCOUNT, CART, CONTACT, SHOP, SIGNIN, WISHLIST } from "@/constants";
+import Link from "next/link";
 
 
-function AppLinks() {
+const AppLinks = observer(() => {
+    const user = authStore.isAuthenticated;
     return (
         <div className="w-full sm:w-auto">
             <h2 className="mb-7.5 text-custom-1 font-medium text-dark">
@@ -12,26 +19,30 @@ function AppLinks() {
             </h2>
 
             <ul className="flex flex-col gap-3.5">
+                {user ? (
+                    <li>
+                        <Link
+                            className="ease-out duration-200 hover:text-blue"
+                            href={ACCOUNT}
+                        >
+                            My Account
+                        </Link>
+                    </li>
+                ) : (
+                    <li>
+                        <Link
+                            className="ease-out duration-200 hover:text-blue"
+                            href={SIGNIN}
+                        >
+                            Login / Register
+                        </Link>
+                    </li>
+                )}
+
                 <li>
                     <a
                         className="ease-out duration-200 hover:text-blue"
-                        href="#"
-                    >
-                        My Account
-                    </a>
-                </li>
-                <li>
-                    <a
-                        className="ease-out duration-200 hover:text-blue"
-                        href="#"
-                    >
-                        Login / Register
-                    </a>
-                </li>
-                <li>
-                    <a
-                        className="ease-out duration-200 hover:text-blue"
-                        href="#"
+                        href={CART}
                     >
                         Cart
                     </a>
@@ -39,7 +50,7 @@ function AppLinks() {
                 <li>
                     <a
                         className="ease-out duration-200 hover:text-blue"
-                        href="#"
+                        href={WISHLIST}
                     >
                         Wishlist
                     </a>
@@ -47,7 +58,7 @@ function AppLinks() {
                 <li>
                     <a
                         className="ease-out duration-200 hover:text-blue"
-                        href="#"
+                        href={SHOP}
                     >
                         Shop
                     </a>
@@ -55,7 +66,7 @@ function AppLinks() {
             </ul>
         </div>
     );
-}
+})
 
 function NonFncLink() {
     return (
@@ -98,12 +109,12 @@ function NonFncLink() {
                     </a>
                 </li>
                 <li>
-                    <a
+                    <Link
                         className="ease-out duration-200 hover:text-blue"
-                        href="#"
+                        href={CONTACT}
                     >
                         Contact
-                    </a>
+                    </Link>
                 </li>
             </ul>
         </div>
@@ -116,46 +127,22 @@ function SptPayment() {
             <p className="font-medium">We Accept:</p>
 
             <div className="flex flex-wrap items-center gap-6">
-                <a href="#" aria-label="payment system with visa card">
+                <Link href="#" aria-label="payment system with visa card">
                     <Image
                         src="/assets/payment/payment-01.svg"
                         alt="visa card"
                         width={66}
                         height={22}
                     />
-                </a>
-                {/* <a href="#" aria-label="payment system with paypal">
-                    <Image
-                        src="/assets/payment/payment-02.svg"
-                        alt="paypal"
-                        width={18}
-                        height={21}
-                    />
-                </a> */}
-                <a href="#" aria-label="payment system with master card">
+                </Link>
+                <Link href="#" aria-label="payment system with master card">
                     <Image
                         src="/assets/payment/payment-03.svg"
                         alt="master card"
                         width={33}
                         height={24}
                     />
-                </a>
-                {/* <a href="#" aria-label="payment system with apple pay">
-                    <Image
-                        src="/assets/payment/payment-04.svg"
-                        alt="apple pay"
-                        width={52.94}
-                        height={22}
-                    />
-                </a>
-                <a href="#" aria-label="payment system with google pay">
-                    <Image
-                        src="/assets/payment/payment-05.svg"
-                        alt="google pay"
-                        width={56}
-                        height={22}
-                    />
-                </a> */}
+                </Link>
             </div>
         </div>
     );
