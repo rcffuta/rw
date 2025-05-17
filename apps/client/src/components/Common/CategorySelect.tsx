@@ -33,9 +33,7 @@ const CategorySelect = () => {
     };
 
     const toggleDropdown = () => {
-        if (isOpen) {
-            setIsOpen(false);
-        }
+        setIsOpen(!isOpen);
     };
 
     const handleOptionClick = (option: Option) => {
@@ -53,8 +51,10 @@ const CategorySelect = () => {
             }
         }
 
-        
-        document.addEventListener("mousedown", handleClickOutside);
+        if (isOpen) {
+
+            document.addEventListener("mousedown", handleClickOutside);
+        }
 
         return () => {
             document.removeEventListener("mousedown", handleClickOutside);
