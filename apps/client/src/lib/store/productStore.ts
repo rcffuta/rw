@@ -2,6 +2,7 @@
 import { makeAutoObservable } from "mobx";
 import { ProductItem } from "@gamezone/db";
 import { Option } from "@/hooks/useCategories";
+import { getCategoryProducts } from "@/actions/product.action";
 // import { getAllProductList } from "@/actions/product.action";
 
 export const defaultOption = {
@@ -35,6 +36,10 @@ class ProductStore {
 
     updateProductDetails(product: ProductItem) {
         this.productDetails = { ...product };
+    }
+
+    async getCategoryProductById(categoryId:number) {
+        return await getCategoryProducts(categoryId);
     }
 }
 

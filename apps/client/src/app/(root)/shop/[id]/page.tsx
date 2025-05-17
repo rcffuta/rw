@@ -51,7 +51,7 @@ export default async function ShopPage({ params }: Props) {
         <>
             <Breadcrumb title={"Shop Details"} pages={["shop details"]} />
             {template}
-            <RecentlyViewdItems />
+            <RecentlyViewdItems categoryId={product.categoryId} productId={product.id}/>
             <Newsletter />
         </>
     );

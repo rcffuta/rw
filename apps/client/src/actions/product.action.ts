@@ -1,6 +1,6 @@
 "use server";
 
-import { CategoryItem, FullBookProduct, FullGameProduct, getAllBooks, getAllCategories, getAllGames, getAllProducts, ProductItem } from "@gamezone/db";
+import { CategoryItem, FullBookProduct, FullGameProduct, getAllBooks, getAllCategories, getAllGames, getAllProducts,getAllCategoryWithProducts, ProductItem } from "@gamezone/db";
 
 export async function getCategoryList(): Promise<CategoryItem[]> {
     try {
@@ -37,5 +37,14 @@ export async function getAllProductList(): Promise<ProductItem[]> {
     } catch (err) {
         console.error(err);
         throw new Error("Could not get all products");
+    }
+}
+
+export async function getCategoryProducts(categoryId:number) {
+    try {
+        return await getAllCategoryWithProducts(categoryId);
+    } catch (err) {
+        console.error(err);
+        return [];
     }
 }

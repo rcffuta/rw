@@ -9,6 +9,10 @@ export const getAllCategories = async () => {
   }
 };
 
+export const getAllCategoryWithProducts = async (categoryId: number) => {
+  return await prisma.product.findMany({ where: {categoryId}});
+};
+
 export const getAllCategoriesWithProducts = async () => {
   return await prisma.category.findMany({ include: { products: true } });
 };
