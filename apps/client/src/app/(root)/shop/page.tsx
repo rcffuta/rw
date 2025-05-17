@@ -41,8 +41,8 @@ export default async function ShopPage({ searchParams }: ProductsPageProps) {
 
     }
 
-    const lenght = products.length;
-    const current = lenght > 0 ? 1 : 0;
+    // const lenght = products.length;
+    // const current = lenght > 0 ? 1 : 0;
 
     return (
         <ShopLayout>
@@ -56,7 +56,10 @@ export default async function ShopPage({ searchParams }: ProductsPageProps) {
             )}
             <div className="w-full">
                 {/* <!-- Products Grid Tab Content Start --> */}
-                <ProductDiplayHeader total={length} current={current} />
+                <ProductDiplayHeader
+                    total={products.length}
+                    current={1}
+                />
                 {/* <!-- Products Grid Tab Content End --> */}
                 <ProductList products={products} />
                 {/* <!-- Products Pagination Start --> */}
