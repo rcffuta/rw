@@ -208,7 +208,7 @@ export function useAuthForm<T>(intitialData: T= {} as T) {
         })
         .catch((err)=>{
             console.error(err);
-            toast.error(err.message || "Could not authenticate you", {
+            toast.error("Could not authenticate you", {
                 id: toastID,
             });
         })

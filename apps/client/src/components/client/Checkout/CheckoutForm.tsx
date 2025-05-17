@@ -68,7 +68,7 @@ function CheckoutForm(props: CheckoutFormProps) {
             }
         } catch (err) {
             console.error("Error Checkout Out", err);
-            toast.error(err.message, toastConfig);
+            toast.error("Could not Checkout", toastConfig);
         }
     };
 

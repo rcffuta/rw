@@ -16,7 +16,8 @@ export async function BooksProductHighlight(props: Props) {
 
         data = await getBookProducts();
     } catch(err: any) {
-        return <ToastFeedback message={err.message || "Error!"} id="bookHighlightToast" type="error"/>
+        console.error(err);
+        return <ToastFeedback message={"Error loading books!"} id="bookHighlightToast" type="error"/>
     }
 
     if (data.length < 1) return null;
@@ -39,9 +40,10 @@ export async function GameProductHighlight(props: Props) {
     try {
         data = await getGameProducts();
     } catch (err: any) {
+        console.error(err);
         return (
             <ToastFeedback
-                message={err.message || "Error!"}
+                message={"Error loading games"}
                 id="gameHighlightToast"
                 type="error"
             />

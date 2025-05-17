@@ -33,8 +33,8 @@ export default function ContactForm() {
             await wait(0.9);
             throw new Error("Not Implemented!");
         } catch (err) {
-            console.error("Login failed:", err);
-            toast.error(err.message || "Could not send your message", {
+            console.error(err);
+            toast.error("Could not send your message", {
                 id: toastID,
             });
         }
