@@ -16,10 +16,14 @@ import { CategoryImage } from "@gamezone/lib";
 
 const tableHeads: TableRowItem[] = [
     {
+        label: "Thumbmail",
+        // side: "left",
+    },
+    {
         label: "Category",
         // side: "left",
     },
-    { label: "Products" },
+    { label: "Total Products" },
     // { label: "Discount Price" },
     // { label: "Last Updated" },
     // { label: "Date Created" },
@@ -53,14 +57,6 @@ export function CategoryTable(props: Props) {
                             <TableHead
                                 key={i}
                                 className="text-center"
-                                // className={clsx(
-                                //     {
-                                //         "!text-left": item.side === "left",
-                                //         "!text-right": item.side === "right",
-                                //         "min-w-[120px]": i === 0,
-                                //     },
-                                //     item.className,
-                                // )}
                             >
                                 {item.label}
                             </TableHead>
@@ -74,15 +70,17 @@ export function CategoryTable(props: Props) {
                             className="text-base font-medium text-dark-2 dark:text-white"
                             key={category.id}
                         >
-                            <TableCell className="flex items-center justify-center gap-3 pl-5 sm:pl-6 xl:pl-7.5">
+                            {/* <TableCell className="flex items-center justify-center"> */}
+                            <TableCell className="flex items-center justify-center">
                                 <CategoryImage
                                     src={category.image}
                                     className="aspect-[6/5] w-15 rounded-[5px]"
-                                    // width={60}
-                                    // height={50}
                                     alt={"Image for category " + category.name}
-                                    role="presentation"
                                 />
+                            </TableCell>
+
+                            {/* <TableCell className="flex items-center justify-center gap-3 pl-5 sm:pl-6 xl:pl-7.5"> */}
+                            <TableCell className="text-center">
                                 <div>{category.name}</div>
                             </TableCell>
 

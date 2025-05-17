@@ -1,7 +1,7 @@
 import { TrendingUpIcon } from "@/components/Icons";
 import { compactFormat } from "@/utils/format-number";
 import { cn } from "@/utils/utils";
-import { getCampaignVisitorsData } from "@/actions/analytics.actions";
+// import { getCampaignVisitorsData } from "@/actions/analytics.actions";
 import { ApexOptions } from "apexcharts";
 import { BarChart } from "./chart-items";
 
@@ -63,7 +63,9 @@ const options: ApexOptions = {
   };
 
 export async function CampaignVisitors({ className }: { className?: string }) {
-  const data = await getCampaignVisitorsData();
+  const data: any = {}// await getCampaignVisitorsData();
+
+  return null;
 
   return (
     <div

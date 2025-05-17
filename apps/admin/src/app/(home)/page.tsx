@@ -4,7 +4,6 @@ import { createTimeFrameExtractor } from "@/utils/timeframe-extractor";
 import { Suspense } from "react";
 import { OverviewCardsGroup } from "../../components/Overview/overview-cards";
 import { OverviewCardsSkeleton } from "../../components/Overview/overview-cards/skeleton";
-import { OrderHighlight } from "@/components/Order/order-highlight";
 import { WeekStat } from "@/actions/analytics.actions";
 import { TrendChart } from "@/components/Charts/TrendChart";
 
@@ -52,10 +51,6 @@ export default async function Home({ searchParams }: PropsType) {
                         // timeFrame={extractTimeFrame("used_devices")?.split(":")[1]}
                     />
                 </div>
-
-                <Suspense fallback={null}>
-                    <OrderHighlight />
-                </Suspense>
             </div>
         </>
     );

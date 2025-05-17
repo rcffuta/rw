@@ -119,7 +119,7 @@ function SptPayment() {
             <div className="flex flex-wrap items-center gap-6">
                 <a href="#" aria-label="payment system with visa card">
                     <Image
-                        src="/images/payment/payment-01.svg"
+                        src="/assets/payment/payment-01.svg"
                         alt="visa card"
                         width={66}
                         height={22}
@@ -127,7 +127,7 @@ function SptPayment() {
                 </a>
                 {/* <a href="#" aria-label="payment system with paypal">
                     <Image
-                        src="/images/payment/payment-02.svg"
+                        src="/assets/payment/payment-02.svg"
                         alt="paypal"
                         width={18}
                         height={21}
@@ -135,7 +135,7 @@ function SptPayment() {
                 </a> */}
                 <a href="#" aria-label="payment system with master card">
                     <Image
-                        src="/images/payment/payment-03.svg"
+                        src="/assets/payment/payment-03.svg"
                         alt="master card"
                         width={33}
                         height={24}
@@ -143,7 +143,7 @@ function SptPayment() {
                 </a>
                 {/* <a href="#" aria-label="payment system with apple pay">
                     <Image
-                        src="/images/payment/payment-04.svg"
+                        src="/assets/payment/payment-04.svg"
                         alt="apple pay"
                         width={52.94}
                         height={22}
@@ -151,7 +151,7 @@ function SptPayment() {
                 </a>
                 <a href="#" aria-label="payment system with google pay">
                     <Image
-                        src="/images/payment/payment-05.svg"
+                        src="/assets/payment/payment-05.svg"
                         alt="google pay"
                         width={56}
                         height={22}

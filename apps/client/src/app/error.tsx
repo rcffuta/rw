@@ -27,7 +27,7 @@ export default function Error500Page({ error, reset }: { error: Error; reset: ()
                     <div className="bg-white rounded-xl shadow-1 px-4 py-10 sm:py-15 lg:py-20 xl:py-25">
                         <div className="text-center">
                             {/* <Image
-                                src="/images/500.svg"
+                                src="/assets/500.svg"
                                 alt="500"
                                 className="mx-auto mb-8 w-1/2 sm:w-auto"
                                 width={288}

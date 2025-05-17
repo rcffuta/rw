@@ -7,31 +7,31 @@ const SingleItem = ({ testimonial }: { testimonial: Testimonial }) => {
     <div className="shadow-testimonial bg-white rounded-[10px] py-7.5 px-4 sm:px-8.5 m-1">
       <div className="flex items-center gap-1 mb-5">
         <Image
-          src="/images/icons/icon-star.svg"
+          src="/assets/icons/icon-star.svg"
           alt="star icon"
           width={15}
           height={15}
         />
         <Image
-          src="/images/icons/icon-star.svg"
+          src="/assets/icons/icon-star.svg"
           alt="star icon"
           width={15}
           height={15}
         />
         <Image
-          src="/images/icons/icon-star.svg"
+          src="/assets/icons/icon-star.svg"
           alt="star icon"
           width={15}
           height={15}
         />
         <Image
-          src="/images/icons/icon-star.svg"
+          src="/assets/icons/icon-star.svg"
           alt="star icon"
           width={15}
           height={15}
         />
         <Image
-          src="/images/icons/icon-star.svg"
+          src="/assets/icons/icon-star.svg"
           alt="star icon"
           width={15}
           height={15}

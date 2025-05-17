@@ -1,4 +1,4 @@
-import { CheckIcon, TrashIcon } from "@/components/Icons";
+import { CheckIcon } from "@/components/Icons";
 import {
   Table,
   TableBody,
@@ -7,9 +7,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { DownloadIcon, PreviewIcon } from "../Tables/icons";
-import EmptyRow from "../Tables/EmptyTable";
-import { useFormatCurrency, wait } from "@gamezone/lib";
+import { formatCurrency} from "@gamezone/lib";
 import { TableRowItem } from "../ui/types";
 import { TableSkeleton } from "../ui/table-skeleton";
 import clsx from "clsx";
@@ -53,28 +51,13 @@ export function OrderTable({ orders}: OrderProps) {
     return (
         <div className="rounded-[10px] border border-stroke bg-white p-4 shadow-1 dark:border-dark-3 dark:bg-gray-dark dark:shadow-card sm:p-7.5">
             <Table>
-                {/* <TableHeader>
-                    <TableRow className="border-none bg-[#F7F9FC] dark:bg-dark-2 [&>th]:py-4 [&>th]:text-base [&>th]:text-dark [&>th]:dark:text-white">
-                        <TableHead className="min-w-[155px] xl:pl-7.5">
-                            Package
-                        </TableHead>
-                        <TableHead>Invoice Date</TableHead>
-                        <TableHead>Status</TableHead>
-                        <TableHead className="text-right xl:pr-7.5">
-                            Actions
-                        </TableHead>
-                    </TableRow>
-                </TableHeader> */}
 
                 <TableHeader>
                     <TableRow className="border-none bg-[#F7F9FC] dark:bg-dark-2 [&>th]:py-4 [&>th]:text-base [&>th]:text-dark [&>th]:dark:text-white">
                         {tableHead.map((item, i) => (
                             <TableHead
                                 key={i}
-                                // className={clsx({
-                                //     "!text-left": item.side === "left",
-                                //     "!text-right": item.side === "right",
-                                // })}
+                                className="text-center"
                             >
                                 {item.label}
                             </TableHead>
@@ -92,7 +75,7 @@ export function OrderTable({ orders}: OrderProps) {
 
 
 function RowItem({items}: {items: OrderType[]}) {
-    const parseFigure = useFormatCurrency();
+
     return (
         <>
             {items.map((item, index)=>{
@@ -101,13 +84,13 @@ function RowItem({items}: {items: OrderType[]}) {
                         key={index}
                         className="border-[#eee] dark:border-dark-3"
                     >
-                        <TableCell>
+                        <TableCell className="text-center">
                             <h5 className="text-dark dark:text-white">
                                 ORD-{item.id}
                             </h5>
                         </TableCell>
 
-                        <TableCell className="min-w-[155px] text-dark dark:text-white xl:pl-7.5">
+                        <TableCell className="min-w-[155px] text-center text-dark dark:text-white xl:pl-7.5">
                             <p className="mt-[3px] text-body-sm font-medium">
                                 {item.product.title}{" "}
                                 {item.quantity > 1
@@ -116,24 +99,16 @@ function RowItem({items}: {items: OrderType[]}) {
                             </p>
                         </TableCell>
 
-                        <TableCell>
-                            <p className="text-dark dark:text-white">
-                                {parseFigure(
-                                    item.product.price * item.quantity,
-                                )}
-                            </p>
+                        <TableCell className="text-center font-mono font-semibold text-dark dark:text-white">
+                            {formatCurrency(item.product.price * item.quantity)}
                         </TableCell>
 
-                        <TableCell>
-                            <p className="text-dark dark:text-white">
-                                {item.payment?.reference}
-                            </p>
+                        <TableCell className="text-center text-dark dark:text-white">
+                            {item.payment?.reference}
                         </TableCell>
 
-                        <TableCell>
-                            <p className="text-dark dark:text-white">
+                        <TableCell className="text-center text-dark dark:text-white">
                                 {item.payment?.paidAt?.toDateString() || null}
-                            </p>
                         </TableCell>
 
                         <TableCell>

@@ -4,7 +4,7 @@ import { OrderTable, OrderTableSkeleton } from "./OrderTable";
 import EmptyRow from "../Tables/EmptyTable";
 import { useEffect, useState } from "react";
 import { OrderWithProductWithPayment } from "@gamezone/db";
-import { loadAllPaidOrder } from "@/actions/order.actions";
+import { loadAllPaidOrder } from "@/actions/order.action";
 
 export function OrderList() {
 

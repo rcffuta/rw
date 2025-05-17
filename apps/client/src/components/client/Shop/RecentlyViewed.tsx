@@ -31,7 +31,7 @@ const RecentlyViewdItems = () => {
             <div>
               <span className="flex items-center gap-2.5 font-medium text-dark mb-1.5">
                 <Image
-                  src="/images/icons/icon-05.svg"
+                  src="/assets/icons/icon-05.svg"
                   width={17}
                   height={17}
                   alt="icon"

@@ -3,22 +3,22 @@ import Image from "next/image";
 
 const featureData = [
   {
-    img: "/images/icons/icon-01.svg",
+    img: "/assets/icons/icon-01.svg",
     title: "Fast Shipping",
     description: "Instant delivery",
   },
   // {
-  //   img: "/images/icons/icon-02.svg",
+  //   img: "/assets/icons/icon-02.svg",
   //   title: "1 & 1 Returns",
   //   description: "Cancellation after 1 day",
   // },
   {
-    img: "/images/icons/icon-03.svg",
+    img: "/assets/icons/icon-03.svg",
     title: "100% Secure Payments",
     description: "Fast and guranteed secure payments",
   },
   {
-    img: "/images/icons/icon-04.svg",
+    img: "/assets/icons/icon-04.svg",
     title: "24/7 Dedicated Support",
     description: "Anywhere & anytime",
   },

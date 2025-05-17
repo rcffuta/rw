@@ -60,7 +60,7 @@ const ShippingMethod = () => {
               <div className="flex items-center">
                 <div className="pr-4">
                   <Image
-                    src="/images/checkout/fedex.svg"
+                    src="/assets/checkout/fedex.svg"
                     alt="fedex"
                     width={64}
                     height={18}
@@ -100,7 +100,7 @@ const ShippingMethod = () => {
               <div className="flex items-center">
                 <div className="pr-4">
                   <Image
-                    src="/images/checkout/dhl.svg"
+                    src="/assets/checkout/dhl.svg"
                     alt="dhl"
                     width={64}
                     height={20}

@@ -20,7 +20,7 @@ export default function Error404Page() {
                     <div className="bg-white rounded-xl shadow-1 px-4 py-10 sm:py-15 lg:py-20 xl:py-25">
                         <div className="text-center">
                             <Image
-                                src="/images/404.svg"
+                                src="/assets/404.svg"
                                 alt="404"
                                 className="mx-auto mb-8 w-1/2 sm:w-auto"
                                 width={288}

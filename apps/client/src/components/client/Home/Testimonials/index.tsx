@@ -32,7 +32,7 @@ const Testimonials = () => {
               <div>
                 <span className="flex items-center gap-2.5 font-medium text-dark mb-1.5">
                   <Image
-                    src="/images/icons/icon-08.svg"
+                    src="/assets/icons/icon-08.svg"
                     alt="icon"
                     width={17}
                     height={17}

@@ -199,7 +199,7 @@ export function StarRating({rate}:{rate:number}) {
             {[...Array(_star_rate)].map((each, i) => (
                 <Image
                     key={i}
-                    src="/images/icons/icon-star.svg"
+                    src="/assets/icons/icon-star.svg"
                     alt="star icon"
                     width={15}
                     height={15}

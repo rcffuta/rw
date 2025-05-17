@@ -13,7 +13,7 @@ const Hero = () => {
             <div className="relative z-1 rounded-[10px] bg-white overflow-hidden">
               {/* <!-- bg shapes --> */}
               <Image
-                src="/images/hero/hero-bg.png"
+                src="/assets/hero/hero-bg.png"
                 alt="hero bg shapes"
                 className="absolute right-0 bottom-0 -z-1"
                 width={534}
@@ -50,7 +50,7 @@ const Hero = () => {
 
                   <div>
                     <Image
-                      src="/images/hero/hero-02.png"
+                      src="/assets/hero/hero-02.png"
                       alt="mobile image"
                       width={123}
                       height={161}
@@ -82,7 +82,7 @@ const Hero = () => {
 
                   <div>
                     <Image
-                      src="/images/hero/hero-01.png"
+                      src="/assets/hero/hero-01.png"
                       alt="mobile image"
                       width={123}
                       height={161}

@@ -8,7 +8,7 @@ const Newsletter = () => {
         <div className="relative z-1 overflow-hidden rounded-xl">
           {/* <!-- bg shapes --> */}
           <Image
-            src="/images/shapes/newsletter-bg.jpg"
+            src="/assets/shapes/newsletter-bg.jpg"
             alt="background illustration"
             className="absolute -z-1 w-full h-full left-0 top-0 rounded-xl"
             width={1170}

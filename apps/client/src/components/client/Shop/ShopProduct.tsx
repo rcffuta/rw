@@ -282,7 +282,7 @@ function ShopProductInformation() {
                                         >
                                             <div className="w-12.5 h-12.5 rounded-full overflow-hidden">
                                                 <ProductImage
-                                                    src="/images/users/user-01.jpg"
+                                                    src="/assets/users/user-01.jpg"
                                                     alt="author"
                                                     className="w-12.5 h-12.5 rounded-full overflow-hidden"
                                                     width={50}
@@ -399,7 +399,7 @@ function ShopProductInformation() {
                                         >
                                             <div className="w-12.5 h-12.5 rounded-full overflow-hidden">
                                                 <ProductImage
-                                                    src="/images/users/user-01.jpg"
+                                                    src="/assets/users/user-01.jpg"
                                                     alt="author"
                                                     className="w-12.5 h-12.5 rounded-full overflow-hidden"
                                                     width={50}
@@ -516,7 +516,7 @@ function ShopProductInformation() {
                                         >
                                             <div className="w-12.5 h-12.5 rounded-full overflow-hidden">
                                                 <ProductImage
-                                                    src="/images/users/user-01.jpg"
+                                                    src="/assets/users/user-01.jpg"
                                                     alt="author"
                                                     className="w-12.5 h-12.5 rounded-full overflow-hidden"
                                                     width={50}

@@ -2,10 +2,9 @@ import { DotIcon } from "@/components/Icons";
 import { formatTime } from "@/utils/format-message-time";
 import Image from "next/image";
 import Link from "next/link";
-import { getUnResolvedOrder } from "@/actions/order.action";
 
 export async function OrderHighlight() {
-  const data = await getUnResolvedOrder();
+  const data:any[] = [] ;
 
 
   if (data.length <1) return null;

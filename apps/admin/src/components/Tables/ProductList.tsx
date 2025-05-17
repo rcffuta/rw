@@ -14,8 +14,13 @@ import { TableSkeleton } from "../ui/table-skeleton";
 
 import { formatTimeFromNow } from "@/utils/format-time";
 import { standardFormat } from "@/utils/format-number";
+import { formatCurrency } from "@gamezone/lib";
 
 const tableHeads: TableRowItem[] = [
+    {
+        label: "Thumbmail",
+        // side: "left",
+    },
     {
         label: "Item",
         // side: "left",
@@ -28,7 +33,7 @@ const tableHeads: TableRowItem[] = [
     // { label: "Profit" },
 ];
 
-const TableLabel = "Top Sales";
+const TableLabel = "Preparing table...";
 
 
 type ProductListProps = {
@@ -87,19 +92,19 @@ export function ProductTable(props: ProductListProps) {
                                     alt={"Image for product " + product.title}
                                     role="presentation"
                                 />
-                                <div>{product.title}</div>
-                            </TableCell>
-
-                            {/* <TableCell>{product.price}</TableCell> */}
-
-                            <TableCell className="text-center">
-                                ${standardFormat(product.price)}
                             </TableCell>
 
                             <TableCell className="text-center">
-                                ${product.discountedPrice}
+                                {product.title}
                             </TableCell>
 
+                            <TableCell className="text-center">
+                                {formatCurrency(product.price)}
+                            </TableCell>
+
+                            <TableCell className="text-center">
+                                {formatCurrency(product.discountedPrice)}
+                            </TableCell>
 
                             <TableCell className="text-center">
                                 {/* {dayjs(product.createdAt.toDateString())} */}

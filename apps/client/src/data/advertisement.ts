@@ -41,7 +41,7 @@ export const CarouselAdverts = [
         ctaText: "Get Yours",
         ctaLink: "#",
         image: {
-            src: "/images/giftcards/giftcard-banner.png",
+            src: "/assets/giftcards/giftcard-banner.png",
             alt: "Gift Card Banner",
             width: 351,
             height: 358,
