@@ -45,7 +45,7 @@ function SignUpForm() {
             }, 1000);
         } catch (err) {
             console.error("Accout was not created:", err);
-            toast.error(err.message || "Accout was not created", {
+            toast.error("Accout was not created", {
                 id: toastID,
             });
         }

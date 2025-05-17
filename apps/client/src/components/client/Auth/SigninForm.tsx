@@ -47,7 +47,7 @@ function SignInForm() {
             }, 1000);
         } catch (err) {
             console.error("Login failed:", err);
-            toast.error(err.message || "Could not authenticate you", {
+            toast.error("Could not authenticate you", {
                 id: toastID,
             });
         }
