@@ -18,7 +18,9 @@ export function SearchProduct() {
 
         if (Object.is(oldQuery, query)) return;
 
-        if (query) search.set(searchFilterKey, query);
+        // if (query) 
+        
+        search.set(searchFilterKey, query)
         
         if (category) search.set(categoryFilterKey, category);
 
