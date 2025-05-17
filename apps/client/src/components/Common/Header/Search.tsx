@@ -16,7 +16,9 @@ export function SearchProduct() {
 
         const search = new URLSearchParams(Array.from(params.entries()));
 
-        if (!Object.is(oldQuery, query)) search.set(searchFilterKey, query);
+        if (Object.is(oldQuery, query)) return;
+
+        if (query) search.set(searchFilterKey, query);
         
         if (category) search.set(categoryFilterKey, category);
 
