@@ -1,7 +1,9 @@
 "use client";
 import { SHOP } from "@/constants";
-import { useCategoryOption } from "@/hooks/useCategories";
+import { Option, useCategoryOption } from "@/hooks/useCategories";
+import productStore from "@/lib/store/productStore";
 import { useNavigate } from "@gamezone/lib";
+import { observer } from "mobx-react-lite";
 import { useSearchParams } from "next/navigation";
 import React, { useState, useEffect } from "react";
 
@@ -11,7 +13,9 @@ const CategorySelect = () => {
     const searchParams = useSearchParams();
 
     const [isOpen, setIsOpen] = useState(false);
-    const [selectedOption, setSelectedOption] = useState(options[0]);
+    // const [selectedOption, setSelectedOption] = useState(options[0]);
+
+    const selectedOption = productStore.selectedCategory;
 
 
     const handleSelect = (categoryId?: string) => {
@@ -29,11 +33,15 @@ const CategorySelect = () => {
     };
 
     const toggleDropdown = () => {
-        setIsOpen(!isOpen);
+        if (isOpen) {
+            setIsOpen(false);
+        }
     };
 
-    const handleOptionClick = (option: any) => {
-        setSelectedOption(option);
+    const handleOptionClick = (option: Option) => {
+        // setSelectedOption(option);
+
+        productStore.setSelectedCategory(option)
         toggleDropdown();
     };
 
@@ -45,9 +53,8 @@ const CategorySelect = () => {
             }
         }
 
-        if (isOpen) {
-            document.addEventListener("mousedown", handleClickOutside);
-        }
+        
+        document.addEventListener("mousedown", handleClickOutside);
 
         return () => {
             document.removeEventListener("mousedown", handleClickOutside);
@@ -87,4 +94,4 @@ const CategorySelect = () => {
     );
 };
 
-export default CategorySelect;
+export default observer(CategorySelect);
