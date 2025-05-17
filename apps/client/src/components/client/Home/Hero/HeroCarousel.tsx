@@ -8,6 +8,7 @@ import "swiper/css";
 
 import Image from "next/image";
 import { CarouselAdverts } from "@/data/advertisement";
+import { BasicImage } from "@gamezone/lib";
 
 
 
@@ -58,7 +59,7 @@ const HeroCarousal = () => {
                             </div>
 
                             <div>
-                                <Image
+                                <BasicImage
                                     src={advert.image.src}
                                     alt={advert.image.alt}
                                     width={advert.image.width}

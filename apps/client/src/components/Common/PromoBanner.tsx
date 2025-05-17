@@ -1,4 +1,5 @@
 // components/PromoBanner.tsx
+import { CustomImage, PromoImage } from "@gamezone/lib";
 import Image from "next/image";
 import React from "react";
 
@@ -25,7 +26,7 @@ export const PromoBanner: React.FC<PromoBannerProps> = ({
     description,
     ctaText,
     ctaHref = "#",
-    imageSrc,
+    imageSrc = "/assets/fallback.svg",
     imageAlt,
     imagePosition = "right",
     backgroundColor = "#F5F5F7",
@@ -42,7 +43,7 @@ export const PromoBanner: React.FC<PromoBannerProps> = ({
             }`}
             style={{ backgroundColor }}
         >
-            <Image
+            {/* <Image
                 src={imageSrc}
                 alt={imageAlt}
                 width={isSmall ? 241 : 274}
@@ -52,6 +53,13 @@ export const PromoBanner: React.FC<PromoBannerProps> = ({
                         ? "left-3 sm:left-10"
                         : "right-4 lg:right-26"
                 } ${isSmall ? "top-1/2 -translate-y-1/2" : "bottom-0"} -z-1`}
+            /> */}
+
+            <PromoImage
+                src={imageSrc}
+                alt={imageAlt}
+                imagePostition={imagePosition}
+                small={isSmall}
             />
 
             <div

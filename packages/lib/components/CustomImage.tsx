@@ -15,9 +15,53 @@ type CustomImageProps = {
     role?: AriaRole;
 };
 
+type PromoImageProps = {
+    small?: boolean;
+    imagePostition?: "left" | "right";
+} & CustomImageProps;
+
 const shimmer = `
   bg-gradient-to-r from-gray-300 via-gray-100 to-gray-300 animate-pulse
 `;
+
+export function BasicImage({
+    src,
+    alt,
+    fallbackSrc = "/assets/fallback.svg",
+    className = "",
+    width,
+    height
+}: CustomImageProps) {
+    const [isLoaded, setLoaded] = useState(false);
+    const [error, setError] = useState(false);
+
+    const validSrc = error || !src ? fallbackSrc : src;
+
+    return (
+        <div>
+            {!isLoaded && <div className={`absolute inset-0 ${shimmer}`} style={{
+                height, width
+            }}/>}
+
+            <Image
+                src={validSrc}
+                alt={alt}
+                onLoad={() => setLoaded(true)}
+                onError={() => setError(true)}
+                className={clsx(
+                    "transition-opacity duration-500",
+                    className,
+                    {
+                        "opacity-0": !isLoaded,
+                        "opacity-100": isLoaded,
+                    }
+                )}
+                width={width}
+                height={height}
+            />
+        </div>
+    );
+}
 
 export function CustomImage({
     src,
@@ -132,6 +176,48 @@ export function CategoryImage({
             )}
             width={width}
             height={height}
+            // role={role}
+        />
+    );
+}
+
+export function PromoImage({
+    src,
+    alt,
+    fallbackSrc = "/assets/fallback.svg",
+    imagePostition,
+    small
+}: PromoImageProps) {
+    const [isLoaded, setLoaded] = useState(false);
+    const [error, setError] = useState(false);
+
+    const validSrc = error || !src ? fallbackSrc : src;
+
+    const isLeft = imagePostition === "left";
+
+    return (
+        <Image
+            src={validSrc}
+            alt={alt}
+            onLoad={() => setLoaded(true)}
+            onError={() => setError(true)}
+            width={small ? 241 : 274}
+            height={small ? 241 : 350}
+            className={clsx(
+                "absolute -z-1",
+                {
+                    "opacity-0": !isLoaded,
+                    "opacity-100": isLoaded,
+                },
+                {
+                    "left-3 sm:left-10": isLeft,
+                    "right-4 lg:right-26": !isLeft,
+                },
+                {
+                    "top-1/2 -translate-y-1/2": small,
+                    "bottom-0": !small,
+                }
+            )}
             // role={role}
         />
     );
