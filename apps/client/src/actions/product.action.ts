@@ -1,6 +1,6 @@
 "use server";
 
-import { CategoryItem, FullBookProduct, FullGameProduct, getAllBooks, getAllCategories, getAllGames, getAllProducts,getAllCategoryWithProducts, ProductItem } from "@gamezone/db";
+import { CategoryItem, FullBookProduct, FullGameProduct, getAllBooks, getAllCategories, getAllGames, getAllProducts,getAllCategoryWithProducts, ProductItem } from "@willo/db";
 
 export async function getCategoryList(): Promise<CategoryItem[]> {
     try {

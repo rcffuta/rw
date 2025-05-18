@@ -3,8 +3,8 @@ import React from "react";
 import { useModalContext } from "@/context/QuickViewModalContext";
 import Link from "next/link";
 import { StarRating, ViewProductIcon, WishListIcon } from "../../Common/Icons";
-import { ProductItem } from "@gamezone/db";
-import { ProductImage, useFormatCurrency } from "@gamezone/lib";
+import { ProductItem } from "@willo/db";
+import { ProductImage, useFormatCurrency } from "@willo/lib";
 import { useProduct, useProductAction } from "@/hooks/useProduct";
 
 export default function ProductDisplayItem({ item }: { item: ProductItem }) {

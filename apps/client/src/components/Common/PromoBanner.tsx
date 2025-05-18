@@ -1,5 +1,5 @@
 // components/PromoBanner.tsx
-import { CustomImage, PromoImage } from "@gamezone/lib";
+import { CustomImage, PromoImage } from "@willo/lib";
 import Image from "next/image";
 import React from "react";
 

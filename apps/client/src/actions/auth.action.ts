@@ -1,9 +1,9 @@
 "use server"
 
 import { CreateAccountFormData } from "@/lib/validators/auth.validator";
-import { authenticateUser, createUser } from "@gamezone/db";
-import { isEmpty } from "@gamezone/lib";
-import { createSession } from "@gamezone/auth";
+import { authenticateUser, createUser } from "@willo/db";
+import { isEmpty } from "@willo/lib";
+import { createSession } from "@willo/auth";
 
 
 export async function loginUser(email:string, password:string) {

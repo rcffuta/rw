@@ -1,9 +1,9 @@
 "use client";
 
 import React from "react";
-import { ProductItem } from "@gamezone/db";
+import { ProductItem } from "@willo/db";
 import { MinusIcon, PlusIcon, TrashIcon } from "@/components/Common/Icons";
-import { ProductImage } from "@gamezone/lib";
+import { ProductImage } from "@willo/lib";
 import { CartItem, useCartAction, useProduct } from "@/hooks/useProduct";
 import Link from "next/link";
 import { SHOP } from "@/constants";

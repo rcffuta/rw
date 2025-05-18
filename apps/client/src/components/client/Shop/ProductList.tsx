@@ -1,5 +1,5 @@
 
-import { ProductItem } from "@gamezone/db";
+import { ProductItem } from "@willo/db";
 import ProductDisplayItem from "./ProductItem";
 
 export function ProductList({ products }: { products: ProductItem[] }) {

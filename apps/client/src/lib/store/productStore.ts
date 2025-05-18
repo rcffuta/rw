@@ -1,6 +1,6 @@
 // stores/ProductStore.ts
 import { makeAutoObservable } from "mobx";
-import { ProductItem } from "@gamezone/db";
+import { ProductItem } from "@willo/db";
 import { Option } from "@/hooks/useCategories";
 import { getCategoryProducts } from "@/actions/product.action";
 // import { getAllProductList } from "@/actions/product.action";

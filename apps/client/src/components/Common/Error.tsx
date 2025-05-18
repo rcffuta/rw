@@ -2,7 +2,7 @@
 
 // For Error boundaries
 import { useEffect } from "react";
-// import { useNavigate } from "@gamezone/lib";
+// import { useNavigate } from "@willo/lib";
 import Link from "next/link";
 import toast from "react-hot-toast";
 

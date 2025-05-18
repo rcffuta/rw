@@ -2,7 +2,7 @@
 import { categoryFilterKey, SHOP } from "@/constants";
 import { Option, useCategoryOption } from "@/hooks/useCategories";
 import productStore from "@/lib/store/productStore";
-import { useNavigate } from "@gamezone/lib";
+import { useNavigate } from "@willo/lib";
 import { observer } from "mobx-react-lite";
 import { useSearchParams } from "next/navigation";
 import React, { useState, useEffect } from "react";

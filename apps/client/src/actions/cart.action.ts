@@ -1,6 +1,6 @@
 "use server"
 
-import { addToCart, checkoutCart, clearCart, OrderWithProduct, getUserCart, OrderItem, removeFromCart, updateCart, updateCartItem } from "@gamezone/db"
+import { addToCart, checkoutCart, clearCart, OrderWithProduct, getUserCart, OrderItem, removeFromCart, updateCart, updateCartItem } from "@willo/db"
 
 export async function saveCartItemToDb(user:number, items: OrderWithProduct[]) {
     try {

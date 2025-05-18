@@ -12,7 +12,7 @@ import NextTopLoader from "nextjs-toploader";
 import type { PropsWithChildren } from "react";
 import { Providers } from "./providers";
 import { Toaster } from "react-hot-toast";
-import { APP_ADMIN_DESCRIPTION, APP_ADMIN_NAME } from "@gamezone/lib";
+import { APP_ADMIN_DESCRIPTION, APP_ADMIN_NAME } from "@willo/lib";
 
 export const metadata: Metadata = {
     title: {

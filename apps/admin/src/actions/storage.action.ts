@@ -19,7 +19,7 @@ export async function uploadProfileImage(formData: FormData) {
     cloudinary.uploader
       .upload_stream(
         {
-          folder: 'gamezone/profiles',
+          folder: 'willo/profiles',
           resource_type: 'image',
         },
         (error, result) => {

@@ -1,6 +1,6 @@
 "use server";
 
-import { addToWishlist, clearWishlist, getUserWishlist, removeFromWishlist } from "@gamezone/db";
+import { addToWishlist, clearWishlist, getUserWishlist, removeFromWishlist } from "@willo/db";
 
 export async function loadWishList(userId: number) {
     try {

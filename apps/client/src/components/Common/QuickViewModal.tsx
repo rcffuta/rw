@@ -7,7 +7,7 @@ import productStore from "@/lib/store/productStore";
 import { observer } from "mobx-react-lite";
 import { useProductAction } from "@/hooks/useProduct";
 import { CrossIcon2, FullScreenIcon } from "./Icons";
-import { ProductImage } from "@gamezone/lib/components/CustomImage";
+import { ProductImage } from "@willo/lib/components/CustomImage";
 import { Cta, Price, Rating } from "../client/Shop/utils";
 
 

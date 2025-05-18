@@ -1,11 +1,11 @@
 import React from "react";
 import { Metadata } from "next";
 import ShopProduct from "@/components/client/Shop/ShopProduct";
-import { getProductById } from "@gamezone/db";
+import { getProductById } from "@willo/db";
 import Breadcrumb from "@/components/Common/Breadcrumb";
 import RecentlyViewdItems from "@/components/client/Shop/RecentlyViewed";
 import Newsletter from "@/components/Common/Newsletter";
-import { APP_NAME } from "@gamezone/lib";
+import { APP_NAME } from "@willo/lib";
 
 export const metadata: Metadata = {
     title: `Product | ${APP_NAME}`,

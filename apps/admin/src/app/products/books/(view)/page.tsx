@@ -1,6 +1,6 @@
 import EmptyRow from "@/components/Tables/EmptyTable";
 import { ProductTable } from "@/components/Tables/ProductList";
-import { getAllBooks } from "@gamezone/db";
+import { getAllBooks } from "@willo/db";
 
 export const dynamic = "force-dynamic";
 

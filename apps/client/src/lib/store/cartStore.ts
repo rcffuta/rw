@@ -9,7 +9,7 @@ import {
 } from "@/actions/cart.action";
 
 
-import { OrderWithProduct, ProductItem } from "@gamezone/db";
+import { OrderWithProduct, ProductItem } from "@willo/db";
 import { makeAutoObservable, runInAction, toJS } from "mobx";
 import authStore from "./authStore";
 import debounce from "lodash.debounce";

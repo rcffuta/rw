@@ -1,7 +1,7 @@
 "use client";
 
-import { useFormatCurrency } from "@gamezone/lib";
-import { OrderWithProduct } from "@gamezone/db";
+import { useFormatCurrency } from "@willo/lib";
+import { OrderWithProduct } from "@willo/db";
 
 
 type CheckoutListProps = {

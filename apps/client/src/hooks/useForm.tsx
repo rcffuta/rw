@@ -1,7 +1,7 @@
 
 import { useState } from "react";
-import { isEmpty, useNavigate, wait } from "@gamezone/lib";
-import { authenticateUser, createUser } from "@gamezone/db";
+import { isEmpty, useNavigate, wait } from "@willo/lib";
+import { authenticateUser, createUser } from "@willo/db";
 import toast from "react-hot-toast";
 import { validateLoginData } from "@/utils/validators";
 import { OrderForm, ValidationErrors } from "@/types/form";

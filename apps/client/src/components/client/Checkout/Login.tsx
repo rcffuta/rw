@@ -5,7 +5,7 @@ import { useAuthForm } from "@/hooks/useForm";
 import InputField from "../../Common/Form/InputField";
 
 import { LoginData } from "@/types/form";
-import { isEmpty } from "@gamezone/lib";
+import { isEmpty } from "@willo/lib";
 
 const Login = () => {
   // const {user} = useAccountContext();

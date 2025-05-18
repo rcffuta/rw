@@ -1,4 +1,4 @@
-import { StatTimeFrame } from "@gamezone/db";
+import { StatTimeFrame } from "@willo/db";
 
 export function createTimeFrameExtractor(
   selectedTimeFrame: string | undefined,

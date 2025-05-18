@@ -3,7 +3,7 @@ import InputGroup from "@/components/FormElements/InputGroup";
 import { ShowcaseSection } from "@/components/Layouts/showcase-section";
 import { Select } from "../FormElements/select";
 import DatePickerOne from "../FormElements/DatePicker/DatePickerOne";
-import { useNavigate } from "@gamezone/lib";
+import { useNavigate } from "@willo/lib";
 import ProductWrapperForm from "./ProductFormWrapper";
 import toast from "react-hot-toast";
 import productStore from "@/store/productStore";

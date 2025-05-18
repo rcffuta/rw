@@ -1,4 +1,4 @@
-// import { AUTH_KEY } from "@gamezone/auth/token";
+// import { AUTH_KEY } from "@willo/auth/token";
 import { NextRequest, NextResponse } from "next/server";
 
 export function middleware(req: NextRequest) {

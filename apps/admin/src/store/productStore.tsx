@@ -1,7 +1,7 @@
 
 
 import { saveBook, saveGame, saveGiftCard, saveProduct } from "@/actions/form.action";
-import { BookProductFormData, GameProductFormData, GiftCardProductFormData } from "@gamezone/db";
+import { BookProductFormData, GameProductFormData, GiftCardProductFormData } from "@willo/db";
 import { makeAutoObservable } from "mobx";
 
 class ProductStore {

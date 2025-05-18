@@ -4,8 +4,8 @@ import { useModalContext } from "@/context/QuickViewModalContext";
 import Link from "next/link";
 import { ViewProductIcon, WishListIcon } from "../../Common/Icons";
 import { useProductAction } from "@/hooks/useProduct";
-import { CustomImage } from "@gamezone/lib";
-import { ProductItem } from "@gamezone/db";
+import { CustomImage } from "@willo/lib";
+import { ProductItem } from "@willo/db";
 
 const SingleGridItem = ({ item }: { item: ProductItem }) => {
   const { openModal } = useModalContext();

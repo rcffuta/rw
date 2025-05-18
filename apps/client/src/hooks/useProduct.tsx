@@ -3,8 +3,8 @@
 import cartStore from "@/lib/store/cartStore";
 import productStore from "@/lib/store/productStore";
 import wishlistStore from "@/lib/store/wishlistStore";
-import { OrderWithProduct, OrderItem, ProductItem } from "@gamezone/db";
-import { formatCurrency, useFormatCurrency } from "@gamezone/lib";
+import { OrderWithProduct, OrderItem, ProductItem } from "@willo/db";
+import { formatCurrency, useFormatCurrency } from "@willo/lib";
 import { useCallback, useMemo } from "react";
 import toast from "react-hot-toast";
 

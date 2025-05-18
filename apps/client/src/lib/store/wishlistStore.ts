@@ -2,7 +2,7 @@
 import { clearAllInWishList, deleteFromWishList, loadWishList, saveWishList } from "@/actions/wishlist.action";
 import { makeAutoObservable } from "mobx";
 import authStore from "./authStore";
-import { FullWishList, ProductItem } from "@gamezone/db";
+import { FullWishList, ProductItem } from "@willo/db";
 
 export type WishListItem = {
     id: number;

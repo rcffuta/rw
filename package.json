@@ -1,5 +1,5 @@
 {
-    "name": "gamezone",
+    "name": "willo",
     "private": true,
     "workspaces": [
         "apps/*",

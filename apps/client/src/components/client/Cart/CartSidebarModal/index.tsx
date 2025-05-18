@@ -8,7 +8,7 @@ import EmptyCart from "../EmptyCart";
 import { CrossIcon } from "@/components/Common/Icons";
 import toast from "react-hot-toast";
 import { observer } from "mobx-react-lite";
-import { useNavigate } from "@gamezone/lib";
+import { useNavigate } from "@willo/lib";
 import authStore from "@/lib/store/authStore";
 import { CHECKOUT, SIGNIN } from "@/constants";
 import { useCart } from "@/hooks/useProduct";

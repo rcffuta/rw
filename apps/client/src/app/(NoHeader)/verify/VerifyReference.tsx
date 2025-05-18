@@ -1,6 +1,6 @@
 
 
-import { isEmpty } from "@gamezone/lib";
+import { isEmpty } from "@willo/lib";
 import { Verified, VerifyError } from "./utils";
 import { markPaymentFailed, markPaymentPaid, verifyPayment } from "@/actions/checkout";
 

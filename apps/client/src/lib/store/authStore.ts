@@ -1,6 +1,6 @@
 
-import { UserItem } from "@gamezone/db";
-import { wait } from "@gamezone/lib";
+import { UserItem } from "@willo/db";
+import { wait } from "@willo/lib";
 import { makeAutoObservable } from "mobx";
 
 type User = UserItem;

@@ -7,11 +7,11 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { formatCurrency} from "@gamezone/lib";
+import { formatCurrency} from "@willo/lib";
 import { TableRowItem } from "../ui/types";
 import { TableSkeleton } from "../ui/table-skeleton";
 import clsx from "clsx";
-import { OrderWithProductWithPayment } from "@gamezone/db";
+import { OrderWithProductWithPayment } from "@willo/db";
 import toast from "react-hot-toast";
 
 

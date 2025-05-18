@@ -7,7 +7,7 @@ import SingleItem from "./SingleItem";
 import Breadcrumb from "../../Common/Breadcrumb";
 import { observer } from "mobx-react-lite";
 import EmptyCart from "./EmptyCart";
-import { ProductItem } from "@gamezone/db";
+import { ProductItem } from "@willo/db";
 import { CartItem, useCart, useCartAction } from "@/hooks/useProduct";
 
 

@@ -3,7 +3,7 @@ import React from "react";
 import { Metadata } from "next";
 import SignUpForm from "@/components/client/Auth/SignupForm";
 import Logo from "@/components/Common/Logo";
-import { APP_NAME } from "@gamezone/lib";
+import { APP_NAME } from "@willo/lib";
 
 
 export const metadata: Metadata = {

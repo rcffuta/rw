@@ -8,7 +8,7 @@ import { MenuIcon } from "./icons";
 import { Notification } from "./notification";
 import { ThemeToggleSwitch } from "./theme-toggle";
 import { UserInfo } from "./user-info";
-import { APP_ADMIN_DESCRIPTION, APP_ADMIN_NAME } from "@gamezone/lib";
+import { APP_ADMIN_DESCRIPTION, APP_ADMIN_NAME } from "@willo/lib";
 
 export function Header() {
   const { toggleSidebar, isMobile } = useSidebarContext();

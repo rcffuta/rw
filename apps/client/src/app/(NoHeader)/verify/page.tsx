@@ -3,7 +3,7 @@ import React, { Suspense } from "react";
 import { Metadata } from "next";
 import { Verifying } from "./utils";
 import VerifyReference from "./VerifyReference";
-import { APP_NAME } from "@gamezone/lib";
+import { APP_NAME } from "@willo/lib";
 
 export const metadata: Metadata = {
     title: `Verify Payment | ${APP_NAME}`,

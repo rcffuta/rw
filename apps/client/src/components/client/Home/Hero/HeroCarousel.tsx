@@ -8,7 +8,7 @@ import "swiper/css";
 
 import Image from "next/image";
 import { CarouselAdverts } from "@/data/advertisement";
-import { BasicImage } from "@gamezone/lib";
+import { BasicImage } from "@willo/lib";
 
 
 

@@ -6,7 +6,7 @@ import PromoSection from "@/components/client/Home/PromoBanner";
 import { Metadata } from "next";
 import { Suspense } from "react";
 import { CategoryHighlightWrapper, ProductListSkeleton } from "@/components/Common/ProductUtils";
-import { APP_DESCRIPTION, APP_NAME } from "@gamezone/lib";
+import { APP_DESCRIPTION, APP_NAME } from "@willo/lib";
 
 
 const maxDisplay = 12;

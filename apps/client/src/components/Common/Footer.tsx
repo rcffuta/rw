@@ -3,7 +3,7 @@
 import React from "react";
 import Image from "next/image";
 import { CallIcon, LocationIcon, MailIcon } from "./Icons";
-import { APP_ADMIN_ADDRESS, APP_ADMIN_CONTACT, APP_ADMIN_EMAIL, APP_NAME } from "@gamezone/lib";
+import { APP_ADMIN_ADDRESS, APP_ADMIN_CONTACT, APP_ADMIN_EMAIL, APP_NAME } from "@willo/lib";
 import authStore from "@/lib/store/authStore";
 import { observer } from "mobx-react-lite";
 import { ACCOUNT, CART, CONTACT, SHOP, SIGNIN, WISHLIST } from "@/constants";

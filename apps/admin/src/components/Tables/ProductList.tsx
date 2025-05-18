@@ -9,12 +9,12 @@ import {
     TableHeader,
     TableRow,
 } from "../ui/table";
-import { ProductItem as Product } from "@gamezone/db";
+import { ProductItem as Product } from "@willo/db";
 import { TableSkeleton } from "../ui/table-skeleton";
 
 import { formatTimeFromNow } from "@/utils/format-time";
 import { standardFormat } from "@/utils/format-number";
-import { formatCurrency } from "@gamezone/lib";
+import { formatCurrency } from "@willo/lib";
 
 const tableHeads: TableRowItem[] = [
     {

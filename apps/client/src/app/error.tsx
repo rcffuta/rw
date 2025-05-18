@@ -5,7 +5,7 @@ import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowIcon } from "@/components/Common/Icons";
-import { APP_NAME } from "@gamezone/lib";
+import { APP_NAME } from "@willo/lib";
 
 
 export const metadata: Metadata = {

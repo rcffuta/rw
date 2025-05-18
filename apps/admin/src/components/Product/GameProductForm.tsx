@@ -9,7 +9,7 @@ import ProductForm from "./ProductForm";
 import { observer } from "mobx-react-lite";
 import productStore from "@/store/productStore";
 import toast from "react-hot-toast";
-import { useNavigate } from "@gamezone/lib";
+import { useNavigate } from "@willo/lib";
 
 
 const redirect = "/products/games";

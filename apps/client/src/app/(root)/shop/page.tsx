@@ -4,9 +4,9 @@ import { Metadata } from "next";
 import { ShopLayout } from "@/Layout/ShoptLayout";
 import ProductDiplayHeader from "@/components/client/Shop/ProductDiplayHeader";
 import { ProductList } from "@/components/client/Shop/ProductList";
-import { getFilteredProducts, ProductItem } from "@gamezone/db";
+import { getFilteredProducts, ProductItem } from "@willo/db";
 import ToastFeedback from "@/components/Common/ToastFeedback";
-import { APP_NAME } from "@gamezone/lib";
+import { APP_NAME } from "@willo/lib";
 import EmptyList from "@/components/client/Shop/EmptyList";
 
 export const metadata: Metadata = {

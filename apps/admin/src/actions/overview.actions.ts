@@ -1,4 +1,4 @@
-import { getConversionRate, getTotalOrders, getTotalRevenue, getTotalUsers } from "@gamezone/db";
+import { getConversionRate, getTotalOrders, getTotalRevenue, getTotalUsers } from "@willo/db";
 
 export async function getOverviewData() {
 

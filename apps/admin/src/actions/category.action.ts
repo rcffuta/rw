@@ -1,6 +1,6 @@
 "use server";
 
-import { CategoryFormData, CategoryItem, createCategory, FullCategory, getAllCategories, getAllCategoriesWithProducts } from "@gamezone/db";
+import { CategoryFormData, CategoryItem, createCategory, FullCategory, getAllCategories, getAllCategoriesWithProducts } from "@willo/db";
 
 export async function getCategoryList(): Promise<FullCategory[]> {
     const data = await getAllCategoriesWithProducts();

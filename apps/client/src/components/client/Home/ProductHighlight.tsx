@@ -3,7 +3,7 @@ import {
     CategoryHighlight, CategoryHighlightProps
 } from "@/components/Common/ProductUtils";
 import { getBookProducts, getGameProducts, } from "@/actions/product.action";
-import { FullBookProduct, FullGameProduct } from "@gamezone/db";
+import { FullBookProduct, FullGameProduct } from "@willo/db";
 import ToastFeedback from "@/components/Common/ToastFeedback";
 
 

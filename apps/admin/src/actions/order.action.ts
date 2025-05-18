@@ -1,5 +1,5 @@
 "use server";
-import { getAllOrder, getPaidOrder } from "@gamezone/db";
+import { getAllOrder, getPaidOrder } from "@willo/db";
 
 
 

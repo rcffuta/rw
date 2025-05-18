@@ -10,7 +10,7 @@ import { UserHighlight } from "@/components/Common/Header/UserHighlight";
 import cartStore from "@/lib/store/cartStore";
 import { observer } from "mobx-react-lite";
 import CategorySelect from "../CategorySelect";
-import { useFormatCurrency } from "@gamezone/lib";
+import { useFormatCurrency } from "@willo/lib";
 import { SearchProduct } from "./Search";
 
 type HeaderMenu = {

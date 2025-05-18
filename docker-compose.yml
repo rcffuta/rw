@@ -8,14 +8,14 @@ services:
       timeout: 5s
       retries: 5
     image: postgres:latest
-    container_name: gamezone_postgres
+    container_name: willo_postgres
     restart: unless-stopped
     ports:
       - "5432:5432"
     environment:
       POSTGRES_USER: admin
       POSTGRES_PASSWORD: admin
-      POSTGRES_DB: gamezone_db
+      POSTGRES_DB: willo_db
     volumes:
       - pgdata:/var/lib/postgresql/data
 

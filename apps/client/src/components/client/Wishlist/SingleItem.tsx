@@ -1,9 +1,9 @@
 import React from "react";
 
 import { CrossIcon3, StockCheck } from "@/components/Common/Icons";
-import { FullWishList } from "@gamezone/db";
+import { FullWishList } from "@willo/db";
 import wishlistStore from "@/lib/store/wishlistStore";
-import { ProductImage, useFormatCurrency } from "@gamezone/lib";
+import { ProductImage, useFormatCurrency } from "@willo/lib";
 import cartStore from "@/lib/store/cartStore";
 
 const SingleItem = ({ item }: {item: FullWishList}) => {

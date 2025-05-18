@@ -1,4 +1,4 @@
-import { APP_NAME } from "@gamezone/lib";
+import { APP_NAME } from "@willo/lib";
 import clsx from "clsx";
 import Image from "next/image";
 

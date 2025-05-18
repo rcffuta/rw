@@ -1,12 +1,12 @@
 "use client";
 import React from "react";
 
-import { ProductItem } from "@gamezone/db";
+import { ProductItem } from "@willo/db";
 import { useModalContext } from "@/context/QuickViewModalContext";
 import Link from "next/link";
 import Image from "next/image";
 import { useProductAction } from "@/hooks/useProduct";
-import { CustomImage } from "@gamezone/lib";
+import { CustomImage } from "@willo/lib";
 
 const SingleListItem = ({ item }: { item: ProductItem }) => {
   const { openModal } = useModalContext();

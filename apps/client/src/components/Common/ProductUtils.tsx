@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { ShopIcon } from "./Icons";
-import { ProductItem } from "@gamezone/db"
+import { ProductItem } from "@willo/db"
 import ProductDisplay from "../client/Shop/ProductItem";
 import { PropsWithChildren } from "react";
 

@@ -3,8 +3,8 @@
 
 import { Cta, Price, ProductGallery, Rating } from "./utils";
 import { useState } from "react";
-import { ProductImage } from "@gamezone/lib";
-import { ProductItem } from "@gamezone/db";
+import { ProductImage } from "@willo/lib";
+import { ProductItem } from "@willo/db";
 
 
 function ShopProductInformation() {

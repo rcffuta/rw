@@ -1,6 +1,6 @@
 "use client"
 
-import { useAuthenticatedUser } from "@gamezone/auth";
+import { useAuthenticatedUser } from "@willo/auth";
 
 export function UserInfo() {
 

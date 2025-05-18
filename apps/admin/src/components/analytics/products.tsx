@@ -12,7 +12,7 @@ import clsx from "clsx";
 import { slugify } from "@/utils/format-text";
 import { TableRowItem } from "../ui/types";
 import { fetchTopSellingProducts } from "@/actions/analytics.actions";
-import { CategoryImage, formatCurrency } from "@gamezone/lib";
+import { CategoryImage, formatCurrency } from "@willo/lib";
 
 const TableHeads: TableRowItem[] = [
     { label: "Rank" },

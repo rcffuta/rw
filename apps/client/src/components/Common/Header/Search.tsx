@@ -1,6 +1,6 @@
 import { useSearchParams } from "next/navigation";
 import { SearchIcon } from "../Icons";
-import { useNavigate } from "@gamezone/lib";
+import { useNavigate } from "@willo/lib";
 import { categoryFilterKey, searchFilterKey, SHOP } from "@/constants";
 import { useCallback, useEffect, useState } from "react";
 

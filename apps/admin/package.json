@@ -1,5 +1,5 @@
 {
-  "name": "@gamezone/admin",
+  "name": "@willo/admin",
   "version": "1.2.1",
   "private": true,
   "scripts": {
@@ -7,17 +7,17 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "build:vercel": "pnpm --filter @gamezone/db exec prisma generate && pnpm build",
-    "db:push:dev": "pnpm --filter @gamezone/db exec -- prisma db push",
-    "db:migrate:dev": "pnpm --filter @gamezone/db exec -- prisma migrate dev",
-    "db:push:prod": "dotenv -e .env.production -- pnpm --filter @gamezone/db exec prisma db push",
-    "db:migrate:prod": "dotenv -e .env.production -- pnpm --filter @gamezone/db exec prisma migrate deploy",
-    "db:studio:prod": "dotenv -e .env.production -- pnpm --filter @gamezone/db exec prisma studio"
+    "build:vercel": "pnpm --filter @willo/db exec prisma generate && pnpm build",
+    "db:push:dev": "pnpm --filter @willo/db exec -- prisma db push",
+    "db:migrate:dev": "pnpm --filter @willo/db exec -- prisma migrate dev",
+    "db:push:prod": "dotenv -e .env.production -- pnpm --filter @willo/db exec prisma db push",
+    "db:migrate:prod": "dotenv -e .env.production -- pnpm --filter @willo/db exec prisma migrate deploy",
+    "db:studio:prod": "dotenv -e .env.production -- pnpm --filter @willo/db exec prisma studio"
   },
   "dependencies": {
-    "@gamezone/db": "workspace:*",
-    "@gamezone/lib": "workspace:*",
-    "@gamezone/auth": "workspace:*",
+    "@willo/db": "workspace:*",
+    "@willo/lib": "workspace:*",
+    "@willo/auth": "workspace:*",
     "apexcharts": "^4.5.0",
     "class-variance-authority": "^0.7.1",
     "cloudinary": "^2.6.1",

@@ -5,10 +5,10 @@ import InputGroup from "@/components/FormElements/InputGroup";
 import { ShowcaseSection } from "@/components/Layouts/showcase-section";
 import { Select } from "../FormElements/select";
 import { useState } from "react";
-import { useNavigate } from "@gamezone/lib";
+import { useNavigate } from "@willo/lib";
 import toast from "react-hot-toast";
 import PhotoUploader from "../FormElements/upload-photo";
-import { CategoryFormData } from "@gamezone/db";
+import { CategoryFormData } from "@willo/db";
 import { saveCategory } from "@/actions/category.action";
 
 

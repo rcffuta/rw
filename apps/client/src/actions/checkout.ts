@@ -1,7 +1,7 @@
 "use server";
 
 import { CheckoutFormData } from "@/lib/validators/checkout.validator";
-import { createPaymentWithOrders, OrderWithProduct, UserItem, verifyAndMarkPayment } from "@gamezone/db";
+import { createPaymentWithOrders, OrderWithProduct, UserItem, verifyAndMarkPayment } from "@willo/db";
 
 const PAY_LINK = "https://sandbox-api-d.squadco.com/transaction";
 

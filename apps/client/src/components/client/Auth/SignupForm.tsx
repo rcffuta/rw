@@ -1,6 +1,6 @@
 "use client";
 import InputField, { FormError } from "@/components/Common/Form/InputField";
-import { useNavigate } from "@gamezone/lib";
+import { useNavigate } from "@willo/lib";
 import Link from "next/link";
 import { FormWrapper } from "../../Common/Form/FormUtils";
 import { registerSchema } from "@/lib/validators/auth.validator";

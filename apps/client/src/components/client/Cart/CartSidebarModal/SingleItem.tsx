@@ -1,7 +1,7 @@
 import React from "react";
 
-import { ProductImage } from "@gamezone/lib";
-import { ProductItem } from "@gamezone/db";
+import { ProductImage } from "@willo/lib";
+import { ProductItem } from "@willo/db";
 import { TrashIcon } from "@/components/Common/Icons";
 import { useCartAction, useProduct } from "@/hooks/useProduct";
 

@@ -7,8 +7,8 @@ import {
     WeekStat,
 } from "@/actions/analytics.actions";
 import { AreaChart, BarChart } from "./chart-items";
-import { formatCurrency } from "@gamezone/lib";
-import { StatTimeFrame } from "@gamezone/db";
+import { formatCurrency } from "@willo/lib";
+import { StatTimeFrame } from "@willo/db";
 
 type PropsType = {
     timeFrame?: StatTimeFrame;

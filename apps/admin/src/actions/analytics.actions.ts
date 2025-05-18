@@ -1,4 +1,4 @@
-import { fetchPaymentStats, getOrderStatusStats, getTopSellingProducts, getWeeklyStatsFromDB, StatTimeFrame } from "@gamezone/db";
+import { fetchPaymentStats, getOrderStatusStats, getTopSellingProducts, getWeeklyStatsFromDB, StatTimeFrame } from "@willo/db";
 
 
 const monthLabels = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];

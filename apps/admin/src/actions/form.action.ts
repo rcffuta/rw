@@ -1,6 +1,6 @@
 "use server";
 
-import {BookProductFormData, createBook, createGame, createGiftCard, createProduct, GameProductFormData, GiftCardProductFormData, ProductFormData} from "@gamezone/db";
+import {BookProductFormData, createBook, createGame, createGiftCard, createProduct, GameProductFormData, GiftCardProductFormData, ProductFormData} from "@willo/db";
 
 export async function saveProduct(data: ProductFormData) {
     const product = await createProduct({

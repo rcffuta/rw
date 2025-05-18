@@ -1,7 +1,7 @@
 import ContactForm from "@/components/client/Contact/ContactForm";
 import Breadcrumb from "@/components/Common/Breadcrumb";
 import { EmailIcon, LocationIcon, PhoneIcon, UserIcon } from "@/components/Common/Icons";
-import { APP_ADMIN_ADDRESS, APP_ADMIN_CONTACT, APP_ADMIN_EMAIL, APP_ADMIN_USERNAME, APP_NAME } from "@gamezone/lib";
+import { APP_ADMIN_ADDRESS, APP_ADMIN_CONTACT, APP_ADMIN_EMAIL, APP_ADMIN_USERNAME, APP_NAME } from "@willo/lib";
 
 import { Metadata } from "next";
 export const metadata: Metadata = {
