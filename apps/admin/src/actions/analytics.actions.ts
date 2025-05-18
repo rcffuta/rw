@@ -23,8 +23,8 @@ export async function getPaymentStatsChart(timeFrame: StatTimeFrame) {
       const label = monthLabels[i - 1];
       const found = raw.find((r: any) => r.period === month);
 
-      received.push({ x: label, y: found ? parseFloat(found.received) : 0 });
-      due.push({ x: label, y: found ? parseFloat(found.due) : 0 });
+      received.push({ x: label, y: found ? Number(parseFloat(found.received).toFixed(1)) : 0 });
+      due.push({ x: label, y: found ? Number(parseFloat(found.due).toFixed(1)) : 0 });
     }
 
     return { received, due };
@@ -90,6 +90,6 @@ export async function fetchOrderStatusStats() {
 
     return raw.map((item) => ({
         label: formatStatus(item.status),
-        value: item.count,
+        value: Number(item.count.toFixed(1)),
     }));
 }

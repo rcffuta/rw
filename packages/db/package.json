@@ -17,7 +17,6 @@
     "devDependencies": {
         "@types/bcryptjs": "^3.0.0",
         "prisma": "catalog:prisma",
-        "prisma-erd-generator": "^2.0.4",
         "ts-node": "^10.0.0",
         "typescript": "^5.8.3"
     }
