@@ -6,7 +6,7 @@ const darkLogo = "/logos/logo-dark.svg";
 
 export function Logo() {
   return (
-    <div className="relative h-8 max-w-[10.847rem]">
+    <div className="relative h-10 max-w-[20.847rem]">
       <Image
         src={logo}
         fill

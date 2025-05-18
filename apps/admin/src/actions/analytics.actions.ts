@@ -90,6 +90,6 @@ export async function fetchOrderStatusStats() {
 
     return raw.map((item) => ({
         label: formatStatus(item.status),
-        value: Number(item.count.toFixed(1)),
+        value: item.count,
     }));
 }
