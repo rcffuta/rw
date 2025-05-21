@@ -3,13 +3,13 @@
 import { OrderTable, OrderTableSkeleton } from "./OrderTable";
 import EmptyRow from "../Tables/EmptyTable";
 import { useEffect, useState } from "react";
-import { OrderWithProductWithPayment } from "@willo/db";
+import { OrderWithProductWithPayment, OrderWithProductWithPaymentWithUser } from "@willo/db";
 import { loadAllPaidOrder } from "@/actions/order.action";
 
 export function OrderList() {
 
     const [loading, setLoading] = useState(true);
-    const [orders, setOrder] = useState<OrderWithProductWithPayment[]>([]);
+    const [orders, setOrder] = useState<OrderWithProductWithPaymentWithUser[]>([]);
 
     useEffect(()=>{
         async function loadOrder() {

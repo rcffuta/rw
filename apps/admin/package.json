@@ -15,9 +15,11 @@
     "db:studio:prod": "dotenv -e .env.production -- pnpm --filter @willo/db exec prisma studio"
   },
   "dependencies": {
+    "@react-email/components": "^0.0.41",
+    "@react-email/render": "^1.1.2",
+    "@willo/auth": "workspace:*",
     "@willo/db": "workspace:*",
     "@willo/lib": "workspace:*",
-    "@willo/auth": "workspace:*",
     "apexcharts": "^4.5.0",
     "class-variance-authority": "^0.7.1",
     "cloudinary": "^2.6.1",
@@ -28,11 +30,13 @@
     "nextjs-toploader": "^3.7.15",
     "react-apexcharts": "^1.7.0",
     "react-hot-toast": "^2.5.2",
+    "resend": "^4.5.1",
     "tailwind-merge": "^2.6.0",
     "uuid": "^11.1.0"
   },
   "devDependencies": {
     "dotenv-cli": "^8.0.0",
-    "prisma": "^6.7.0"
+    "prisma": "^6.7.0",
+    "react-email": "^4.0.15"
   }
 }

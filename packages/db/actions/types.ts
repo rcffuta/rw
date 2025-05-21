@@ -24,6 +24,7 @@ export type FullWishList = Wishlist & {product: Product};
 export type OrderItem = Order;
 export type OrderWithProduct = Order & {product: Product};
 export type OrderWithProductWithPayment = Order & {product: Product} & {payment: Payment | null};
+export type OrderWithProductWithPaymentWithUser = OrderWithProductWithPayment & {user: User};
 
 export type Categories = Category[] ;
 export type CategoryItem = Category;

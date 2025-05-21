@@ -11,11 +11,12 @@ import { formatCurrency} from "@willo/lib";
 import { TableRowItem } from "../ui/types";
 import { TableSkeleton } from "../ui/table-skeleton";
 import clsx from "clsx";
-import { OrderWithProductWithPayment } from "@willo/db";
+import { OrderWithProductWithPaymentWithUser } from "@willo/db";
 import toast from "react-hot-toast";
+import { sendProductToCustomer } from "@/actions/order.action";
 
 
-type OrderType = OrderWithProductWithPayment;
+type OrderType = OrderWithProductWithPaymentWithUser;
 
 type OrderProps = {
     orders: OrderType[];
@@ -79,6 +80,7 @@ function RowItem({items}: {items: OrderType[]}) {
     return (
         <>
             {items.map((item, index)=>{
+                const orderId = `ORD-${item.id}`;
                 return (
                     <TableRow
                         key={index}
@@ -86,7 +88,7 @@ function RowItem({items}: {items: OrderType[]}) {
                     >
                         <TableCell className="text-center">
                             <h5 className="text-dark dark:text-white">
-                                ORD-{item.id}
+                                {orderId}
                             </h5>
                         </TableCell>
 
@@ -108,7 +110,7 @@ function RowItem({items}: {items: OrderType[]}) {
                         </TableCell>
 
                         <TableCell className="text-center text-dark dark:text-white">
-                                {item.payment?.paidAt?.toDateString() || null}
+                            {item.payment?.paidAt?.toDateString() || null}
                         </TableCell>
 
                         <TableCell>
@@ -135,11 +137,42 @@ function RowItem({items}: {items: OrderType[]}) {
                             <div className="flex items-center justify-end gap-x-3.5">
                                 <button
                                     className="hover:text-primary"
-                                    onClick={() => {
-                                        toast.error("Not Implemented", {
-                                            id: "notImplementedToast",
-                                            duration: 1000,
+                                    onClick={async () => {
+                                        // toast.error("Not Implemented", {
+                                        //     id: "notImplementedToast",
+                                        //     duration: 1000,
+                                        // });
+
+                                        const toastId = "disburseToast";
+
+                                        toast.loading("Disbursing", {
+                                            id: toastId,
                                         });
+
+                                        const { product, user, ...order } = item;
+
+                                        const resp =
+                                            await sendProductToCustomer(
+                                                order,
+                                                user,
+                                                product,
+                                            );
+
+                                        if (!resp) {
+                                            toast.error(
+                                                `Could not disburse Order: ${orderId}`,
+                                                {
+                                                    id: toastId,
+                                                },
+                                            );
+                                        } else {
+                                            toast.success(
+                                                `Disbursed Order: ${orderId}`,
+                                                {
+                                                    id: toastId,
+                                                },
+                                            );
+                                        }
                                     }}
                                 >
                                     <span className="sr-only">Disburse</span>

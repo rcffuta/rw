@@ -2,6 +2,7 @@
 export const APP_NAME = "Willo";
 export const APP_DESCRIPTION = "E-commerce web application that allows users to browse, purchase, and manage their orders for games, books, and gift cards.";
 
+export const APP_ADMIN_URL = "https://willo-admin.vercel.app";
 export const APP_ADMIN_NAME = "Willo Admin";
 export const APP_ADMIN_DESCRIPTION = `Manage ${APP_NAME} from behind`;
 
