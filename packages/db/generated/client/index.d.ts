@@ -3011,6 +3011,7 @@ export namespace Prisma {
     price: number | null
     discountedPrice: number | null
     categoryId: number | null
+    deliverable: string | null
     createdAt: Date | null
   }
 
@@ -3021,6 +3022,7 @@ export namespace Prisma {
     price: number | null
     discountedPrice: number | null
     categoryId: number | null
+    deliverable: string | null
     createdAt: Date | null
   }
 
@@ -3032,6 +3034,7 @@ export namespace Prisma {
     discountedPrice: number
     images: number
     categoryId: number
+    deliverable: number
     createdAt: number
     _all: number
   }
@@ -3058,6 +3061,7 @@ export namespace Prisma {
     price?: true
     discountedPrice?: true
     categoryId?: true
+    deliverable?: true
     createdAt?: true
   }
 
@@ -3068,6 +3072,7 @@ export namespace Prisma {
     price?: true
     discountedPrice?: true
     categoryId?: true
+    deliverable?: true
     createdAt?: true
   }
 
@@ -3079,6 +3084,7 @@ export namespace Prisma {
     discountedPrice?: true
     images?: true
     categoryId?: true
+    deliverable?: true
     createdAt?: true
     _all?: true
   }
@@ -3177,6 +3183,7 @@ export namespace Prisma {
     discountedPrice: number
     images: string[]
     categoryId: number | null
+    deliverable: string
     createdAt: Date
     _count: ProductCountAggregateOutputType | null
     _avg: ProductAvgAggregateOutputType | null
@@ -3207,6 +3214,7 @@ export namespace Prisma {
     discountedPrice?: boolean
     images?: boolean
     categoryId?: boolean
+    deliverable?: boolean
     createdAt?: boolean
     category?: boolean | Product$categoryArgs<ExtArgs>
     game?: boolean | Product$gameArgs<ExtArgs>
@@ -3225,6 +3233,7 @@ export namespace Prisma {
     discountedPrice?: boolean
     images?: boolean
     categoryId?: boolean
+    deliverable?: boolean
     createdAt?: boolean
     category?: boolean | Product$categoryArgs<ExtArgs>
   }, ExtArgs["result"]["product"]>
@@ -3237,6 +3246,7 @@ export namespace Prisma {
     discountedPrice?: boolean
     images?: boolean
     categoryId?: boolean
+    deliverable?: boolean
     createdAt?: boolean
     category?: boolean | Product$categoryArgs<ExtArgs>
   }, ExtArgs["result"]["product"]>
@@ -3249,10 +3259,11 @@ export namespace Prisma {
     discountedPrice?: boolean
     images?: boolean
     categoryId?: boolean
+    deliverable?: boolean
     createdAt?: boolean
   }
 
-  export type ProductOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "description" | "price" | "discountedPrice" | "images" | "categoryId" | "createdAt", ExtArgs["result"]["product"]>
+  export type ProductOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "description" | "price" | "discountedPrice" | "images" | "categoryId" | "deliverable" | "createdAt", ExtArgs["result"]["product"]>
   export type ProductInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     category?: boolean | Product$categoryArgs<ExtArgs>
     game?: boolean | Product$gameArgs<ExtArgs>
@@ -3287,6 +3298,7 @@ export namespace Prisma {
       discountedPrice: number
       images: string[]
       categoryId: number | null
+      deliverable: string
       createdAt: Date
     }, ExtArgs["result"]["product"]>
     composites: {}
@@ -3724,6 +3736,7 @@ export namespace Prisma {
     readonly discountedPrice: FieldRef<"Product", 'Float'>
     readonly images: FieldRef<"Product", 'String[]'>
     readonly categoryId: FieldRef<"Product", 'Int'>
+    readonly deliverable: FieldRef<"Product", 'String'>
     readonly createdAt: FieldRef<"Product", 'DateTime'>
   }
     
@@ -12145,6 +12158,7 @@ export namespace Prisma {
     discountedPrice: 'discountedPrice',
     images: 'images',
     categoryId: 'categoryId',
+    deliverable: 'deliverable',
     createdAt: 'createdAt'
   };
 
@@ -12445,6 +12459,7 @@ export namespace Prisma {
     discountedPrice?: FloatFilter<"Product"> | number
     images?: StringNullableListFilter<"Product">
     categoryId?: IntNullableFilter<"Product"> | number | null
+    deliverable?: StringFilter<"Product"> | string
     createdAt?: DateTimeFilter<"Product"> | Date | string
     category?: XOR<CategoryNullableScalarRelationFilter, CategoryWhereInput> | null
     game?: XOR<GameNullableScalarRelationFilter, GameWhereInput> | null
@@ -12462,6 +12477,7 @@ export namespace Prisma {
     discountedPrice?: SortOrder
     images?: SortOrder
     categoryId?: SortOrderInput | SortOrder
+    deliverable?: SortOrder
     createdAt?: SortOrder
     category?: CategoryOrderByWithRelationInput
     game?: GameOrderByWithRelationInput
@@ -12482,6 +12498,7 @@ export namespace Prisma {
     discountedPrice?: FloatFilter<"Product"> | number
     images?: StringNullableListFilter<"Product">
     categoryId?: IntNullableFilter<"Product"> | number | null
+    deliverable?: StringFilter<"Product"> | string
     createdAt?: DateTimeFilter<"Product"> | Date | string
     category?: XOR<CategoryNullableScalarRelationFilter, CategoryWhereInput> | null
     game?: XOR<GameNullableScalarRelationFilter, GameWhereInput> | null
@@ -12499,6 +12516,7 @@ export namespace Prisma {
     discountedPrice?: SortOrder
     images?: SortOrder
     categoryId?: SortOrderInput | SortOrder
+    deliverable?: SortOrder
     createdAt?: SortOrder
     _count?: ProductCountOrderByAggregateInput
     _avg?: ProductAvgOrderByAggregateInput
@@ -12518,6 +12536,7 @@ export namespace Prisma {
     discountedPrice?: FloatWithAggregatesFilter<"Product"> | number
     images?: StringNullableListFilter<"Product">
     categoryId?: IntNullableWithAggregatesFilter<"Product"> | number | null
+    deliverable?: StringWithAggregatesFilter<"Product"> | string
     createdAt?: DateTimeWithAggregatesFilter<"Product"> | Date | string
   }
 
@@ -13050,6 +13069,7 @@ export namespace Prisma {
     price: number
     discountedPrice: number
     images?: ProductCreateimagesInput | string[]
+    deliverable: string
     createdAt?: Date | string
     category?: CategoryCreateNestedOneWithoutProductsInput
     game?: GameCreateNestedOneWithoutProductInput
@@ -13067,6 +13087,7 @@ export namespace Prisma {
     discountedPrice: number
     images?: ProductCreateimagesInput | string[]
     categoryId?: number | null
+    deliverable: string
     createdAt?: Date | string
     game?: GameUncheckedCreateNestedOneWithoutProductInput
     giftCard?: GiftCardUncheckedCreateNestedOneWithoutProductInput
@@ -13081,6 +13102,7 @@ export namespace Prisma {
     price?: FloatFieldUpdateOperationsInput | number
     discountedPrice?: FloatFieldUpdateOperationsInput | number
     images?: ProductUpdateimagesInput | string[]
+    deliverable?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     category?: CategoryUpdateOneWithoutProductsNestedInput
     game?: GameUpdateOneWithoutProductNestedInput
@@ -13098,6 +13120,7 @@ export namespace Prisma {
     discountedPrice?: FloatFieldUpdateOperationsInput | number
     images?: ProductUpdateimagesInput | string[]
     categoryId?: NullableIntFieldUpdateOperationsInput | number | null
+    deliverable?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     game?: GameUncheckedUpdateOneWithoutProductNestedInput
     giftCard?: GiftCardUncheckedUpdateOneWithoutProductNestedInput
@@ -13114,6 +13137,7 @@ export namespace Prisma {
     discountedPrice: number
     images?: ProductCreateimagesInput | string[]
     categoryId?: number | null
+    deliverable: string
     createdAt?: Date | string
   }
 
@@ -13123,6 +13147,7 @@ export namespace Prisma {
     price?: FloatFieldUpdateOperationsInput | number
     discountedPrice?: FloatFieldUpdateOperationsInput | number
     images?: ProductUpdateimagesInput | string[]
+    deliverable?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -13134,6 +13159,7 @@ export namespace Prisma {
     discountedPrice?: FloatFieldUpdateOperationsInput | number
     images?: ProductUpdateimagesInput | string[]
     categoryId?: NullableIntFieldUpdateOperationsInput | number | null
+    deliverable?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -13807,6 +13833,7 @@ export namespace Prisma {
     discountedPrice?: SortOrder
     images?: SortOrder
     categoryId?: SortOrder
+    deliverable?: SortOrder
     createdAt?: SortOrder
   }
 
@@ -13824,6 +13851,7 @@ export namespace Prisma {
     price?: SortOrder
     discountedPrice?: SortOrder
     categoryId?: SortOrder
+    deliverable?: SortOrder
     createdAt?: SortOrder
   }
 
@@ -13834,6 +13862,7 @@ export namespace Prisma {
     price?: SortOrder
     discountedPrice?: SortOrder
     categoryId?: SortOrder
+    deliverable?: SortOrder
     createdAt?: SortOrder
   }
 
@@ -15503,6 +15532,7 @@ export namespace Prisma {
     price: number
     discountedPrice: number
     images?: ProductCreateimagesInput | string[]
+    deliverable: string
     createdAt?: Date | string
     category?: CategoryCreateNestedOneWithoutProductsInput
     giftCard?: GiftCardCreateNestedOneWithoutProductInput
@@ -15519,6 +15549,7 @@ export namespace Prisma {
     discountedPrice: number
     images?: ProductCreateimagesInput | string[]
     categoryId?: number | null
+    deliverable: string
     createdAt?: Date | string
     giftCard?: GiftCardUncheckedCreateNestedOneWithoutProductInput
     book?: BookUncheckedCreateNestedOneWithoutProductInput
@@ -15548,6 +15579,7 @@ export namespace Prisma {
     price?: FloatFieldUpdateOperationsInput | number
     discountedPrice?: FloatFieldUpdateOperationsInput | number
     images?: ProductUpdateimagesInput | string[]
+    deliverable?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     category?: CategoryUpdateOneWithoutProductsNestedInput
     giftCard?: GiftCardUpdateOneWithoutProductNestedInput
@@ -15564,6 +15596,7 @@ export namespace Prisma {
     discountedPrice?: FloatFieldUpdateOperationsInput | number
     images?: ProductUpdateimagesInput | string[]
     categoryId?: NullableIntFieldUpdateOperationsInput | number | null
+    deliverable?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     giftCard?: GiftCardUncheckedUpdateOneWithoutProductNestedInput
     book?: BookUncheckedUpdateOneWithoutProductNestedInput
@@ -15577,6 +15610,7 @@ export namespace Prisma {
     price: number
     discountedPrice: number
     images?: ProductCreateimagesInput | string[]
+    deliverable: string
     createdAt?: Date | string
     category?: CategoryCreateNestedOneWithoutProductsInput
     game?: GameCreateNestedOneWithoutProductInput
@@ -15593,6 +15627,7 @@ export namespace Prisma {
     discountedPrice: number
     images?: ProductCreateimagesInput | string[]
     categoryId?: number | null
+    deliverable: string
     createdAt?: Date | string
     game?: GameUncheckedCreateNestedOneWithoutProductInput
     book?: BookUncheckedCreateNestedOneWithoutProductInput
@@ -15622,6 +15657,7 @@ export namespace Prisma {
     price?: FloatFieldUpdateOperationsInput | number
     discountedPrice?: FloatFieldUpdateOperationsInput | number
     images?: ProductUpdateimagesInput | string[]
+    deliverable?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     category?: CategoryUpdateOneWithoutProductsNestedInput
     game?: GameUpdateOneWithoutProductNestedInput
@@ -15638,6 +15674,7 @@ export namespace Prisma {
     discountedPrice?: FloatFieldUpdateOperationsInput | number
     images?: ProductUpdateimagesInput | string[]
     categoryId?: NullableIntFieldUpdateOperationsInput | number | null
+    deliverable?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     game?: GameUncheckedUpdateOneWithoutProductNestedInput
     book?: BookUncheckedUpdateOneWithoutProductNestedInput
@@ -15651,6 +15688,7 @@ export namespace Prisma {
     price: number
     discountedPrice: number
     images?: ProductCreateimagesInput | string[]
+    deliverable: string
     createdAt?: Date | string
     category?: CategoryCreateNestedOneWithoutProductsInput
     game?: GameCreateNestedOneWithoutProductInput
@@ -15667,6 +15705,7 @@ export namespace Prisma {
     discountedPrice: number
     images?: ProductCreateimagesInput | string[]
     categoryId?: number | null
+    deliverable: string
     createdAt?: Date | string
     game?: GameUncheckedCreateNestedOneWithoutProductInput
     giftCard?: GiftCardUncheckedCreateNestedOneWithoutProductInput
@@ -15696,6 +15735,7 @@ export namespace Prisma {
     price?: FloatFieldUpdateOperationsInput | number
     discountedPrice?: FloatFieldUpdateOperationsInput | number
     images?: ProductUpdateimagesInput | string[]
+    deliverable?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     category?: CategoryUpdateOneWithoutProductsNestedInput
     game?: GameUpdateOneWithoutProductNestedInput
@@ -15712,6 +15752,7 @@ export namespace Prisma {
     discountedPrice?: FloatFieldUpdateOperationsInput | number
     images?: ProductUpdateimagesInput | string[]
     categoryId?: NullableIntFieldUpdateOperationsInput | number | null
+    deliverable?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     game?: GameUncheckedUpdateOneWithoutProductNestedInput
     giftCard?: GiftCardUncheckedUpdateOneWithoutProductNestedInput
@@ -15725,6 +15766,7 @@ export namespace Prisma {
     price: number
     discountedPrice: number
     images?: ProductCreateimagesInput | string[]
+    deliverable: string
     createdAt?: Date | string
     game?: GameCreateNestedOneWithoutProductInput
     giftCard?: GiftCardCreateNestedOneWithoutProductInput
@@ -15740,6 +15782,7 @@ export namespace Prisma {
     price: number
     discountedPrice: number
     images?: ProductCreateimagesInput | string[]
+    deliverable: string
     createdAt?: Date | string
     game?: GameUncheckedCreateNestedOneWithoutProductInput
     giftCard?: GiftCardUncheckedCreateNestedOneWithoutProductInput
@@ -15785,6 +15828,7 @@ export namespace Prisma {
     discountedPrice?: FloatFilter<"Product"> | number
     images?: StringNullableListFilter<"Product">
     categoryId?: IntNullableFilter<"Product"> | number | null
+    deliverable?: StringFilter<"Product"> | string
     createdAt?: DateTimeFilter<"Product"> | Date | string
   }
 
@@ -15794,6 +15838,7 @@ export namespace Prisma {
     price: number
     discountedPrice: number
     images?: ProductCreateimagesInput | string[]
+    deliverable: string
     createdAt?: Date | string
     category?: CategoryCreateNestedOneWithoutProductsInput
     game?: GameCreateNestedOneWithoutProductInput
@@ -15810,6 +15855,7 @@ export namespace Prisma {
     discountedPrice: number
     images?: ProductCreateimagesInput | string[]
     categoryId?: number | null
+    deliverable: string
     createdAt?: Date | string
     game?: GameUncheckedCreateNestedOneWithoutProductInput
     giftCard?: GiftCardUncheckedCreateNestedOneWithoutProductInput
@@ -15895,6 +15941,7 @@ export namespace Prisma {
     price?: FloatFieldUpdateOperationsInput | number
     discountedPrice?: FloatFieldUpdateOperationsInput | number
     images?: ProductUpdateimagesInput | string[]
+    deliverable?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     category?: CategoryUpdateOneWithoutProductsNestedInput
     game?: GameUpdateOneWithoutProductNestedInput
@@ -15911,6 +15958,7 @@ export namespace Prisma {
     discountedPrice?: FloatFieldUpdateOperationsInput | number
     images?: ProductUpdateimagesInput | string[]
     categoryId?: NullableIntFieldUpdateOperationsInput | number | null
+    deliverable?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     game?: GameUncheckedUpdateOneWithoutProductNestedInput
     giftCard?: GiftCardUncheckedUpdateOneWithoutProductNestedInput
@@ -16022,6 +16070,7 @@ export namespace Prisma {
     price: number
     discountedPrice: number
     images?: ProductCreateimagesInput | string[]
+    deliverable: string
     createdAt?: Date | string
     category?: CategoryCreateNestedOneWithoutProductsInput
     game?: GameCreateNestedOneWithoutProductInput
@@ -16038,6 +16087,7 @@ export namespace Prisma {
     discountedPrice: number
     images?: ProductCreateimagesInput | string[]
     categoryId?: number | null
+    deliverable: string
     createdAt?: Date | string
     game?: GameUncheckedCreateNestedOneWithoutProductInput
     giftCard?: GiftCardUncheckedCreateNestedOneWithoutProductInput
@@ -16103,6 +16153,7 @@ export namespace Prisma {
     price?: FloatFieldUpdateOperationsInput | number
     discountedPrice?: FloatFieldUpdateOperationsInput | number
     images?: ProductUpdateimagesInput | string[]
+    deliverable?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     category?: CategoryUpdateOneWithoutProductsNestedInput
     game?: GameUpdateOneWithoutProductNestedInput
@@ -16119,6 +16170,7 @@ export namespace Prisma {
     discountedPrice?: FloatFieldUpdateOperationsInput | number
     images?: ProductUpdateimagesInput | string[]
     categoryId?: NullableIntFieldUpdateOperationsInput | number | null
+    deliverable?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     game?: GameUncheckedUpdateOneWithoutProductNestedInput
     giftCard?: GiftCardUncheckedUpdateOneWithoutProductNestedInput
@@ -16409,6 +16461,7 @@ export namespace Prisma {
     price: number
     discountedPrice: number
     images?: ProductCreateimagesInput | string[]
+    deliverable: string
     createdAt?: Date | string
   }
 
@@ -16418,6 +16471,7 @@ export namespace Prisma {
     price?: FloatFieldUpdateOperationsInput | number
     discountedPrice?: FloatFieldUpdateOperationsInput | number
     images?: ProductUpdateimagesInput | string[]
+    deliverable?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     game?: GameUpdateOneWithoutProductNestedInput
     giftCard?: GiftCardUpdateOneWithoutProductNestedInput
@@ -16433,6 +16487,7 @@ export namespace Prisma {
     price?: FloatFieldUpdateOperationsInput | number
     discountedPrice?: FloatFieldUpdateOperationsInput | number
     images?: ProductUpdateimagesInput | string[]
+    deliverable?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     game?: GameUncheckedUpdateOneWithoutProductNestedInput
     giftCard?: GiftCardUncheckedUpdateOneWithoutProductNestedInput
@@ -16448,6 +16503,7 @@ export namespace Prisma {
     price?: FloatFieldUpdateOperationsInput | number
     discountedPrice?: FloatFieldUpdateOperationsInput | number
     images?: ProductUpdateimagesInput | string[]
+    deliverable?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 

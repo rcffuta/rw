@@ -39,6 +39,7 @@ model Product {
   images          String[]
   category        Category? @relation(fields: [categoryId], references: [id])
   categoryId      Int?
+  deliverable     String
   // type            ProductType
   createdAt       DateTime  @default(now())
   // reviews         Review[]
