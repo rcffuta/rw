@@ -1,6 +1,6 @@
 # Willo – Admin App
 
-Admin dashboard for managing GameZone products and orders.
+Admin dashboard for managing Willo products and orders.
 
 ## Features
 

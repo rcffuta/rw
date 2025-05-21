@@ -1,6 +1,6 @@
 # Willo – Client App
 
-This is the customer-facing app for GameZone, built with Next.js.
+This is the customer-facing app for Willo, built with Next.js.
 
 ## Features
 
