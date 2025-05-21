@@ -41,4 +41,4 @@ next-env.d.ts
 .env
 
 unused
-generated
+# generated
