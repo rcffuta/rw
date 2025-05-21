@@ -1,6 +1,6 @@
 
 
-import { saveBook, saveGame, saveGiftCard, saveProduct } from "@/actions/form.action";
+import { saveBook, saveGame, saveGiftCard, saveProduct as saveAProduct } from "@/actions/form.action";
 import { BookProductFormData, GameProductFormData, GiftCardProductFormData } from "@willo/db";
 import { makeAutoObservable } from "mobx";
 
@@ -61,7 +61,7 @@ class ProductStore {
         this.date = "";
     }
 
-    async saveProduct() {
+    async saveProduct(deliverable:string) {
         const data = {
             title: this.title,
             description: this.description,
@@ -71,12 +71,13 @@ class ProductStore {
                 ? parseFloat(this.discountPrice)
                 : 0,
             images: this.imageUrl ? [this.imageUrl] : [],
+            deliverable,
         };
 
         let product;
 
         try {
-            product = await saveProduct(data);
+            product = await saveAProduct(data);
             // toast.success("Product saved!", { id: toastId });
         } catch (err) {
             console.error("Failed to create product:", err);

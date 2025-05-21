@@ -9,7 +9,11 @@ import { createSession } from "@willo/auth";
 export async function loginUser(email:string, password:string) {
     const user = await authenticateUser(email, password)
     if (isEmpty(user)) {
-        throw new Error("Account not found!");
+        return {
+            success: false,
+            message:  "Account not found!",
+            data: null,
+        }
     }
 
     const token = await createSession({
@@ -19,7 +23,7 @@ export async function loginUser(email:string, password:string) {
         username: user.username,
     })
 
-    return {user, token};
+    return {success: true, message: "You're Authenticated!", data: {user, token}};
 }
 
 export async function createAccount(data: CreateAccountFormData) {

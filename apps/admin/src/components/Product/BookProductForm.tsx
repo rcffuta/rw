@@ -3,7 +3,7 @@ import InputGroup from "@/components/FormElements/InputGroup";
 import { ShowcaseSection } from "@/components/Layouts/showcase-section";
 import { Select } from "../FormElements/select";
 import DatePickerOne from "../FormElements/DatePicker/DatePickerOne";
-import { useNavigate } from "@willo/lib";
+import { BOOK_DEFAULT_DELIVERABLE, useNavigate } from "@willo/lib";
 import ProductWrapperForm from "./ProductFormWrapper";
 import toast from "react-hot-toast";
 import productStore from "@/store/productStore";
@@ -96,7 +96,9 @@ export default function BookProductForm() {
                 let product;
 
                 try {
-                    product = await productStore.saveProduct();
+                    product = await productStore.saveProduct(
+                        BOOK_DEFAULT_DELIVERABLE,
+                    );
                 } catch (err) {
                     toast.error("Product could not save!", { id: toastId });
 

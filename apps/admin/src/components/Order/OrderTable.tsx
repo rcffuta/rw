@@ -1,3 +1,5 @@
+"use client";
+
 import { CheckIcon } from "@/components/Icons";
 import {
   Table,
@@ -7,7 +9,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { formatCurrency} from "@willo/lib";
+import { formatCurrency, useNavigate} from "@willo/lib";
 import { TableRowItem } from "../ui/types";
 import { TableSkeleton } from "../ui/table-skeleton";
 import clsx from "clsx";
@@ -76,7 +78,7 @@ export function OrderTable({ orders}: OrderProps) {
 
 
 function RowItem({items}: {items: OrderType[]}) {
-
+    const {navigate} = useNavigate();
     return (
         <>
             {items.map((item, index)=>{
@@ -151,27 +153,33 @@ function RowItem({items}: {items: OrderType[]}) {
 
                                         const { product, user, ...order } = item;
 
-                                        const resp =
+                                        const {success, message="", data} =
                                             await sendProductToCustomer(
                                                 order,
                                                 user,
                                                 product,
                                             );
 
-                                        if (!resp) {
+                                        if (!success) {
                                             toast.error(
-                                                `Could not disburse Order: ${orderId}`,
+                                                message,
                                                 {
                                                     id: toastId,
                                                 },
                                             );
                                         } else {
                                             toast.success(
-                                                `Disbursed Order: ${orderId}`,
+                                                message,
                                                 {
                                                     id: toastId,
                                                 },
                                             );
+
+
+                                            if (data?.redirect) {
+                                                navigate(data.redirect, {replace: true});
+                                            }
+
                                         }
                                     }}
                                 >

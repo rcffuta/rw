@@ -1,3 +1,4 @@
+import { ORDER_LINK } from "@/data/links";
 import * as Icons from "../icons";
 
 export const NAV_DATA = [
@@ -43,7 +44,7 @@ export const NAV_DATA = [
       },
       {
         title: "Orders",
-        url: "/orders",
+        url: ORDER_LINK,
         icon: Icons.Table,
         items: [
           // {

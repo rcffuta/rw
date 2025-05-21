@@ -33,11 +33,20 @@ function SignInForm() {
     const onSubmit = async (data: FormData) => {
 
         try {
-            const {token, user} = await loginUser(data.email, data.password);
+            const {success, message="Could not authenticate you", data: resp} = await loginUser(data.email, data.password);
+
+            
+            if (!success) {
+                throw new Error(message)
+            }
+
+            const {
+                token, user
+            } = resp;
 
             authStore.updateUser(user);
 
-            toast.success("You're Authenticated!", {
+            toast.success(message, {
                 id: toastID,
                 duration: 3500,
             });
@@ -47,7 +56,7 @@ function SignInForm() {
             }, 1000);
         } catch (err) {
             console.error("Login failed:", err);
-            toast.error("Could not authenticate you", {
+            toast.error(err.message, {
                 id: toastID,
             });
         }

@@ -9,7 +9,7 @@ import ProductForm from "./ProductForm";
 import { observer } from "mobx-react-lite";
 import productStore from "@/store/productStore";
 import toast from "react-hot-toast";
-import { useNavigate } from "@willo/lib";
+import { GAME_DEFAULT_DELIVERABLE, useNavigate } from "@willo/lib";
 
 
 const redirect = "/products/games";
@@ -73,7 +73,9 @@ export default function GameProductForm() {
             let product;
 
             try {
-                product = await productStore.saveProduct();
+                product = await productStore.saveProduct(
+                    GAME_DEFAULT_DELIVERABLE,
+                );
             } catch (err) {
                 toast.error("Product could not save!", { id: toastId });
 

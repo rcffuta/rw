@@ -10,6 +10,7 @@ export async function saveProduct(data: ProductFormData) {
         price: data.price,
         discountedPrice: data.discountedPrice,
         images: data.images,
+        deliverable: data.deliverable
     });
 
     // return product;

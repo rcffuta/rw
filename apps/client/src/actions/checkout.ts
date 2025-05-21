@@ -11,7 +11,7 @@ type PaymentLinkData = {
     amount: number,
     currency?: "NGN" | "USD",
     name: string;
-    redirect?:string;
+    redirect:string;
 }
 
 
@@ -38,7 +38,7 @@ async function createPaymentLink(data: PaymentLinkData) {
             currency,
             customer_name,
             initiate_type: "inline",
-            callback_url: redirect || "http://localhost:3000/verify", // Fix this
+            callback_url: redirect,
             email
         };
 
@@ -124,12 +124,19 @@ export const checkoutAction = async (data: CheckoutConfig) => {
 
     if (config.totalPrice === 0) {
 
-        throw new Error("Invalid cart items, please shop");
+        return {
+            success: false,
+            message: "Invalid cart items, please shop",
+            data: null,
+        }
     }
 
     if (!user) {
-
-        throw new Error("No User to process, please login");
+        return {
+            success: false,
+            message: "No User to process, please login",
+            data: null,
+        }
     }
 
     const {
@@ -152,7 +159,13 @@ export const checkoutAction = async (data: CheckoutConfig) => {
         })
     } catch(err) {
         console.error("Checkout Error:", err);
-        throw new Error("Could not reach payment service");
+        // throw new Error("Could not reach payment service");
+
+        return {
+            success: false,
+            message: "Could not reach payment service",
+            data: null,
+        }
     }
 
     try{
@@ -164,11 +177,19 @@ export const checkoutAction = async (data: CheckoutConfig) => {
         });
     }catch(err){
         console.error("Checkout Error:", err);
-        throw new Error("Could not create payment");
+        // throw new Error("Could not create payment");
+        return {
+            success: false,
+            message: "Could not create payment",
+            data: null,
+        }
     }
 
-
-    return payObj.checkout_url;
+    return {
+        success: true,
+        message: "You can proceed to paying...",
+        data: payObj.checkout_url,
+    }
 };
 
 export const markPaymentPaid = async (ref: string) => {

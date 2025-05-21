@@ -38,7 +38,7 @@ export async function disburseOrder(orderId: number) {
       id: orderId,
       // status: "cart"
     },
-    data: { status: "disbursed" }
+    data: { status: "disbursed", updatedAt: new Date() }
   });
 }
 

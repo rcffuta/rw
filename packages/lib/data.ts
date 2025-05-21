@@ -10,3 +10,8 @@ export const APP_ADMIN_USERNAME = "Funmise";
 export const APP_ADMIN_EMAIL = "oluwafunmisejohn@gmail.com";
 export const APP_ADMIN_CONTACT = "+44 7503 043289";
 export const APP_ADMIN_ADDRESS = "Waterside Campus, University Drive, Northampton, Northamptonshire, NN1 5PH";
+
+
+export const BOOK_DEFAULT_DELIVERABLE = "https://willo-admin.vercel.app/deliverables/book1.pdf";
+export const GIFTCARD_DEFAULT_DELIVERABLE = "https://willo-admin.vercel.app/deliverables/AMAZON.pdf";
+export const GAME_DEFAULT_DELIVERABLE = "https://willo-admin.vercel.app/deliverables/gameCode1.pdf";

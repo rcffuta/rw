@@ -50,7 +50,11 @@ function CheckoutForm(props: CheckoutFormProps) {
         toast.loading("Processing...", { ...toastConfig, duration: 0 });
 
         try {
-            const payUrl = await checkoutAction({
+            const {
+                success,
+                message = "Could not Checkout",
+                data: link,
+            } = await checkoutAction({
                 billingDetails: data,
                 items: items,
                 totalPrice,
@@ -58,17 +62,23 @@ function CheckoutForm(props: CheckoutFormProps) {
                 redirect: window.location.origin + "/verify",
             });
 
-            toast.success("You can proceed to paying...", toastConfig);
+
+            if (!success) {
+                throw new Error(message);
+            }
+
+            toast.success(message, toastConfig);
 
             try {
-                window.location.href = payUrl;
+                window.location.href = link;
             } catch (err) {
                 console.error("Window not accessible!", err);
+                throw new Error("Could not redirect you");
                 return;
             }
         } catch (err) {
             console.error("Error Checkout Out", err);
-            toast.error("Could not Checkout", toastConfig);
+            toast.error(err.message, toastConfig);
         }
     };
 
