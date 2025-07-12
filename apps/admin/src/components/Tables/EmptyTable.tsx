@@ -1,29 +1,45 @@
-import { TableRow } from "../ui/table";
+import { Button } from '../ui-elements/button'
+import { TableRow, TableCell } from '../ui/table'
+import { FileText, Plus } from 'lucide-react'
 
-export default function EmptyRow() {
+interface EmptyRowProps {
+    message?: string
+    actionText?: string
+    onAction?: () => void
+    colSpan?: number
+}
+
+export default function EmptyRow({
+    message = 'No items found',
+    actionText = 'Add New Entry',
+    onAction,
+    colSpan = 1
+}: EmptyRowProps) {
     return (
-        <div
-            className="border-[#eee] dark:border-dark-3 max-w-[500px] h-[250px] flex items-center justify-center mx-auto bg-white p-4 rounded-md"
-        >
-            <div className="flex flex-col items-center justify-center space-y-4">
-                <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="h-12 w-12 text-gray-300"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                >
-                    <path
-                        strokeLinecap="round"
-                        stroke-linejoin="round"
-                        strokeWidth="2"
-                        d="M9 17v-6h6v6m2 4H7a2 2 0 01-2-2V5a2 2 0 012-2h6l5 5v11a2 2 0 01-2 2z"
-                    />
-                </svg>
-                <p className="text-sm">
-                    No items found. Add new entries to populate this table.
-                </p>
-            </div>
-        </div>
-    );
+        <TableRow className="hover:bg-transparent">
+            <TableCell colSpan={colSpan} className="py-12 text-center">
+                <div className="mx-auto flex max-w-md flex-col items-center justify-center space-y-4">
+                    <div className="rounded-full bg-gray-100 p-4 dark:bg-gray-800">
+                        <FileText className="h-8 w-8 text-gray-400 dark:text-gray-500" />
+                    </div>
+
+                    <div className="space-y-2 text-center">
+                        <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100">
+                            {message}
+                        </h3>
+                        <p className="text-sm text-gray-500 dark:text-gray-400">
+                            Get started by adding a new entry to populate this table.
+                        </p>
+                    </div>
+
+                    {onAction && (
+                        <Button onClick={onAction} className="mt-2" label=''>
+                            <Plus className="mr-2 h-4 w-4" />
+                            {actionText}
+                        </Button>
+                    )}
+                </div>
+            </TableCell>
+        </TableRow>
+    )
 }
