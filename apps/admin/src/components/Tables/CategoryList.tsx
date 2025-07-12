@@ -8,7 +8,6 @@ import {
     TableHeader,
     TableRow,
 } from "../ui/table";
-import { FullCategory } from "@willo/db";
 import { TableSkeleton } from "../ui/table-skeleton";
 
 import { compactFormat } from "@/utils/format-number";

@@ -8,7 +8,6 @@ import { useState } from "react";
 import { useNavigate } from "@willo/lib";
 import toast from "react-hot-toast";
 import PhotoUploader from "../FormElements/upload-photo";
-import { CategoryFormData } from "@willo/db";
 import { saveCategory } from "@/actions/category.action";
 
 
@@ -30,7 +29,7 @@ export function CategoryForm({redirect}: Props) {
 
         toast.loading("Saving Category!", { id: toastId });
 
-        const data: CategoryFormData = {
+        const data: any = {
             name,
             image: imageUrl || ""
         };

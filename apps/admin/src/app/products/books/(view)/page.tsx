@@ -1,11 +1,11 @@
 import EmptyRow from "@/components/Tables/EmptyTable";
 import { ProductTable } from "@/components/Tables/ProductList";
-import { getAllBooks } from "@willo/db";
+// import { getAllBooks } from "@willo/db";
 
 export const dynamic = "force-dynamic";
 
 export default async function Page() {
-  const data = await getAllBooks();
+  const data = [] as any[]; //await getAllBooks();
 
   if (data.length < 1) return <EmptyRow/>;
 

@@ -8,8 +8,8 @@ import {
 } from "@/actions/analytics.actions";
 import { AreaChart, BarChart } from "./chart-items";
 import { formatCurrency } from "@willo/lib";
-import { StatTimeFrame } from "@willo/db";
 
+type StatTimeFrame = any;
 type PropsType = {
     timeFrame?: StatTimeFrame;
     className?: string;

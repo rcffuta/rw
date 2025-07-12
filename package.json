@@ -34,6 +34,7 @@
     "packageManager": "pnpm@10.9.0",
     "scripts": {
         "dev": "turbo run dev",
+        "dev:admin": "pnpm --filter admin dev",
         "build": "turbo run build",
         "lint": "turbo run lint",
         "build:client": "pnpm --filter database db:deploy && pnpm --filter database db:generate  && pnpm --filter client build",

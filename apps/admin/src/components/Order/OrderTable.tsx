@@ -13,12 +13,11 @@ import { formatCurrency, useNavigate} from "@willo/lib";
 import { TableRowItem } from "../ui/types";
 import { TableSkeleton } from "../ui/table-skeleton";
 import clsx from "clsx";
-import { OrderWithProductWithPaymentWithUser } from "@willo/db";
 import toast from "react-hot-toast";
 import { sendProductToCustomer } from "@/actions/order.action";
 
 
-type OrderType = OrderWithProductWithPaymentWithUser;
+type OrderType = any;
 
 type OrderProps = {
     orders: OrderType[];
