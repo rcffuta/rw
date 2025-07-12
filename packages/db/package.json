@@ -3,17 +3,9 @@
     "version": "1.0.0",
     "main": "index.ts",
     "private": true,
-    "scripts": {
-        "db:generate": "prisma generate --no-engine",
-        "db:migrate": "prisma migrate dev",
-        "db:deploy": "prisma migrate deploy",
-        "db:reset": "prisma migrate reset",
-        "db:studio": "prisma studio"
-    },
+    "scripts": {},
     "dependencies": {
-        "prisma": "^6.7.0",
-        "@prisma/client": "6.7.0",
-        "@prisma/extension-accelerate": "^1.3.0",
+        "@rcffuta/ict-lib": "^1.1.1",
         "bcryptjs": "^3.0.2"
     },
     "devDependencies": {

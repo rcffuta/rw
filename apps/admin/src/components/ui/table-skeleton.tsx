@@ -14,6 +14,7 @@ import { TableRowItem } from "./types";
 type Props = {
   title: string;
   tableHeads: TableRowItem[];
+  rowCount?:number;
 };
 
 export function TableSkeleton(props: Props) {
@@ -40,7 +41,7 @@ export function TableSkeleton(props: Props) {
         </TableHeader>
 
         <TableBody>
-          {Array.from({ length: props.tableHeads.length }).map((_, i) => (
+          {Array.from({ length: (props.rowCount || props.tableHeads.length) }).map((_, i) => (
             <TableRow key={i}>
               <TableCell colSpan={100}>
                 <Skeleton className="h-8" />

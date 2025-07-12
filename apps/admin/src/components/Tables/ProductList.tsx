@@ -9,7 +9,6 @@ import {
     TableHeader,
     TableRow,
 } from "../ui/table";
-import { ProductItem as Product } from "@willo/db";
 import { TableSkeleton } from "../ui/table-skeleton";
 
 import { formatTimeFromNow } from "@/utils/format-time";
@@ -38,7 +37,7 @@ const TableLabel = "Preparing table...";
 
 type ProductListProps = {
     title: string;
-    products: Product[];
+    products: any[];
 };
 
 export function ProductTable(props: ProductListProps) {

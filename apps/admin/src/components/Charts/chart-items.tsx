@@ -26,6 +26,7 @@ type ChartType<T> = {
   options?: ApexOptions;
   data: T,
   title?: string;
+  colors?: string[];
 };
 
 const Chart = dynamic(() => import("react-apexcharts"), {
@@ -215,6 +216,7 @@ export function BarChart({ data, options: comingOptions }: ChartType<BarPropsTyp
 export function DonutChart({
   data,
   title,
+  colors,
   options: comingOptions,
 }: ChartType<DonutPropsType>) {
   
@@ -223,7 +225,7 @@ export function DonutChart({
           type: "donut",
           fontFamily: "inherit",
       },
-      colors: ["#5750F1", "#5475E5", "#8099EC", "#ADBCF2"],
+      colors: colors ? colors : ["#5750F1", "#5475E5", "#8099EC", "#ADBCF2"],
       labels: data.map((item) => item.label),
       legend: {
           show: true,
