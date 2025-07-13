@@ -1,4 +1,4 @@
-# Willo Monorepo
+# RW Monorepo
 
 A modern e-commerce platform for digital products such as games, gift cards, and books.
 
@@ -13,9 +13,7 @@ This monorepo uses [pnpm workspaces](https://pnpm.io/workspaces) and [Turborepo]
 
 ### Packages
 
-- `db/` – Prisma schema and database access layer
-- `ui/` – Shared React UI components (if applicable)
-- `config/` – Shared configurations (ESLint, Tailwind, etc.)
+- `shared/` – ALl we need to use
 
 ## 🚀 Getting Started
 
