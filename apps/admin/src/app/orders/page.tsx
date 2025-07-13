@@ -1,4 +1,5 @@
 import { OrderList } from "@/components/Order/OrderList";
+import { fetchOrders } from "@/utils/actionUtils";
 import { Metadata } from "next";
 
 export const dynamic = "force-dynamic";
@@ -8,5 +9,6 @@ export const metadata: Metadata = {
 };
 
 export default async function OrderPage() {
-    return <OrderList />;
+    const data = await fetchOrders();
+    return <OrderList orders={data} />
 };

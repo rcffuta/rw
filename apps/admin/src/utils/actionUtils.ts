@@ -1,4 +1,4 @@
-import { getOrders, getProducts, OrderStatus, findUnderGraduates} from "@rcffuta/ict-lib";
+import { getOrders, getProducts, OrderStatus, findUnderGraduates, getPackages} from "@rcffuta/ict-lib";
 
 export async function fetchOrders() {
     const {
@@ -12,6 +12,14 @@ export async function fetchProducts() {
     const {
         data = []
     } = await getProducts();
+
+    return data ?? []
+}
+
+export async function fetchPackages() {
+    const {
+        data = []
+    } = await getPackages();
 
     return data ?? []
 }

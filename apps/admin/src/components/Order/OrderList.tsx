@@ -1,32 +1,42 @@
 "use client";
 
-import { OrderTable, OrderTableSkeleton } from "./OrderTable";
+import { OrderTable } from "./OrderTable";
 import EmptyRow from "../Tables/EmptyTable";
 import { useEffect, useState } from "react";
 import { loadAllPaidOrder } from "@/actions/order.action";
+import { Order } from "@rcffuta/ict-lib";
 
-export function OrderList() {
 
-    const [loading, setLoading] = useState(true);
-    const [orders, setOrder] = useState<any[]>([]);
+type Props = {
+    orders: Order[];
+}
 
-    useEffect(()=>{
-        async function loadOrder() {
-            const data = await loadAllPaidOrder();
+export function OrderList({orders}: Props) {
 
-            setOrder(()=>data);
-            setLoading(false);
+    // const [loading, setLoading] = useState(true);
+    // const [orders, setOrder] = useState<any[]>([]);
 
-        }
+    // useEffect(()=>{
+    //     async function loadOrder() {
+    //         const data = await loadAllPaidOrder();
 
-        if(loading) loadOrder();
-    },[loading]);
+    //         setOrder(()=>data);
+    //         setLoading(false);
 
-    if (loading) return <OrderTableSkeleton />;
+    //     }
 
-    if (orders.length < 1) return <EmptyRow/>;
+    //     if(loading) loadOrder();
+    // },[loading]);
+
+    let template;
+
+    if (orders.length < 1) template = <EmptyRow description="Orders will show here when customers make orders"/>;
+
+    else template = <OrderTable orders={orders} />
 
     return (
-        <OrderTable orders={orders} />
+        <div className="rounded-[10px] border border-stroke bg-white p-4 shadow-1 dark:border-dark-3 dark:bg-gray-dark dark:shadow-card sm:p-7.5">
+            {template}
+        </div>
     );
 }

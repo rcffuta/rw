@@ -13,8 +13,8 @@ export const NAV_DATA = [
         items: [],
       },
       {
-        title: "Categories",
-        url: "/categories",
+        title: "Packages",
+        url: "/packages",
         icon: Icons.Calendar,
         items: [],
       },
@@ -28,18 +28,18 @@ export const NAV_DATA = [
         title: "Products",
         icon: Icons.Alphabet,
         items: [
-          {
-            title: "Games",
-            url: "/products/games",
-          },
-          {
-            title: "Books",
-            url: "/products/books",
-          },
-          {
-            title: "Gift Cards",
-            url: "/products/gift-cards",
-          },
+          // {
+          //   title: "Games",
+          //   url: "/products/games",
+          // },
+          // {
+          //   title: "Books",
+          //   url: "/products/books",
+          // },
+          // {
+          //   title: "Gift Cards",
+          //   url: "/products/gift-cards",
+          // },
         ],
       },
       {
