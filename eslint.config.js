@@ -9,6 +9,7 @@ import importPlugin from 'eslint-plugin-import';
 import prettier from 'eslint-config-prettier';
 
 /** @type {import('eslint').Linter.FlatConfig[]} */
+// @ts-ignore
 export default [
   // Base JS/TS config
   {
