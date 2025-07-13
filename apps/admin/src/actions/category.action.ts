@@ -38,30 +38,30 @@
 // };
 
 // // Dummy database functions
-// let dummyCategories: FullCategory[] = Array.from({ length: 6 }, (_, i) => {
-//   const category = generateDummyCategories(1)[0];
-//   return {
-//     ...category,
-//     description: `This is a sample description for ${category.name}`,
-//     products: generateDummyProducts(category.id, Math.floor(Math.random() * 8) + 3)
-//   };
-// });
+let dummyCategories: any[] = Array.from({ length: 6 }, (_, i) => {
+  const category:any[] = [] // generateDummyCategories(1)[0];
+  return {
+    ...category,
+    description: `This is a sample description for category`,
+    products: [] //generateDummyProducts(category.id, Math.floor(Math.random() * 8) + 3)
+  };
+});
 
-// // Refactored server actions
-// export async function getCategoryList(): Promise<FullCategory[]> {
-//   // Simulate network delay
-//   await new Promise(resolve => setTimeout(resolve, 300));
-//   return dummyCategories;
-// }
+// Refactored server actions
+export async function getCategoryList(): Promise<any[]> {
+  // Simulate network delay
+  await new Promise(resolve => setTimeout(resolve, 300));
+  return dummyCategories;
+}
 
-// export async function getCategories(): Promise<CategoryItem[]> {
-//   await new Promise(resolve => setTimeout(resolve, 200));
-//   return dummyCategories.map(({ products, ...category }) => category);
-// }
+export async function getCategories(): Promise<any[]> {
+  await new Promise(resolve => setTimeout(resolve, 200));
+  return dummyCategories.map(({ products, ...category }) => category);
+}
 
 // export async function saveCategory(data: CategoryFormData): Promise<CategoryItem> {
 //   await new Promise(resolve => setTimeout(resolve, 500));
-  
+
 //   const newCategory: FullCategory = {
 //     id: `cat_${Date.now()}`,
 //     ...data,
@@ -72,6 +72,6 @@
 
 //   dummyCategories = [...dummyCategories, newCategory];
 //   const { products, ...categoryItem } = newCategory;
-  
+
 //   return categoryItem;
 // }

@@ -1,9 +1,0 @@
-{
-    "name": "@willo/config",
-    "version": "1.0.0",
-    "main": "index.ts",
-    "scripts": {},
-    "dependencies": {
-        "dotenv": "^10.0.0"
-    }
-}

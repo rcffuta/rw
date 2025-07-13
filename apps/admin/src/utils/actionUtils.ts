@@ -1,50 +1,48 @@
-import { getOrders, getProducts, OrderStatus, findUnderGraduates, getPackages} from "@rcffuta/ict-lib";
+import {
+	getOrders,
+	getProducts,
+	OrderStatus,
+	findUnderGraduates,
+	getPackages
+} from '@rcffuta/ict-lib'
 
 export async function fetchOrders() {
-    const {
-        data = []
-    } = await getOrders();
+	const { data = [] } = await getOrders()
 
-    return data ?? []
+	return data ?? []
 }
 
 export async function fetchProducts() {
-    const {
-        data = []
-    } = await getProducts();
+	const { data = [] } = await getProducts()
 
-    return data ?? []
+	return data ?? []
 }
 
 export async function fetchPackages() {
-    const {
-        data = []
-    } = await getPackages();
+	const { data = [] } = await getPackages()
 
-    return data ?? []
+	return data ?? []
 }
 
 export async function fetchMembers() {
-    const {
-        data = []
-    } = await findUnderGraduates();
+	const { data = [] } = await findUnderGraduates()
 
-    return data ?? []
+	return data ?? []
 }
 
 export function formatOrderStatus(status: OrderStatus): string {
-  switch (status) {
-    case "paid":
-      return "Paid";
-    case "pending":
-      return "Pending";
-    case "shipped":
-      return "Shipped";
-    case "delivered":
-      return "Delivered";
-    case "cancelled":
-      return "Cancelled";
-    default:
-      return status;
-  }
+	switch (status) {
+		case 'paid':
+			return 'Paid'
+		case 'pending':
+			return 'Pending'
+		case 'shipped':
+			return 'Shipped'
+		case 'delivered':
+			return 'Delivered'
+		case 'cancelled':
+			return 'Cancelled'
+		default:
+			return status
+	}
 }

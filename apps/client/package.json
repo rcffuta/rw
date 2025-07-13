@@ -15,9 +15,7 @@
     "db:studio:prod": "dotenv -e .env.production -- pnpm --filter @willo/db exec prisma studio"
   },
   "dependencies": {
-    "@willo/auth": "workspace:*",
-    "@willo/db": "workspace:*",
-    "@willo/lib": "workspace:*",
+    "@rw/shared": "workspace:*",
     "@hookform/resolvers": "^5.0.1",
     "@tailwindcss/aspect-ratio": "^0.4.2",
     "i": "^0.3.7",

@@ -1,8 +1,8 @@
 {
-  "name": "@willo/auth",
+  "name": "@rw/shared",
   "version": "1.0.0",
   "description": "",
-  "main": "index.ts",
+  "main": "index.js",
   "private": true,
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -12,9 +12,6 @@
   "license": "ISC",
   "packageManager": "pnpm@10.9.0",
   "dependencies": {
-    "jsonwebtoken": "^9.0.2"
-  },
-  "devDependencies": {
-    "@types/jsonwebtoken": "^9.0.9"
+    "react-hot-toast": "^2.5.2"
   }
 }

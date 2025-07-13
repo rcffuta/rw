@@ -1,20 +1,19 @@
-"use client"
+'use client'
 
-import { useAuthenticatedUser } from "@willo/auth";
+// import { useAuthenticatedUser } from '@rw/shared'
 
 export function UserInfo() {
+	// const { user } = useAuthenticatedUser()
+	const user = {
+		username: "codepraycode"
+	};
 
-    const {user} = useAuthenticatedUser();
-
-    return (
-        <div className="flex items-center gap-1 font-medium text-dark dark:text-dark-6">
-            <span className="text-capitalize">{user?.username ?? "Guest!"}</span>
-        </div>
-    );
-
+	return (
+		<div className="flex items-center gap-1 font-medium text-dark dark:text-dark-6">
+			<span className="text-capitalize">{user?.username ?? 'Guest!'}</span>
+		</div>
+	)
 }
-
-
 
 // function UserDropDown() {
 //     return (

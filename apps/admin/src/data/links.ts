@@ -1,1 +1,1 @@
-export const ORDER_LINK="/orders";
+export const ORDER_LINK = '/orders'

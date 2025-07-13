@@ -54,7 +54,7 @@ export default function SelectField({
                                 Boolean(error),
                         },
                         {
-                            "border-gray-3 bg-gray-1": !Boolean(error),
+                            "border-gray-3 bg-gray-1": !error,
                         }
                     )}
                 >

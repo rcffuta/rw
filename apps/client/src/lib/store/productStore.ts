@@ -1,6 +1,6 @@
 // stores/ProductStore.ts
 import { makeAutoObservable } from "mobx";
-import { ProductItem } from "@willo/db";
+// import { ProductItem } from "@rw/shared";
 import { Option } from "@/hooks/useCategories";
 import { getCategoryProducts } from "@/actions/product.action";
 // import { getAllProductList } from "@/actions/product.action";
@@ -9,6 +9,8 @@ export const defaultOption = {
     label: "All Categories",
     value: "",
 }
+
+type ProductItem = any;
 
 class ProductStore {
     quickView: ProductItem | null = null;

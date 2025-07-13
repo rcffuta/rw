@@ -53,7 +53,7 @@ export default async function ShopPage({ searchParams }: ProductsPageProps) {
 
     return (
         <ShopLayout>
-            {!Boolean(error) ? null : (
+            {!error ? null : (
                 <ToastFeedback
                     message={error.message || "Error!"}
                     duration={2000}

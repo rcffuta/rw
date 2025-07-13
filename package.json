@@ -1,5 +1,5 @@
 {
-    "name": "willo",
+    "name": "rw",
     "private": true,
     "workspaces": [
         "apps/*",
@@ -16,13 +16,24 @@
         "react-dom": "19.0.0"
     },
     "devDependencies": {
+        "@eslint/js": "^9.31.0",
+        "@next/eslint-plugin-next": "^15.3.5",
+        "@types/eslint": "^9.6.1",
         "@types/jsonwebtoken": "^9.0.9",
         "@types/node": "^22",
         "@types/react": "19.0.8",
         "@types/react-dom": "19.0.3",
+        "@typescript-eslint/eslint-plugin": "^8.36.0",
+        "@typescript-eslint/parser": "^8.36.0",
         "autoprefixer": "^10.4.20",
-        "eslint": "^9",
+        "eslint": "^9.31.0",
         "eslint-config-next": "15.1.6",
+        "eslint-config-prettier": "^10.1.5",
+        "eslint-import-resolver-typescript": "^4.4.4",
+        "eslint-plugin-import": "^2.32.0",
+        "eslint-plugin-jsx-a11y": "^6.10.2",
+        "eslint-plugin-react": "^7.37.5",
+        "eslint-plugin-react-hooks": "^5.2.0",
         "postcss": "^8",
         "prettier": "^3.4.2",
         "prettier-plugin-tailwindcss": "^0.6.11",
@@ -36,7 +47,8 @@
         "dev": "turbo run dev",
         "dev:admin": "pnpm --filter admin dev",
         "build": "turbo run build",
-        "lint": "turbo run lint",
+        "lint": "eslint . --report-unused-disable-directives",
+        "lint:fix": "eslint . --fix",
         "build:client": "pnpm --filter database db:deploy && pnpm --filter database db:generate  && pnpm --filter client build",
         "dev:client": "pnpm --filter database db:generate && pnpm --filter client dev",
         "studio": "pnpm --filter database db:studio"
