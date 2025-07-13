@@ -11,17 +11,24 @@ import {
 } from '@/components/ui/table'
 import { formatCurrency, useNavigate } from '../../../../../packages/shared'
 import { TableRowItem } from '../ui/types'
-import { TableSkeleton } from '../ui/table-skeleton'
 import clsx from 'clsx'
 import toast from 'react-hot-toast'
 import { sendProductToCustomer } from '@/actions/order.action'
-import { Order, OrderItem, OrderRecord } from '@rcffuta/ict-lib'
+import { Order, OrderItem, OrderRecord, OrderStatus, wait } from '@rcffuta/ict-lib'
+import { MarkAsDeliveredButton, MarkAsShippingButton, MarkForPickupButton } from './StatusActionButton'
+import { useOrderContext } from '@/context/OrderContext'
 
-type OrderType = any
+type OrderType = OrderRecord
 
 type OrderProps = {
 	orders: OrderType[]
 }
+
+
+
+
+
+
 
 export const OrderTableHead: TableRowItem[] = [
 	{
@@ -41,11 +48,21 @@ export const OrderTableHead: TableRowItem[] = [
 	},
 	{
 		label: 'Status'
-	},
+	},	
 	{
 		label: 'Action'
-	}
+	},	
+	// {
+	// 	label: (
+	// 		<div className="flex items-center justify-center gap-2">
+	// 			<span>Action</span>
+	// 			<ExportButton />
+	// 		</div>
+	// 	)
+	// }
 ]
+
+
 
 export function OrderTable({ orders }: OrderProps) {
 	return (
@@ -61,18 +78,32 @@ export function OrderTable({ orders }: OrderProps) {
 			</TableHeader>
 
 			<TableBody>
-				<RowItem items={orders} />
+				<RowItem orders={orders} />
 			</TableBody>
 		</Table>
 	)
 }
 
-function RowItem({ items }: { items: OrderType[] }) {
-	const { navigate } = useNavigate()
+
+function RowItem({ orders }: { orders: OrderType[] }) {
+	const { updateOrderStatus } = useOrderContext()
+
+	const handleStatusChange = async (orderId: string, newStatus: OrderStatus) => {
+		try {
+			// In a real app, you would call your API here
+			// await api.patch(`/orders/${orderId}`, { status: newStatus });
+
+			// Update local state
+			updateOrderStatus(orderId, newStatus)
+		} catch (error) {
+			throw error
+		}
+	}
+
 	return (
 		<>
-			{items.map((item, index) => {
-				const orderId = `ORD-${item.id}`
+			{orders.map((order, index) => {
+				const orderId = `ORD-${order.id}`
 				return (
 					<TableRow key={index} className="border-[#eee] dark:border-dark-3">
 						<TableCell className="text-center">
@@ -81,99 +112,70 @@ function RowItem({ items }: { items: OrderType[] }) {
 
 						<TableCell className="min-w-[155px] text-center text-dark dark:text-white xl:pl-7.5">
 							<p className="mt-[3px] text-body-sm font-medium">
-								{item.product.title}{' '}
-								{item.quantity > 1 ? `(x${item.quantity})` : null}
+								{order.item.name}{' '}
+								{order.item.quantity > 1 ? `(x${order.item.quantity})` : null}
 							</p>
 						</TableCell>
 
 						<TableCell className="text-center font-mono font-semibold text-dark dark:text-white">
-							{formatCurrency(item.product.price * item.quantity)}
+							{formatCurrency(order.item.price * order.item.quantity)}
 						</TableCell>
 
 						<TableCell className="text-center text-dark dark:text-white">
-							{item.payment?.reference}
+							{order.paymentRef || 'No Payment'}
 						</TableCell>
 
 						<TableCell className="text-center text-dark dark:text-white">
-							{item.payment?.paidAt?.toDateString() || null}
+							{/* {item.payment?.paidAt?.toDateString() || null} */}
+							-- Payment Date --
 						</TableCell>
 
 						<TableCell>
 							<div
 								className={clsx(
-									'max-w-fit rounded-full px-3.5 py-1 text-sm font-medium',
+									'mx-auto max-w-fit rounded-full px-3.5 py-1 text-sm font-medium',
 									{
 										'bg-[#219653]/[0.08] text-[#219653]':
-											item.status === 'disbursed',
+											order.status === 'delivered',
 										'bg-[#D34053]/[0.08] text-[#D34053]':
-											item.status === 'cancelled',
+											order.status === 'cancelled',
 										'bg-[#FFA70B]/[0.08] text-[#FFA70B]':
-											item.status === 'paid',
-										'bg-[#FFA70B]/[0.08] text-gray-6': item.status === 'cart'
+											order.status === 'paid',
+										'bg-[#FFA70B]/[0.08] text-gray-6':
+											order.status === 'pending'
 									}
 								)}
 							>
-								{item.status}
+								{order.status}
 							</div>
 						</TableCell>
 
 						<TableCell className="xl:pr-7.5">
-							<div className="flex items-center justify-end gap-x-3.5">
-								<button
-									className="hover:text-primary"
-									onClick={async () => {
-										// toast.error("Not Implemented", {
-										//     id: "notImplementedToast",
-										//     duration: 1000,
-										// });
-
-										const toastId = 'disburseToast'
-
-										toast.loading('Disbursing', {
-											id: toastId
-										})
-
-										const { product, user, ...order } = item
-
-										const {
-											success,
-											message = '',
-											data
-										} = await sendProductToCustomer(order, user, product)
-
-										if (!success) {
-											toast.error(message, {
-												id: toastId
-											})
-										} else {
-											toast.success(message, {
-												id: toastId
-											})
-
-											if (data?.redirect) {
-												navigate(data.redirect, { replace: true })
-											}
-										}
-									}}
-								>
-									<span className="sr-only">Disburse</span>
-									<CheckIcon />
-									{/* <TrashIcon /> */}
-								</button>
-
-								{/* <button className="hover:text-primary">
-                                    <span className="sr-only">
-                                        Delete Invoice
-                                    </span>
-                                    <TrashIcon />
-                                </button>
-
-                                <button className="hover:text-primary">
-                                    <span className="sr-only">
-                                        Download Invoice
-                                    </span>
-                                    <DownloadIcon />
-                                </button> */}
+							<div className="flex items-center justify-center gap-2">
+								<MarkAsShippingButton
+									orderId={order.id}
+									customerEmail={order.customer.email}
+									currentStatus={order.status}
+									onStatusChange={(newStatus) =>
+										handleStatusChange(order.id, newStatus)
+									}
+								/>
+								<MarkForPickupButton
+									orderId={order.id}
+									customerEmail={order.customer.email}
+									currentStatus={order.status}
+									onStatusChange={(newStatus) =>
+										handleStatusChange(order.id, newStatus)
+									}
+								/>
+								<MarkAsDeliveredButton
+									orderId={order.id}
+									customerEmail={order.customer.email}
+									currentStatus={order.status}
+									onStatusChange={(newStatus) =>
+										handleStatusChange(order.id, newStatus)
+									}
+								/>
 							</div>
 						</TableCell>
 					</TableRow>

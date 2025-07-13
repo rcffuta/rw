@@ -35,14 +35,16 @@ const buttonVariants = cva(
 type ButtonProps = HTMLAttributes<HTMLButtonElement> &
 	VariantProps<typeof buttonVariants> & {
 		label: string
-		icon?: React.ReactNode
+		icon?: React.ReactNode;
+		disabled?: boolean;
 	}
 
-export function Button({ label, icon, variant, shape, size, className, ...props }: ButtonProps) {
+export function Button({ label, icon, variant, shape, size, className, children,...props }: ButtonProps) {
 	return (
 		<button className={buttonVariants({ variant, shape, size, className })} {...props}>
 			{icon && <span>{icon}</span>}
-			{label}
+			{label ? label : children}
 		</button>
 	)
 }
+

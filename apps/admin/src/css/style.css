@@ -47,6 +47,15 @@
 	}
 }
 
+button[disabled] {
+	opacity: 0.5;
+	cursor: not-allowed;
+}
+/* 
+.flex.gap-2 {
+	gap: 0.5rem;
+} */
+
 /* third-party libraries CSS */
 
 .tableCheckbox:checked ~ div span {

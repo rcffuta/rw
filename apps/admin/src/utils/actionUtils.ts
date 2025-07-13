@@ -1,15 +1,18 @@
+"use server";
+
 import {
 	getOrders,
 	getProducts,
-	OrderStatus,
 	findUnderGraduates,
-	getPackages
+	getPackages,
 } from '@rcffuta/ict-lib'
+import { mockOrders } from './orderUtils';
 
 export async function fetchOrders() {
-	const { data = [] } = await getOrders()
+	// const { data = [] } = await getOrders()
 
-	return data ?? []
+	// return data ?? []
+	return mockOrders
 }
 
 export async function fetchProducts() {
@@ -30,19 +33,3 @@ export async function fetchMembers() {
 	return data ?? []
 }
 
-export function formatOrderStatus(status: OrderStatus): string {
-	switch (status) {
-		case 'paid':
-			return 'Paid'
-		case 'pending':
-			return 'Pending'
-		case 'shipped':
-			return 'Shipped'
-		case 'delivered':
-			return 'Delivered'
-		case 'cancelled':
-			return 'Cancelled'
-		default:
-			return status
-	}
-}

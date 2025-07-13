@@ -1,11 +1,12 @@
 import Link from 'next/link'
+import { ReactNode } from 'react'
 
 interface BreadcrumbProps {
 	pageName: string
 
 	paths: {
 		link?: string
-		label: string
+		label: ReactNode
 	}[]
 }
 

@@ -16,7 +16,8 @@ export type TableSkeletonProps = {
 	rowCount?: number
 }
 
-export function TableSkeleton(props: TableSkeletonProps) {
+export function TableSkeleton({tableHeads:tbh=[], ...props}: TableSkeletonProps) {
+	const tableHeads = Array.isArray(tbh) ? tbh : [];
 	return (
 		<div className="rounded-[10px] bg-white px-7.5 pb-4 pt-7.5 shadow-1 dark:bg-gray-dark dark:shadow-card">
 			<h2 className="mb-5.5 text-body-2xlg font-bold text-dark dark:text-white">
@@ -26,7 +27,7 @@ export function TableSkeleton(props: TableSkeletonProps) {
 			<Table>
 				<TableHeader>
 					<TableRow className="border-none uppercase [&>th]:text-center">
-						{props.tableHeads.map((item, i) => (
+						{tableHeads.map((item, i) => (
 							<TableHead
 								key={i}
 								className={clsx({
@@ -41,7 +42,7 @@ export function TableSkeleton(props: TableSkeletonProps) {
 				</TableHeader>
 
 				<TableBody>
-					{Array.from({ length: props.rowCount || props.tableHeads.length }).map(
+					{Array.from({ length: props.rowCount || tableHeads.length }).map(
 						(_, i) => (
 							<TableRow key={i}>
 								<TableCell colSpan={100}>
