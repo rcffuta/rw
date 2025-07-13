@@ -15,13 +15,14 @@ import { TableSkeleton } from "../ui/table-skeleton";
 import clsx from "clsx";
 import toast from "react-hot-toast";
 import { sendProductToCustomer } from "@/actions/order.action";
+import { Order, OrderItem, OrderRecord } from "@rcffuta/ict-lib";
 
 
-type OrderType = any;
+type OrderType = any
 
 type OrderProps = {
-    orders: OrderType[];
-};
+    orders: OrderType[]
+}
 
 export const OrderTableHead: TableRowItem[] = [
     {

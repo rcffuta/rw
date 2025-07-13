@@ -1,6 +1,6 @@
-# Willo – Admin App
+# RW – Admin App
 
-Admin dashboard for managing Willo products and orders.
+Admin dashboard for managing RW products and orders.
 
 ## Features
 

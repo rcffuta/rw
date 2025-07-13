@@ -45,7 +45,7 @@ export const DeliveryEmail = ({
                 {/* Logo */}
                 <Img
                     src={LOGO_URL}
-                    alt="Willo Logo"
+                    alt="RW Logo"
                     width="120"
                     height="auto"
                     style={{ marginBottom: "24px" }}
@@ -145,7 +145,7 @@ export const DeliveryEmail = ({
                 >
                     Warm regards,
                     <br />
-                    <strong>The Willo Team</strong>
+                    <strong>The RW Team</strong>
                 </Text>
             </Container>
         </Body>
