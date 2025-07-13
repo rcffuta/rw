@@ -1,6 +1,7 @@
 // lib/dummyStats.ts
 import { OrderStatus } from '@rcffuta/ict-lib'
-import { fetchOrders, fetchProducts, formatOrderStatus } from '@/utils/actionUtils'
+import { fetchOrders, fetchProducts } from '@/utils/actionUtils'
+import { formatOrderStatus } from '@/utils/orderUtils'
 type StatTimeFrame = any
 
 const monthLabels = [
@@ -192,12 +193,18 @@ export async function fetchTopSellingProducts(limit: number = 10) {
 	const products = await fetchProducts()
 
 	const productSales = products.map((product) => {
-		const productOrders = orders.flatMap((order) =>
-			order.items.filter((item) => item.itemType === 'product' && item.itemId === product.id)
+		const productOrders = orders.flatMap((order) => {
+
+			if (order.item.itemType === 'product' && order.item.itemId === product.id) {
+				return order
+			}else  {
+				return []
+			}
+		}
 		)
 
-		const unitsSold = productOrders.reduce((sum, item) => sum + item.quantity, 0)
-		const revenue = productOrders.reduce((sum, item) => sum + item.price * item.quantity, 0)
+		const unitsSold = productOrders.reduce((sum, item) => sum + item.item.quantity, 0)
+		const revenue = productOrders.reduce((sum, item) => sum + item.item.price * item.item.quantity, 0)
 
 		return {
 			...product,

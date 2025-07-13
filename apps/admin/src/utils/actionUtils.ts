@@ -9,10 +9,10 @@ import {
 import { mockOrders } from './orderUtils';
 
 export async function fetchOrders() {
-	// const { data = [] } = await getOrders()
+	const { data = [] } = await getOrders()
 
-	// return data ?? []
-	return mockOrders
+	return data ?? []
+	// return mockOrders
 }
 
 export async function fetchProducts() {
