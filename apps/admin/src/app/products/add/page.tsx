@@ -1,24 +1,22 @@
-import GameProductForm from '@/components/Product/GameProductForm'
+
+import AddProductForm from '@/components/Product/ProductForm'
 import Breadcrumb from '@/components/ui/BreadCrumb'
 
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-	title: 'Game Product'
+	title: 'Product'
 }
 
 export default function Page() {
 	return (
 		<>
 			<Breadcrumb
-				pageName="Games Products"
+				pageName="Product"
 				paths={[
 					{
-						label: 'Products'
-					},
-					{
-						label: 'Games',
-						link: '/products/games'
+						label: 'Products',
+						link: '/products'
 					},
 					{
 						label: 'Add'
@@ -26,7 +24,7 @@ export default function Page() {
 				]}
 			/>
 
-			<GameProductForm />
+			<AddProductForm />
 		</>
 	)
 }

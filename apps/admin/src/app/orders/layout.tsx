@@ -1,12 +1,12 @@
 import { ExportButton } from '@/components/Order/StatusActionButton'
 import Breadcrumb from '@/components/ui/BreadCrumb'
-import { OrderProvider } from '@/context/OrderContext'
-import { ExportAsPDF } from '@/utils/exportAsPdf'
+// import { OrderProvider } from '@/context/OrderContext'
+// import { ExportAsPDF } from '@/utils/exportAsPdf'
 import { PropsWithChildren } from 'react'
 
 export default function OrderPageRoot({ children }: PropsWithChildren) {
 	return (
-		<OrderProvider>
+		<>
 			<Breadcrumb
 				pageName="Orders"
 				paths={[
@@ -22,6 +22,6 @@ export default function OrderPageRoot({ children }: PropsWithChildren) {
 				]}
 			/>
 			{children}
-		</OrderProvider>
+		</>
 	)
 }

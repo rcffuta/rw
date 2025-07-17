@@ -112,8 +112,8 @@ importers:
   apps/admin:
     dependencies:
       '@rcffuta/ict-lib':
-        specifier: ^1.2.0
-        version: 1.2.0
+        specifier: ^2.0.1
+        version: 2.0.1
       '@react-email/components':
         specifier: ^0.0.41
         version: 0.0.41(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
@@ -785,8 +785,8 @@ packages:
   '@prisma/get-platform@6.11.1':
     resolution: {integrity: sha512-b2Z8oV2gwvdCkFemBTFd0x4lsL4O2jLSx8lB7D+XqoFALOQZPa7eAPE1NU0Mj1V8gPHRxIsHnyUNtw2i92psUw==}
 
-  '@rcffuta/ict-lib@1.2.0':
-    resolution: {integrity: sha512-IXasWQqwA8nzoPQOne3Fz2n0XdU9keUJjmC8HMzj8ul4cks0QosrssL6hdBiyBulfLtCPSDqPwk09JmLeRO5wg==, tarball: https://npm.pkg.github.com/download/@rcffuta/ict-lib/1.2.0/40cdc6e4538032cac07dbe61f4670256c25e61ba}
+  '@rcffuta/ict-lib@2.0.1':
+    resolution: {integrity: sha512-lM4RrYQ0Yyk5FqM4Fo9cJWLTq5eGdLfwa1RVzV5m+bzCr7nLnpalhhbEyowpzSvdrQg7BmWLloNDTG9Pg+t7Mg==, tarball: https://npm.pkg.github.com/download/@rcffuta/ict-lib/2.0.1/85d7d2ca2524acc3ea4be5108497c5b7070b9d01}
 
   '@react-email/body@0.0.11':
     resolution: {integrity: sha512-ZSD2SxVSgUjHGrB0Wi+4tu3MEpB4fYSbezsFNEJk2xCWDBkFiOeEsjTmR5dvi+CxTK691hQTQlHv0XWuP7ENTg==}
@@ -2007,8 +2007,8 @@ packages:
     resolution: {integrity: sha512-gIXjKqtFuWEgzFRJA9WCQeSJLZDjgJUOMCMzxtvFq/37KojM1BFGufqsCy0r4qSQmYLsZYMeyRqzIWOMup03sw==}
     engines: {node: '>=14'}
 
-  form-data@4.0.3:
-    resolution: {integrity: sha512-qsITQPfmvMOSAdeyZ+12I1c+CKSstAFAwu+97zrnWAbIr5u8wfsExUzCesVLC8NgHuRUqNN4Zy6UPWUTRGslcA==}
+  form-data@4.0.4:
+    resolution: {integrity: sha512-KrGhL9Q4zjj0kiUt5OO4Mr/A/jlI2jDYs5eHBpYHPcBEVSiipAvn2Ko2HnPe20rmcuuvMHNdZFp+4IlGTMF0Ow==}
     engines: {node: '>= 6'}
 
   fraction.js@4.3.7:
@@ -3891,7 +3891,7 @@ snapshots:
     dependencies:
       '@prisma/debug': 6.11.1
 
-  '@rcffuta/ict-lib@1.2.0':
+  '@rcffuta/ict-lib@2.0.1':
     dependencies:
       '@react-email/components': 0.0.33(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       '@react-email/render': 1.1.3(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
@@ -4588,7 +4588,7 @@ snapshots:
   axios@1.10.0:
     dependencies:
       follow-redirects: 1.15.9
-      form-data: 4.0.3
+      form-data: 4.0.4
       proxy-from-env: 1.1.0
     transitivePeerDependencies:
       - debug
@@ -5392,7 +5392,7 @@ snapshots:
       cross-spawn: 7.0.6
       signal-exit: 4.1.0
 
-  form-data@4.0.3:
+  form-data@4.0.4:
     dependencies:
       asynckit: 0.4.0
       combined-stream: 1.0.8

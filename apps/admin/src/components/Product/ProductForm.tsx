@@ -2,13 +2,17 @@
 
 import InputGroup from '@/components/FormElements/InputGroup'
 import { TextAreaGroup } from '@/components/FormElements/InputGroup/text-area'
-import { CategorySelect } from '@/components/FormElements/select'
+import { CategorySelect, Select } from '@/components/FormElements/select'
 import { ShowcaseSection } from '@/components/Layouts/showcase-section'
 import PhotoUploader from '../FormElements/upload-photo'
 import { observer } from 'mobx-react-lite'
 import productStore from '@/store/productStore'
+import { useNavigate } from '@rw/shared'
+import ProductWrapperForm from './ProductFormWrapper'
+import toast from 'react-hot-toast'
+import DatePickerOne from '../FormElements/DatePicker/DatePickerOne'
 
-function ProductForm() {
+const ProductForm = observer(() => {
 	return (
 		<ShowcaseSection title="Add New Product" className="!p-6.5">
 			<PhotoUploader
@@ -62,6 +66,85 @@ function ProductForm() {
 			</div>
 		</ShowcaseSection>
 	)
-}
+})
 
-export default observer(ProductForm)
+
+const MainProductForm = observer(() => {
+	return (
+		<ShowcaseSection title="Enter Game Product Info" className="!p-6.5">
+			<Select
+				label="Platform"
+				placeholder="Select game platform"
+				className="mb-4.5"
+				items={[]}
+				value={productStore.platform}
+				handleChange={(e) => productStore.setField('platform', e.target.value)}
+				required
+			/>
+
+			<InputGroup
+				label="Genre"
+				type="text"
+				placeholder="Enter game genre"
+				// className="w-full xl:w-1/2"
+				className="mb-4.5"
+				value={productStore.genre}
+				handleChange={(e) => productStore.setField('genre', e.target.value)}
+				required
+			/>
+
+			<DatePickerOne
+				title="Release Date"
+				value={productStore.releaseDate}
+				onChange={(date) => {
+					productStore.setField('releaseDate', date?.toString() || '')
+				}}
+				required
+			/>
+		</ShowcaseSection>
+	)
+})
+
+export default function AddProductForm() {
+	const { navigate} = useNavigate()
+
+	return (
+		<ProductWrapperForm
+			handleSubmit={async (e) => {
+				const toastId = 'formSaveToast'
+				e.preventDefault()
+
+				toast.loading('Saving product...', { id: toastId })
+
+				let product
+
+				try {
+					product = await productStore.saveProduct('')
+				} catch (err) {
+					toast.error('Product could not save!', { id: toastId })
+
+					return
+				}
+
+				try {
+					await productStore.saveGameProduct(product.id)
+				} catch (err) {
+					toast.error('Game could not save!', { id: toastId })
+					return
+				}
+
+				toast.success('Saved product', { id: toastId })
+
+				// setTimeout(() => {
+				// 	if (!redirect) return
+
+				// 	navigate(redirect)
+				// }, 1500)
+			}}
+		>
+			<ProductForm />
+
+			<MainProductForm />
+		</ProductWrapperForm>
+	)
+}

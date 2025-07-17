@@ -5,32 +5,21 @@ import {
 	saveProduct as saveAProduct
 } from '@/actions/form.action'
 import { makeAutoObservable } from 'mobx'
-
+import { ProductInfo, ProductRecord } from '@rcffuta/ict-lib'
 class ProductStore {
 	// Product Details
 	imageUrl = ''
-	title = ''
-	category = ''
+	name = ''
+	// category = ''
 	description = ''
 	price = ''
-	discountPrice = ''
+	// discountPrice = ''
 
 	// Games Product Details
-	platform = ''
-	genre = ''
-	releaseDate = ''
+	variantColor = ''
+	variantSize = ''
+	variatntStock = 0
 
-	// Book Product Details
-	author = ''
-	bookGenre = ''
-	language = ''
-	isbn = ''
-	pages = ''
-
-	// Giftcard product details
-	code = ''
-	number = ''
-	date = ''
 
 	constructor() {
 		makeAutoObservable(this)
@@ -38,39 +27,25 @@ class ProductStore {
 
 	private reset() {
 		this.imageUrl = ''
-		this.title = ''
-		this.category = ''
+		this.name = ''
 		this.description = ''
 		this.price = ''
-		this.discountPrice = ''
+		
 
-		// Games Product Details
-		this.platform = ''
-		this.genre = ''
-		this.releaseDate = ''
-
-		// Book Product Details
-		this.author = ''
-		this.bookGenre = ''
-		this.language = ''
-		this.isbn = ''
-		this.pages = ''
-
-		// Giftcard product details
-		this.code = ''
-		this.number = ''
-		this.date = ''
+		// Product Variant Details
+		this.variantColor = ''
+		this.variantSize = ''
+		this.variatntStock = 0
+'
 	}
 
 	async saveProduct(deliverable: string) {
-		const data: any = {
-			title: this.title,
+		const data: ProductInfo = {
+			name: this.name,
 			description: this.description,
-			categoryId: parseInt(this.category),
 			price: parseFloat(this.price),
-			discountedPrice: this.discountPrice ? parseFloat(this.discountPrice) : 0,
 			images: this.imageUrl ? [this.imageUrl] : [],
-			deliverable
+			variants: []
 		}
 
 		let product

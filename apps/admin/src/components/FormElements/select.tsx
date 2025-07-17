@@ -4,6 +4,7 @@ import { getCategories } from '@/actions/category.action'
 import { ChevronUpIcon } from '@/components/Icons'
 import { cn } from '@/utils/utils'
 import { useEffect, useId, useState } from 'react'
+import { getProductById } from '@rcffuta/ict-lib'
 
 type SelectItem = { value: string; label: string }
 
@@ -100,7 +101,7 @@ export function CategorySelect(props: PropsType) {
 				setOptions(() =>
 					data.map((e) => ({
 						label: e.name,
-						value: e.id.toString()
+						value: (e.id || "").toString()
 					}))
 				)
 			}

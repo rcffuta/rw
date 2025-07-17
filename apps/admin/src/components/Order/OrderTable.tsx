@@ -16,7 +16,7 @@ import toast from 'react-hot-toast'
 import { sendProductToCustomer } from '@/actions/order.action'
 import { Order, OrderItem, OrderRecord, OrderStatus, wait } from '@rcffuta/ict-lib'
 import { MarkAsDeliveredButton, MarkAsShippingButton, MarkForPickupButton } from './StatusActionButton'
-import { useOrderContext } from '@/context/OrderContext'
+import { observer } from 'mobx-react-lite'
 
 type OrderType = OrderRecord
 
@@ -64,7 +64,7 @@ export const OrderTableHead: TableRowItem[] = [
 
 
 
-export function OrderTable({ orders }: OrderProps) {
+export const OrderTable = observer(({ orders }: OrderProps) => {
 	return (
 		<Table>
 			<TableHeader>
@@ -83,10 +83,10 @@ export function OrderTable({ orders }: OrderProps) {
 		</Table>
 	)
 }
-
+)
 
 function RowItem({ orders }: { orders: OrderType[] }) {
-	const { updateOrderStatus } = useOrderContext()
+	// const { updateOrderStatus } = useOrderContext()
 
 	const handleStatusChange = async (orderId: string, newStatus: OrderStatus) => {
 		try {
@@ -94,7 +94,7 @@ function RowItem({ orders }: { orders: OrderType[] }) {
 			// await api.patch(`/orders/${orderId}`, { status: newStatus });
 
 			// Update local state
-			updateOrderStatus(orderId, newStatus)
+			// updateOrderStatus(orderId, newStatus)
 		} catch (error) {
 			throw error
 		}
@@ -153,7 +153,7 @@ function RowItem({ orders }: { orders: OrderType[] }) {
 						<TableCell className="xl:pr-7.5">
 							<div className="flex items-center justify-center gap-2">
 								<MarkAsShippingButton
-									orderId={order.id}
+									order={order}
 									customerEmail={order.customer.email}
 									currentStatus={order.status}
 									onStatusChange={(newStatus) =>
@@ -161,7 +161,7 @@ function RowItem({ orders }: { orders: OrderType[] }) {
 									}
 								/>
 								<MarkForPickupButton
-									orderId={order.id}
+									order={order}
 									customerEmail={order.customer.email}
 									currentStatus={order.status}
 									onStatusChange={(newStatus) =>
@@ -169,7 +169,7 @@ function RowItem({ orders }: { orders: OrderType[] }) {
 									}
 								/>
 								<MarkAsDeliveredButton
-									orderId={order.id}
+									order={order}
 									customerEmail={order.customer.email}
 									currentStatus={order.status}
 									onStatusChange={(newStatus) =>

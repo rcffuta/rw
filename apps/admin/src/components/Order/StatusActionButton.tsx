@@ -1,26 +1,24 @@
 "use client";
-import { useOrderContext } from "@/context/OrderContext"
 import { ExportAsPDF } from "@/utils/exportAsPdf"
 import { aggregateByVariants, VariantAggregate } from "@/utils/orderUtils"
-import { DownloadIcon } from "../Tables/icons"
 import { OrderRecord, OrderStatus } from "@rcffuta/ict-lib";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { Button } from "../ui-elements/button";
 import { CheckCircle, Loader2, Store, Truck } from "lucide-react";
+import { sendDeliveryNotification, sendPickupNotification, sendShippingNotification } from "@/utils/mailUtils";
 
 
 interface StatusActionButtonProps {
-  orderId: string;
+  order: OrderRecord;
   customerEmail: string;
   currentStatus: OrderStatus;
   onStatusChange: (newStatus: OrderStatus) => Promise<void>;
 }
 
 export const MarkAsShippingButton = ({
-  orderId,
-  customerEmail,
-  currentStatus,
+  order,
+    currentStatus,
   onStatusChange,
 }: StatusActionButtonProps) => {
   const [isLoading, setIsLoading] = useState(false);
@@ -35,7 +33,7 @@ export const MarkAsShippingButton = ({
       await onStatusChange("pending");
 
       // Send email notification
-      await sendShippingNotification(customerEmail, orderId);
+      await sendShippingNotification(order);
 
       toast.success('Order marked as shipping and notification sent', { id: toastId })
     } catch (error) {
@@ -71,8 +69,7 @@ export const MarkAsShippingButton = ({
 };
 
 export const MarkForPickupButton = ({
-  orderId,
-  customerEmail,
+  order,
   currentStatus,
   onStatusChange,
 }: StatusActionButtonProps) => {
@@ -86,7 +83,7 @@ export const MarkForPickupButton = ({
       await onStatusChange("shipped");
 
       // Send email notification
-      await sendPickupNotification(customerEmail, orderId);
+      await sendPickupNotification(order);
 
       toast.success("Order ready for pickup and notification sent");
     } catch (error) {
@@ -122,9 +119,8 @@ export const MarkForPickupButton = ({
 };
 
 export const MarkAsDeliveredButton = ({
-	orderId,
-	customerEmail,
-	currentStatus,
+	order,
+		currentStatus,
 	onStatusChange
 }: StatusActionButtonProps) => {
 	const [isLoading, setIsLoading] = useState(false)
@@ -137,7 +133,7 @@ export const MarkAsDeliveredButton = ({
 			await onStatusChange('delivered')
 
 			// Send delivery confirmation email
-			await sendDeliveryNotification(customerEmail, orderId)
+			await sendDeliveryNotification(order)
 
 			toast.success('Order marked as delivered and notification sent')
 		} catch (error) {
@@ -170,61 +166,15 @@ export const MarkAsDeliveredButton = ({
 	)
 }
 
-// Email notification function
-async function sendDeliveryNotification(email: string, orderId: string) {
-	// In a real app, call your email service API
-	console.log(`Delivery notification sent to ${email} for order ${orderId}`)
-	await new Promise((resolve) => setTimeout(resolve, 500))
-
-	// Example real implementation:
-	/*
-  await fetch('/api/send-email', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      to: email,
-      subject: `Your Order #${orderId} has been delivered!`,
-      html: `
-        <p>Hello,</p>
-        <p>We're happy to inform you that your order #${orderId} has been successfully delivered!</p>
-        <p>Thank you for your purchase!</p>
-        <p>Order details: [LINK]</p>
-      `
-    })
-  });
-  */
-}
-
-// Email notification functions (mock implementations)
-async function sendShippingNotification(email: string, orderId: string) {
-  // In a real app, call your email service API
-  console.log(`Shipping notification sent to ${email} for order ${orderId}`);
-  await new Promise(resolve => setTimeout(resolve, 500));
-}
-
-async function sendPickupNotification(email: string, orderId: string) {
-  // In a real app, call your email service API
-  console.log(`Pickup notification sent to ${email} for order ${orderId}`);
-  await new Promise(resolve => setTimeout(resolve, 500));
-}
 
 export const ExportButton = () => {
-    const { orders } = useOrderContext() // Assuming you have access to orders
+    // const { orders } = useOrderContext() // Assuming you have access to orders
 
     const [preorders, setPreOrders] = useState<VariantAggregate[]>([]);
-
-    // const handleExport = () => {
-    //     toast.success("Exporting...", {id:"exportToast"});
-        
-
-        
-    //     // exportAsPDF(aggregates)
-    // }
-
-    function loadPreorders() {
-		const aggregates = aggregateByVariants(orders)
-		setPreOrders(() => aggregates)
-	}
+      function loadPreorders() {
+      const aggregates = aggregateByVariants([])
+      setPreOrders(() => aggregates)
+    }
 
     useEffect(()=>{
         
@@ -237,15 +187,4 @@ export const ExportButton = () => {
 
 
     return <ExportAsPDF aggregates={preorders} />
-
-    // return (
-    //     <button
-    //         onClick={handleExport}
-    //         className="hover:text-primary"
-    //         title="Export variant details"
-    //     >
-    //         <span className="sr-only">Export</span>
-    //         <DownloadIcon className="h-4 w-4" />
-    //     </button>
-    // )
 }
