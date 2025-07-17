@@ -1,12 +1,11 @@
 "use client";
 import { ExportAsPDF } from "@/utils/exportAsPdf"
 import { aggregateByVariants, VariantAggregate } from "@/utils/orderUtils"
-import { OrderRecord, OrderStatus } from "@rcffuta/ict-lib";
+import { OrderRecord, OrderStatus, sendDeliveryNotification, sendPickupNotification, sendShippingNotification } from "@rcffuta/ict-lib";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { Button } from "../ui-elements/button";
 import { CheckCircle, Loader2, Store, Truck } from "lucide-react";
-import { sendDeliveryNotification, sendPickupNotification, sendShippingNotification } from "@/utils/mailUtils";
 
 
 interface StatusActionButtonProps {
