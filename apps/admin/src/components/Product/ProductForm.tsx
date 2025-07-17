@@ -19,7 +19,7 @@ const ProductForm = observer(() => {
 				imageUrl={productStore.imageUrl}
 				onUpload={(url) => productStore.setField('imageUrl', url || '')}
 			/>
-			<InputGroup
+			{/* <InputGroup
 				label="Title"
 				type="text"
 				value={productStore.title}
@@ -35,7 +35,7 @@ const ProductForm = observer(() => {
 				className="mb-4.5"
 				value={productStore.category?.toString()}
 				handleChange={(e) => productStore.setField('category', e.target.value)}
-			/>
+			/> */}
 
 			<TextAreaGroup
 				label="Description"
@@ -55,14 +55,14 @@ const ProductForm = observer(() => {
 					handleChange={(e) => productStore.setField('price', e.target.value)}
 				/>
 
-				<InputGroup
+				{/* <InputGroup
 					label="Discount Price"
 					type="number"
 					placeholder="Enter product discount price"
 					className="w-full xl:w-1/2"
 					value={productStore.discountPrice}
 					handleChange={(e) => productStore.setField('discountPrice', e.target.value)}
-				/>
+				/> */}
 			</div>
 		</ShowcaseSection>
 	)
@@ -72,7 +72,8 @@ const ProductForm = observer(() => {
 const MainProductForm = observer(() => {
 	return (
 		<ShowcaseSection title="Enter Game Product Info" className="!p-6.5">
-			<Select
+			<></>
+			{/* <Select
 				label="Platform"
 				placeholder="Select game platform"
 				className="mb-4.5"
@@ -100,7 +101,7 @@ const MainProductForm = observer(() => {
 					productStore.setField('releaseDate', date?.toString() || '')
 				}}
 				required
-			/>
+			/> */}
 		</ShowcaseSection>
 	)
 })
@@ -119,7 +120,7 @@ export default function AddProductForm() {
 				let product
 
 				try {
-					product = await productStore.saveProduct('')
+					// product = await productStore.saveProduct('')
 				} catch (err) {
 					toast.error('Product could not save!', { id: toastId })
 
@@ -127,7 +128,7 @@ export default function AddProductForm() {
 				}
 
 				try {
-					await productStore.saveGameProduct(product.id)
+					// await productStore.saveGameProduct(product.id)
 				} catch (err) {
 					toast.error('Game could not save!', { id: toastId })
 					return

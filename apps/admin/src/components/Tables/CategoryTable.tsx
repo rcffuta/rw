@@ -1,4 +1,4 @@
-import { MerchPackage, MerchPackageRecord, ProductCategory } from '@rcffuta/ict-lib'
+import { MerchPackage, MerchPackageRecord } from '@rcffuta/ict-lib'
 import { Button } from '../ui-elements/button'
 import { Badge, Pencil, Plus, Trash2 } from 'lucide-react'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '../ui/table'
