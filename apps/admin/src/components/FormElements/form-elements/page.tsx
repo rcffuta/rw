@@ -103,7 +103,7 @@ export default function FormElementsPage() {
 							defaultValue="USA"
 							prefixIcon={<GlobeIcon />}
 						/>
-						<MultiSelect id="multiSelect" />
+						{/* <MultiSelect id="multiSelect" /> */}
 					</ShowcaseSection>
 
 					<ShowcaseSection title="Checkbox and radio" className="space-y-5.5 !p-6.5">
