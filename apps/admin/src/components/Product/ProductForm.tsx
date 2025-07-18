@@ -94,7 +94,7 @@ const MainProductForm = observer(() => {
 
 
 	return (
-		<ShowcaseSection title="Enter Game Product Info" className="!p-6.5">
+		<ShowcaseSection title="Attach a variant" className="!p-6.5">
 			<div>
 				<PhotoUploader
 					imageUrl={picture}
