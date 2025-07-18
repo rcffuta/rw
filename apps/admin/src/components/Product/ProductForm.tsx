@@ -104,10 +104,10 @@ const MainProductForm = observer(() => {
 				/>
 
 				<PillInput
-					label="Product Tags"
+					label="Variant sizes"
 					pills={sizes}
 					onPillsChange={setSizes}
-					placeholder="Add tags (comma separated)"
+					placeholder="Add sizes (comma separated)"
 					maxPills={5}
 					// icon={<TagIcon />}
 					iconPosition="left"
@@ -117,11 +117,11 @@ const MainProductForm = observer(() => {
 
 				<br/>
 				<InputGroup
-					label="Color"
+					label="Variant Color"
 					type="color"
 					value={color}
 					handleChange={(e) => setColor(e.target.value)}
-					placeholder="Enter product color"
+					placeholder="Enter variant color"
 					className="mb-4.5"
 					required={isRequired}
 				/>
