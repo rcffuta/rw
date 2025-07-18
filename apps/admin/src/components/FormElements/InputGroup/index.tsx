@@ -1,7 +1,8 @@
 import { cn } from '@/utils/utils'
-import { type HTMLInputTypeAttribute, useId } from 'react'
+import { formatNaira } from '@rw/shared'
+import { type HTMLInputTypeAttribute, useId, useState, useEffect} from 'react'
 
-type InputGroupProps = {
+export type InputGroupProps = {
 	className?: string
 	label: string
 	placeholder: string
@@ -17,6 +18,7 @@ type InputGroupProps = {
 	iconPosition?: 'left' | 'right'
 	height?: 'sm' | 'default'
 	defaultValue?: string
+	id?: string
 }
 
 const InputGroup: React.FC<InputGroupProps> = ({
@@ -29,9 +31,34 @@ const InputGroup: React.FC<InputGroupProps> = ({
 	active,
 	handleChange,
 	icon,
+	id: noId,
+	value: inputValue,
 	...props
 }) => {
-	const id = useId()
+	const id = noId || useId()
+	const isCurrencyInput = type === 'currency'
+	const isColorInput = type === 'color'
+	const showColorPreview = isColorInput
+
+	const handleCurrencyChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		const value = e.target.value.replace(/[^0-9.]/g, '')
+
+		if (value === '') {
+			return
+		}
+
+		const numValue = parseFloat(value)
+		if (!isNaN(numValue)) {
+
+			e.target.value = formatNaira(numValue, "", 0);
+		}
+	}
+
+	const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
+		if (isCurrencyInput) {
+			handleCurrencyChange(e)
+		}
+	}
 
 	return (
 		<div className={className}>
@@ -43,16 +70,32 @@ const InputGroup: React.FC<InputGroupProps> = ({
 			<div
 				className={cn(
 					'relative mt-3 [&_svg]:absolute [&_svg]:top-1/2 [&_svg]:-translate-y-1/2',
-					props.iconPosition === 'left' ? '[&_svg]:left-4.5' : '[&_svg]:right-4.5'
+					props.iconPosition === 'left' ? '[&_svg]:left-4.5' : '[&_svg]:right-4.5',
+					isColorInput && 'flex items-center gap-3',
+					isCurrencyInput && 'relative'
 				)}
 			>
+				{showColorPreview && (
+					<div
+						className="size-8 rounded-md border border-stroke dark:border-dark-3"
+						style={{ backgroundColor: inputValue }}
+					/>
+				)}
+
+				{isCurrencyInput && (
+					<span className="absolute left-4 top-1/2 -translate-y-1/2 text-dark dark:text-white">
+						₦
+					</span>
+				)}
+
 				<input
 					id={id}
-					type={type}
+					type={isColorInput ? 'text' : isCurrencyInput ? 'text' : type}
 					name={props.name}
 					placeholder={placeholder}
 					onChange={handleChange}
-					value={props.value}
+					onBlur={isCurrencyInput ? handleBlur : undefined}
+					value={inputValue}
 					defaultValue={props.defaultValue}
 					className={cn(
 						'w-full rounded-lg border-[1.5px] border-stroke bg-transparent outline-none transition focus:border-primary disabled:cursor-default disabled:bg-gray-2 data-[active=true]:border-primary dark:border-dark-3 dark:bg-dark-2 dark:focus:border-primary dark:disabled:bg-dark dark:data-[active=true]:border-primary',
@@ -60,7 +103,8 @@ const InputGroup: React.FC<InputGroupProps> = ({
 							? getFileStyles(props.fileStyleVariant!)
 							: 'px-5.5 py-3 text-dark placeholder:text-dark-6 dark:text-white',
 						props.iconPosition === 'left' && 'pl-12.5',
-						props.height === 'sm' && 'py-2.5'
+						props.height === 'sm' && 'py-2.5',
+						isCurrencyInput && 'pl-8'
 					)}
 					required={required}
 					disabled={disabled}
@@ -73,9 +117,9 @@ const InputGroup: React.FC<InputGroupProps> = ({
 	)
 }
 
-export default InputGroup
+export default InputGroup;
 
-function getFileStyles(variant: 'style1' | 'style2') {
+export function getFileStyles(variant: 'style1' | 'style2') {
 	switch (variant) {
 		case 'style1':
 			return `file:mr-5 file:border-collapse file:cursor-pointer file:border-0 file:border-r file:border-solid file:border-stroke file:bg-[#E2E8F0] file:px-6.5 file:py-[13px] file:text-body-sm file:font-medium file:text-dark-5 file:hover:bg-primary file:hover:bg-opacity-10 dark:file:border-dark-3 dark:file:bg-white/30 dark:file:text-white`

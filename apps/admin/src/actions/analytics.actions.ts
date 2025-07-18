@@ -214,13 +214,14 @@ export async function fetchTopSellingProducts(limit: number = 10) {
 	})
 
 	return productSales
+		.filter((e)=>e.unitsSold >= 1)
 		.sort((a, b) => b.unitsSold - a.unitsSold)
 		.slice(0, limit)
 		.map((product, index) => ({
 			rank: index + 1,
 			id: product.id,
 			name: product.name,
-			images: product.images,
+			image: product.variants.at(0)?.image,
 			unitsSold: product.unitsSold,
 			revenue: product.revenue
 		}))

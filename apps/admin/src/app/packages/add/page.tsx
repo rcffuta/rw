@@ -1,14 +1,15 @@
-import { CategoryForm } from '@/components/Product/CategoryForm'
+import PackageForm from '@/components/Product/CategoryForm'
 import Breadcrumb from '@/components/ui/BreadCrumb'
+import { PACKAGE_LINK } from '@/data/links'
 
 export default function Page() {
 	return (
 		<>
 			<Breadcrumb
-				pageName="Create New Product Category"
+				pageName="Create Package"
 				paths={[
 					{
-						label: 'Categories',
+						label: 'Packages ',
 						link: '/categories'
 					},
 					{
@@ -18,7 +19,7 @@ export default function Page() {
 			/>
 
 			<div className="mx-auto max-w-[700px]">
-				<CategoryForm redirect="/categories" />
+				<PackageForm redirect={PACKAGE_LINK} />
 
 				{/* <CategoryForm /> */}
 			</div>

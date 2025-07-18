@@ -41,7 +41,7 @@ export async function TrendChart({ className, timeFrame = 'monthly' }: PropsType
 			</div>
 
 			{data.length > 0 ? (
-				<div className="h-[300px]">
+				<div className="h-[350px]">
 					<DonutChart
 						data={data}
 						title="Orders"

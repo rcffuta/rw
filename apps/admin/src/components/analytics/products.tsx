@@ -84,7 +84,7 @@ export async function TopSellingProducts({ className }: { className?: string }) 
 									<TableCell className="whitespace-nowrap px-4 py-3">
 										<div className="flex items-center gap-3">
 											<CategoryImage
-												src={item.images[0]}
+												src={item.image || ""}
 												className="size-10 rounded-lg object-cover"
 												alt={`${item.name} thumbnail`}
 												// fallbackClassName="bg-gray-100 dark:bg-gray-700"

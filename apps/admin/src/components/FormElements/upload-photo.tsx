@@ -1,17 +1,23 @@
 'use client'
 
 import { useState } from 'react'
-import Image from 'next/image'
+
 import { deleteProfileImage, uploadProfileImage } from '@/actions/storage.action'
 import { UploadIcon } from '@/components/Icons'
 import toast from 'react-hot-toast'
+import { CustomImage } from '@rw/shared'
+import { cn } from '@/utils/utils'
 
 export default function PhotoUploader({
 	imageUrl,
-	onUpload
+	onUpload,
+	required,
+	folder,
 }: {
 	imageUrl: string | null
-	onUpload: (url: string | null) => void
+	onUpload: (url: string | null) => void;
+	required?: boolean;
+	folder?: string;
 }) {
 	// const [imageUrl, setImageUrl] = useState<string | null>(null);
 	const [isUploading, setIsUploading] = useState(false)
@@ -27,11 +33,12 @@ export default function PhotoUploader({
 		setIsUploading(true)
 
 		try {
-			const result: any = await uploadProfileImage(formData)
+			const result: any = await uploadProfileImage(formData, folder)
 			onUpload(result.secure_url)
 			setPublicId(result.public_id)
 			toast.success('Uploaded Image')
 		} catch (err) {
+			console.dir(err)
 			console.error('Upload failed', err)
 			toast.error('Upload failed')
 		} finally {
@@ -59,15 +66,24 @@ export default function PhotoUploader({
 	return (
 		<>
 			<>
+				{(!imageUrl && required) ? <span className="ml-1 mt-1 select-none text-red">This is required</span>: null}
 				{imageUrl && (
-					<div className="mb-4 flex items-center gap-3">
-						<Image
+					<div className="mb-4 flex items-center justify-center gap-3">
+						<img
 							src={imageUrl}
-							width={55}
-							height={55}
-							alt="Uploaded User"
-							className="size-14 rounded-full object-cover"
-							quality={90}
+							width={250}
+							height={250}
+							alt="Product variant preview" // More descriptive alt text
+							className={cn(
+								'size-50 rounded-md object-contain',
+								'border-2 border-stroke dark:border-dark-3', // Added border for better visibility
+								'transition-transform duration-200 hover:scale-105' // Subtle hover effect
+							)}
+							loading="lazy" // Better performance
+							onError={(e) => {
+								// Fallback if image fails to load
+								;(e.target as HTMLImageElement).src = '/assets/fallback.svg'
+							}}
 						/>
 						<div>
 							{/* <span className="mb-1.5 font-medium text-dark dark:text-white">

@@ -1,40 +1,116 @@
-import { makeAutoObservable } from 'mobx'
+
+import { createProduct, ProductInfo, ProductVariant } from '@rcffuta/ict-lib'
+import { makeAutoObservable, toJS } from 'mobx'
+
+// "https://res.cloudinary.com/con-so-nant/image/upload/v1752769553/rW/images/mkyfylugetjeofamjdhq.png"
+
 class ProductStore {
-	// Product Details
-	imageUrl = ''
+	// Basic product info
 	name = ''
-	// category = ''
 	description = ''
 	price = ''
-	// discountPrice = ''
-
-	// Games Product Details
-	variantColor = ''
-	variantSize = ''
-	variatntStock = 0
-
+	_variants: ProductVariant[] = []
 
 	constructor() {
 		makeAutoObservable(this)
 	}
 
-	private reset() {
-		this.imageUrl = ''
+
+	set variants(data: ProductVariant[]) {
+		this._variants = data;
+	}
+
+	get variants(): ProductVariant[] {
+		return this._variants;
+	}
+
+	// Actions
+	setField = <K extends keyof this>(key: K, value: this[K]) => {
+		this[key] = value
+	}
+
+	addVariant = (variant: ProductVariant) => {
+		
+		let updated = false;
+
+		const dt = [...toJS(this.variants)];
+
+
+		dt.map((each)=>{
+			if (each.color === variant.color) {
+				updated = true;
+				return variant;
+			}
+
+			return each;
+		});
+
+		if (!updated) {
+			dt.push(variant);
+		}
+
+		this.variants = dt;
+	}
+
+	removeVariant = (index: number) => {
+		this.variants.splice(index, 1)
+	}
+
+	updateVariantStock = (index: number, value: string) => {
+		const stock = parseInt(value) || 0
+		// if (!isNaN(stock)) {
+		// 	this.variants[index].stock = stock
+		// }
+	}
+
+
+	async saveProduct() {
+		const data = this.productInfo;
+
+		// console.debug("Saving,", data);
+
+
+		// await wait(5);
+
+		const {
+			success,
+			message,
+			data: prod
+		} = await createProduct(data);
+
+
+		if (!success) {
+			throw new Error(message);
+		}
+
+
+		this.reset();
+
+		return prod;
+	}
+
+
+
+	get isVariantRequired() {
+		return (this.name.length >= 1) && (this.variants.length < 1)
+	}
+
+	reset = () => {
 		this.name = ''
 		this.description = ''
 		this.price = ''
-		
-
-		// Product Variant Details
-		this.variantColor = ''
-		this.variantSize = ''
-		this.variatntStock = 0
-
+		this.variants = []
 	}
 
-	setField(key: string, value: string) {
-		// @ts-ignore
-		this[key] = value
+	// Computed values
+	get productInfo(): ProductInfo {
+		return {
+			// images: this.images,
+			name: this.name,
+			description: this.description,
+			price: parseFloat(this.price) || 0,
+			variants: toJS(this.variants)
+		}
 	}
 
 }

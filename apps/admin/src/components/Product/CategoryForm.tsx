@@ -2,21 +2,19 @@
 
 import InputGroup from '@/components/FormElements/InputGroup'
 import { ShowcaseSection } from '@/components/Layouts/showcase-section'
-import { Select } from '../FormElements/select'
-import { useState } from 'react'
 import { useNavigate } from '../../../../../packages/shared'
 import toast from 'react-hot-toast'
 import PhotoUploader from '../FormElements/upload-photo'
-import { wait } from '@rcffuta/ict-lib'
-// import { saveCategory } from '@/actions/category.action'
+import { observer } from 'mobx-react-lite'
+import { TextAreaGroup } from '../FormElements/InputGroup/text-area'
+import packageStore from '@/store/packageStore'
+import MultiSelect from '../FormElements/MultiSelect'
 
 type Props = {
 	redirect?: string
 }
 
-export function CategoryForm({ redirect }: Props) {
-	const [imageUrl, setImageUrl] = useState<string | null>(null)
-	const [name, setName] = useState('')
+const PackageForm = observer(({ redirect }: Props) => {
 
 	const { navigate } = useNavigate()
 
@@ -25,16 +23,11 @@ export function CategoryForm({ redirect }: Props) {
 
 		const toastId = 'saveCategoryToast'
 
-		toast.loading('Saving Category!', { id: toastId })
-
-		const data: any = {
-			name,
-			image: imageUrl || ''
-		}
+		toast.loading('Creating Package...', { id: toastId })
 
 		try {
-			await wait(5)
-			toast.success('Category saved!', { id: toastId })
+			await packageStore.savePackage();
+			toast.success('Package created!', { id: toastId })
 
 			setTimeout(() => {
 				if (!redirect) return
@@ -42,24 +35,57 @@ export function CategoryForm({ redirect }: Props) {
 				navigate(redirect)
 			}, 1500)
 		} catch (err) {
-			console.error('Failed to create category:', err)
+			console.error('Failed to create package:', err)
 			// alert("Error creating product");
-			toast.error('Category could not save!', { id: toastId })
+			toast.error('Package could not bre created!', { id: toastId })
 		}
 	}
 
 	return (
-		<ShowcaseSection title="Add New Category" className="!p-6.5">
+		<ShowcaseSection title="Enter Package details" className="!p-6.5">
 			<form onSubmit={handleSubmit}>
-				<PhotoUploader imageUrl={imageUrl} onUpload={(url) => setImageUrl(url)} />
+				<PhotoUploader
+					imageUrl={packageStore.image}
+					onUpload={(url) => packageStore.setField('image', url ?? '')}
+					folder="productImages"
+					required
+				/>
 				<InputGroup
-					label="Category Name"
+					label="Package Name"
 					type="text"
-					value={name}
-					handleChange={(e) => setName(e.target.value)}
+					value={packageStore.name}
+					handleChange={(e) => packageStore.setField('name', e.target.value)}
 					placeholder="Enter category title"
 					className="mb-4.5"
 					required
+				/>
+
+				<MultiSelect
+					id="Products"
+					label="Select package products"
+					options={packageStore.options}
+					onChange={(val) => packageStore.setField('items', val)}
+					initialSelected={packageStore.items.map((e) => e.productId)}
+					required
+				/>
+
+				<InputGroup
+					label="Price"
+					type="currency"
+					placeholder="Enter product price"
+					// className="w-full xl:w-1/2"
+					className="my-4.5"
+					value={packageStore.totalPrice}
+					handleChange={(e) => packageStore.setField('totalPrice', e.target.value)}
+					required
+				/>
+
+				<TextAreaGroup
+					label="Description"
+					placeholder="Enter package description"
+					className="my-4.5"
+					value={packageStore.description}
+					handleChange={(e) => packageStore.setField('description', e.target.value)}
 				/>
 
 				<button
@@ -72,3 +98,6 @@ export function CategoryForm({ redirect }: Props) {
 		</ShowcaseSection>
 	)
 }
+)
+
+export default PackageForm;

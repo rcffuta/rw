@@ -5,7 +5,7 @@
 export function UserInfo() {
 	// const { user } = useAuthenticatedUser()
 	const user = {
-		username: "codepraycode"
+		username: "Melchizedeck"
 	};
 
 	return (

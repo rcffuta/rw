@@ -8,7 +8,7 @@ cloudinary.config({
 	api_secret: process.env.CLOUDINARY_API_SECRET!
 })
 
-export async function uploadProfileImage(formData: FormData) {
+export async function uploadProfileImage(formData: FormData, folder="upload") {
 	const file = formData.get('file') as File
 	if (!file) throw new Error('No file uploaded')
 
@@ -19,7 +19,7 @@ export async function uploadProfileImage(formData: FormData) {
 		cloudinary.uploader
 			.upload_stream(
 				{
-					folder: 'rW/profiles',
+					folder: `rW/${folder}`,
 					resource_type: 'image'
 				},
 				(error, result) => {
