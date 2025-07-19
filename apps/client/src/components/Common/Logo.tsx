@@ -1,10 +1,10 @@
-import { APP_NAME } from "@willo/lib";
+import { APP_NAME } from "@rw/shared";
 import clsx from "clsx";
 import Image from "next/image";
 
 
-const logo = "/logos/logo.svg";
-const darkLogo = "/logos/logo-dark.svg";
+const logo = "/logos/logo.png";
+const darkLogo = logo;//"/logos/logo-dark.svg";
 
 
 export default function Logo(props: {className?:string}) {

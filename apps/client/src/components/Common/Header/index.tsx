@@ -10,7 +10,7 @@ import { UserHighlight } from "@/components/Common/Header/UserHighlight";
 import cartStore from "@/lib/store/cartStore";
 import { observer } from "mobx-react-lite";
 import CategorySelect from "../CategorySelect";
-import { useFormatCurrency } from "@willo/lib";
+import { useFormatCurrency } from "@rw/shared";
 import { SearchProduct } from "./Search";
 
 type HeaderMenu = {
@@ -43,7 +43,7 @@ const HeaderTop = observer(({
     setNavigationOpen,
 }: HeaderMenuWithSetNavigation) => {
     
-    const product = cartStore.items;
+    const product = cartStore.orders;
     const totalPrice = cartStore.totalPrice;
 
     const { openCartModal } = useCartModalContext();

@@ -1,12 +1,12 @@
 import Newsletter from "@/components/Common/Newsletter";
-import { BooksProductHighlight, GameProductHighlight } from "@/components/client/Home/ProductHighlight";
 import CategorList from "@/components/client/Home/Category";
 import Hero from "@/components/client/Home/Hero";
 import PromoSection from "@/components/client/Home/PromoBanner";
 import { Metadata } from "next";
 import { Suspense } from "react";
 import { CategoryHighlightWrapper, ProductListSkeleton } from "@/components/Common/ProductUtils";
-import { APP_DESCRIPTION, APP_NAME } from "@willo/lib";
+import { APP_DESCRIPTION, APP_NAME } from "@rw/shared";
+import { ProductList } from "@/components/client/Shop/ProductList";
 
 
 const maxDisplay = 12;
@@ -29,12 +29,12 @@ export default function HomePage() {
                   </CategoryHighlightWrapper>
               }
           >
-              <BooksProductHighlight maxDisplay={maxDisplay}/>
+              <ProductList maxDisplay={maxDisplay}/>
           </Suspense>
 
           <PromoSection />
 
-          <Suspense
+          {/* <Suspense
               fallback={
                   <CategoryHighlightWrapper>
                       <ProductListSkeleton length={maxDisplay} />
@@ -42,7 +42,7 @@ export default function HomePage() {
               }
           >
               <GameProductHighlight maxDisplay={maxDisplay}/>
-          </Suspense>
+          </Suspense> */}
           <br />
           {/* <CounDown /> */}
           {/* <Testimonials /> */}

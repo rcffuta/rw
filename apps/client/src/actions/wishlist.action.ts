@@ -1,11 +1,10 @@
 "use server";
 
-import { addToWishlist, clearWishlist, getUserWishlist, removeFromWishlist } from "@willo/db";
 
 export async function loadWishList(userId: number) {
     try {
 
-        return await getUserWishlist(userId);
+        // return await getUserWishlist(userId);
     } catch(err) {
         console.error(err);
         throw new Error("Could not load wishlist");
@@ -14,7 +13,7 @@ export async function loadWishList(userId: number) {
 
 export async function saveWishList(userId: number, productId:number) {
     try {
-        return await addToWishlist(userId, productId);
+        // return await addToWishlist(userId, productId);
     } catch(err) {
         console.error(err);
         throw new Error("Could not save to wishlist");
@@ -23,7 +22,7 @@ export async function saveWishList(userId: number, productId:number) {
 
 export async function deleteFromWishList(userId: number, productId:number) {
     try {
-        return await removeFromWishlist(userId, productId);
+        // return await removeFromWishlist(userId, productId);
     } catch(err) {
         console.error(err);
         throw new Error("Could not delete from wishlist");
@@ -32,7 +31,7 @@ export async function deleteFromWishList(userId: number, productId:number) {
 
 export async function clearAllInWishList(userId: number) {
     try {
-        return await clearWishlist(userId);
+        // return await clearWishlist(userId);
     } catch(err) {
         console.error(err);
         throw new Error("Could not clear wishlist");

@@ -1,11 +1,11 @@
 "use server"
 
-import { addToCart, checkoutCart, clearCart, OrderWithProduct, getUserCart, OrderItem, removeFromCart, updateCart, updateCartItem } from "@willo/db"
+import { createOrder, getOrders, Order, OrderRecord, updateOrder, wait } from "@rcffuta/ict-lib";
 
-export async function saveCartItemToDb(user:number, items: OrderWithProduct[]) {
+export async function createCart(order: Order) {
     try {
 
-        return await updateCart(user, items);
+        return await createOrder(order);
     } catch (err) {
         console.error(err);
 
@@ -13,60 +13,68 @@ export async function saveCartItemToDb(user:number, items: OrderWithProduct[]) {
     }
 }
 
-export async function loadCart(userId: number): Promise<OrderWithProduct[]> {
+export async function loadCart(userEmail: string) {
     try {
 
-        return await getUserCart(userId);
+        const {
+            message,
+            success,
+            data=[]
+        } = await getOrders();
+
+
+        const userCart = data.filter((e)=>e.customer.email === userEmail);
+
+        return {
+            message,
+            success,
+            data: userCart
+        }
+
     } catch (err) {
         console.error(err);
         throw new Error("Could not load cart");
     }
 }
 
-export async function addProductToCart(userId: number, productId: number, quantity: number = 1): Promise<OrderItem> {
+export async function updateCart(orderId: string, order: Partial<OrderRecord>) {
     try {
-
-        return await addToCart(userId, productId, quantity);
+        delete order.id;
+        delete order.createdAt;
+        delete order.updatedAt;
+        return await updateOrder(orderId, order);
     } catch (err){
         console.error(err);
         throw new Error("Could not add product to cart");
     }
 }
 
-export async function removeProductFromCart(userId: number, productId: number) {
+export async function updateOrders(orders: Partial<OrderRecord>[]) {
     try {
-
-        return await removeFromCart(userId, productId);
-    } catch (err) {
+        await Promise.all(orders.map(e=>updateCart(e.id, e)))
+    } catch (err){
         console.error(err);
-        throw new Error("Could not remove product from cart");
+        throw new Error("Could not updates orders");
     }
 }
 
-export async function clearProductFromCart(userId: number) {
+export async function clearOrders(userId: string) {
     try {
-
-        return await clearCart(userId);
-    } catch (err) {
+        // await Promise.all(orders.map(e=>updateCart(e.id, e)))
+        await wait(5)
+    } catch (err){
         console.error(err);
-        throw new Error("Could not clear Cart");
+        throw new Error("Could not updates orders");
     }
 }
 
-export async function updateProductInCart(userId: number, productId: number, quantity: number){
+
+
+export async function checkoutProduct(userId: string){
     try {
 
-        return await updateCartItem(userId, productId, quantity);
-    } catch(err){
-        console.error(err);
-        throw new Error("Could not Update product in Cart");
-    }
-}
-
-export async function checkoutProduct(userId: number){
-    try {
-
-        return await checkoutCart(userId);
+        await wait(5);
+        // return await checkoutCart(userId);
     } catch(err) {
         console.error(err);
         throw new Error("Could not checkout product");

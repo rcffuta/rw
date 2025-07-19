@@ -40,7 +40,7 @@ class ProductStore {
         this.productDetails = { ...product };
     }
 
-    async getCategoryProductById(categoryId:number) {
+    async getPackage(categoryId:string) {
         return await getCategoryProducts(categoryId);
     }
 }

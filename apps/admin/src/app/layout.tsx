@@ -12,7 +12,7 @@ import NextTopLoader from 'nextjs-toploader'
 import type { PropsWithChildren } from 'react'
 import { Providers } from './providers'
 import { Toaster } from 'react-hot-toast'
-import { APP_ADMIN_DESCRIPTION, APP_ADMIN_NAME } from '../../../../packages/shared'
+import { APP_ADMIN_DESCRIPTION, APP_ADMIN_NAME } from '@rw/shared'
 
 export const metadata: Metadata = {
 	title: {

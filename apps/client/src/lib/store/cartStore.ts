@@ -1,26 +1,24 @@
 // stores/CartStore.ts
 import { 
   checkoutProduct,
-  clearProductFromCart,
+  clearOrders,
   loadCart,
-  removeProductFromCart,
-  updateProductInCart,
-  saveCartItemToDb
+  updateCart,
+  updateOrders,
 } from "@/actions/cart.action";
 
-
-import { OrderWithProduct, ProductItem } from "@willo/db";
 import { makeAutoObservable, runInAction, toJS } from "mobx";
 import authStore from "./authStore";
 import debounce from "lodash.debounce";
+import { Order, OrderItem, OrderRecord } from "@rcffuta/ict-lib";
 
 
 const LOCAL_CART_KEY = "guest_cart";
 
-type LocalOrder = Partial<Pick<OrderWithProduct, "id">> & Omit<OrderWithProduct, "id">;
+type LocalOrder = OrderRecord;
 
 class CartStore {
-    _items: LocalOrder[] = [];
+    _orders: LocalOrder[] = {} as any;
     syncing: boolean = false;
 
     constructor() {
@@ -29,24 +27,35 @@ class CartStore {
     }
 
     get items() {
-        return this._items as OrderWithProduct[];
+        return this._orders;
     }
 
+    get orders() {
+        return this._orders;
+    }
+    set orders(data: LocalOrder[]) {
+        this._orders = data;
+    }
+    set items(data: LocalOrder[]) {
+        this._orders = data;
+    }
+
+
     get totalPrice() {
-        return this._items.reduce((total, item) => {
-            return total + (item.product.discountedPrice || item.product.price) * item.quantity;
+        return this.orders.reduce((prev,curr)=>{
+            return prev += curr.totalAmount
         }, 0);
     }
 
     saveToLocalStorage() {
-        localStorage.setItem(LOCAL_CART_KEY, JSON.stringify(this._items));
+        localStorage.setItem(LOCAL_CART_KEY, JSON.stringify(this.orders));
     }
 
     loadFromLocalStorage() {
         const stored = localStorage.getItem(LOCAL_CART_KEY);
         if (stored) {
             try {
-            this._items = JSON.parse(stored);
+            this.orders = JSON.parse(stored);
             } catch {
             console.warn("Failed to parse local cart");
             }
@@ -64,17 +73,26 @@ class CartStore {
         if (!authStore.user) return;
 
         try {
-            const serverOrders = await loadCart(authStore.user.id);
+            const {
+                data:serverOrders,
+                message,
+                success
+            } = await loadCart(authStore.user.email);
+
+            if (!success) {
+                console.error(message)
+                return;
+            }
 
             runInAction(() => {
-                const existingItemsMap = new Map<number, LocalOrder>();
+                const existingItemsMap = new Map<string, OrderRecord>();
 
-                this._items.forEach(item => {
-                    existingItemsMap.set(item.productId, item);
+                this.orders.forEach(item => {
+                    existingItemsMap.set(item.item.itemId, item);
                 });
 
                 const mergedItems = serverOrders.map(serverItem => {
-                    const localItem = existingItemsMap.get(serverItem.productId);
+                    const localItem = existingItemsMap.get(serverItem.item.itemId);
                     if (!localItem) return serverItem;
 
                     return new Date(localItem.updatedAt) > new Date(serverItem.updatedAt)
@@ -82,17 +100,19 @@ class CartStore {
                     : serverItem;
                 });
 
-                const serverProductIds = new Set(serverOrders.map(item => item.productId));
+                const serverProductIds = new Set(serverOrders.map(item => item.item.itemId));
 
-                const remainingLocalItems = this._items.filter(
-                    item => !serverProductIds.has(item.productId)
+                const remainingLocalItems = this.orders.filter(
+                    item => !serverProductIds.has(item.item.itemId)
                 );
 
-                this._items = [...mergedItems, ...remainingLocalItems];
+                this.orders = [...mergedItems, ...remainingLocalItems];
 
                 
                 runInAction(() => { this.syncing = true });
-                this.syncCartWithServer(authStore.user.id, this._items as OrderWithProduct[]);
+                // this.syncCartWithServer(authStore.user.id, this._items as OrderWithProduct[]);
+
+                Promise.all(this.orders.map(e=>this.syncCartWithServer(e.id, e)))
                 runInAction(() => { this.syncing = false });
             });
         } catch (err) {
@@ -101,37 +121,43 @@ class CartStore {
     }
 
 
-    private async syncCartWithServer(userId: number, items: OrderWithProduct[]) {
+    private async syncCartWithServer(orderId: string, order: Order) {
         try {
-            await saveCartItemToDb(userId, toJS(items));
-            console.debug("Cart successfully synced to backend.");
+            await updateCart(orderId, toJS(order));
+            console.debug("Cart successfully synced to backend.", {order});
             this.clearLocalStorage();
         } catch (err) {
-            console.error("Failed to sync cart with server:", err);
+            console.error("Failed to sync cart with server:", err, {order});
         }
     }
 
-    async addItemToCart(product: ProductItem, quantity: number = 1) {
+    async addItemToCart(product: OrderItem) {
         const now = new Date();
-        const existing = this._items.find(i => i.productId === product.id);
+        const existing = this.orders.find(i => i.item.itemId === product.itemId);
 
         if (existing) {
             runInAction(() => {
-                existing.quantity += quantity;
-                existing.updatedAt = now;
+                existing.item.quantity += product.quantity;
+                existing.updatedAt = now.toDateString();
+                existing.totalAmount = product.price * product.quantity
             });
         } else {
             runInAction(() => {
-                this._items.push({
+                this.orders.push({
                     // id: Date.now() % 10,
-                    paymentId: 0,
-                    userId: authStore.user?.id || 0,
-                    quantity,
-                    product,
+                    customer: {
+                        email: authStore.user.email,
+                        name: `${authStore.user.firstname} ${authStore.user.lastname}`,
+                        phone: authStore.user.contacts,
+                        userId: authStore.user.id
+                    },
+                    id: "",
+                    item: product,
+                    paymentRef: "",
                     status: "cart",
-                    productId: product.id,
-                    createdAt: now,
-                    updatedAt: now,
+                    totalAmount: product.price * product.quantity,
+                    createdAt: now.toDateString(),
+                    updatedAt: now.toDateString(),
                 });
             });
         }
@@ -144,32 +170,32 @@ class CartStore {
     }
 
 
-    async removeItemFromCart(productId: number) {
+    async removeItemFromCart(productId: string) {
         runInAction(() => {
-            this._items = this._items.filter(item => item.productId !== productId);
+            this.orders = this.orders.filter(item => item.item.itemId !== productId);
         });
 
         if (authStore.user) {
-            await removeProductFromCart(authStore.user.id, productId);
+            await updateOrders(this.orders);
             this.debouncedReload();
         }
     }
 
-    updateCartItemQuantity = debounce(async (productId: number, quantity: number) =>{
+    updateCartItemQuantity = debounce(async (productId: string, quantity: number) =>{
         if (quantity < 1) {
             await this.removeItemFromCart(productId);
             return;
         }
 
-        const item = this._items.find(i => i.productId === productId);
+        const item = this.orders.find(i => i.item.itemId === productId);
         if (!item) return;
 
         runInAction(() => {
-            item.quantity = quantity;
+            item.item.quantity = quantity;
         });
 
         if (authStore.user) {
-            await updateProductInCart(authStore.user.id, productId, quantity);
+            await updateCart(item.id, item);
             await this.debouncedReload();
         }
 
@@ -177,18 +203,18 @@ class CartStore {
 
     async removeAllItemsFromCart() {
         runInAction(() => {
-            this._items = [];
+            this.orders = [];
         });
 
         if (authStore.user) {
-            await clearProductFromCart(authStore.user.id);
+            await clearOrders(authStore.user.id);
             await this.debouncedReload();
         }
     }
 
     async checkoutCart() {
         runInAction(() => {
-            this._items = [];
+            this.orders = [];
         });
 
 
@@ -199,8 +225,8 @@ class CartStore {
         
     }
 
-    getItemQuantity(productId: number): number {
-        return this._items.find(i => i.productId === productId)?.quantity || 0;
+    getItemQuantity(productId: string): number {
+        return this.orders.find(i => i.item.itemId === productId)?.item.quantity || 0;
     }
 }
 

@@ -1,12 +1,12 @@
 import Link from "next/link";
 import { ShopIcon } from "./Icons";
-import { ProductItem } from "@willo/db"
 import ProductDisplay from "../client/Shop/ProductItem";
 import { PropsWithChildren } from "react";
+import { ProductInfo } from "@rcffuta/ict-lib";
 
 
 
-export type CategoryHighlightProps<T extends ProductItem = ProductItem> = {
+export type CategoryHighlightProps<T extends ProductInfo = ProductInfo> = {
     title: string;
     subTitle: string;
     ctaText: string;

@@ -1,8 +1,51 @@
-
-import { ProductItem } from "@willo/db";
+import React from "react";
+import {
+    CategoryHighlight, CategoryHighlightProps
+} from "@/components/Common/ProductUtils";
+import ToastFeedback from "@/components/Common/ToastFeedback";
+import { getProducts, ProductRecord } from "@rcffuta/ict-lib";
 import ProductDisplayItem from "./ProductItem";
 
-export function ProductList({ products }: { products: ProductItem[] }) {
+
+type Props = Pick<CategoryHighlightProps, "maxDisplay">
+
+export async function ProductList(props: Props) {
+    let data: ProductRecord[];
+
+    try {
+
+        const {
+            message,
+            success,
+            data: products
+        } = await getProducts();
+
+        if (!success) {
+            throw new Error(message)
+        }
+
+        data = products
+    } catch(err: any) {
+        console.error(err);
+        return <ToastFeedback message={"Error loading Merch!"} id="prodHighlightToast" type="error"/>
+    }
+
+    if (data.length < 1) return null;
+
+    return (
+        <CategoryHighlight
+            {...props}
+            ctaLink={"#"}
+            ctaText="View More"
+            data={data}
+            subTitle="Books available for you"
+            title="Books"
+        />
+    );
+};
+
+
+export function ShopProductList({ products }: { products: ProductRecord[] }) {
     // const { displayGrid, displayList } = useShopContext();
     return (
         <>
@@ -26,5 +69,5 @@ export function ProductList({ products }: { products: ProductItem[] }) {
             </div>
             {/* <!-- Products Grid Tab Content End --> */}
         </>
-    );
+    )
 }

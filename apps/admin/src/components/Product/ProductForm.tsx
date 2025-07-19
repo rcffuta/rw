@@ -32,7 +32,7 @@ const ProductForm = observer(() => {
 
 			<InputGroup
 				label="Price"
-				type="number"
+				type="currency"
 				placeholder="Enter product price"
 				// className="w-full xl:w-1/2"
 				className="mb-4.5"
