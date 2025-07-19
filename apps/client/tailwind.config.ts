@@ -9,6 +9,7 @@ const config: Config = {
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   darkMode: "class",
+  
   theme: {
     fontFamily: {
       "euclid-circular-a": ["Euclid Circular A"],
@@ -26,6 +27,16 @@ const config: Config = {
       transparent: "transparent",
       white: "#FFFFFF",
       body: "#6C6F93",
+      purple: {
+        700: '#5B21B6',
+        800: '#4C1D95', 
+        900: '#3B0764'
+      },
+      gold: {
+        400: '#FBBF24',
+        500: '#F59E0B',
+        600: '#D97706'
+      },
       meta: {
         DEFAULT: "#F7F9FC",
         2: "#495270",
@@ -96,6 +107,7 @@ const config: Config = {
         DEFAULT: "#F27430",
         dark: "#E1580E",
       },
+      
     },
     screens: {
       xsm: "375px",
@@ -234,6 +246,8 @@ const config: Config = {
         1: "0px 1px 2px 0px rgba(166, 175, 195, 0.25)",
         2: "0px 6px 24px 0px rgba(235, 238, 251, 0.40), 0px 2px 4px 0px rgba(148, 163, 184, 0.05)",
         3: "0px 2px 16px 0px rgba(13, 10, 44, 0.12)",
+        'glow': '0 0 15px rgba(59, 130, 246, 0.5)',
+        'glow-lg': '0 0 25px rgba(59, 130, 246, 0.6)',
         testimonial:
           "0px 0px 4px 0px rgba(148, 163, 184, 0.10), 0px 6px 12px 0px rgba(224, 227, 238, 0.45)",
         breadcrumb: "0px 1px 0px 0px #E5E7EB, 0px -1px 0px 0px #E5E7EB",
@@ -243,6 +257,15 @@ const config: Config = {
         list: "1px 0px 0px 0px #E5E7EB",
         input: "inset 0 0 0 2px #3C50E0",
       },
+      animation: {
+        'pulse-slow': 'pulse-slow 3s infinite'
+      },
+      keyframes: {
+        'pulse-slow': {
+          '0%, 100%': { opacity: '1' },
+          '50%': { opacity: '0.9' }
+        }
+      }
     },
   },
   plugins: [

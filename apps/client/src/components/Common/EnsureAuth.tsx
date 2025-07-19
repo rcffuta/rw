@@ -1,6 +1,6 @@
 "use client";
 
-import { isEmpty, useNavigate } from "@willo/lib";
+import { isEmpty, useNavigate } from "@rw/shared";
 import { PropsWithChildren, useEffect } from "react";
 import PreLoader from "./PreLoader";
 import authStore from "@/lib/store/authStore";

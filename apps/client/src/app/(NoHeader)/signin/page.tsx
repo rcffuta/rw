@@ -2,7 +2,7 @@ import React from "react";
 import { Metadata } from "next";
 import Logo from "@/components/Common/Logo";
 import SignInForm from "@/components/client/Auth/SigninForm";
-import { APP_NAME } from "@willo/lib";
+import { APP_NAME } from "@rw/shared";
 
 
 export const metadata: Metadata = {

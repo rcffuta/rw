@@ -1,6 +1,6 @@
 import React from "react";
 
-import { ProductImage } from "@willo/lib";
+import { ProductImage } from "@rw/shared";
 import { ProductItem } from "@willo/db";
 import { TrashIcon } from "@/components/Common/Icons";
 import { useCartAction, useProduct } from "@/hooks/useProduct";

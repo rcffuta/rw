@@ -14,7 +14,7 @@ import { PreviewSliderProvider } from "../context/PreviewSliderContext";
 import Footer from "@/components/Common/Footer";
 import { AccountContextProvider } from "@/context/AccountContext";
 import { Metadata } from "next";
-import { APP_DESCRIPTION, APP_NAME } from "@willo/lib";
+import { APP_DESCRIPTION, APP_NAME } from "@rw/shared";
 
 export const metadata: Metadata = {
     title: APP_NAME,

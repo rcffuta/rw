@@ -1,6 +1,6 @@
 "use server";
 
-import { getPackageById} from "@rcffuta/ict-lib";
+import { getPackageById, getProducts} from "@rcffuta/ict-lib";
 // import { CategoryItem, FullBookProduct, FullGameProduct, getAllBooks, getAllCategories, getAllGames, getAllProducts,getAllCategoryWithProducts, ProductItem } from "@willo/db";
 
 
@@ -31,6 +31,27 @@ import { getPackageById} from "@rcffuta/ict-lib";
 //         throw new Error("Could not get all products");
 //     }
 // }
+
+export async function loadProducts() {
+    try {
+        const {
+            data,
+            message,
+            success
+        }  = await getProducts();
+
+        if (!success) {
+            console.debug(message);
+            // <ToastFeedback message={"Error loading Merch!"} id="prodHighlightToast" type="error"/>
+        }
+
+        return data ?? [];
+    } catch (err) {
+        console.error(err);
+        return [];
+    }
+}
+
 
 export async function getCategoryProducts(categoryId:string) {
     try {

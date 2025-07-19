@@ -10,7 +10,7 @@ import AccountAddress from "@/components/client/Account/Address";
 import AccountDetails from "@/components/client/Account/Details";
 import AccountMenu from "@/components/client/Account/AccountMenu";
 import EnsureAuth from "@/components/Common/EnsureAuth";
-import { APP_NAME } from "@willo/lib";
+import { APP_NAME } from "@rw/shared";
 
 
 export const metadata: Metadata = {

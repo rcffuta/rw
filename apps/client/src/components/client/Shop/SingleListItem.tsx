@@ -6,7 +6,7 @@ import { useModalContext } from "@/context/QuickViewModalContext";
 import Link from "next/link";
 import Image from "next/image";
 import { useProductAction } from "@/hooks/useProduct";
-import { CustomImage } from "@willo/lib";
+import { CustomImage } from "@rw/shared";
 
 const SingleListItem = ({ item }: { item: ProductItem }) => {
   const { openModal } = useModalContext();

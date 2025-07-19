@@ -4,7 +4,7 @@ import cartStore from "@/lib/store/cartStore";
 import productStore from "@/lib/store/productStore";
 import wishlistStore from "@/lib/store/wishlistStore";
 import { OrderWithProduct, OrderItem, ProductItem } from "@willo/db";
-import { formatCurrency, useFormatCurrency } from "@willo/lib";
+import { formatCurrency, useFormatCurrency } from "@rw/shared";
 import { useCallback, useMemo } from "react";
 import toast from "react-hot-toast";
 

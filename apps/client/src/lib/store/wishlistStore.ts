@@ -2,7 +2,6 @@
 import { clearAllInWishList, deleteFromWishList, loadWishList, saveWishList } from "@/actions/wishlist.action";
 import { makeAutoObservable } from "mobx";
 import authStore from "./authStore";
-import { FullWishList, ProductItem } from "@willo/db";
 
 export type WishListItem = {
     id: number;
@@ -18,24 +17,24 @@ export type WishListItem = {
 };
 
 class WishlistStore {
-    items: FullWishList[] = [];
+    items: any[] = [];
 
     constructor() {
         makeAutoObservable(this);
 
         if (authStore.user) {
 
-            loadWishList(authStore.user.id)
-            .then((data)=>{
-                this.items = data;
-            })
-            .catch((err)=>{
-                console.error(err);
-            })
+            // loadWishList(authStore.user.id)
+            // .then((data)=>{
+            //     this.items = data;
+            // })
+            // .catch((err)=>{
+            //     console.error(err);
+            // })
         }
     }
 
-    async addItem(product: ProductItem) {
+    async addItem(product: any) {
         const existingItem = this.items.find((i) => i.productId === product.id);
 
         if (existingItem) {
@@ -43,12 +42,12 @@ class WishlistStore {
             return
         }
         
-        const data = await saveWishList(authStore.user.id, product.id);
+        // const data = await saveWishList(authStore.user.id, product.id);
 
-        this.items.push({
-            ...data,
-            product
-        })
+        // this.items.push({
+        //     ...data,
+        //     product
+        // })
     }
 
     async removeItem(productId: number) {
@@ -65,12 +64,12 @@ class WishlistStore {
         });
 
         if (prod) {
-            await deleteFromWishList(authStore.user.id, productId);
+            // await deleteFromWishList(authStore.user.id, productId);
         }
     }
 
     async clear() {
-        await clearAllInWishList(authStore.user.id);
+        // await clearAllInWishList(authStore.user.id);
         this.items = [];
     }
 

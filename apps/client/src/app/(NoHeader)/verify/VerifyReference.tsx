@@ -1,6 +1,6 @@
 
 
-import { isEmpty } from "@willo/lib";
+import { isEmpty } from "@rw/shared";
 import { Verified, VerifyError } from "./utils";
 import { markPaymentFailed, markPaymentPaid, verifyPayment } from "@/actions/checkout";
 

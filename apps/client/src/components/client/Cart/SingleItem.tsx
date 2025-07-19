@@ -3,7 +3,7 @@
 import React from "react";
 import { ProductItem } from "@willo/db";
 import { MinusIcon, PlusIcon, TrashIcon } from "@/components/Common/Icons";
-import { ProductImage } from "@willo/lib";
+import { ProductImage } from "@rw/shared";
 import { CartItem, useCartAction, useProduct } from "@/hooks/useProduct";
 import Link from "next/link";
 import { SHOP } from "@/constants";

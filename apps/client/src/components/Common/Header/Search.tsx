@@ -1,6 +1,6 @@
 import { useSearchParams } from "next/navigation";
 import { SearchIcon } from "../Icons";
-import { useNavigate } from "@willo/lib";
+import { useNavigate } from "@rw/shared";
 import { categoryFilterKey, searchFilterKey, SHOP } from "@/constants";
 import { useCallback, useEffect, useState } from "react";
 

@@ -5,7 +5,7 @@ import { getProductById } from "@willo/db";
 import Breadcrumb from "@/components/Common/Breadcrumb";
 import RecentlyViewdItems from "@/components/client/Shop/RecentlyViewed";
 import Newsletter from "@/components/Common/Newsletter";
-import { APP_NAME } from "@willo/lib";
+import { APP_NAME } from "@rw/shared";
 
 export const metadata: Metadata = {
     title: `Product | ${APP_NAME}`,

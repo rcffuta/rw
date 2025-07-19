@@ -3,7 +3,7 @@
 
 import { Cta, Price, ProductGallery, Rating } from "./utils";
 import { useState } from "react";
-import { ProductImage } from "@willo/lib";
+import { ProductImage } from "@rw/shared";
 import { ProductItem } from "@willo/db";
 
 

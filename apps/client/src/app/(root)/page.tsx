@@ -46,7 +46,7 @@ export default function HomePage() {
           <br />
           {/* <CounDown /> */}
           {/* <Testimonials /> */}
-          <Newsletter />
+          {/* <Newsletter /> */}
       </main>
   );
 }

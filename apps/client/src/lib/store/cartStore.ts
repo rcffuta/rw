@@ -18,7 +18,7 @@ const LOCAL_CART_KEY = "guest_cart";
 type LocalOrder = OrderRecord;
 
 class CartStore {
-    _orders: LocalOrder[] = {} as any;
+    _orders: LocalOrder[] = [];
     syncing: boolean = false;
 
     constructor() {
@@ -27,21 +27,22 @@ class CartStore {
     }
 
     get items() {
-        return this._orders;
+        return this.orders;
     }
 
     get orders() {
-        return this._orders;
+        return toJS(this._orders);
     }
     set orders(data: LocalOrder[]) {
         this._orders = data;
     }
     set items(data: LocalOrder[]) {
-        this._orders = data;
+        this.orders = data;
     }
 
 
     get totalPrice() {
+        console.debug(this.orders)
         return this.orders.reduce((prev,curr)=>{
             return prev += curr.totalAmount
         }, 0);

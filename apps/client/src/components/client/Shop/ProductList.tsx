@@ -5,30 +5,13 @@ import {
 import ToastFeedback from "@/components/Common/ToastFeedback";
 import { getProducts, ProductRecord } from "@rcffuta/ict-lib";
 import ProductDisplayItem from "./ProductItem";
+import { loadProducts } from "@/actions/product.action";
 
 
 type Props = Pick<CategoryHighlightProps, "maxDisplay">
 
 export async function ProductList(props: Props) {
-    let data: ProductRecord[];
-
-    try {
-
-        const {
-            message,
-            success,
-            data: products
-        } = await getProducts();
-
-        if (!success) {
-            throw new Error(message)
-        }
-
-        data = products
-    } catch(err: any) {
-        console.error(err);
-        return <ToastFeedback message={"Error loading Merch!"} id="prodHighlightToast" type="error"/>
-    }
+    let data: ProductRecord[] = await loadProducts()
 
     if (data.length < 1) return null;
 

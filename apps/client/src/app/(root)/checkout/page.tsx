@@ -3,7 +3,7 @@ import Checkout from "@/components/client/Checkout";
 
 import { Metadata } from "next";
 import Breadcrumb from "@/components/Common/Breadcrumb";
-import { APP_NAME } from "@willo/lib";
+import { APP_NAME } from "@rw/shared";
 
 export const metadata: Metadata = {
     title: `Checkout | ${APP_NAME}`,

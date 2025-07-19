@@ -1,6 +1,6 @@
 "use client";
 
-import { useFormatCurrency } from "@willo/lib";
+import { useFormatCurrency } from "@rw/shared";
 import { OrderWithProduct } from "@willo/db";
 
 

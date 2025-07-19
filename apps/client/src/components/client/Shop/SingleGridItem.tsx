@@ -4,7 +4,7 @@ import { useModalContext } from "@/context/QuickViewModalContext";
 import Link from "next/link";
 import { ViewProductIcon, WishListIcon } from "../../Common/Icons";
 import { useProductAction } from "@/hooks/useProduct";
-import { CustomImage } from "@willo/lib";
+import { CustomImage } from "@rw/shared";
 import { ProductItem } from "@willo/db";
 
 const SingleGridItem = ({ item }: { item: ProductItem }) => {

@@ -1,7 +1,7 @@
 "use client";
 
 import { defaultOption } from "@/lib/store/productStore";
-import { getCategoryList } from "../actions/product.action";
+// import { getCategoryProducts } from "../actions/product.action";
 import { useEffect, useState } from "react";
 
 export type Option = {
@@ -17,12 +17,14 @@ export function useCategoryOption() {
     useEffect(() => {
         async function loadOptions() {
             try {
-                const opts: Option[] = (await getCategoryList()).map(
-                    (category) => ({
-                        label: category.name,
-                        value: category.id.toString(),
-                    })
-                );
+                const opts: Option[] = [];
+                
+                // (await getCategoryProducts()).map(
+                //     (category) => ({
+                //         label: category.name,
+                //         value: category.id.toString(),
+                //     })
+                // );
 
                 setOptions(() => [defaultOption, ...opts]);
             } catch (error: any) {

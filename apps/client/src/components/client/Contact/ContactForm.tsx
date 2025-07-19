@@ -4,7 +4,7 @@ import { FormWrapper } from "@/components/Common/Form/FormUtils";
 import InputField, { FormError } from "@/components/Common/Form/InputField";
 import TextareaField from "@/components/Common/Form/TextareaField";
 import { ContactFormData, contactSchema } from "@/lib/validators/contact.validator";
-import { wait } from "@willo/lib";
+import { wait } from "@rw/shared";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";

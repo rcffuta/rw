@@ -1,6 +1,6 @@
 
 import { useState } from "react";
-import { isEmpty, useNavigate, wait } from "@willo/lib";
+import { isEmpty, useNavigate, wait } from "@rw/shared";
 import { authenticateUser, createUser } from "@willo/db";
 import toast from "react-hot-toast";
 import { validateLoginData } from "@/utils/validators";

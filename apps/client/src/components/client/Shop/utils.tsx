@@ -6,7 +6,7 @@ import { useProductAction } from "@/hooks/useProduct";
 import cartStore from "@/lib/store/cartStore";
 import wishlistStore from "@/lib/store/wishlistStore";
 import { ProductItem } from "@willo/db";
-import { ProductImage } from "@willo/lib";
+import { ProductImage } from "@rw/shared";
 import clsx from "clsx";
 import { observer } from "mobx-react-lite";
 import { useState } from "react";

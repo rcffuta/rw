@@ -2,7 +2,7 @@ import React from "react";
 import { Wishlist } from "@/components/client/Wishlist";
 import { Metadata } from "next";
 import Breadcrumb from "@/components/Common/Breadcrumb";
-import { APP_NAME } from "@willo/lib";
+import { APP_NAME } from "@rw/shared";
 
 export const metadata: Metadata = {
     title: `Your Wishlist | ${APP_NAME}`,

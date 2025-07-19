@@ -6,7 +6,7 @@ import ProductDiplayHeader from "@/components/client/Shop/ProductDiplayHeader";
 import { ProductList } from "@/components/client/Shop/ProductList";
 import { getFilteredProducts, ProductItem } from "@willo/db";
 import ToastFeedback from "@/components/Common/ToastFeedback";
-import { APP_NAME } from "@willo/lib";
+import { APP_NAME } from "@rw/shared";
 import EmptyList from "@/components/client/Shop/EmptyList";
 
 export const metadata: Metadata = {

@@ -1,7 +1,7 @@
 import { CHECKOUT, SIGNIN } from "@/constants";
 import { useCart } from "@/hooks/useProduct";
 import authStore from "@/lib/store/authStore";
-import { useNavigate } from "@willo/lib";
+import { useNavigate } from "@rw/shared";
 import { observer } from "mobx-react-lite";
 import Link from "next/link";
 import React from "react";

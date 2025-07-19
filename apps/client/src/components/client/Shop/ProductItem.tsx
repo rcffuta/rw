@@ -4,7 +4,7 @@ import { useModalContext } from "@/context/QuickViewModalContext";
 import Link from "next/link";
 import { StarRating, ViewProductIcon, WishListIcon } from "../../Common/Icons";
 import { ProductItem } from "@willo/db";
-import { ProductImage, useFormatCurrency } from "@willo/lib";
+import { ProductImage, useFormatCurrency } from "@rw/shared";
 import { useProduct, useProductAction } from "@/hooks/useProduct";
 
 export default function ProductDisplayItem({ item }: { item: ProductItem }) {
