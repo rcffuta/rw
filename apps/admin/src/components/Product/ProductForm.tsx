@@ -94,7 +94,7 @@ const MainProductForm = observer(() => {
 
 
 	return (
-		<ShowcaseSection title="Enter Game Product Info" className="!p-6.5">
+		<ShowcaseSection title="Attach a variant" className="!p-6.5">
 			<div>
 				<PhotoUploader
 					imageUrl={picture}
@@ -104,10 +104,10 @@ const MainProductForm = observer(() => {
 				/>
 
 				<PillInput
-					label="Product Tags"
+					label="Variant sizes"
 					pills={sizes}
 					onPillsChange={setSizes}
-					placeholder="Add tags (comma separated)"
+					placeholder="Add sizes (comma separated)"
 					maxPills={5}
 					// icon={<TagIcon />}
 					iconPosition="left"
@@ -117,11 +117,11 @@ const MainProductForm = observer(() => {
 
 				<br/>
 				<InputGroup
-					label="Color"
+					label="Variant Color"
 					type="color"
 					value={color}
 					handleChange={(e) => setColor(e.target.value)}
-					placeholder="Enter product color"
+					placeholder="Enter variant color"
 					className="mb-4.5"
 					required={isRequired}
 				/>
