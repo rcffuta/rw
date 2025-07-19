@@ -1,12 +1,14 @@
 'use client'
 
+import { APP_ADMIN_USERNAME } from "@rw/shared"
+
 // import { useAuthenticatedUser } from '@rw/shared'
 
 export function UserInfo() {
 	// const { user } = useAuthenticatedUser()
 	const user = {
-		username: "Melchizedeck"
-	};
+		username: APP_ADMIN_USERNAME
+	}
 
 	return (
 		<div className="flex items-center gap-1 font-medium text-dark dark:text-dark-6">
