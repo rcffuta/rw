@@ -56,3 +56,30 @@ export function simpleFormatNaira(amount: number | string, decimalPlaces: number
 
   return `₦${numAmount.toFixed(decimalPlaces).replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`;
 }
+
+/**
+ * Truncates text to a specified length and adds ellipsis if truncated
+ * @param text - The text to truncate
+ * @param maxLength - Maximum length before truncation (default: 50)
+ * @param ellipsis - The ellipsis character(s) to use (default: '...')
+ * @returns Truncated text with ellipsis if needed
+ */
+export function truncateText(
+  text: string,
+  maxLength: number = 50,
+  ellipsis: string = '...'
+): string {
+  if (!text || typeof text !== 'string') return '';
+  
+  if (text.length <= maxLength) return text;
+  
+  // Find the last space before maxLength to avoid cutting words
+  let truncated = text.substr(0, maxLength);
+  const lastSpace = truncated.lastIndexOf(' ');
+  
+  if (lastSpace > 0) {
+    truncated = truncated.substr(0, lastSpace);
+  }
+  
+  return truncated + ellipsis;
+}

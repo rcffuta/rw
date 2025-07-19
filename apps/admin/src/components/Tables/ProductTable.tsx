@@ -2,7 +2,7 @@
 import { ProductInfo, ProductRecord } from '@rcffuta/ict-lib'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '../ui/table'
 import { TableRowItem } from '../ui/types'
-import { CustomImage, formatNaira } from '@rw/shared'
+import { CustomImage, formatNaira, truncateText } from '@rw/shared'
 import { Dropdown, DropdownContent, DropdownTrigger } from '../ui/dropdown'
 import { cn } from '@/utils/utils'
 import { ChevronUpIcon } from '../Icons'
@@ -123,7 +123,7 @@ export default function ProductTable({ products }: { products: ProductRecord[] }
 							</TableCell>
 							<TableCell className="font-medium">{product.name}</TableCell>
 							<TableCell className="text-sm text-gray-600 dark:text-gray-300">
-								{product.description || '-- No description --'}
+								{truncateText(product.description || "") || '-- No description --'}
 							</TableCell>
 							<TableCell className="font-bold">
 								{formatNaira(product.price)}
