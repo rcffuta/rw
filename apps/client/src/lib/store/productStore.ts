@@ -1,8 +1,9 @@
 // stores/ProductStore.ts
-import { makeAutoObservable } from "mobx";
+import { makeAutoObservable, toJS } from "mobx";
 // import { ProductItem } from "@rw/shared";
 import { Option } from "@/hooks/useCategories";
-import { fetchPackages, getCategoryProducts } from "@/actions/product.action";
+import { fetchPackages, getCategoryProducts, loadProducts } from "@/actions/product.action";
+import { ProductRecord } from "@rcffuta/ict-lib";
 // import { getAllProductList } from "@/actions/product.action";
 
 export const defaultOption = {
@@ -10,18 +11,30 @@ export const defaultOption = {
     value: "",
 }
 
-type ProductItem = any;
+type ProductItem = ProductRecord;
 
 class ProductStore {
     quickView: ProductItem | null = null;
     productDetails: ProductItem | null = null;
 
-    productItems: ProductItem[] = [];
+    _productItems: ProductItem[] = [];
 
     selectedCategory: Option = defaultOption;
 
+    loading = false;
+
     constructor() {
         makeAutoObservable(this);
+        // this.loadAllProducts();
+    }
+
+
+    set productItems(dat: ProductItem[]) {
+        this._productItems = dat;
+    }
+
+    get productItems() {
+        return toJS(this._productItems);
     }
 
     setSelectedCategory(option: Option) {
@@ -34,6 +47,23 @@ class ProductStore {
 
     resetQuickView() {
         this.quickView = null;
+    }
+
+
+    async loadAllProducts(){
+        if (this.loading) return;
+        this.loading = true;
+
+        const dt = await loadProducts();
+
+        this.productItems = dt;
+
+        this.loading = false;
+    }
+
+
+    getProductItem(id: string) {
+        return toJS(this.productItems).find(e=>e.id ==id)
     }
 
     updateProductDetails(product: ProductItem) {

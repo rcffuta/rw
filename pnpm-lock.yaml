@@ -202,6 +202,9 @@ importers:
       lucide-react:
         specifier: ^0.525.0
         version: 0.525.0(react@19.0.0)
+      mobx:
+        specifier: ^6.13.7
+        version: 6.13.7
       next-sitemap:
         specifier: ^4.2.3
         version: 4.2.3(next@15.3.5(react-dom@19.0.0(react@19.0.0))(react@19.0.0))

@@ -11,7 +11,7 @@ export const UserHighlight = observer(() => {
     const isAuthenticated = authStore.isAuthenticated;
 
     const link = isAuthenticated ? HASH : SIGNIN;
-    const title = user ? user?.username : "Sign In";
+    const title = user ? user?.firstname : "Sign In";
 
     return (
         <Link href={link} className="flex items-center gap-2.5">

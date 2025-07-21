@@ -2,6 +2,7 @@
 
 import authStore from "@/lib/store/authStore";
 import cartStore from "@/lib/store/cartStore";
+import productStore from "@/lib/store/productStore";
 import { observer } from "mobx-react-lite";
 import { useEffect } from "react";
 
@@ -10,8 +11,9 @@ function InitializeStores() {
     useEffect(() => {
         (()=>{
             if (authStore.user) {
-                cartStore.reloadCart();
+                // cartStore.reloadCart();
             }
+            productStore.loadAllProducts();
         })()
     }, [authStore.user]);
     return null;

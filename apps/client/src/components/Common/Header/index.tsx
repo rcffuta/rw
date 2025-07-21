@@ -7,18 +7,18 @@ import Logo from '../Logo'
 import { CartIcon } from '../Icons' // Added FireIcon for redemption theme
 import cartStore from '@/lib/store/cartStore'
 import { observer } from 'mobx-react-lite'
-import { useFormatCurrency } from '@rw/shared'
 
 type HeaderProps = {
-    stickyMenu: boolean
-    navigationOpen: boolean
-    setNavigationOpen: React.Dispatch<React.SetStateAction<boolean>>
+    stickyMenu?: boolean
+    // navigationOpen?: boolean
+    // setNavigationOpen: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-const HeaderTop = ({ stickyMenu, navigationOpen, setNavigationOpen }: HeaderProps) => {
+const HeaderTop = ({ stickyMenu=true }: HeaderProps) => {
     const { orders: cartItems, totalPrice } = cartStore
     const { openCartModal } = useCartModalContext()
-    const formatCurrency = useFormatCurrency()
+    // const formatCurrency = useFormatCurrency()
+    const [navigationOpen, setNavigationOpen] = useState(false);
 
     // Sale countdown - creates urgency
     const [timeLeft, setTimeLeft] = useState({

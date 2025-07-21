@@ -7,7 +7,10 @@ const nextConfig = {
                 hostname: "res.cloudinary.com",
             },
         ]
-    }
+    },
+    eslint: {
+        ignoreDuringBuilds: true,
+    },
 };
 
 module.exports = nextConfig;

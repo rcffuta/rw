@@ -11,11 +11,11 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { FormWrapper } from "@/components/Common/Form/FormUtils";
 import InputField, { FormError } from "@/components/Common/Form/InputField";
 import toast, { ToastOptions } from "react-hot-toast";
-import { OrderWithProduct } from "@willo/db";
+
 import { checkoutAction } from "@/actions/checkout";
 
 type CheckoutFormProps = {
-    items: OrderWithProduct[];
+    items: any[];
     totalPrice: number;
 }
 
@@ -39,7 +39,7 @@ function CheckoutForm(props: CheckoutFormProps) {
         resolver: zodResolver(checkoutSchema),
         defaultValues: {
             email: user?.email,
-            phoneNumber: user?.phoneNumber
+            phoneNumber: user?.contacts
         }
     });
 

@@ -186,7 +186,7 @@ export function ProductImage({
                 onLoad={() => setLoaded(true)}
                 onError={() => setError(true)}
                 className={clsx(
-                    "object-cover transition-opacity duration-500",
+                    "object-center transition-opacity duration-500",
                     {
                         "opacity-0": !isLoaded,
                         "opacity-100": isLoaded,

@@ -7,7 +7,6 @@ import SingleItem from "./SingleItem";
 import Breadcrumb from "../../Common/Breadcrumb";
 import { observer } from "mobx-react-lite";
 import EmptyCart from "./EmptyCart";
-import { ProductItem } from "@willo/db";
 import { CartItem, useCart, useCartAction } from "@/hooks/useProduct";
 
 
@@ -52,7 +51,7 @@ const CartTable = ({ items }: { items: CartItem[]}) => {
 const Cart = observer(() => {
     const {cartItems, isEmptyCart} = useCart();
 
-    const { clearCart } = useCartAction({} as ProductItem);
+    const { clearCart } = useCartAction({} as any);
     
     let template = <EmptyCart />;
 
@@ -72,7 +71,7 @@ const Cart = observer(() => {
         <>
             {/* <!-- ===== Breadcrumb Section Start ===== --> */}
             <section>
-                <Breadcrumb title={"Cart"} pages={["Cart"]} />
+                <Breadcrumb title={"Cart"} pages={[]} />
             </section>
             {/* <!-- ===== Breadcrumb Section End ===== --> */}
 

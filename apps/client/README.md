@@ -1,6 +1,6 @@
-# Willo – Client App
+# RW – Client App
 
-This is the customer-facing app for Willo, built with Next.js.
+This is the customer-facing app for RW, built with Next.js.
 
 ## Features
 

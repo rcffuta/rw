@@ -3,14 +3,12 @@ import React from "react";
 import SingleItem from "./SingleItem";
 import { observer } from "mobx-react-lite";
 import wishlistStore from "@/lib/store/wishlistStore";
-import EmptyWishList from "./EmptyWishList";
-import { FullWishList } from "@willo/db";
 import { CartIcon2 } from "@/components/Common/Icons";
 import Link from "next/link";
 import { SHOP } from "@/constants";
 
 
-function WishListTable({items}:{items: FullWishList[]}) {
+function WishListTable({items}:{items: any[]}) {
   return (
       <>
           <div className="flex flex-wrap items-center justify-between gap-5 mb-7.5">

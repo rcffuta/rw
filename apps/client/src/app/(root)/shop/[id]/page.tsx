@@ -13,10 +13,10 @@ export const metadata: Metadata = {
   description: `View Product from ${APP_NAME}`,
 };
 
-type Props = { params: { id: string } };
+type Props = { params: Promise<{ id: string }> };
 
 export default async function ProductPage({ params }: Props) {
-  const productId = params.id;
+  const productId = (await params).id;
 
   if (isEmpty(productId)) {
     return (

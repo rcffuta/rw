@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 const CheckoutPage = () => {
     return (
         <main>
-            <Breadcrumb title={"Checkout"} pages={["checkout"]} />
+            <Breadcrumb title={"Checkout"} pages={[]} />
             <section className="overflow-hidden py-20 bg-gray-2">
                 <div className="max-w-[1170px] w-full mx-auto px-4 sm:px-8 xl:px-0">
                     <Checkout />

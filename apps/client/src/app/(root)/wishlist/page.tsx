@@ -14,7 +14,7 @@ const WishlistPage = async () => {
 
     return (
         <main>
-            <Breadcrumb title={"Wishlist"} pages={["Wishlist"]} />
+            <Breadcrumb title={"Wishlist"} pages={[]} />
             <Wishlist />
         </main>
     );

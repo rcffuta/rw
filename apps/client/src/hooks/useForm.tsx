@@ -1,7 +1,6 @@
 
 import { useState } from "react";
 import { isEmpty, useNavigate, wait } from "@rw/shared";
-import { authenticateUser, createUser } from "@willo/db";
 import toast from "react-hot-toast";
 import { validateLoginData } from "@/utils/validators";
 import { OrderForm, ValidationErrors } from "@/types/form";
@@ -133,12 +132,12 @@ export function useAuthForm<T>(intitialData: T= {} as T) {
 
         // TODO: Validate data
 
-        createUser({
-            name: data.firstname,
-            email: data.email,
-            password: data.password,
-        })
-            .then((user) => {
+        // createUser({
+        //     name: data.firstname,
+        //     email: data.email,
+        //     password: data.password,
+        // })
+            wait(5).then((user) => {
                 if (isEmpty(user)) {
                     throw new Error("Account not found!");
                 }
@@ -190,7 +189,7 @@ export function useAuthForm<T>(intitialData: T= {} as T) {
             return;
         }
 
-        authenticateUser(email, password)
+        wait(5)
         .then((user)=>{
             if (isEmpty(user)) {
                 throw new Error("Account not found!");

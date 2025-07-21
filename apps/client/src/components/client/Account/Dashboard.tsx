@@ -15,7 +15,7 @@ export default function AccountDashboard() {
             }`}
         >
             <p className="text-dark">
-                Hello {user?.username}
+                Hello {user?.firstname}
             </p>
 
             <p className="text-custom-sm mt-4">

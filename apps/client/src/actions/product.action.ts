@@ -1,7 +1,6 @@
 "use server";
 
 import { getPackageById, getPackages, getProductById, getProducts, MerchPackageRecord, ProductRecord} from "@rcffuta/ict-lib";
-// import { CategoryItem, FullBookProduct, FullGameProduct, getAllBooks, getAllCategories, getAllGames, getAllProducts,getAllCategoryWithProducts, ProductItem } from "@willo/db";
 
 
 // export async function getBookProducts(): Promise<FullBookProduct[]> {

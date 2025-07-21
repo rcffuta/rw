@@ -1,7 +1,7 @@
 "use server";
 
 import { CheckoutFormData } from "@/lib/validators/checkout.validator";
-import { createPaymentWithOrders, OrderWithProduct, UserItem, verifyAndMarkPayment } from "@willo/db";
+import { wait } from "@rw/shared";
 
 const PAY_LINK = "https://sandbox-api-d.squadco.com/transaction";
 
@@ -17,9 +17,9 @@ type PaymentLinkData = {
 
 type CheckoutConfig = {
     totalPrice: number;
-    items: OrderWithProduct[];
+    items: any[];
     billingDetails: CheckoutFormData;
-    user: UserItem;
+    user: any;
     redirect: string;
 }
 
@@ -169,12 +169,14 @@ export const checkoutAction = async (data: CheckoutConfig) => {
     }
 
     try{
-        await createPaymentWithOrders({
-            amount: payObj.amount,
-            reference: payObj.ref,
-            orderIds: items.map((e)=>e.id),
-            userId: user.id,
-        });
+        await wait(5)
+        throw new Error("I'm coming...")
+        // await createPaymentWithOrders({
+        //     amount: payObj.amount,
+        //     reference: payObj.ref,
+        //     orderIds: items.map((e)=>e.id),
+        //     userId: user.id,
+        // });
     }catch(err){
         console.error("Checkout Error:", err);
         // throw new Error("Could not create payment");
@@ -195,7 +197,9 @@ export const checkoutAction = async (data: CheckoutConfig) => {
 export const markPaymentPaid = async (ref: string) => {
     try {
 
-        await verifyAndMarkPayment(ref, "completed");
+        // await verifyAndMarkPayment(ref, "completed");
+        await wait(5)
+        throw new Error("I'm coming...")
     } catch (err) {
         console.error(err);
         throw new Error("Could not verify payment");
@@ -204,7 +208,9 @@ export const markPaymentPaid = async (ref: string) => {
 
 export const markPaymentFailed = async (ref: string) => {
     try {
-        await verifyAndMarkPayment(ref, "failed");
+        // await verifyAndMarkPayment(ref, "failed");
+        await wait(5)
+        throw new Error("I'm coming...")
     } catch (err) {
         console.error(err);
         throw new Error("Could not update payment");

@@ -8,6 +8,10 @@ import Link from 'next/link'
 import { FileSearch } from 'lucide-react'
 import clsx from 'clsx'
 import { SacredQuantityInput } from './quantity'
+import VariantSelector from '@/components/ui/VariantSelector'
+import SizeSelector from '@/components/ui/SizeSelector'
+import QuantitySelector from '@/components/ui/QuantitySelector'
+import { PackageDisplayItem } from '@/components/ui/DisplayItem'
 
 export function ProductDisplay({ product }: { product: ProductRecord }) {
     const [selectedVariant, setSelectedVariant] = useState<ProductVariant>(product.variants[0])
@@ -19,42 +23,12 @@ export function ProductDisplay({ product }: { product: ProductRecord }) {
             <div className="max-w-[1170px] w-full mx-auto px-4 sm:px-8 xl:px-0">
                 <div className="flex flex-col lg:flex-row gap-7.5 xl:gap-17.5">
                     {/* Product Gallery */}
-                    <div className="w-full lg:w-1/2">
-                        {product.variants.map((e) => (
-                            <div
-                                className={clsx('rounded-lg overflow-hidden bg-gray-100', {
-                                    hidden: selectedVariant.image !== e.image,
-                                })}
-                                key={e.image}
-                            >
-                                <ProductImage
-                                    src={e.image}
-                                    alt={product.name}
-                                    width={600}
-                                    height={600}
-                                    className={'w-full h-auto'}
-                                />
-                            </div>
-                        ))}
-
-                        <p className="my-4">Select color to preview variant</p>
-                        <div className="flex gap-2 mt-4">
-                            {product.variants.map((variant) => (
-                                <button
-                                    key={variant.color}
-                                    title={variant.color}
-                                    onClick={() => setSelectedVariant(variant)}
-                                    className={`w-10 h-10 rounded-md border-2 ${
-                                        selectedVariant.color === variant.color
-                                            ? 'border-gold-400 border-4'
-                                            : 'border-gray-5'
-                                    }`}
-                                    style={{ backgroundColor: variant.color }}
-                                    aria-label={`Select ${variant.color} color`}
-                                />
-                            ))}
-                        </div>
-                    </div>
+                    <VariantSelector
+                        name={product.name}
+                        onChangeVariant={setSelectedVariant}
+                        selectedVariant={selectedVariant}
+                        variants={product.variants}
+                    />
 
                     {/* Product Info */}
                     <div className="w-full lg:w-1/2">
@@ -74,37 +48,21 @@ export function ProductDisplay({ product }: { product: ProductRecord }) {
                         )}
 
                         {/* Size Selector */}
-                        <div className="mb-6">
-                            <h3 className="text-lg font-medium mb-2">Size</h3>
-                            <div className="flex flex-wrap gap-2">
-                                {selectedVariant.sizes.map((size) => (
-                                    <button
-                                        key={size}
-                                        onClick={() => setSelectedSize(size)}
-                                        className={`px-4 py-2 border rounded-md ${
-                                            selectedSize === size
-                                                ? 'bg-blue-dark text-white border-blue-500'
-                                                : 'bg-white border-gray-300'
-                                        }`}
-                                    >
-                                        {size}
-                                    </button>
-                                ))}
-                            </div>
-                        </div>
+                        <SizeSelector onChangeSize={setSelectedSize} selectedSize={selectedSize} sizes={selectedVariant.sizes}/>
 
+                        <QuantitySelector
+                            onChangeQuantity={(q)=>setQuantity((p)=>{
+                                if (q !== undefined) {
+                                    return q
+                                }
 
-                        <div className="flex items-center gap-8">
-                            <Cta product={product} mini={false} onClick={(()=>setQuantity(p=>p+1))}/>
-                            {/* <QuantityInput onQuantityChange={() => {}} initialQuantity={1} /> */}
-                            <SacredQuantityInput
-                                initialQuantity={1}
-                                maxQuantity={10}
-                                onQuantityChange={(q) => setQuantity(q)}
-                                quantity={quantity}
-                                // className="mt-6"
-                            />
-                        </div>
+                                return p+1
+                            })}
+
+                            product={product}
+                            quantity={quantity}
+
+                        />
 
                     </div>
                 </div>
@@ -115,80 +73,118 @@ export function ProductDisplay({ product }: { product: ProductRecord }) {
 
 
 export function PackageDisplay({ pkg }: { pkg: MerchPackageRecord }) {
+    const [activeTab, setActiveTab] = useState<string | null>(null);
+    const [selectedSize, setSelectedSize] = useState<Record<string, string>>({})
+    const [selectedVariants, setSelectedVariants] = useState<
+        Record<string, ProductVariant>
+    >({})
+
+    const handleVariantChange = (itemId: string, variant: ProductVariant) => {
+        setSelectedVariants((prev) => ({
+            ...prev,
+            [itemId]: {
+                ...prev[itemId],
+                ...variant,
+            },
+        }))
+    }
+    const handleSizeChange = (itemId: string, size: string) => {
+        setSelectedSize((prev) => ({
+            ...prev,
+            [itemId]: size,
+        }))
+    }
+
+
+
     return (
-        <section className="overflow-hidden relative pb-20 pt-5 lg:pt-20 xl:pt-28">
-            <div className="max-w-[1170px] w-full mx-auto px-4 sm:px-8 xl:px-0">
-                <div className="flex flex-col lg:flex-row gap-7.5 xl:gap-17.5">
+        <section className="relative py-12 lg:py-20 bg-gray-1">
+            <div className="max-w-[1170px] mx-auto px-4 sm:px-8 xl:px-0">
+                <div className="flex flex-col lg:flex-row gap-12 xl:gap-20">
                     {/* Package Image */}
                     <div className="w-full lg:w-1/2">
-                        <div className="rounded-lg overflow-hidden bg-gray-100">
+                        <div className="relative rounded-xl overflow-hidden bg-white shadow-3 border border-gray-3">
                             <ProductImage
                                 src={pkg.image}
                                 alt={pkg.name}
-                                width={600}
-                                height={600}
+                                width={800}
+                                height={800}
                                 className="w-full h-auto"
                             />
+                            {pkg.discount && (
+                                <div className="absolute top-4 right-4 bg-red-600 text-white px-3 py-1 rounded-full text-sm font-bold shadow-lg">
+                                    Save {pkg.discount}%
+                                </div>
+                            )}
                         </div>
                     </div>
 
                     {/* Package Info */}
                     <div className="w-full lg:w-1/2">
-                        <h2 className="font-semibold text-2xl xl:text-3xl text-dark mb-3">
-                            {pkg.name}
-                        </h2>
+                        <div className="sticky top-20 space-y-6">
+                            <h1 className="font-bold text-3xl xl:text-4xl text-dark mb-2">
+                                {pkg.name}
+                            </h1>
 
-                        {pkg.discount && (
-                            <div className="bg-red-100 text-red-800 px-3 py-1 rounded-full inline-block mb-4">
-                                Save {pkg.discount}%
-                            </div>
-                        )}
-
-                        <div className="flex items-center gap-4 mb-6">
-                            <span className="text-2xl font-bold">
-                                {formatNaira(pkg.totalPrice)}
-                            </span>
-                            {pkg.discount && (
-                                <span className="text-lg text-gray-500 line-through">
-                                    {formatNaira(pkg.totalPrice / (1 - pkg.discount / 100))}
+                            <div className="flex items-center gap-4">
+                                <span className="text-3xl font-bold text-purple-800">
+                                    {formatNaira(pkg.totalPrice)}
                                 </span>
+                                {pkg.discount && (
+                                    <span className="text-xl text-gray-500 line-through">
+                                        {formatNaira(pkg.totalPrice / (1 - pkg.discount / 100))}
+                                    </span>
+                                )}
+                            </div>
+
+                            {pkg.description && (
+                                <div
+                                    className="prose text-gray-700"
+                                    dangerouslySetInnerHTML={{ __html: pkg.description }}
+                                />
                             )}
+
+                            {/* Package Items with Tabs */}
+                            <div className="mt-8">
+                                <h3 className="text-xl font-semibold mb-4">Package Contents</h3>
+
+                                <div className="border-b border-gray-3">
+                                    {pkg.items.map((item) => (
+                                        <PackageDisplayItem
+                                            key={item.productId}
+                                            item={item}
+                                            onChangeTab={() =>
+                                                setActiveTab(
+                                                    activeTab === item.productId
+                                                        ? null
+                                                        : item.productId
+                                                )
+                                            }
+                                            active={activeTab === item.productId}
+                                            onChangeVariant={(variant) => handleVariantChange(item.productId, variant)}
+                                            onChangeSize={(size) => handleSizeChange(item.productId, size)}
+                                            selectedVariant={selectedVariants[item.productId]}
+                                            selectedSize={selectedSize[item.productId]}
+                                        />
+                                    ))}
+                                </div>
+                            </div>
+
+                            <div className="pt-4">
+                                <Cta
+                                    label={pkg.isActive ? 'Place Order' : 'Coming Soon'}
+                                    disabled={!pkg.isActive}
+                                    // className="w-full py-4 text-lg"
+                                />
+                                <p className='mt-4'>Please check and select your preference</p>
+                            </div>
                         </div>
-
-                        {pkg.description && (
-                            <div
-                                className="prose mb-6"
-                                dangerouslySetInnerHTML={{ __html: pkg.description }}
-                            />
-                        )}
-
-                        {/* Included Items */}
-                        <div className="mb-6">
-                            <h3 className="text-lg font-medium mb-2">Package Includes:</h3>
-                            <ul className="space-y-2">
-                                {pkg.items.map((item) => (
-                                    <li key={item.productId} className="flex justify-between">
-                                        <span>
-                                            {item.quantity > 1 ? `${item.quantity}x ` : ''}
-                                            {item.name}
-                                        </span>
-                                        <span>{formatNaira(item.price)}</span>
-                                    </li>
-                                ))}
-                            </ul>
-                        </div>
-
-                        <Cta
-                            label={pkg.isActive ? 'Add Package to Cart' : 'Coming Soon'}
-                            disabled={!pkg.isActive}
-                        />
                     </div>
                 </div>
             </div>
         </section>
     )
 }
-
 type ListingItem = ProductRecord | MerchPackageRecord
 
 export function ProductCard({ item, className }: { item: ListingItem; className?: string }) {

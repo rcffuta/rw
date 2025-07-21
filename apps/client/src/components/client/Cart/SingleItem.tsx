@@ -1,7 +1,6 @@
 "use client";
 
 import React from "react";
-import { ProductItem } from "@willo/db";
 import { MinusIcon, PlusIcon, TrashIcon } from "@/components/Common/Icons";
 import { ProductImage } from "@rw/shared";
 import { CartItem, useCartAction, useProduct } from "@/hooks/useProduct";

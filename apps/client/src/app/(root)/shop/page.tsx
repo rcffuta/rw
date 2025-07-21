@@ -14,18 +14,19 @@ export const metadata: Metadata = {
 }
 
 type ProductsPageProps = {
-    searchParams: {
+    searchParams: Promise<{
         category?: string
         search?: string
         type?: 'product' | 'package'
         page?: string
-    }
+    }>
 }
 
 export const dynamic = 'force-dynamic'
 export const revalidate = 3600 // Revalidate data every hour
 
-export default async function ShopPage({ searchParams }: ProductsPageProps) {
+export default async function ShopPage({ searchParams: params }: ProductsPageProps) {
+    const searchParams = await params;
     const categoryId = searchParams.category ? Number(searchParams.category) : undefined
     const searchQuery = searchParams.search || ''
     const typeFilter = searchParams.type

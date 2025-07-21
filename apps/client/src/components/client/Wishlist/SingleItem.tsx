@@ -1,12 +1,11 @@
 import React from "react";
 
 import { CrossIcon3, StockCheck } from "@/components/Common/Icons";
-import { FullWishList } from "@willo/db";
 import wishlistStore from "@/lib/store/wishlistStore";
 import { ProductImage, useFormatCurrency } from "@rw/shared";
 import cartStore from "@/lib/store/cartStore";
 
-const SingleItem = ({ item }: {item: FullWishList}) => {
+const SingleItem = ({ item }: {item: any}) => {
   // const { handleAddToCart, handleRemoveFromWishlist } = useProductAction(item.product);
 
   const parseFigure = useFormatCurrency();

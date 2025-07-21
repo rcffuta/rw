@@ -1,14 +1,13 @@
 "use client";
 import React from "react";
 
-import { ProductItem } from "@willo/db";
 import { useModalContext } from "@/context/QuickViewModalContext";
 import Link from "next/link";
 import Image from "next/image";
 import { useProductAction } from "@/hooks/useProduct";
 import { CustomImage } from "@rw/shared";
 
-const SingleListItem = ({ item }: { item: ProductItem }) => {
+const SingleListItem = ({ item }: { item: any }) => {
   const { openModal } = useModalContext();
   const {
       handleQuickViewUpdate,

@@ -1,9 +1,6 @@
 import "../styles/css/euclid-circular-a-font.css";
 import "../styles/css/style.css";
 
-import QuickViewModal from "@/components/Common/QuickViewModal";
-import CartSidebarModal from "@/components/client/Cart/CartSidebarModal";
-import PreviewSliderModal from "@/components/client/Shop/ProductPreviewSlider";
 
 import ScrollToTop from "@/components/Common/ScrollToTop";
 import LayoutLoader from "@/Layout/LayoutLoader";
@@ -36,10 +33,6 @@ export default function ClientLayout({
                             <ModalProvider>
                                 <PreviewSliderProvider>
                                     {children}
-
-                                    <QuickViewModal />
-                                    <CartSidebarModal />
-                                    <PreviewSliderModal />
                                 </PreviewSliderProvider>
                             </ModalProvider>
                         </CartModalProvider>

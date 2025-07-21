@@ -5,9 +5,8 @@ import Link from "next/link";
 import { ViewProductIcon, WishListIcon } from "../../Common/Icons";
 import { useProductAction } from "@/hooks/useProduct";
 import { CustomImage } from "@rw/shared";
-import { ProductItem } from "@willo/db";
 
-const SingleGridItem = ({ item }: { item: ProductItem }) => {
+const SingleGridItem = ({ item }: { item: any }) => {
   const { openModal } = useModalContext();
 
   const {

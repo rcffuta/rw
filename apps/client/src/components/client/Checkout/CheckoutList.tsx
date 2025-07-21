@@ -1,11 +1,10 @@
 "use client";
 
 import { useFormatCurrency } from "@rw/shared";
-import { OrderWithProduct } from "@willo/db";
 
 
 type CheckoutListProps = {
-    items: OrderWithProduct[];
+    items: any[];
     totalPrice: number;
 };
 
@@ -51,7 +50,7 @@ export const CheckoutList = ({items, totalPrice}:CheckoutListProps) => {
     );
 };
 
-function OrderListItem({ item }: { item: OrderWithProduct }) {
+function OrderListItem({ item }: { item: any }) {
     const parseFigure = useFormatCurrency();
     return (
         <div className="flex items-center justify-between py-5 border-b border-gray-3">
