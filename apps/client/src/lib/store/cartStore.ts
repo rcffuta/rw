@@ -8,7 +8,7 @@ const LOCAL_CART_KEY = "guest_cart";
 
 class CartStore {
     private _order_items = new Map<string, OrderItem>();
-    billing: CheckoutFormData = {};
+    billing: CheckoutFormData | null = null;
     syncing: boolean = false;
 
     constructor() {
@@ -112,6 +112,20 @@ class CartStore {
                 ...variant
             }
         })
+    }
+
+    addToCart(product: ProductRecord, itemType: OrderType) {
+        if(this._order_items.has(product.id)) {
+
+            this.saveToLocalStorage()
+            return true;
+        }
+
+        const item = this.createOrderItem(product, itemType);
+
+        this._order_items.set(product.id, item);
+        this.saveToLocalStorage()
+        return true;
     }
 
 }

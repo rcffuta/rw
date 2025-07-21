@@ -16,6 +16,7 @@ import { useForm } from "react-hook-form";
 import { CheckoutFormData, checkoutSchema } from "@/lib/validators/checkout.validator";
 import authStore from "@/lib/store/authStore";
 import toast, { ToastOptions } from "react-hot-toast";
+import { PaymentDetails } from "./PaymentDetails";
 
 
 const CartTable = ({ items }: { items: OrderItem[]}) => {
@@ -90,42 +91,17 @@ const Cart = observer(() => {
 
 
     const onSubmit = async (data: CheckoutFormData) => {
-        // toast.error("Not Implemented", { id: toastID, duration: 800 });
-
-        console.debug(data)
-
+        
         toast.loading('Processing...', { ...toastConfig, duration: 0 })
 
         try {
-            // const {
-            //     success,
-            //     message = "Could not Checkout",
-            //     data: link,
-            // } = await checkoutAction({
-            //     billingDetails: data,
-            //     items: items,
-            //     totalPrice,
-            //     user,
-            //     redirect: window.location.origin + "/verify",
-            // });
+            
+            await authStore.authenticateDetails(data)
+            
+            cartStore.billing = data;
 
-            // if (!success) {
-            //     throw new Error(message);
-            // }
+            toast.dismiss(toastConfig.id)
 
-            // await wait(3)
-
-            throw new Error('Hold on...')
-
-            // toast.success(message, toastConfig);
-
-            // try {
-            //     window.location.href = link;
-            // } catch (err) {
-            //     console.error("Window not accessible!", err);
-            //     throw new Error("Could not redirect you");
-            //     return;
-            // }
         } catch (err) {
             console.error('Error Checkout Out', err)
             toast.error(err.message, toastConfig)
@@ -136,16 +112,27 @@ const Cart = observer(() => {
         <>
             <CartTable items={cartItems} />
 
-            <form
-                onSubmit={handleSubmit(onSubmit)}
-                className="flex flex-col lg:flex-row gap-7.5 xl:gap-11 mt-9"
-            >
-                {/* <Discount /> */}
-                <CheckoutForm register={register} errors={errors} />
-                <OrderSummary />
-            </form>
+            {Boolean(cartStore.billing) ? (
+                <PaymentDetails />
+            ) : (
+                <form
+                    onSubmit={handleSubmit(onSubmit)}
+                    className="flex flex-col lg:flex-row gap-7.5 xl:gap-11 mt-9"
+                >
+                    {/* <Discount /> */}
+                    <CheckoutForm register={register} errors={errors} />
+                    <OrderSummary />
+                </form>
+            )}
         </>
     )
+
+
+    // if (cartStore.billing) template = (
+    //     <>
+    //         <PaymentDetails />
+    //     </>
+    // )
 
 
     return (

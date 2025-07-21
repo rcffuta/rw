@@ -13,6 +13,7 @@
     "@rcffuta/ict-lib": "2.3.0",
     "@rw/shared": "workspace:*",
     "@tailwindcss/aspect-ratio": "^0.4.2",
+    "cloudinary": "^2.7.0",
     "framer-motion": "^12.23.6",
     "i": "^0.3.7",
     "lodash.debounce": "^4.0.8",
