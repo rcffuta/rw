@@ -47,14 +47,14 @@ const AppLinks = observer(() => {
                         Cart
                     </a>
                 </li>
-                <li>
+                {/* <li>
                     <a
                         className="ease-out duration-200 hover:text-blue"
                         href={WISHLIST}
                     >
                         Wishlist
                     </a>
-                </li>
+                </li> */}
                 <li>
                     <a
                         className="ease-out duration-200 hover:text-blue"

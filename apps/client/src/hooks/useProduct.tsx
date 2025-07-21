@@ -3,8 +3,8 @@
 import cartStore from "@/lib/store/cartStore";
 import productStore from "@/lib/store/productStore";
 import wishlistStore from "@/lib/store/wishlistStore";
-import { OrderWithProduct, OrderItem, ProductItem } from "@willo/db";
-import { formatCurrency, useFormatCurrency } from "@rw/shared";
+import { ProductInfo } from "@rcffuta/ict-lib";
+import { formatCurrency, formatNaira, useFormatCurrency } from "@rw/shared";
 import { useCallback, useMemo } from "react";
 import toast from "react-hot-toast";
 
@@ -24,7 +24,7 @@ type OrderSummary = {
 };
 
 export type CartItem = {
-    product: ProductItem,
+    product: any,
     quantity: number;
 }
 
@@ -34,9 +34,9 @@ function sum(numbers: number[]): number {
 }
 
 
-function determinePrice(item: ProductItem) {
-    if (item.discountedPrice < item.discountedPrice)
-        return item.discountedPrice;
+function determinePrice(item: ProductInfo) {
+    // if (item.price < item.discountedPrice)
+    //     return item.discountedPrice;
 
     return item.price;
 }
@@ -45,42 +45,39 @@ function determinePrice(item: ProductItem) {
 
 
 
-export function useProduct(product: ProductItem) {
+export function useProduct(product: ProductInfo) {
+    const { price, ...rest } = product
 
-    const { price: normalPrice, discountedPrice, ...rest } = product;
+    const parseFigure = useFormatCurrency()
 
-    const parseFigure = useFormatCurrency();
+    // const isDiscount = useMemo(() => {
+    //     return discountedPrice > 0 && discountedPrice < normalPrice
+    // }, [normalPrice, discountedPrice])
 
-    const price = useMemo(()=>{
-        return determinePrice(product);
-    }, [normalPrice, discountedPrice])
+    const getOrderItemPrice = useCallback(
+        (ordQty: number) => {
+            const total = price * ordQty
 
-    const isDiscount = useMemo(()=>{
-        return (discountedPrice > 0) && (discountedPrice < normalPrice)
-    }, [normalPrice, discountedPrice])
-
-    const getOrderItemPrice = useCallback((ordQty: number)=>{
-        const total = price * ordQty;
-
-        return {
-            amount: total,
-            amountText: parseFigure(total)
-        }
-
-    },[price, discountedPrice]);
+            return {
+                amount: total,
+                amountText: parseFigure(total),
+            }
+        },
+        [price]
+    )
 
     return {
         price,
-        discountedPrice,
-        priceText: parseFigure(price),
-        discountedPriceText: parseFigure(discountedPrice),
-        isDiscount,
+        // discountedPrice,
+        priceText: formatNaira(price),
+        // discountedPriceText: formatNaira(discountedPrice),
+        isDiscount: false,
         getOrderItemPrice,
         ...rest,
-    };
+    }
 }
 
-export function useProductAction(item: ProductItem) {
+export function useProductAction(item: any) {
     const handleQuickViewUpdate = () => {
         // dispatch(updateQuickView({ ...item }));
         productStore.updateQuickView({ ...item });
@@ -178,7 +175,7 @@ export function useCart() {
 
     const cartToastId = "emptyCartToast";
 
-    const getOrderPrice = useCallback((order: OrderWithProduct) => {
+    const getOrderPrice = useCallback((order: any) => {
         const total = determinePrice(order.product) * order.quantity;
 
         return {
@@ -195,7 +192,7 @@ export function useCart() {
                 acc.orderTotal = acc.orderTotal + ordPrice.amount;
                 acc.summary.push({
                     ...ordPrice,
-                    title: `${order.product.title} ${order.quantity > 1 ? `(x${order.quantity})` : ""}`,
+                    title: `${order.item.name} ${order.item.quantity > 1 ? `(x${order.item.quantity})` : ""}`,
                 });
 
                 return acc;
@@ -214,14 +211,14 @@ export function useCart() {
         isEmptyCart: cart.length < 1,
         cartToastId,
         cartItems: cart.map((e) => ({
-            product: e.product,
-            quantity: e.quantity,
+            product: e.item,
+            quantity: e.item.quantity,
         })),
         getOrderSummary,
     };
 }
 
-export function useCartAction(item: ProductItem) {
+export function useCartAction(item: any) {
 
     const cartToastId = "emptyCartToast";
 

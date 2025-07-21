@@ -46,12 +46,13 @@ function CategorList () {
                 } = await getPackages();
 
                 if (!success) {
-                    throw new Error(message);
+                    console.error(message);
+                    return;
                 }
                 setCategories(()=>data);
             } catch(error) {
                 console.error("Error Loading Categories", error);
-                toast.error("Could not load categories")
+                // toast.error("Could not load categories")
             }
         }
 

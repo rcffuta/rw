@@ -3,7 +3,7 @@ import { PromoBanner } from '@/components/Common/PromoBanner'
 import { motion } from 'framer-motion'
 import { fadeIn } from '@/utils/motion' // Your animation utils
 
-export default function PromoSection() {
+export function PromoSection1() {
     return (
         <section className="relative py-16 sm:py-24 overflow-hidden">
             {/* Background decorative elements */}
@@ -39,6 +39,20 @@ export default function PromoSection() {
                     />
                 </motion.div>
 
+            </div>
+        </section>
+    )
+}
+
+export function PromoSection2() {
+    return (
+        <section className="relative py-16 sm:py-24 overflow-hidden">
+            {/* Background decorative elements */}
+            <div className="absolute inset-0 -z-10 overflow-hidden">
+                <div className="absolute top-0 left-1/4 w-[800px] h-[800px] bg-gradient-radial from-blue-500/10 to-transparent rounded-full opacity-20" />
+            </div>
+
+            <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
                 {/* Secondary Promo Banners */}
                 <div className="grid gap-6 md:gap-8 grid-cols-1 lg:grid-cols-2">
                     <motion.div

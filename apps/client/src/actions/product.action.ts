@@ -1,6 +1,6 @@
 "use server";
 
-import { getPackageById, getProducts} from "@rcffuta/ict-lib";
+import { getPackageById, getPackages, getProducts} from "@rcffuta/ict-lib";
 // import { CategoryItem, FullBookProduct, FullGameProduct, getAllBooks, getAllCategories, getAllGames, getAllProducts,getAllCategoryWithProducts, ProductItem } from "@willo/db";
 
 
@@ -39,6 +39,26 @@ export async function loadProducts() {
             message,
             success
         }  = await getProducts();
+
+        if (!success) {
+            console.debug(message);
+            // <ToastFeedback message={"Error loading Merch!"} id="prodHighlightToast" type="error"/>
+        }
+
+        return data ?? [];
+    } catch (err) {
+        console.error(err);
+        return [];
+    }
+}
+
+export async function loadPackages() {
+    try {
+        const {
+            data,
+            message,
+            success
+        }  = await getPackages();
 
         if (!success) {
             console.debug(message);

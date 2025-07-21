@@ -1,15 +1,15 @@
 import Newsletter from "@/components/Common/Newsletter";
 import CategorList from "@/components/client/Home/Category";
 import Hero from "@/components/client/Home/Hero";
-import PromoSection from "@/components/client/Home/PromoBanner";
+import {PromoSection1, PromoSection2} from "@/components/client/Home/PromoBanner";
 import { Metadata } from "next";
 import { Suspense } from "react";
 import { CategoryHighlightWrapper, ProductListSkeleton } from "@/components/Common/ProductUtils";
 import { APP_DESCRIPTION, APP_NAME } from "@rw/shared";
-import { ProductList } from "@/components/client/Shop/ProductList";
+import { PackageList, ProductList } from "@/components/client/Shop/ProductList";
 
 
-const maxDisplay = 12;
+const maxDisplay = 50;
 
 export const metadata: Metadata = {
     title: `Home | ${APP_NAME}`,
@@ -20,7 +20,9 @@ export default function HomePage() {
   return (
       <main>
           <Hero />
-          <CategorList />
+          {/* <CategorList /> */}
+
+          {/* <PromoSection1 /> */}
 
           <Suspense
               fallback={
@@ -29,10 +31,22 @@ export default function HomePage() {
                   </CategoryHighlightWrapper>
               }
           >
-              <ProductList maxDisplay={maxDisplay}/>
+              <PackageList maxDisplay={maxDisplay} />
           </Suspense>
 
-          <PromoSection />
+          <PromoSection1 />
+
+          <Suspense
+              fallback={
+                  <CategoryHighlightWrapper>
+                      <ProductListSkeleton length={maxDisplay} />
+                  </CategoryHighlightWrapper>
+              }
+          >
+              <ProductList maxDisplay={maxDisplay} />
+          </Suspense>
+
+          <PromoSection2 />
 
           {/* <Suspense
               fallback={
@@ -48,5 +62,5 @@ export default function HomePage() {
           {/* <Testimonials /> */}
           {/* <Newsletter /> */}
       </main>
-  );
+  )
 }

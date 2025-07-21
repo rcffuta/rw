@@ -22,7 +22,7 @@ export default function Logo({
     return (
         <div
             className={clsx(
-                'relative',
+                // 'relative h-full w-30',
                 lightModeOnly ? 'dark:hidden' : darkModeOnly ? 'hidden dark:block' : ''
             )}
         >
@@ -31,8 +31,9 @@ export default function Logo({
                 <Image
                     src={logo}
                     width={150}
-                    height={16}
-                    className={clsx('object-contain dark:hidden ', className)}
+                    height={100}
+                    // fill
+                    className={clsx('object-fill dark:hidden ', className)}
                     alt={APP_NAME}
                     priority={priority}
                     quality={100}

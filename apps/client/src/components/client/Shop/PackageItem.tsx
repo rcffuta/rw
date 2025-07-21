@@ -2,24 +2,28 @@
 import React from "react";
 import { useModalContext } from "@/context/QuickViewModalContext";
 import Link from "next/link";
-import { ViewProductIcon, WishListIcon } from "../../Common/Icons";
-import { ProductImage } from "@rw/shared";
+import { StarRating, ViewProductIcon, WishListIcon } from "../../Common/Icons";
+import { formatNaira, ProductImage, useFormatCurrency } from "@rw/shared";
 import { useProduct, useProductAction } from "@/hooks/useProduct";
-import { ProductRecord } from "@rcffuta/ict-lib";
+import { MerchPackageRecord, ProductRecord } from "@rcffuta/ict-lib";
 
-export default function ProductDisplayItem({ item }: { item: ProductRecord }) {
+export default function PackageDisplayItem({ item }: { item: MerchPackageRecord }) {
     const { openModal } = useModalContext();
 
-    const { priceText, isDiscount } = useProduct(item);
+    // const { priceText, isDiscount } = useProduct(item);
 
     const { handleQuickViewUpdate, handleAddToCart, handleAddItemToWishList } =
         useProductAction(item);
+
+    const isDiscount = false;
+    const priceText = formatNaira(item.totalPrice)
+
 
     return (
         <div className="group product-display">
             <div className="product-thumbmail relative overflow-hidden flex items-center justify-center rounded-lg min-h-[270px] mb-4">
                 <ProductImage
-                    src={item.variants.at(0).image}
+                    src={item.image}
                     alt={item.name + " " + "Photo"}
                 />
 

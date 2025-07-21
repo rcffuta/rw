@@ -1,11 +1,13 @@
 import React from "react";
 import {
-    CategoryHighlight, CategoryHighlightProps
-} from "@/components/Common/ProductUtils";
+    CategoryHighlight,
+    CategoryHighlightProps,
+    ProductHighlight,
+} from '@/components/Common/ProductUtils'
 import ToastFeedback from "@/components/Common/ToastFeedback";
-import { getProducts, ProductRecord } from "@rcffuta/ict-lib";
+import { getProducts, MerchPackageRecord, ProductRecord } from "@rcffuta/ict-lib";
 import ProductDisplayItem from "./ProductItem";
-import { loadProducts } from "@/actions/product.action";
+import { loadPackages, loadProducts } from "@/actions/product.action";
 
 
 type Props = Pick<CategoryHighlightProps, "maxDisplay">
@@ -16,13 +18,30 @@ export async function ProductList(props: Props) {
     if (data.length < 1) return null;
 
     return (
+        <ProductHighlight
+            {...props}
+            ctaLink={''}
+            ctaText="" //"View More"
+            data={data}
+            subTitle="Merch available for you"
+            title="Products"
+        />
+    )
+};
+
+export async function PackageList(props: Props) {
+    let data: MerchPackageRecord[] = await loadPackages()
+
+    if (data.length < 1) return null;
+
+    return (
         <CategoryHighlight
             {...props}
-            ctaLink={"#"}
-            ctaText="View More"
+            ctaLink={""}
+            ctaText="" //"View More"
             data={data}
-            subTitle="Books available for you"
-            title="Books"
+            subTitle="Merch available for you"
+            title="Products"
         />
     );
 };

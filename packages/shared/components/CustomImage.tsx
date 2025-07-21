@@ -166,8 +166,8 @@ export function ProductImage({
     alt,
     fallbackSrc = "/assets/fallback.svg",
     className = "",
-    width = 200,
-    height = 200,
+    width = 250,
+    height = 250,
 }: CustomImageProps) {
     const [isLoaded, setLoaded] = useState(false);
     const [error, setError] = useState(false);
@@ -186,7 +186,7 @@ export function ProductImage({
                 onLoad={() => setLoaded(true)}
                 onError={() => setError(true)}
                 className={clsx(
-                    "object-contain transition-opacity duration-500",
+                    "object-cover transition-opacity duration-500",
                     {
                         "opacity-0": !isLoaded,
                         "opacity-100": isLoaded,
