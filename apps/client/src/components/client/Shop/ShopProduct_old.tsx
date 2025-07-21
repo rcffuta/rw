@@ -4,7 +4,7 @@
 import { Cta, Price, ProductGallery, Rating } from "./utils";
 import { useState } from "react";
 import { ProductImage } from "@rw/shared";
-import { ProductItem } from "@willo/db";
+import { ProductRecord } from "@rcffuta/ict-lib";
 
 
 function ShopProductInformation() {
@@ -804,7 +804,7 @@ function ShopProductInformation() {
     );
 }
 
-export default function ShopProduct({product}:{product: ProductItem}) {
+export default function ShopProduct({product}:{product: ProductRecord}) {
 
     return (
         <section className="overflow-hidden relative pb-20 pt-5 lg:pt-20 xl:pt-28">
@@ -816,7 +816,7 @@ export default function ShopProduct({product}:{product: ProductItem}) {
                     <div className="max-w-[539px] w-full">
                         <div className="flex items-center justify-between mb-3">
                             <h2 className="font-semibold text-xl sm:text-2xl xl:text-custom-3 text-dark">
-                                {product.title}
+                                {product.name}
                             </h2>
                         </div>
 

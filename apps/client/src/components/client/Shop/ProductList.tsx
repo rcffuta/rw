@@ -4,9 +4,7 @@ import {
     CategoryHighlightProps,
     ProductHighlight,
 } from '@/components/Common/ProductUtils'
-import ToastFeedback from "@/components/Common/ToastFeedback";
-import { getProducts, MerchPackageRecord, ProductRecord } from "@rcffuta/ict-lib";
-import ProductDisplayItem from "./ProductItem";
+import { MerchPackageRecord, ProductRecord } from "@rcffuta/ict-lib";
 import { loadPackages, loadProducts } from "@/actions/product.action";
 
 
@@ -65,9 +63,9 @@ export function ShopProductList({ products }: { products: ProductRecord[] }) {
 
                 className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-7.5 gap-y-9"
             >
-                {products.map((item, key) => (
+                {/* {products.map((item, key) => (
                     <ProductDisplayItem key={key} item={item} />
-                ))}
+                ))} */}
             </div>
             {/* <!-- Products Grid Tab Content End --> */}
         </>

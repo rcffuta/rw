@@ -1,6 +1,5 @@
-// export const SHOP="/shop";
 export const HOME="/";
-export const SHOP="/#";
+export const SHOP="/shop";
 export const CHECKOUT="/checkout";
 export const SIGNIN="/signin";
 export const ACCOUNT="/account";

@@ -3,7 +3,7 @@ import Link from "next/link";
 import { useCartModalContext } from "@/context/CartSidebarModalContext";
 import { CartIcon, CartIcon2 } from "@/components/Common/Icons";
 
-const EmptyList = () => {
+const EmptyList = ({title}:{title:string}) => {
 
   return (
       <div className="text-center max-w-md mx-auto">
@@ -11,7 +11,7 @@ const EmptyList = () => {
               <CartIcon2 />
           </div>
 
-          <p className="pb-6">No product to show!</p>
+          <p className="pb-6">{title || "No product to show!"}</p>
       </div>
   );
 };

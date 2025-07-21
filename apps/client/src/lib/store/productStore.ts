@@ -2,7 +2,7 @@
 import { makeAutoObservable } from "mobx";
 // import { ProductItem } from "@rw/shared";
 import { Option } from "@/hooks/useCategories";
-import { getCategoryProducts } from "@/actions/product.action";
+import { fetchPackages, getCategoryProducts } from "@/actions/product.action";
 // import { getAllProductList } from "@/actions/product.action";
 
 export const defaultOption = {
@@ -42,6 +42,10 @@ class ProductStore {
 
     async getPackage(categoryId:string) {
         return await getCategoryProducts(categoryId);
+    }
+
+    async getProductsInCategory(categoryType:"product" | "package", prodId:string) {
+        return await fetchPackages(categoryType, prodId);
     }
 }
 

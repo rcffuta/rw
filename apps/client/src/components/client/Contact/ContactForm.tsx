@@ -4,10 +4,10 @@ import { FormWrapper } from "@/components/Common/Form/FormUtils";
 import InputField, { FormError } from "@/components/Common/Form/InputField";
 import TextareaField from "@/components/Common/Form/TextareaField";
 import { ContactFormData, contactSchema } from "@/lib/validators/contact.validator";
-import { wait } from "@rw/shared";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
+import { sendFromAContact } from "@rcffuta/ict-lib";
 
 export default function ContactForm() {
 
@@ -30,19 +30,29 @@ export default function ContactForm() {
             //     duration: 3500,
             // });
 
-            await wait(0.9);
-            throw new Error("Not Implemented!");
+            // await wait(0.9);
+            await sendFromAContact({
+                contact: data.email,
+                message: data.message,
+                name: `${data.firstname} ${data.lastname}`.trim()
+            })
+            // throw new Error("Not Implemented!");
+            toast.success("Sent your message", {
+                id: toastID,
+                position: "bottom-right"
+            });
         } catch (err) {
             console.error(err);
             toast.error("Could not send your message", {
                 id: toastID,
+                position: "bottom-right"
             });
         }
     };
 
 
     return (
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form onSubmit={handleSubmit(onSubmit)} aria-disabled={loading}>
             <FormError error={errors.root?.message} />
 
             <FormWrapper>
@@ -52,8 +62,9 @@ export default function ContactForm() {
                     type="text"
                     placeholder="Enter your first name"
                     error={errors.firstname?.message}
-                    {...register("firstname")}
+                    {...register('firstname')}
                     required
+                    disabled={loading}
                 />
 
                 <InputField
@@ -62,8 +73,9 @@ export default function ContactForm() {
                     type="text"
                     placeholder="Enter your last name"
                     error={errors.lastname?.message}
-                    {...register("lastname")}
+                    {...register('lastname')}
                     required
+                    disabled={loading}
                 />
             </FormWrapper>
 
@@ -74,7 +86,8 @@ export default function ContactForm() {
                     type="text"
                     placeholder="Enter as haedline for your message"
                     error={errors.subject?.message}
-                    {...register("subject")}
+                    {...register('subject')}
+                    disabled={loading}
                     // required
                 />
 
@@ -84,8 +97,9 @@ export default function ContactForm() {
                     type="email"
                     placeholder="Enter your email address"
                     error={errors.email?.message}
-                    {...register("email")}
+                    {...register('email')}
                     required
+                    disabled={loading}
                 />
             </FormWrapper>
 
@@ -94,19 +108,20 @@ export default function ContactForm() {
                 name="message"
                 placeholder="Enter your message"
                 error={errors.message?.message}
-                {...register("message")}
+                {...register('message')}
                 required
+                disabled={loading}
                 // className=""
             />
 
-            <br/>
+            <br />
             <button
                 type="submit"
                 disabled={loading}
                 className="inline-flex font-medium text-white bg-blue py-3 px-7 rounded-md ease-out duration-200 hover:bg-blue-dark"
             >
-                {loading ? "Sending..." :"Send Message"}
+                {loading ? 'Sending...' : 'Send Message'}
             </button>
         </form>
-    );
+    )
 }

@@ -1,58 +1,101 @@
-import React from "react";
+import React, { Suspense } from "react";
 import { Metadata } from "next";
-import ShopProduct from "@/components/client/Shop/ShopProduct";
-import { getProductById } from "@willo/db";
 import Breadcrumb from "@/components/Common/Breadcrumb";
-import RecentlyViewdItems from "@/components/client/Shop/RecentlyViewed";
+import RecentlyViewedItems from "@/components/client/Shop/RecentlyViewed";
 import Newsletter from "@/components/Common/Newsletter";
 import { APP_NAME } from "@rw/shared";
+import { isEmpty } from "@rcffuta/ict-lib";
+import { getProduct } from "@/actions/product.action";
+import { ErrorMessage, PackageDisplay, ProductDisplay, ProductSkeleton } from "@/components/client/Shop/ShopUtil";
 
 export const metadata: Metadata = {
-    title: `Product | ${APP_NAME}`,
-    description: `View Product from ${APP_NAME}`,
+  title: `Product | ${APP_NAME}`,
+  description: `View Product from ${APP_NAME}`,
 };
 
-// type Props = {
-//     params: {
-//         id: string;
-//     };
-// };
+type Props = { params: { id: string } };
 
-type Props = { params: Promise<{ id: string }> };
+export default async function ProductPage({ params }: Props) {
+  const productId = params.id;
 
-export default async function ShopPage({ params }: Props) {
-    const productId = Number((await params).id);
-
-    let template: any;
-
-    if (isNaN(productId)) {
-        template = (
-            
-            <p className="text-red-500 text-center mt-10">
-                Invalid product ID
-            </p>
-        );
-    }
-
-    const product = await getProductById(productId);
-
-    if (!product) {
-        template = (
-            <p className="text-gray-500 text-center mt-10">
-                Product not found
-            </p>
-        );
-    } else {
-        template = <ShopProduct product={product} />;
-    }
-    
-
+  if (isEmpty(productId)) {
     return (
-        <>
-            <Breadcrumb title={"Shop Details"} pages={["shop details"]} />
-            {template}
-            <RecentlyViewdItems categoryId={product.categoryId} productId={product.id}/>
-            <Newsletter />
-        </>
+      <div className="container py-10">
+        <ErrorMessage
+          title="Invalid Product ID" 
+          message="The product ID provided is invalid. Please check the URL and try again."
+          redirectUrl="/shop"
+          redirectText="Back to Shop"
+        />
+      </div>
     );
+  }
+
+  let product;
+  try {
+    product = await getProduct(productId);
+  } catch (error) {
+    console.error('Failed to fetch product:', error);
+    return (
+      <div className="container py-10">
+        <ErrorMessage 
+          title="Product Loading Error" 
+          message="We couldn't load the product details. Please try again later."
+          redirectUrl="/shop"
+          redirectText="Back to Shop"
+        />
+      </div>
+    );
+  }
+
+  if (!product) {
+    return (
+      <div className="container py-10">
+        <ErrorMessage 
+          title="Product Not Found" 
+          message="The product you're looking for doesn't exist or may have been removed."
+          redirectUrl="/shop"
+          redirectText="Back to Shop"
+        />
+      </div>
+    );
+  }
+
+  const template = (() => {
+    switch (product.type) {
+      case "product":
+        return <ProductDisplay product={product.data} />;
+      case "package":
+        return <PackageDisplay pkg={product.data} />;
+      default:
+        return (
+          <ErrorMessage 
+            title="Unsupported Product Type" 
+            message="This product type cannot be displayed."
+            redirectUrl="/shop"
+            redirectText="Back to Shop"
+          />
+        );
+    }
+  })();
+
+
+//   console.debug(product.data.name)
+
+  return (
+      <>
+          <Breadcrumb
+              title={`${product.type}`}
+              pages={[{ name: 'Shop', path: '/shop' }, { name: product.data.name }]}
+          />
+
+          <Suspense fallback={<ProductSkeleton />}>
+              <div className="container py-8">{template}</div>
+          </Suspense>
+
+          <RecentlyViewedItems categoryType={product.type} productId={productId} />
+
+          {/* <Newsletter /> */}
+      </>
+  )
 }

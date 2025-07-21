@@ -1,15 +1,15 @@
 import Link from "next/link";
 import { ShopIcon } from "./Icons";
-import ProductDisplay from "../client/Shop/ProductItem";
 import { PropsWithChildren } from "react";
 import { MerchPackageRecord, ProductInfo, ProductRecord } from "@rcffuta/ict-lib";
 import PackageDisplayItem from "../client/Shop/PackageItem";
+import { ProductCard, ProductDisplay } from "../client/Shop/ShopUtil";
 
 
 
 export type ProductHighlightProps<T extends ProductRecord = ProductRecord> = {
-    title: string;
-    subTitle: string;
+    title?: string;
+    subTitle?: string;
     ctaText?: string;
     ctaLink?: string;
     data: T[];
@@ -17,8 +17,8 @@ export type ProductHighlightProps<T extends ProductRecord = ProductRecord> = {
 };
 
 export type CategoryHighlightProps<T extends MerchPackageRecord = MerchPackageRecord> = {
-    title: string
-    subTitle: string
+    title?: string
+    subTitle?: string
     ctaText?: string
     ctaLink?: string
     data: T[]
@@ -57,7 +57,7 @@ export function ProductHighlight(props: ProductHighlightProps) {
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-7.5 gap-y-9">
                 {/* <!-- Best Sellers item --> */}
                 {data.slice(0, maxDisplay).map((item, key) => (
-                    <ProductDisplay item={item} key={key} />
+                    <ProductCard item={item} key={key} />
                     // <ProductCardSkeleton key={key} />
                 ))}
             </div>
@@ -72,6 +72,22 @@ export function ProductHighlight(props: ProductHighlightProps) {
                     </Link>
                 </div>
             )}
+        </CategoryHighlightWrapper>
+    )
+}
+
+
+export function ProductListItems(props: ProductHighlightProps) {
+    const { data } = props
+
+    return (
+        <CategoryHighlightWrapper>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-7.5 gap-y-9">
+                {data.map((item, key) => (
+                    <ProductCard item={item} key={key} />
+                ))}
+            </div>
         </CategoryHighlightWrapper>
     )
 }
@@ -108,7 +124,7 @@ export function CategoryHighlight(props: CategoryHighlightProps) {
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-7.5 gap-y-9">
                 {/* <!-- Best Sellers item --> */}
                 {data.slice(0, maxDisplay).map((item, key) => (
-                    <PackageDisplayItem item={item} key={key} />
+                    <ProductCard item={item} key={key} />
                     // <ProductCardSkeleton key={key} />
                 ))}
             </div>
@@ -128,6 +144,21 @@ export function CategoryHighlight(props: CategoryHighlightProps) {
 }
 
 
+export function CategoryListItems(props: CategoryHighlightProps) {
+    const { data } = props
+
+    return (
+        <CategoryHighlightWrapper>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-x-7.5 gap-y-9">
+                {data.map((item, key) => (
+                    <ProductCard item={item} key={key} />
+                ))}
+            </div>
+        </CategoryHighlightWrapper>
+    )
+}
+
+
 export function CategoryHighlightWrapper(props: PropsWithChildren) {
     return (
         <section className="overflow-hidden pt-15">
@@ -140,35 +171,15 @@ export function CategoryHighlightWrapper(props: PropsWithChildren) {
 
 export function ProductCardSkeleton() {
     return (
-        <div className="group animate-pulse">
-            {/* Image area */}
-            <div className="relative overflow-hidden flex items-center justify-center rounded-lg bg-gray-2 min-h-[270px] mb-4">
-                {/* fake image */}
-            </div>
-
-            {/* Buttons area */}
-            <div className="flex items-center justify-center gap-2.5 pb-5">
-                <div className="w-9 h-9 rounded-[5px] bg-gray-2"></div>
-                <div className="w-24 h-9 rounded-[5px] bg-gray-2"></div>
-                <div className="w-9 h-9 rounded-[5px] bg-gray-2"></div>
-            </div>
-
-            {/* Ratings */}
-            <div className="flex items-center gap-2.5 mb-2">
-                <div className="w-20 h-4 bg-gray-2 rounded"></div>
-                <div className="w-10 h-4 bg-gray-2 rounded"></div>
-            </div>
-
-            {/* Title */}
-            <div className="h-5 w-3/4 bg-gray-2 rounded mb-1.5"></div>
-
-            {/* Price */}
-            <div className="flex items-center gap-2">
-                <div className="w-16 h-5 bg-gray-2 rounded"></div>
-                <div className="w-12 h-5 bg-gray-2 rounded"></div>
+        <div className="animate-pulse bg-white rounded-lg shadow-sm overflow-hidden">
+            <div className="aspect-square bg-gray-200"></div>
+            <div className="p-4 space-y-2">
+                <div className="h-4 bg-gray-200 rounded w-3/4"></div>
+                <div className="h-4 bg-gray-200 rounded w-1/2"></div>
+                <div className="h-6 bg-gray-200 rounded w-1/3 mt-2"></div>
             </div>
         </div>
-    );
+    )
 }
 
 export function ProductListSkeleton({ length = 12 }: { length?: number }) {

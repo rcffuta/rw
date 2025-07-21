@@ -7,47 +7,65 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { useCallback, useRef } from "react";
 import "swiper/css/navigation";
 import "swiper/css";
-import ProductDisplayItem from "./ProductItem";
-import { ProductItem } from "db/actions";
+import {ProductDisplayItem} from "./ProductItem";
 import productStore from "@/lib/store/productStore";
+import { MerchPackageRecord, ProductRecord } from "@rcffuta/ict-lib";
 
 const RecentlyViewdItems = ({
-    categoryId,
+    categoryType,
     productId,
 }: {
-    categoryId: number;
-    productId: number;
+    categoryType: 'product' | 'package'
+    productId: string
 }) => {
-    const sliderRef = useRef(null);
+    const sliderRef = useRef(null)
 
-    const [products, setProducts] = useState<ProductItem[]>([]);
-    const [loading, setLoading] = useState(true);
+    const [products, setProducts] = useState<
+        | {
+              type: 'product'
+              data: ProductRecord[]
+          }
+        | {
+              type: 'package'
+              data: MerchPackageRecord[]
+          }
+        | {
+              type: 'none'
+              data: any[]
+          }
+    >({
+        type: 'none',
+        data: [],
+    })
+    const [loading, setLoading] = useState(true)
 
     const handlePrev = useCallback(() => {
-        if (!sliderRef.current) return;
-        sliderRef.current.swiper.slidePrev();
-    }, []);
+        if (!sliderRef.current) return
+        sliderRef.current.swiper.slidePrev()
+    }, [])
 
     const handleNext = useCallback(() => {
-        if (!sliderRef.current) return;
-        sliderRef.current.swiper.slideNext();
-    }, []);
+        if (!sliderRef.current) return
+        sliderRef.current.swiper.slideNext()
+    }, [])
 
     useEffect(() => {
         async function load() {
-            const data = await productStore.getCategoryProductById(categoryId);
+            const data = await productStore.getProductsInCategory(categoryType, productId)
 
-            setProducts(() => data.filter((e) => e.id !== productId));
+            if (data) {
+                setProducts(() => data)
+            }
 
-            setLoading(false);
+            setLoading(false)
         }
 
-        if (loading) load();
+        if (loading) load()
 
-        return;
-    }, [loading]);
+        return
+    }, [loading])
 
-    if (products.length < 1) return null;
+    if (products.data.length < 1) return null
 
     return (
         <section className="overflow-hidden pt-17.5">
@@ -71,10 +89,7 @@ const RecentlyViewdItems = ({
                         </div>
 
                         <div className="flex items-center gap-3">
-                            <button
-                                onClick={handlePrev}
-                                className="swiper-button-prev"
-                            >
+                            <button onClick={handlePrev} className="swiper-button-prev">
                                 <svg
                                     className="fill-current"
                                     width="24"
@@ -92,10 +107,7 @@ const RecentlyViewdItems = ({
                                 </svg>
                             </button>
 
-                            <button
-                                onClick={handleNext}
-                                className="swiper-button-next"
-                            >
+                            <button onClick={handleNext} className="swiper-button-next">
                                 <svg
                                     className="fill-current"
                                     width="24"
@@ -121,16 +133,46 @@ const RecentlyViewdItems = ({
                         spaceBetween={20}
                         className="justify-between"
                     >
-                        {products.map((item, key) => (
-                            <SwiperSlide key={key}>
-                                <ProductDisplayItem item={item} />
-                            </SwiperSlide>
-                        ))}
+                        {products.type === 'product' ? (
+                            <>
+                                {products.data.map((item: ProductRecord, key) => (
+                                    <SwiperSlide key={key}>
+                                        {
+                                            <ProductDisplayItem
+                                                item={{
+                                                    id: item.id,
+                                                    name: item.name,
+                                                    price: item.price,
+                                                    image: item.variants.at(0).image,
+                                                }}
+                                            />
+                                        }
+                                    </SwiperSlide>
+                                ))}
+                            </>
+                        ) : (
+                            <>
+                                {products.data.map((item: MerchPackageRecord, key: number) => (
+                                    <SwiperSlide key={key}>
+                                        {
+                                            <ProductDisplayItem
+                                                item={{
+                                                    id: item.id,
+                                                    name: item.name,
+                                                    price: item.totalPrice,
+                                                    image: item.image,
+                                                }}
+                                            />
+                                        }
+                                    </SwiperSlide>
+                                ))}
+                            </>
+                        )}
                     </Swiper>
                 </div>
             </div>
         </section>
-    );
-};
+    )
+}
 
 export default RecentlyViewdItems;

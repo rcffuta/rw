@@ -8,7 +8,8 @@ interface InputFieldProps {
     id?: string;
     className?: string;
     value?:string;
-    onChange?:(e:any)=>void
+    onChange?:(e:any)=>void;
+    disabled?: boolean;
     // autoComplete?: "on" | "off";
 }
 
