@@ -22,7 +22,7 @@ const Checkout = observer(() => {
             {/* <!-- checkout left --> */}
             <div className="lg:max-w-[670px] w-full">
                 {/* <!-- login box --> */}
-                <CheckoutForm items={items} totalPrice={totalPrice}/>
+                {/* <CheckoutForm items={items} totalPrice={totalPrice}/> */}
             </div>
 
             {/* // <!-- checkout right --> */}
