@@ -10,9 +10,10 @@ function InitializeStores() {
 
     useEffect(() => {
         (()=>{
-            if (authStore.user) {
-                // cartStore.reloadCart();
-            }
+            // if (authStore.user) {
+            //     // cartStore.reloadCart();
+            // }
+            authStore.authenticate();
             productStore.loadAllProducts();
         })()
     }, [authStore.user]);

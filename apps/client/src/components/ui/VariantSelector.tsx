@@ -1,17 +1,18 @@
 "use client";
-import { ProductVariant } from "@rcffuta/ict-lib"
+import { OrderItem, ProductVariant } from "@rcffuta/ict-lib"
 import { ProductImage } from "@rw/shared";
 import clsx from "clsx";
 
 type Props = {
     variants: ProductVariant[];
-    selectedVariant?: ProductVariant;
-    onChangeVariant: (variant: ProductVariant) => void;
-    name: string;
-    small?:boolean;
+    selectedVariant?: OrderItem['variant']
+    onChangeVariant: (variant: Partial<OrderItem['variant']>) => void
+    name: string
+    small?: boolean;
+    image?: string;
 }
 
-export default function VariantSelector({ variants, name,onChangeVariant, selectedVariant }: Props) {
+export default function VariantSelector({ variants, name, image, onChangeVariant, selectedVariant }: Props) {
     return (
         <div className="w-full lg:w-1/2">
             {variants.map((e) => (
@@ -21,11 +22,7 @@ export default function VariantSelector({ variants, name,onChangeVariant, select
                     })}
                     key={e.image}
                 >
-                    <ProductImage
-                        src={e.image}
-                        alt={name}
-                        className={'w-full h-auto'}
-                    />
+                    <ProductImage src={e.image} alt={name} className={'w-full h-auto'} />
                 </div>
             ))}
 
@@ -35,7 +32,10 @@ export default function VariantSelector({ variants, name,onChangeVariant, select
                     <button
                         key={variant.color}
                         title={variant.color}
-                        onClick={() => onChangeVariant(variant)}
+                        onClick={() => onChangeVariant({
+                            color: variant.color,
+                            image: variant.image || image,
+                        })}
                         className={`w-10 h-10 rounded-md border-2 ${
                             selectedVariant?.color === variant.color
                                 ? 'border-gold-400 border-4'

@@ -1,8 +1,8 @@
 'use client'
 
 import { useState } from 'react'
-import { formatNaira, ProductImage } from '@rw/shared'
-import { MerchPackageRecord, ProductRecord, ProductVariant } from '@rcffuta/ict-lib'
+import { formatNaira, normalizeQuantity, ProductImage, useNavigate } from '@rw/shared'
+import { MerchPackageRecord, Order, OrderItem, ProductRecord, ProductVariant } from '@rcffuta/ict-lib'
 import { Cta, Price, Rating } from './utils'
 import Link from 'next/link'
 import { FileSearch } from 'lucide-react'
@@ -12,11 +12,53 @@ import VariantSelector from '@/components/ui/VariantSelector'
 import SizeSelector from '@/components/ui/SizeSelector'
 import QuantitySelector from '@/components/ui/QuantitySelector'
 import { PackageDisplayItem } from '@/components/ui/DisplayItem'
+import { observer } from 'mobx-react-lite'
+import cartStore, { OrderType } from '@/lib/store/cartStore'
+import { CART } from '@/constants'
 
-export function ProductDisplay({ product }: { product: ProductRecord }) {
-    const [selectedVariant, setSelectedVariant] = useState<ProductVariant>(product.variants[0])
-    const [selectedSize, setSelectedSize] = useState<string>(product.variants[0].sizes[0])
-    const [quantity, setQuantity] = useState<number>(1)
+export const  ProductDisplay = observer(({ product }: { product: ProductRecord }) => {
+
+
+    // const [selectedSize, setSelectedSize] = useState<string>(product.variants[0].sizes[0])
+
+    const {navigate} = useNavigate();
+
+    const itemType: OrderType = "product";
+
+
+    let orderItemInfo = cartStore.getOrderItemById(product.id)
+
+    if (!orderItemInfo) {
+
+        orderItemInfo = cartStore.createOrderItem(product, itemType)
+    }
+
+
+
+    const selectedVariant = orderItemInfo.variant;
+    const quantity = orderItemInfo.quantity;
+    const selectedSize = orderItemInfo.variant.size || "";
+    
+  
+
+
+    function setQuantity(q?:number){
+
+        cartStore.updateQuantity(normalizeQuantity(q, quantity), product, itemType)
+    }
+
+    function updateVariant(variant: Partial<OrderItem["variant"]>){
+
+        cartStore.updateVariant(variant, product, itemType)
+    }
+
+    function saveOrder() {
+        navigate(CART)
+    }
+    
+
+
+    const sizes = product.variants.find(e=>e.color === selectedVariant.color)?.sizes || [];
 
     return (
         <section className="overflow-hidden relative pb-20 pt-5 lg:pt-20 xl:pt-28">
@@ -25,7 +67,7 @@ export function ProductDisplay({ product }: { product: ProductRecord }) {
                     {/* Product Gallery */}
                     <VariantSelector
                         name={product.name}
-                        onChangeVariant={setSelectedVariant}
+                        onChangeVariant={updateVariant}
                         selectedVariant={selectedVariant}
                         variants={product.variants}
                     />
@@ -48,28 +90,39 @@ export function ProductDisplay({ product }: { product: ProductRecord }) {
                         )}
 
                         {/* Size Selector */}
-                        <SizeSelector onChangeSize={setSelectedSize} selectedSize={selectedSize} sizes={selectedVariant.sizes}/>
-
+                        <SizeSelector
+                            onChangeSize={(size: string) => {
+                                updateVariant({
+                                    size,
+                                })
+                            }}
+                            selectedSize={selectedSize}
+                            sizes={sizes}
+                        />
+                        {/* 
                         <QuantitySelector
-                            onChangeQuantity={(q)=>setQuantity((p)=>{
-                                if (q !== undefined) {
-                                    return q
-                                }
-
-                                return p+1
-                            })}
-
+                            onChangeQuantity={setQuantity}
                             product={product}
                             quantity={quantity}
+                        /> */}
 
-                        />
-
+                        <div className="flex items-center gap-8">
+                            <Cta product={product} mini={false} onClick={() => saveOrder()} />
+                            {/* <QuantityInput onQuantityChange={() => {}} initialQuantity={1} /> */}
+                            <SacredQuantityInput
+                                initialQuantity={1}
+                                maxQuantity={10}
+                                onQuantityChange={(q) => setQuantity(q)}
+                                quantity={quantity}
+                                // className="mt-6"
+                            />
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
     )
-}
+})
 
 
 export function PackageDisplay({ pkg }: { pkg: MerchPackageRecord }) {

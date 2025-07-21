@@ -7,6 +7,8 @@ import Logo from '../Logo'
 import { CartIcon } from '../Icons' // Added FireIcon for redemption theme
 import cartStore from '@/lib/store/cartStore'
 import { observer } from 'mobx-react-lite'
+import { UserHighlight } from './UserHighlight'
+import { CART } from '@/constants'
 
 type HeaderProps = {
     stickyMenu?: boolean
@@ -15,7 +17,8 @@ type HeaderProps = {
 }
 
 const HeaderTop = ({ stickyMenu=true }: HeaderProps) => {
-    const { orders: cartItems, totalPrice } = cartStore
+    const { totalPrice } = cartStore;
+    const cartItems = [];
     const { openCartModal } = useCartModalContext()
     // const formatCurrency = useFormatCurrency()
     const [navigationOpen, setNavigationOpen] = useState(false);
@@ -87,8 +90,8 @@ const HeaderTop = ({ stickyMenu=true }: HeaderProps) => {
                     {/* Right side icons */}
                     <div className="flex items-center gap-6">
                         {/* Cart with counter */}
-                        <button
-                            onClick={openCartModal}
+                        <Link
+                            href={CART}
                             className="relative p-2 rounded-full hover:bg-gray-800 transition-colors"
                             aria-label="Cart"
                         >
@@ -103,7 +106,9 @@ const HeaderTop = ({ stickyMenu=true }: HeaderProps) => {
                                     {cartItems.length}
                                 </span>
                             )}
-                        </button>
+                        </Link>
+
+                        <UserHighlight/>
 
                         {/* Mobile menu button */}
                         <button

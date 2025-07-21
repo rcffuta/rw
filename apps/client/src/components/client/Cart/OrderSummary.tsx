@@ -1,18 +1,17 @@
 import { CHECKOUT, SIGNIN } from "@/constants";
-import { useCart } from "@/hooks/useProduct";
 import authStore from "@/lib/store/authStore";
-import { useNavigate } from "@rw/shared";
+import cartStore from "@/lib/store/cartStore";
+import { formatNaira, useNavigate } from "@rw/shared";
 import { observer } from "mobx-react-lite";
 import Link from "next/link";
 import React from "react";
 
 const OrderSummary = observer(() => {
     const isAuthenticated = authStore.isAuthenticated;
-    const { getOrderSummary } = useCart();
-
-    const orderSummary = getOrderSummary();
 
     const {redirect} = useNavigate();
+
+    const items = cartStore.items;
 
     return (
         <div className="lg:max-w-[455px] w-full">
@@ -38,7 +37,7 @@ const OrderSummary = observer(() => {
                     </div>
 
                     {/* <!-- product item --> */}
-                    {orderSummary.summary.map((item, key) => (
+                    {items.map((item, key) => (
                         <div
                             key={key}
                             className="flex items-center justify-between py-5 border-b border-gray-3"
@@ -46,13 +45,13 @@ const OrderSummary = observer(() => {
                             <div>
                                 <p className="text-dark">
                                         {
-                                            item.title
+                                            item.name
                                         }
                                 </p>
                             </div>
                             <div>
                                 <p className="text-dark text-right">
-                                    {item.amountText}
+                                    {formatNaira(item.price * item.quantity)}
                                 </p>
                             </div>
                         </div>
@@ -65,7 +64,7 @@ const OrderSummary = observer(() => {
                         </div>
                         <div>
                             <p className="font-medium text-lg text-dark text-right">
-                                {orderSummary.orderTotal}
+                                {cartStore.totalPrice}
                             </p>
                         </div>
                     </div>

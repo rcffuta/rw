@@ -1,11 +1,13 @@
 
-import { MemberObject, wait } from "@rcffuta/ict-lib";
+import { autoLoginMember, MemberObject, wait } from "@rcffuta/ict-lib";
 import { makeAutoObservable } from "mobx";
 
 type User = MemberObject;
 
 class AuthStore {
     user: User = null;
+
+    loading = false;
 
     constructor() {
         makeAutoObservable(this);
@@ -17,6 +19,19 @@ class AuthStore {
 
     clearUser() {
         this.user = null;
+    }
+
+    async authenticate() {
+
+        if (this.loading) return;
+
+        this.loading = true;
+
+
+        // const dt = await autoLoginMember();
+        await wait(5);
+        this.loading = false;
+
     }
 
     async logout() {

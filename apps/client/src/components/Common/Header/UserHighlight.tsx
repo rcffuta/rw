@@ -5,6 +5,7 @@ import { UserIcon } from "../Icons";
 import authStore from "@/lib/store/authStore";
 import { observer } from "mobx-react-lite";
 import { HASH, SIGNIN } from "@/constants";
+import { redirectToLogin } from '@rcffuta/ict-lib'
 
 export const UserHighlight = observer(() => {
     const user = authStore.user;
@@ -14,15 +15,20 @@ export const UserHighlight = observer(() => {
     const title = user ? user?.firstname : "Sign In";
 
     return (
-        <Link href={link} className="flex items-center gap-2.5">
+        <Link
+            href={'/#'}
+            onClick={(e) => {
+                e.preventDefault()
+                redirectToLogin()
+            }}
+            className="flex items-center gap-2.5"
+        >
             <UserIcon />
 
             <div>
-                <span className="block text-2xs text-dark-4 uppercase">
-                    account
-                </span>
+                <span className="block text-2xs text-dark-4 uppercase">account</span>
                 <p className="font-medium text-custom-sm text-dark">{title}</p>
             </div>
         </Link>
-    );
+    )
 });

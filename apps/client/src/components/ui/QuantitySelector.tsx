@@ -1,6 +1,7 @@
 import { ProductRecord } from "@rcffuta/ict-lib";
 import { Cta } from "../client/Shop/utils";
 import { SacredQuantityInput } from "../client/Shop/quantity";
+import { observer } from "mobx-react-lite";
 
 type Props = {
     product: ProductRecord;
@@ -8,7 +9,7 @@ type Props = {
     onChangeQuantity: (q?:number)=>void;
 }
 
-export default function QuantitySelector({ product, quantity, onChangeQuantity }: Props) {
+function QuantitySelector({ product, quantity, onChangeQuantity }: Props) {
     return (
         <div className="flex items-center gap-8">
             <Cta product={product} mini={false} onClick={() => onChangeQuantity()} />
@@ -23,3 +24,5 @@ export default function QuantitySelector({ product, quantity, onChangeQuantity }
         </div>
     )
 }
+
+export default observer(QuantitySelector);

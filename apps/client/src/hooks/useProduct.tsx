@@ -77,95 +77,6 @@ export function useProduct(product: ProductInfo) {
     }
 }
 
-export function useProductAction(item: any) {
-    const handleQuickViewUpdate = () => {
-        // dispatch(updateQuickView({ ...item }));
-        productStore.updateQuickView({ ...item });
-    };
-
-    const handleAddToCart = async () => {
-        cartStore.addItemToCart(item);
-        toast.success("Added Product to cart", {
-            id: "cartAddToast",
-            duration: 800,
-        });
-    };
-
-    const handleAddItemToWishList = () => {
-        const isInWishList = wishlistStore.isItemInWishlist(item.id);
-
-        if (isInWishList) return handleRemoveFromCart();
-
-        wishlistStore.addItem({
-            ...item,
-            // status: "available",
-            // quantity: 1,
-        });
-        toast.success("Added Product to wishlist", {
-            id: "wishListAddToast",
-            duration: 800,
-        });
-    };
-
-    const handleProductDetails = () => {
-        // dispatch(updateproductDetails({ ...item }));
-        productStore.updateProductDetails({ ...item });
-    };
-
-    const handleRemoveFromCart = () => {
-        // dispatch(removeItemFromCart(item.id));
-        cartStore.removeItemFromCart(item.id);
-        toast.success("Removed Product from cart", {
-            id: "cartAddToast",
-            duration: 800,
-        });
-    };
-
-    const handleupdateQuantity = (quantity: number) => {
-        // setQuantity(quantity + 1);
-        // dispatch(updateCartItemQuantity({ id: item.id, quantity: quantity + 1 }));
-
-        cartStore.updateCartItemQuantity(item.id, quantity);
-        toast.success("Updated Product in cart", {
-            id: "cartAddToast",
-            duration: 800,
-        });
-    };
-
-    const handleRemoveFromWishlist = () => {
-        wishlistStore.removeItem(item.id);
-        toast.success("Removed Product from wishlist", {
-            id: "wishListAddToast",
-            duration: 800,
-        });
-    };
-
-    const discountPercent = useMemo(() => {
-        if (!item) return 0;
-        if (
-            item.price <= 0 ||
-            item.discountedPrice <= 0 ||
-            item.discountedPrice >= item.price
-        )
-            return 0;
-
-        const discount =
-            ((item.price - item.discountedPrice) / item.price) * 100;
-        return Math.round(discount);
-    }, []);
-
-    return {
-        handleAddToCart,
-        handleAddItemToWishList,
-        handleQuickViewUpdate,
-        handleProductDetails,
-        handleRemoveFromCart,
-        handleupdateQuantity,
-        handleRemoveFromWishlist,
-        discountPercent,
-    };
-}
-
 export function useCart() {
     const parseFigure = useFormatCurrency();
 
@@ -186,13 +97,13 @@ export function useCart() {
 
     const getOrderSummary = useCallback((): OrderSummary  => {
         return cart.reduce(
-            (acc, order): OrderSummary => {
-                const ordPrice = getOrderPrice(order);
+            (acc, item): OrderSummary => {
+                const ordPrice = getOrderPrice(item);
 
                 acc.orderTotal = acc.orderTotal + ordPrice.amount;
                 acc.summary.push({
                     ...ordPrice,
-                    title: `${order.item.name} ${order.item.quantity > 1 ? `(x${order.item.quantity})` : ""}`,
+                    title: `${item.name} ${item.quantity > 1 ? `(x${item.quantity})` : ""}`,
                 });
 
                 return acc;
@@ -207,12 +118,12 @@ export function useCart() {
     return {
         cart,
         cartPrice,
-        cartPriceText: parseFigure(cartPrice),
+        cartPriceText: formatNaira(cartPrice),
         isEmptyCart: cart.length < 1,
         cartToastId,
         cartItems: cart.map((e) => ({
-            product: e.item,
-            quantity: e.item.quantity,
+            product: e.name,
+            quantity: e.quantity,
         })),
         getOrderSummary,
     };
@@ -222,28 +133,28 @@ export function useCartAction(item: any) {
 
     const cartToastId = "emptyCartToast";
 
-    const deleteFromCart = async () => {
-        await cartStore.removeItemFromCart(item.id);
-        toast.success("Removed from cart", {id:cartToastId});
-    }
+    // const deleteFromCart = async () => {
+    //     await cartStore.removeItemFromCart(item.id);
+    //     toast.success("Removed from cart", {id:cartToastId});
+    // }
 
-    const clearCart = async () => {
-        await cartStore.removeAllItemsFromCart();
-        toast.success("Cleared Cart", {
-            id: cartToastId,
-        });
-    }
+    // const clearCart = async () => {
+    //     await cartStore.removeAllItemsFromCart();
+    //     toast.success("Cleared Cart", {
+    //         id: cartToastId,
+    //     });
+    // }
 
-    const updateCartQuantity = async (quantity:number) => {
-        await cartStore.updateCartItemQuantity(item.id, quantity);
-        toast.success("Updated Cart", {
-            id: cartToastId,
-        });
-    }
+    // const updateCartQuantity = async (quantity:number) => {
+    //     await cartStore.updateCartItemQuantity(item.id, quantity);
+    //     toast.success("Updated Cart", {
+    //         id: cartToastId,
+    //     });
+    // }
 
     return {
-        deleteFromCart,
-        clearCart,
-        updateCartQuantity,
+        // deleteFromCart,
+        // clearCart,
+        // updateCartQuantity,
     };
 }

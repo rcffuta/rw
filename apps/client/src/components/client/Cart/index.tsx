@@ -7,10 +7,12 @@ import SingleItem from "./SingleItem";
 import Breadcrumb from "../../Common/Breadcrumb";
 import { observer } from "mobx-react-lite";
 import EmptyCart from "./EmptyCart";
-import { CartItem, useCart, useCartAction } from "@/hooks/useProduct";
+import { CartItem } from "@/hooks/useProduct";
+import cartStore from "@/lib/store/cartStore";
+import { OrderItem } from "@rcffuta/ict-lib";
 
 
-const CartTable = ({ items }: { items: CartItem[]}) => {
+const CartTable = ({ items }: { items: OrderItem[]}) => {
     return (
         <div className="bg-white rounded-[10px] shadow-1">
             <div className="w-full overflow-x-auto">
@@ -49,9 +51,11 @@ const CartTable = ({ items }: { items: CartItem[]}) => {
 };
 
 const Cart = observer(() => {
-    const {cartItems, isEmptyCart} = useCart();
+    
 
-    const { clearCart } = useCartAction({} as any);
+    const cartItems = cartStore.items;
+
+    const isEmptyCart = cartStore.isEmptyCart;
     
     let template = <EmptyCart />;
 
@@ -84,7 +88,7 @@ const Cart = observer(() => {
                                 Your Cart
                             </h2>
 
-                            <button className="text-blue" onClick={clearCart}>
+                            <button className="text-blue" onClick={()=>{}}>
                                 Clear Shopping Cart
                             </button>
                         </div>

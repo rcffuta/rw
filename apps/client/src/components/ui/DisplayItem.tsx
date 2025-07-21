@@ -1,9 +1,11 @@
 "use client"
-import { PackageItem, ProductVariant } from "@rcffuta/ict-lib"
+import { OrderItem, PackageItem, ProductVariant } from "@rcffuta/ict-lib"
 import VariantSelector from "./VariantSelector";
 import SizeSelector from "./SizeSelector";
 import { observer } from "mobx-react-lite";
 import productStore from "@/lib/store/productStore";
+import { useNavigate } from "@rw/shared";
+import cartStore, { OrderType } from "@/lib/store/cartStore";
 
 type Props = {
     onChangeVariant:(variant: ProductVariant)=>void; 
@@ -19,6 +21,18 @@ export const PackageDisplayItem = observer(({item, selectedVariant, selectedSize
 
     const product = productStore.getProductItem(item.productId);
 
+    const {navigate} = useNavigate();
+
+    const itemType: OrderType = "product";
+
+    let orderItemInfo = cartStore.getOrderItemById(product.id)
+
+
+    function updateVariant(variant: Partial<OrderItem["variant"]>){
+    
+        cartStore.updateVariant(variant, product, itemType)
+    }
+
     let template = null;
     
     if (!product) {
@@ -26,19 +40,16 @@ export const PackageDisplayItem = observer(({item, selectedVariant, selectedSize
     } else {
         // console.debug(product)
 
-        let variant = selectedVariant;
+        if (!orderItemInfo) {
         
-        if (!variant) {
-            variant = product.variants.at(0)
+            orderItemInfo = cartStore.createOrderItem(product, itemType)
         }
-        
-        const sizes = variant.sizes;
-        
-        let size = selectedSize;
 
-        if (!size) {
-            size = variant.sizes.at(0)
-        }
+
+        const selectedVariant = orderItemInfo.variant
+        
+        const sizes = product.variants.find(e=>e.color === selectedVariant.color)?.sizes || [];
+        const size = orderItemInfo.variant.size || ''        
 
         // console.debug(sizes);
         template = (
@@ -47,12 +58,20 @@ export const PackageDisplayItem = observer(({item, selectedVariant, selectedSize
                 <VariantSelector
                     name={item.name}
                     variants={product.variants}
-                    onChangeVariant={onChangeVariant}
-                    selectedVariant={variant}
+                    onChangeVariant={updateVariant}
+                    selectedVariant={selectedVariant}
                 />
 
                 {/* Size Variants */}
-                <SizeSelector onChangeSize={onChangeSize} selectedSize={size} sizes={sizes} />
+                <SizeSelector
+                    onChangeSize={(size: string) => {
+                        updateVariant({
+                            size,
+                        })
+                    }}
+                    selectedSize={selectedSize}
+                    sizes={sizes}
+                />
             </>
         )
     }

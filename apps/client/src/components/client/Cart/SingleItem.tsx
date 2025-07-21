@@ -2,24 +2,28 @@
 
 import React from "react";
 import { MinusIcon, PlusIcon, TrashIcon } from "@/components/Common/Icons";
-import { ProductImage } from "@rw/shared";
-import { CartItem, useCartAction, useProduct } from "@/hooks/useProduct";
+import { formatNaira, ProductImage, useNavigate } from "@rw/shared";
 import Link from "next/link";
 import { SHOP } from "@/constants";
 import { observer } from "mobx-react-lite";
+import { OrderItem } from "@rcffuta/ict-lib";
+import cartStore from "@/lib/store/cartStore";
+import { PencilIcon } from "lucide-react";
 
 
 const SingleItem = observer(
-    ({ item }: { item: CartItem }) => {
+    ({ item }: { item: OrderItem }) => {
 
-        const {product, quantity} = item;
+        // const {product, quantity} = item;
         // const [quantity, setQuantity] = useState(quantity);
 
-        const { priceText, getOrderItemPrice } = useProduct(product);
+        // const { priceText, getOrderItemPrice } = useProduct(product);
 
-        const { updateCartQuantity, deleteFromCart } = useCartAction(product);
+        // const { updateCartQuantity, deleteFromCart } = useCartAction(product);
 
-        const orderPrice = getOrderItemPrice(quantity);
+        // const orderPrice = getOrderItemPrice(quantity);
+
+        const {navigate} = useNavigate();
 
         return (
             <div className="flex items-center border-t border-gray-3 py-5 px-7.5">
@@ -30,16 +34,16 @@ const SingleItem = observer(
                                 <ProductImage
                                     width={100}
                                     height={100}
-                                    src={product.images?.at(0)}
-                                    alt={product.title}
+                                    src={item.variant.image}
+                                    alt={item.name}
                                 />
                             </div>
 
                             <div>
                                 <h3 className="text-dark ease-out duration-200 hover:text-blue">
-                                    <Link href={`${SHOP}/${product.id}`}>
+                                    <Link href={`${SHOP}/${item.itemId}`}>
                                         {" "}
-                                        {product.title}{" "}
+                                        {item.name}{" "}
                                     </Link>
                                 </h3>
                             </div>
@@ -48,42 +52,51 @@ const SingleItem = observer(
                 </div>
 
                 <div className="min-w-[180px]">
-                    <p className="text-dark">{priceText}</p>
+                    <p className="text-dark">{formatNaira(item.price)}</p>
                 </div>
 
                 <div className="min-w-[275px]">
                     <div className="w-max flex items-center rounded-md border border-gray-3">
-                        <button
-                            onClick={() => updateCartQuantity(quantity - 1)}
+                        {/* <button
+                            // onClick={() => cartStore.updateQuantity(item.quantity - 1, {}, )}
                             aria-label="button for remove product"
                             className="flex items-center justify-center w-11.5 h-11.5 ease-out duration-200 hover:text-blue"
                         >
                             <MinusIcon />
-                        </button>
+                        </button> */}
 
                         <span className="flex items-center justify-center w-16 h-11.5 border-x border-gray-4">
-                            {quantity}
+                            {item.quantity}
                         </span>
 
-                        <button
-                            onClick={() => updateCartQuantity(quantity + 1)}
+                        {/* <button
+                            // onClick={() => updateCartQuantity(quantity + 1)}
                             aria-label="button for add product"
                             className="flex items-center justify-center w-11.5 h-11.5 ease-out duration-200 hover:text-blue"
                         >
                             <PlusIcon />
-                        </button>
+                        </button> */}
                     </div>
                 </div>
 
                 <div className="min-w-[200px]">
-                    <p className="text-dark">{orderPrice.amountText}</p>
+                    <p className="text-dark">{formatNaira(item.price * item.quantity)}</p>
                 </div>
 
-                <div className="min-w-[50px] flex justify-end">
+                <div className="min-w-[50px] flex justify-between gap-1">
                     <button
-                        onClick={deleteFromCart}
+                        onClick={()=>{
+                            navigate(`${SHOP}/${item.itemId}`)
+                        }}
                         aria-label="button for remove product from cart"
-                        className="flex items-center justify-center rounded-lg max-w-[38px] w-full h-9.5 bg-gray-2 border border-gray-3 text-dark ease-out duration-200 hover:bg-red-light-6 hover:border-red-light-4 hover:text-red"
+                        className="flex items-center justify-center rounded-lg max-w-[38px] w-full h-9.5 text-dark ease-out duration-200 hover:bg-red-light-6 hover:border-red-light-4 hover:text-blue-light"
+                    >
+                        <PencilIcon />
+                    </button>
+                    <button
+                        onClick={()=>cartStore.deleteFromCart(item.itemId)}
+                        aria-label="button for remove product from cart"
+                        className="flex items-center justify-center rounded-lg max-w-[38px] w-full h-9.5 text-dark ease-out duration-200 hover:bg-red-light-6 hover:border-red-light-4 hover:text-red"
                     >
                         <TrashIcon />
                     </button>

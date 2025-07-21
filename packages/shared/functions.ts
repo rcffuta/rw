@@ -83,3 +83,15 @@ export function truncateText(
   
   return truncated + ellipsis;
 }
+
+
+export function normalizeQuantity(quantity?: number, prev?:number): number {
+  if (quantity === undefined) {
+    if (prev) {
+      return prev + 1;
+    }
+    return 1;
+  };
+  if (quantity < 0) return 0;
+  return quantity;
+}
