@@ -70,18 +70,19 @@ const OrderSummary = observer(() => {
                     </div>
 
                     {/* <!-- checkout button --> */}
-                    <Link
-                        href={CHECKOUT}
+                    <button
+                        // href={CHECKOUT}
                         onClick={(e)=>{
-                            if(!isAuthenticated) {
-                                e.preventDefault();
-                                redirect(SIGNIN);
-                            }
+                            // if(!isAuthenticated) {
+                            //     e.preventDefault();
+                            //     redirect(SIGNIN);
+                            // }
                         }}
+                        type="submit"
                         className="w-full flex justify-center font-medium text-white bg-blue py-3 px-6 rounded-md ease-out duration-200 hover:bg-blue-dark mt-7.5"
                     >
                         Process to Checkout
-                    </Link>
+                    </button>
                 </div>
             </div>
         </div>

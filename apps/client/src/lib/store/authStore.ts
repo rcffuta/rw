@@ -1,6 +1,8 @@
 
-import { autoLoginMember, MemberObject, wait } from "@rcffuta/ict-lib";
+import { autoLoginMember, findMemberById, findUnderGraduates, getMemberFromStoredToken, MemberObject, wait } from "@rcffuta/ict-lib";
 import { makeAutoObservable } from "mobx";
+import { CheckoutFormData } from "../validators/checkout.validator";
+import toast from "react-hot-toast";
 
 type User = MemberObject;
 
@@ -10,7 +12,7 @@ class AuthStore {
     loading = false;
 
     constructor() {
-        makeAutoObservable(this);
+        makeAutoObservable(this); 
     }
 
     updateUser(user: User) {
@@ -27,11 +29,35 @@ class AuthStore {
 
         this.loading = true;
 
+        const {
+            success,
+            data
+        } = await getMemberFromStoredToken();
 
-        // const dt = await autoLoginMember();
-        await wait(5);
+
+        if (success) {
+            this.user = data;
+            toast.success("Authenticated you from ICT")
+        }
+
         this.loading = false;
 
+    }
+
+
+    async authenticateDetails(data: CheckoutFormData) {
+        const {success, data:undergraduates} = await findUnderGraduates();
+
+        if (!success) return null
+
+        const member = undergraduates.find(e=>e.email === data.email);
+
+        if (!member) return null;
+
+
+        toast.success("Found your information");
+
+        await autoLoginMember({member})
     }
 
     async logout() {

@@ -10,6 +10,12 @@ import EmptyCart from "./EmptyCart";
 import { CartItem } from "@/hooks/useProduct";
 import cartStore from "@/lib/store/cartStore";
 import { OrderItem } from "@rcffuta/ict-lib";
+import CheckoutForm from "../Checkout/CheckoutForm";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { CheckoutFormData, checkoutSchema } from "@/lib/validators/checkout.validator";
+import authStore from "@/lib/store/authStore";
+import toast, { ToastOptions } from "react-hot-toast";
 
 
 const CartTable = ({ items }: { items: OrderItem[]}) => {
@@ -51,24 +57,95 @@ const CartTable = ({ items }: { items: OrderItem[]}) => {
 };
 
 const Cart = observer(() => {
-    
+    const toastConfig: ToastOptions = {
+        id: 'checkOutToast',
+        duration: 5000,
+    }
 
     const cartItems = cartStore.items;
 
     const isEmptyCart = cartStore.isEmptyCart;
+
+    const user = authStore.user;
     
     let template = <EmptyCart />;
+
+    function processCheckout(e: any) {
+        e.preventDefault();
+
+        console.debug("Processing...")
+    }
+
+    const {
+        register,
+        handleSubmit,
+        formState: { errors, isSubmitting: loading },
+    } = useForm<CheckoutFormData>({
+        resolver: zodResolver(checkoutSchema),
+        defaultValues: {
+            email: user?.email,
+            phoneNumber: user?.contacts
+        },
+    });
+
+
+    const onSubmit = async (data: CheckoutFormData) => {
+        // toast.error("Not Implemented", { id: toastID, duration: 800 });
+
+        console.debug(data)
+
+        toast.loading('Processing...', { ...toastConfig, duration: 0 })
+
+        try {
+            // const {
+            //     success,
+            //     message = "Could not Checkout",
+            //     data: link,
+            // } = await checkoutAction({
+            //     billingDetails: data,
+            //     items: items,
+            //     totalPrice,
+            //     user,
+            //     redirect: window.location.origin + "/verify",
+            // });
+
+            // if (!success) {
+            //     throw new Error(message);
+            // }
+
+            // await wait(3)
+
+            throw new Error('Hold on...')
+
+            // toast.success(message, toastConfig);
+
+            // try {
+            //     window.location.href = link;
+            // } catch (err) {
+            //     console.error("Window not accessible!", err);
+            //     throw new Error("Could not redirect you");
+            //     return;
+            // }
+        } catch (err) {
+            console.error('Error Checkout Out', err)
+            toast.error(err.message, toastConfig)
+        }
+    }
 
     if (!isEmptyCart) template = (
         <>
             <CartTable items={cartItems} />
 
-            <div className="flex flex-col lg:flex-row gap-7.5 xl:gap-11 mt-9">
-                <Discount />
+            <form
+                onSubmit={handleSubmit(onSubmit)}
+                className="flex flex-col lg:flex-row gap-7.5 xl:gap-11 mt-9"
+            >
+                {/* <Discount /> */}
+                <CheckoutForm register={register} errors={errors} />
                 <OrderSummary />
-            </div>
+            </form>
         </>
-    );
+    )
 
 
     return (

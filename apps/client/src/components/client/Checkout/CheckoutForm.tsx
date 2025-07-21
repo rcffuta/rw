@@ -5,7 +5,7 @@ import Login from "./Login";
 import Shipping from "./Shipping";
 import { observer } from "mobx-react-lite";
 import authStore from "@/lib/store/authStore";
-import { useForm } from "react-hook-form";
+import { FieldErrors, useForm, UseFormHandleSubmit, UseFormRegister } from "react-hook-form";
 import { CheckoutFormData, checkoutSchema } from "@/lib/validators/checkout.validator";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FormWrapper } from "@/components/Common/Form/FormUtils";
@@ -13,93 +13,32 @@ import InputField, { FormError } from "@/components/Common/Form/InputField";
 import toast, { ToastOptions } from "react-hot-toast";
 
 import { checkoutAction } from "@/actions/checkout";
+import cartStore from "@/lib/store/cartStore";
+import { wait } from "@rw/shared";
+import { Order } from "@rcffuta/ict-lib";
 
 type CheckoutFormProps = {
-    items: any[];
-    totalPrice: number;
+    register: UseFormRegister<CheckoutFormData>
+    // handleSubmit: UseFormHandleSubmit<CheckoutFormData, CheckoutFormData>
+    errors: FieldErrors<CheckoutFormData>;
 }
 
 
-function CheckoutForm(props: CheckoutFormProps) {
-    const toastConfig: ToastOptions = {
-        id: "checkOutToast",
-        duration: 5000,
-    };
+function CheckoutForm({ register, errors }: CheckoutFormProps) {
+   
 
-    const {
-        items,
-        totalPrice
-    } = props;
-    const user = authStore.user;
-    const {
-        register,
-        handleSubmit,
-        formState: { errors, isSubmitting: loading },
-    } = useForm<CheckoutFormData>({
-        resolver: zodResolver(checkoutSchema),
-        defaultValues: {
-            email: user?.email,
-            phoneNumber: user?.contacts
-        }
-    });
-
-    const onSubmit = async (data: CheckoutFormData) => {        
-        // toast.error("Not Implemented", { id: toastID, duration: 800 });
-
-
-        toast.loading("Processing...", { ...toastConfig, duration: 0 });
-
-        try {
-            const {
-                success,
-                message = "Could not Checkout",
-                data: link,
-            } = await checkoutAction({
-                billingDetails: data,
-                items: items,
-                totalPrice,
-                user,
-                redirect: window.location.origin + "/verify",
-            });
-
-
-            if (!success) {
-                throw new Error(message);
-            }
-
-            toast.success(message, toastConfig);
-
-            try {
-                window.location.href = link;
-            } catch (err) {
-                console.error("Window not accessible!", err);
-                throw new Error("Could not redirect you");
-                return;
-            }
-        } catch (err) {
-            console.error("Error Checkout Out", err);
-            toast.error(err.message, toastConfig);
-        }
-    };
+    
 
     return (
         <section className="bg-white shadow-1 rounded-[10px] p-4 sm:p-8.5">
             {/* <Login /> */}
 
-            <h2 className="font-medium text-dark text-xl sm:text-2xl mb-5.5">
-                Billing details
-            </h2>
+            <h2 className="font-medium text-dark text-xl sm:text-2xl mb-5.5">Billing details</h2>
 
-            <form
-                // onSubmit={async (e) => {
-                //     e.preventDefault();
-
-                //     // await handleBillingDetails(e);
-                //     // handleCheckout(summary);
-                //     // toast.error("Still implementing!")
-                // }}
-                onSubmit={handleSubmit(onSubmit)}
-                id="checkout-form"
+            <div
+                
+                // onSubmit={handleSubmit(onSubmit)}
+                // id="checkout-form"
                 className="border-t border-gray-3"
             >
                 {/* <!-- billing details --> */}
@@ -115,7 +54,7 @@ function CheckoutForm(props: CheckoutFormProps) {
                         placeholder="e.g John"
                         error={errors.firstname?.message}
                         required
-                        {...register("firstname")}
+                        {...register('firstname')}
                     />
 
                     <InputField
@@ -125,7 +64,7 @@ function CheckoutForm(props: CheckoutFormProps) {
                         placeholder="e.g Fumise"
                         error={errors.lastname?.message}
                         required
-                        {...register("lastname")}
+                        {...register('lastname')}
                     />
                 </FormWrapper>
 
@@ -136,7 +75,7 @@ function CheckoutForm(props: CheckoutFormProps) {
                     // className="w-full"
                     error={errors.email?.message}
                     required
-                    {...register("email")}
+                    {...register('email')}
                 />
 
                 <InputField
@@ -146,10 +85,10 @@ function CheckoutForm(props: CheckoutFormProps) {
                     placeholder="Enter your phone number"
                     error={errors.phoneNumber?.message}
                     required
-                    {...register("phoneNumber")}
+                    {...register('phoneNumber')}
                 />
 
-                <InputField
+                {/* <InputField
                     type="text"
                     label="Address"
                     name="address"
@@ -157,7 +96,7 @@ function CheckoutForm(props: CheckoutFormProps) {
                     error={errors.address?.message}
                     required
                     {...register("address")}
-                />
+                /> */}
 
                 {/* <!-- address box two --> */}
                 {/* <Shipping errors={{}} /> */}
@@ -167,11 +106,11 @@ function CheckoutForm(props: CheckoutFormProps) {
                     placeholder="Notes about your order, e.g. speacial notes for delivery."
                     onChange={(e) => {}} //handleNote(e.target.value)}
                 /> */}
-            </form>
+            </div>
 
             {/* <!-- others note box --> */}
         </section>
-    );
+    )
 }
 
 export default observer(CheckoutForm);

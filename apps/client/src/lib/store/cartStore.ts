@@ -1,12 +1,14 @@
 
 import { makeAutoObservable, toJS } from "mobx";
 import { OrderItem, ProductRecord, ProductVariant } from "@rcffuta/ict-lib";
+import { CheckoutFormData } from "../validators/checkout.validator";
 
 
 const LOCAL_CART_KEY = "guest_cart";
 
 class CartStore {
     private _order_items = new Map<string, OrderItem>();
+    billing: CheckoutFormData = {};
     syncing: boolean = false;
 
     constructor() {
