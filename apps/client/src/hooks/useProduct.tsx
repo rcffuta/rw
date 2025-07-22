@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import cartStore from "@/lib/store/cartStore";
+import { cartStore } from '@/lib/store/cart-utils'
 import productStore from "@/lib/store/productStore";
 import wishlistStore from "@/lib/store/wishlistStore";
 import { ProductInfo } from "@rcffuta/ict-lib";

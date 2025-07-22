@@ -6,15 +6,15 @@ import { MerchPackageRecord, Order, OrderItem, ProductRecord, ProductVariant } f
 import { Cta, Price, Rating } from './utils'
 import Link from 'next/link'
 import { FileSearch } from 'lucide-react'
-import clsx from 'clsx'
 import { SacredQuantityInput } from './quantity'
 import VariantSelector from '@/components/ui/VariantSelector'
 import SizeSelector from '@/components/ui/SizeSelector'
 import QuantitySelector from '@/components/ui/QuantitySelector'
 import { PackageDisplayItem } from '@/components/ui/DisplayItem'
 import { observer } from 'mobx-react-lite'
-import cartStore, { OrderType } from '@/lib/store/cartStore'
+import { OrderType } from '@/lib/store/cartStore'
 import { CART } from '@/constants'
+import { cartStore } from '@/lib/store/cart-utils'
 
 export const  ProductDisplay = observer(({ product }: { product: ProductRecord }) => {
 
@@ -53,7 +53,11 @@ export const  ProductDisplay = observer(({ product }: { product: ProductRecord }
     }
 
     function saveOrder() {
-        navigate(CART)
+        const done = cartStore.addToCart(product, itemType);
+
+        if (done) {
+            navigate(CART)
+        }
     }
     
 

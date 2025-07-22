@@ -5,7 +5,8 @@ import SizeSelector from "./SizeSelector";
 import { observer } from "mobx-react-lite";
 import productStore from "@/lib/store/productStore";
 import { useNavigate } from "@rw/shared";
-import cartStore, { OrderType } from "@/lib/store/cartStore";
+import { OrderType } from "@/lib/store/cartStore";
+import { cartStore } from "@/lib/store/cart-utils";
 
 type Props = {
     onChangeVariant:(variant: ProductVariant)=>void; 

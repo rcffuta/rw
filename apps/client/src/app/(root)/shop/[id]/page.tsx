@@ -2,7 +2,6 @@ import React, { Suspense } from "react";
 import { Metadata } from "next";
 import Breadcrumb from "@/components/Common/Breadcrumb";
 import RecentlyViewedItems from "@/components/client/Shop/RecentlyViewed";
-import Newsletter from "@/components/Common/Newsletter";
 import { APP_NAME } from "@rw/shared";
 import { isEmpty } from "@rcffuta/ict-lib";
 import { getProduct } from "@/actions/product.action";

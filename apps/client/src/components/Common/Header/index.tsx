@@ -5,10 +5,10 @@ import { menuData } from './menuData'
 import { useCartModalContext } from '@/context/CartSidebarModalContext'
 import Logo from '../Logo'
 import { CartIcon } from '../Icons' // Added FireIcon for redemption theme
-import cartStore from '@/lib/store/cartStore'
 import { observer } from 'mobx-react-lite'
 import { UserHighlight } from './UserHighlight'
 import { CART } from '@/constants'
+import { cartStore } from '@/lib/store/cart-utils'
 
 type HeaderProps = {
     stickyMenu?: boolean

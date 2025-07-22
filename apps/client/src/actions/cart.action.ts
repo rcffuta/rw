@@ -2,7 +2,7 @@
 
 import { createOrder, getOrders, Order, OrderRecord, updateOrder, wait } from "@rcffuta/ict-lib";
 
-export async function createCart(order: Order) {
+export async function createNewOrder(order: Order) {
     try {
 
         return await createOrder(order);
@@ -42,16 +42,16 @@ export async function loadCart(userEmail: string) {
     }
 }
 
-export async function updateCart(order: Partial<OrderRecord>) {
+export async function updateOrderInfo(orderId:string, order: Partial<Order>) {
     try {
-        const {id, createdAt, ...rest} = order;
+        // const {id, createdAt, updatedAt, ...rest} = order;
         // delete order.id;
         // delete order.createdAt;
         // delete order.updatedAt;
-        return await updateOrder(id, rest);
+        return await updateOrder(orderId, order);
     } catch (err){
         console.error(err);
-        throw new Error("Could not add product to cart");
+        throw new Error("Could not Coplete Order");
     }
 }
 

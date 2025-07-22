@@ -3,7 +3,7 @@ import React from "react";
 import { CrossIcon3, StockCheck } from "@/components/Common/Icons";
 import wishlistStore from "@/lib/store/wishlistStore";
 import { ProductImage, useFormatCurrency } from "@rw/shared";
-import cartStore from "@/lib/store/cartStore";
+import { cartStore } from '@/lib/store/cart-utils'
 
 const SingleItem = ({ item }: {item: any}) => {
   // const { handleAddToCart, handleRemoveFromWishlist } = useProductAction(item.product);

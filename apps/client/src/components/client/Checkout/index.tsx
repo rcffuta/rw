@@ -4,7 +4,7 @@ import React from "react";
 import { Spinner } from "../../Common/Icons";
 
 import { observer } from "mobx-react-lite";
-import cartStore from "@/lib/store/cartStore";
+import { cartStore } from '@/lib/store/cart-utils'
 import { CheckoutList } from "./CheckoutList";
 import CheckoutForm from "./CheckoutForm";
 

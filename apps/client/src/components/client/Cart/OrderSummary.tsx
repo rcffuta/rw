@@ -1,15 +1,10 @@
-import { CHECKOUT, SIGNIN } from "@/constants";
-import authStore from "@/lib/store/authStore";
-import cartStore from "@/lib/store/cartStore";
-import { formatNaira, useNavigate } from "@rw/shared";
+"use client";
+import { cartStore } from '@/lib/store/cart-utils'
+import { formatNaira } from "@rw/shared";
 import { observer } from "mobx-react-lite";
-import Link from "next/link";
 import React from "react";
 
-const OrderSummary = observer(() => {
-    const isAuthenticated = authStore.isAuthenticated;
-
-    const {redirect} = useNavigate();
+const OrderSummary = observer(({proceed=true}:{proceed?:boolean}) => {    
 
     const items = cartStore.items;
 
@@ -70,7 +65,7 @@ const OrderSummary = observer(() => {
                     </div>
 
                     {/* <!-- checkout button --> */}
-                    <button
+                   {proceed && <button
                         // href={CHECKOUT}
                         onClick={(e)=>{
                             // if(!isAuthenticated) {
@@ -82,7 +77,7 @@ const OrderSummary = observer(() => {
                         className="w-full flex justify-center font-medium text-white bg-blue py-3 px-6 rounded-md ease-out duration-200 hover:bg-blue-dark mt-7.5"
                     >
                         Process to Checkout
-                    </button>
+                    </button>}
                 </div>
             </div>
         </div>

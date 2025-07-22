@@ -3,7 +3,7 @@
 import { FullScreenIcon, MinusIcon, PlusIcon, Star, StockCheck, WishListIcon2 } from "@/components/Common/Icons";
 import { usePreviewSlider } from "@/context/PreviewSliderContext";
 // import { useProductAction } from "@/hooks/useProduct";
-import cartStore from "@/lib/store/cartStore";
+import { cartStore } from '@/lib/store/cart-utils'
 import wishlistStore from "@/lib/store/wishlistStore";
 import { ProductImage } from "@rw/shared";
 import clsx from "clsx";

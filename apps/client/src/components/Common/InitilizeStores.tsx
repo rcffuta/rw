@@ -1,7 +1,7 @@
 "use client";
 
 import authStore from "@/lib/store/authStore";
-import cartStore from "@/lib/store/cartStore";
+import { cartStore } from '@/lib/store/cart-utils'
 import productStore from "@/lib/store/productStore";
 import { observer } from "mobx-react-lite";
 import { useEffect } from "react";
