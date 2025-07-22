@@ -22,10 +22,11 @@ class ProductStore {
     selectedCategory: Option = defaultOption;
 
     loading = false;
+    loaded = false;
 
     constructor() {
         makeAutoObservable(this);
-        // this.loadAllProducts();
+        this.loadAllProducts();
     }
 
 
@@ -52,6 +53,7 @@ class ProductStore {
 
     async loadAllProducts(){
         if (this.loading) return;
+        if (this.loaded) return;
         this.loading = true;
 
         const dt = await loadProducts();
@@ -59,6 +61,7 @@ class ProductStore {
         this.productItems = dt;
 
         this.loading = false;
+        this.loaded = dt.length > 0;
     }
 
 
