@@ -113,7 +113,7 @@ importers:
     dependencies:
       '@rcffuta/ict-lib':
         specifier: ^2.1.2
-        version: 2.3.0
+        version: 2.4.0
       '@react-email/components':
         specifier: ^0.0.41
         version: 0.0.41(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
@@ -182,8 +182,8 @@ importers:
         specifier: ^5.0.1
         version: 5.1.1(react-hook-form@7.60.0(react@19.0.0))
       '@rcffuta/ict-lib':
-        specifier: 2.3.0
-        version: 2.3.0
+        specifier: 2.4.0
+        version: 2.4.0
       '@rw/shared':
         specifier: workspace:*
         version: link:../../packages/shared
@@ -794,8 +794,8 @@ packages:
   '@prisma/get-platform@6.11.1':
     resolution: {integrity: sha512-b2Z8oV2gwvdCkFemBTFd0x4lsL4O2jLSx8lB7D+XqoFALOQZPa7eAPE1NU0Mj1V8gPHRxIsHnyUNtw2i92psUw==}
 
-  '@rcffuta/ict-lib@2.3.0':
-    resolution: {integrity: sha512-BttCvg4x51VIBOjKhKTD0tlhVczPVFySNoeAK6+hm87LEujaiW9DhEMERPCD0Ej7XVTohrLrW8qfk3NY+xHzSw==, tarball: https://npm.pkg.github.com/download/@rcffuta/ict-lib/2.3.0/17dd1975b31a583e2332ecb2cb0eeea82ec1ef59}
+  '@rcffuta/ict-lib@2.4.0':
+    resolution: {integrity: sha512-SnE045SoYMV/kjZiPac0K3VAGMpkUpxU2GToiU3AmL+8i7GjQWWcC+ngsXAHtYqrsDpAteL693X5gx80VjIcSg==, tarball: https://npm.pkg.github.com/download/@rcffuta/ict-lib/2.4.0/e4ac486bcf696be18a8e3c10abe156038a6a08a4}
 
   '@react-email/body@0.0.11':
     resolution: {integrity: sha512-ZSD2SxVSgUjHGrB0Wi+4tu3MEpB4fYSbezsFNEJk2xCWDBkFiOeEsjTmR5dvi+CxTK691hQTQlHv0XWuP7ENTg==}
@@ -3920,7 +3920,7 @@ snapshots:
     dependencies:
       '@prisma/debug': 6.11.1
 
-  '@rcffuta/ict-lib@2.3.0':
+  '@rcffuta/ict-lib@2.4.0':
     dependencies:
       '@react-email/components': 0.0.33(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       '@react-email/render': 1.1.3(react-dom@19.0.0(react@19.0.0))(react@19.0.0)

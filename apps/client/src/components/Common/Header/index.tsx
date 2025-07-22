@@ -8,16 +8,13 @@ import { CartIcon } from '../Icons' // Added FireIcon for redemption theme
 import { observer } from 'mobx-react-lite'
 import { UserHighlight } from './UserHighlight'
 import { CART } from '@/constants'
-import { cartStore } from '@/lib/store/cart-utils'
 
 type HeaderProps = {
     stickyMenu?: boolean
-    // navigationOpen?: boolean
-    // setNavigationOpen: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 const Header = ({ stickyMenu=true }: HeaderProps) => {
-    const { totalPrice } = cartStore;
+
     const cartItems = [];
     const { openCartModal } = useCartModalContext()
     // const formatCurrency = useFormatCurrency()

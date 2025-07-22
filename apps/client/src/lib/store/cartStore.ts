@@ -1,7 +1,8 @@
 // stores/cart-store.ts
 import { makeAutoObservable, toJS } from "mobx";
-import { OrderItem, OrderRecord, ProductRecord, ProductVariant, Order } from "@rcffuta/ict-lib";
+import { OrderItem, OrderRecord, ProductRecord, ProductVariant, Order, MerchPackageRecord, PackageItem, OrderVariant } from "@rcffuta/ict-lib";
 import { CheckoutFormData } from "../validators/checkout.validator";
+import productStore from "./productStore";
 
 export type OrderType = "product" | "package";
 export interface StoredCart {
@@ -59,7 +60,7 @@ export class CartStore {
     return this._order_items.get(itemId) || null;
   }
 
-  createOrderItem(product: ProductRecord, itemType: OrderType): OrderItem {
+  createProductOrderItem(product: ProductRecord): OrderItem {
     const firstVariant: ProductVariant = product.variants[0] || {
       color: "",
       image: "",
@@ -68,7 +69,7 @@ export class CartStore {
 
     return {
       itemId: product.id,
-      itemType,
+      itemType: "product",
       name: product.name,
       price: product.price,
       quantity: 1,
@@ -80,12 +81,51 @@ export class CartStore {
     };
   }
 
+  createPackageOrderItem(pkg: MerchPackageRecord): OrderItem {
+    // const firstVariant: ProductVariant = pkg.items.at(0).variants[0] || {
+    //   color: "",
+    //   image: "",
+    //   sizes: [""],
+    // };
+
+    const variant: OrderVariant[] = pkg.items.map(item => {
+      const prod = productStore.getProductItem(item.productId);
+      if (!prod) {
+        return {
+          color: "",
+          size: "",
+          image: "",
+        };
+      
+      }
+
+      const vart = prod.variants[0];
+
+      const firstVariant: OrderVariant = {
+        color: vart.color || "",
+        size: vart.sizes[0] || "",
+        image: vart.image || "",
+      };
+
+      return firstVariant;
+    });
+
+    return {
+      itemId: pkg.id,
+      itemType: "package",
+      name: pkg.name,
+      price: pkg.totalPrice,
+      quantity: 1,
+      variant,
+    };
+  }
+
   deleteFromCart(productId: string): void {
     this._order_items.delete(productId);
   }
 
-  updateQuantity(quantity: number, product: ProductRecord, itemType: OrderType): void {
-    const item = this.getOrderItemById(product.id) || this.createOrderItem(product, itemType);
+  updateProductQuantity(quantity: number, product: ProductRecord): void {
+    const item = this.getOrderItemById(product.id) || this.createProductOrderItem(product);
 
     this._order_items.set(product.id, {
       ...item,
@@ -93,26 +133,23 @@ export class CartStore {
     });
   }
 
-  updateVariant(variant: Partial<OrderItem["variant"]>, product: ProductRecord, itemType: OrderType): void {
-    const item = this.getOrderItemById(product.id) || this.createOrderItem(product, itemType);
+  updateVariant(variant: Partial<OrderVariant>, product: ProductRecord): void {
+    const item = this.getOrderItemById(product.id) || this.createProductOrderItem(product);
 
     this._order_items.set(product.id, {
       ...item,
+      itemType: "product",
       variant: {
-        ...item.variant,
-        ...variant,
+        color: variant.color || (item.variant as OrderVariant).color || "",
+        size: variant.size || (item.variant as OrderVariant).size || "",
+        image: variant.image || (item.variant as OrderVariant).image || "",
       },
     });
   }
 
-  addToCart(product: ProductRecord, itemType: OrderType): boolean {
-    // if (this._order_items.has(product.id)) return {
-    //   this.ad
-    // };
+  setItemInCart(orderItem: OrderItem, productId: string) {
 
-    const item = this.createOrderItem(product, itemType);
-    this._order_items.set(product.id, item);
-    return true;
+      this._order_items.set(productId, orderItem);
   }
 
   get itemCount(): number {

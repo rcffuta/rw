@@ -1,7 +1,7 @@
 "use client";
 import SingleItem from "./SingleItem";
 import { observer } from "mobx-react-lite";
-import { cartStore } from '@/lib/store/cart-utils'
+import { cartStore, clearCart } from '@/lib/store/cart-utils'
 import EmptyCart from "./EmptyCart";
 
 
@@ -15,8 +15,8 @@ function CartTable () {
 
 
     const handleClearCart = () => {
-        // Implement cart clearing logic
-        console.debug('Clearing cart...')
+
+        clearCart(cartStore);
     }
 
 

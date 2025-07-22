@@ -4,7 +4,7 @@
 import toast from "react-hot-toast";
 import { createCartStore } from "./cartStore";
 import { createNewOrder, updateOrderInfo } from "@/actions/cart.action";
-import { Order, OrderRecord } from "@rcffuta/ict-lib";
+import { MerchPackageRecord, Order, OrderItem, OrderRecord, ProductRecord } from "@rcffuta/ict-lib";
 import { CheckoutFormData } from "../validators/checkout.validator";
 
 const LOCAL_CART_KEY = "guest_cart";
@@ -81,4 +81,27 @@ export async function persistOrder(cart: typeof cartStore, billing: CheckoutForm
   });
 
   return data;
+}
+
+
+export function setProductInCart(cart: typeof cartStore, product: ProductRecord, orderItem: OrderItem) {
+  cart.setItemInCart(orderItem, product.id);
+  saveCartToStorage({
+    items: cart.items,
+    billing: cart.billing,
+    order: cart.order,
+  });
+}
+export function setPackageInCart(cart: typeof cartStore, pkg: MerchPackageRecord, orderItem: OrderItem) {
+  cart.setItemInCart(orderItem, pkg.id);
+  saveCartToStorage({
+    items: cart.items,
+    billing: cart.billing,
+    order: cart.order,
+  });
+}
+
+export function clearCart(cart: typeof cartStore) {
+  cart.clearCart();
+  clearOrderState(cart);
 }

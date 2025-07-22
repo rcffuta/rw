@@ -1,11 +1,11 @@
 "use client";
-import { OrderItem, ProductVariant } from "@rcffuta/ict-lib"
+import { OrderItem, OrderVariant, ProductVariant } from "@rcffuta/ict-lib"
 import { ProductImage } from "@rw/shared";
 import clsx from "clsx";
 
 type Props = {
     variants: ProductVariant[];
-    selectedVariant?: OrderItem['variant']
+    selectedVariant?: OrderVariant;
     onChangeVariant: (variant: Partial<OrderItem['variant']>) => void
     name: string
     small?: boolean;

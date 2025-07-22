@@ -1,8 +1,8 @@
 'use client'
 
 import { useState } from 'react'
-import { formatNaira, normalizeQuantity, ProductImage, useNavigate } from '@rw/shared'
-import { MerchPackageRecord, Order, OrderItem, ProductRecord, ProductVariant } from '@rcffuta/ict-lib'
+import { formatNaira, ProductImage } from '@rw/shared'
+import { MerchPackageRecord, ProductRecord, ProductVariant } from '@rcffuta/ict-lib'
 import { Cta, Price, Rating } from './utils'
 import Link from 'next/link'
 import { FileSearch } from 'lucide-react'
@@ -11,55 +11,19 @@ import VariantSelector from '@/components/ui/VariantSelector'
 import SizeSelector from '@/components/ui/SizeSelector'
 import { PackageDisplayItem } from '@/components/ui/DisplayItem'
 import { observer } from 'mobx-react-lite'
-import { OrderType } from '@/lib/store/cartStore'
-import { CART } from '@/constants'
-import { cartStore } from '@/lib/store/cart-utils'
+
+import { usePackageCart, useProductCart } from '@/hooks/useCart'
 
 export const  ProductDisplay = observer(({ product }: { product: ProductRecord }) => {
 
-
-    // const [selectedSize, setSelectedSize] = useState<string>(product.variants[0].sizes[0])
-
-    const {navigate} = useNavigate();
-
-    const itemType: OrderType = "product";
-
-
-    let orderItemInfo = cartStore.getOrderItemById(product.id)
-
-    if (!orderItemInfo) {
-
-        orderItemInfo = cartStore.createOrderItem(product, itemType)
-    }
-
-
-
-    const selectedVariant = orderItemInfo.variant;
-    const quantity = orderItemInfo.quantity;
-    const selectedSize = orderItemInfo.variant.size || "";
-    
-  
-
-
-    function setQuantity(q?:number){
-
-        cartStore.updateQuantity(normalizeQuantity(q, quantity), product, itemType)
-    }
-
-    function updateVariant(variant: Partial<OrderItem["variant"]>){
-
-        cartStore.updateVariant(variant, product, itemType)
-    }
-
-    function saveOrder() {
-        const done = cartStore.addToCart(product, itemType);
-
-        if (done) {
-            navigate(CART)
-        }
-    }
-    
-
+    const {
+        quantity,
+        saveOrder,
+        selectedSize,
+        selectedVariant,
+        setQuantity,
+        updateVariant
+    } = useProductCart(product);
 
     const sizes = product.variants.find(e=>e.color === selectedVariant.color)?.sizes || [];
 
@@ -102,12 +66,6 @@ export const  ProductDisplay = observer(({ product }: { product: ProductRecord }
                             selectedSize={selectedSize}
                             sizes={sizes}
                         />
-                        {/* 
-                        <QuantitySelector
-                            onChangeQuantity={setQuantity}
-                            product={product}
-                            quantity={quantity}
-                        /> */}
 
                         <div className="flex items-center gap-8">
                             <Cta product={product} mini={false} onClick={() => saveOrder()} />
@@ -130,28 +88,15 @@ export const  ProductDisplay = observer(({ product }: { product: ProductRecord }
 
 export function PackageDisplay({ pkg }: { pkg: MerchPackageRecord }) {
     const [activeTab, setActiveTab] = useState<string | null>(null);
-    const [selectedSize, setSelectedSize] = useState<Record<string, string>>({})
-    const [selectedVariants, setSelectedVariants] = useState<
-        Record<string, ProductVariant>
-    >({})
-
-    const handleVariantChange = (itemId: string, variant: ProductVariant) => {
-        setSelectedVariants((prev) => ({
-            ...prev,
-            [itemId]: {
-                ...prev[itemId],
-                ...variant,
-            },
-        }))
-    }
-    const handleSizeChange = (itemId: string, size: string) => {
-        setSelectedSize((prev) => ({
-            ...prev,
-            [itemId]: size,
-        }))
-    }
-
-
+    
+    const {
+        handleSizeChange,
+        handleVariantChange,
+        // quantity,
+        saveOrder,
+        selectedSize,
+        selectedVariants,
+    } = usePackageCart(pkg);
 
     return (
         <section className="relative py-12 lg:py-20 bg-gray-1">
@@ -221,6 +166,7 @@ export function PackageDisplay({ pkg }: { pkg: MerchPackageRecord }) {
                                             onChangeSize={(size) => handleSizeChange(item.productId, size)}
                                             selectedVariant={selectedVariants[item.productId]}
                                             selectedSize={selectedSize[item.productId]}
+                                            // sizes={item.variants.find(e => e.color === selectedVariants[item.productId]?.color)?.sizes || []}
                                         />
                                     ))}
                                 </div>
@@ -231,6 +177,7 @@ export function PackageDisplay({ pkg }: { pkg: MerchPackageRecord }) {
                                     label={pkg.isActive ? 'Place Order' : 'Coming Soon'}
                                     disabled={!pkg.isActive}
                                     // className="w-full py-4 text-lg"
+                                    onClick={() => saveOrder()}
                                 />
                                 <p className='mt-4'>Please check and select your preference</p>
                             </div>

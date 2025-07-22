@@ -1,5 +1,5 @@
 "use client"
-import { OrderItem, PackageItem, ProductVariant } from "@rcffuta/ict-lib"
+import { OrderItem, OrderVariant, PackageItem, ProductVariant } from "@rcffuta/ict-lib"
 import VariantSelector from "./VariantSelector";
 import SizeSelector from "./SizeSelector";
 import { observer } from "mobx-react-lite";
@@ -7,50 +7,41 @@ import productStore from "@/lib/store/productStore";
 import { useNavigate } from "@rw/shared";
 import { OrderType } from "@/lib/store/cartStore";
 import { cartStore } from "@/lib/store/cart-utils";
+import NotFound from "./NotFound";
+import { usePackageCart, usePackageProduct } from "@/hooks/useCart";
 
 type Props = {
-    onChangeVariant:(variant: ProductVariant)=>void; 
-    selectedVariant?: ProductVariant;
+    onChangeVariant:(variant: OrderVariant)=>void; 
+    selectedVariant: OrderVariant;
     selectedSize?: string;
+    // sizes: string[];
     item: PackageItem;
     onChangeTab: ()=>void;
     onChangeSize:(size:string)=>void;
     active: boolean
 }
 
-export const PackageDisplayItem = observer(({item, selectedVariant, selectedSize, onChangeVariant, active, onChangeSize, onChangeTab}:Props) => {
+export const PackageDisplayItem = observer((props:Props) => {
 
-    const product = productStore.getProductItem(item.productId);
+    const { item, active, onChangeTab, onChangeSize,onChangeVariant,selectedSize,selectedVariant } = props;
 
-    const {navigate} = useNavigate();
-
-    const itemType: OrderType = "product";
-
-    let orderItemInfo = cartStore.getOrderItemById(product.id)
-
-
-    function updateVariant(variant: Partial<OrderItem["variant"]>){
+    const {
+        // updateVariant,
+        product,
+        // selectedVariant,
+        // selectedSize,
+        // updateVariant,
+        // sizes,
+    } = usePackageProduct(item.productId)
     
-        cartStore.updateVariant(variant, product, itemType)
-    }
-
     let template = null;
     
     if (!product) {
         template = <p>Could not find product</p>;
     } else {
-        // console.debug(product)
-
-        if (!orderItemInfo) {
         
-            orderItemInfo = cartStore.createOrderItem(product, itemType)
-        }
-
-
-        const selectedVariant = orderItemInfo.variant
-        
-        const sizes = product.variants.find(e=>e.color === selectedVariant.color)?.sizes || [];
-        const size = orderItemInfo.variant.size || ''        
+        const sizes = product.variants.find(e=>e.color === (selectedVariant?.color || ""))?.sizes || [];
+        // const size = orderItemInfo.variant.size || ''        
 
         // console.debug(sizes);
         template = (
@@ -59,17 +50,13 @@ export const PackageDisplayItem = observer(({item, selectedVariant, selectedSize
                 <VariantSelector
                     name={item.name}
                     variants={product.variants}
-                    onChangeVariant={updateVariant}
+                    onChangeVariant={onChangeVariant}
                     selectedVariant={selectedVariant}
                 />
 
                 {/* Size Variants */}
                 <SizeSelector
-                    onChangeSize={(size: string) => {
-                        updateVariant({
-                            size,
-                        })
-                    }}
+                    onChangeSize={onChangeSize}
                     selectedSize={selectedSize}
                     sizes={sizes}
                 />
