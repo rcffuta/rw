@@ -1,6 +1,9 @@
 "use client";
 
 import PreLoader from "@/components/Common/PreLoader";
+import authStore from "@/lib/store/authStore";
+import { cartStore } from "@/lib/store/cart-utils";
+import productStore from "@/lib/store/productStore";
 import { PropsWithChildren, useEffect, useState } from "react";
 
 
@@ -12,8 +15,13 @@ export default function LayoutLoader(props: PropsWithChildren) {
 
     useEffect(() => {
         let timeoutId: NodeJS.Timeout;
-        (() => {
-            timeoutId = setTimeout(() => setLoading(false), loadTime);
+        (async () => {
+            // timeoutId = setTimeout(() => setLoading(false), loadTime);
+
+            await productStore.initilizeStores();
+            await cartStore.initilizeStores();
+            await authStore.authenticate();
+            setLoading(false);
         })();
 
         return () => {

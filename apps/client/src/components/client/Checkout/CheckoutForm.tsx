@@ -37,9 +37,10 @@ function CheckoutForm() {
             email: '',
             phoneNumber: '',
         },
-    })
+    });
 
     const onSubmit = async (data: CheckoutFormData) => {
+        if (loading) return;
          toast.loading('Processing your order...', { ...toastConfig, duration: 0 })
 
             try {

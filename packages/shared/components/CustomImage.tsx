@@ -41,9 +41,8 @@ export function PromoImage({
 
     return (
         <div
-            className={`relative ${
-                isSmall ? 'h-48 md:h-auto md:w-1/2' : 'h-64 md:h-auto md:w-1/2 lg:w-2/5'
-            }`}
+            // className={`relative ${isSmall ? 'h-48 md:h-auto md:w-1/2' : 'h-64 md:h-auto md:w-1/2 lg:w-2/5'}`}
+            className={``}
         >
             {!isLoaded && (
                 <div

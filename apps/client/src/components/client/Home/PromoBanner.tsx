@@ -2,6 +2,8 @@
 import { PromoBanner } from '@/components/Common/PromoBanner'
 import { motion } from 'framer-motion'
 import { fadeIn } from '@/utils/motion' // Your animation utils
+import { SHOP } from '@/constants';
+
 
 export function PromoSection1() {
     return (
@@ -21,24 +23,23 @@ export function PromoSection1() {
                 >
                     <PromoBanner
                         type="large"
-                        title="Redemption Week 2024"
-                        headline="EXCLUSIVE ANNIVERSARY MERCH"
-                        description="Celebrate God's faithfulness with our limited edition collection. Each purchase supports campus evangelism and fellowship programs."
-                        ctaText="Get Yours Now"
+                        title="Redemption Week 2025"
+                        headline="LUMINARI OFFICER COLLECTION"
+                        description="Step into purpose and presence with our most powerful bundle yet — jacket, roundneck, cap, jotter, and wristband. Made for Light Bearers determined to shine Christ in darkness."
+                        ctaText="Claim Your Officer Pack"
                         ctaVariant="glow"
-                        imageSrc="/assets/merch/redemption-week-bundle.jpg"
-                        imageAlt="Redemption Week Merch Bundle"
-                        backgroundColor="bg-gradient-to-r from-blue-dark to-blue-light-1" // Purple = royalty, Blue = faith
+                        imageSrc="https://res.cloudinary.com/dfs9wgjql/image/upload/v1753034663/rW/productImages/mttqhbqdr0loa2mfqjmm.jpg"
+                        imageAlt="Luminari Officer Bundle"
+                        backgroundColor="bg-gradient-to-r from-blue-dark to-blue-light-1"
                         textColor="text-white"
                         overlay={true}
-                        // rating={4.9}
-                        reviewCount="500+ blessed members"
+                        reviewCount="500+ bold believers"
                         className="rounded-2xl overflow-hidden shadow-2xl hover:shadow-purple-500/20 transition-shadow duration-300"
-                        badgeText="LIMITED STOCK"
-                        badgeColor="bg-gold-500" // Gold = divine nature
+                        badgeText="PREMIUM BUNDLE"
+                        badgeColor="bg-gold-500"
+                        ctaHref={`${SHOP}/687d311b13ca4febb1d672ff`}
                     />
                 </motion.div>
-
             </div>
         </section>
     )
@@ -62,19 +63,20 @@ export function PromoSection2() {
                     >
                         <PromoBanner
                             type="small"
-                            title="Redemption Week Gift Cards"
-                            headline="Share The Blessing"
+                            title="Redemption Week Speacial Packages"
+                            headline="SHINE SPECIALIST"
                             badgeText="Limited Edition"
                             badgeColor="bg-purple-600" // Purple = royalty in Christ
-                            description="Bless a fellow student with the gift of Redemption Week merch. Perfect for birthdays, discipleship rewards, or spiritual encouragement."
+                            description="The SHINE SPECIALIST set helps you shine Christ wherever you go — featuring a bold roundneck, cap, tote bag, and wristband. Gift it to someone walking in purpose."
                             ctaText="Bless Someone"
                             ctaVariant="primary"
-                            imageSrc="/assets/merch/redemption-giftcard.jpg"
+                            imageSrc="https://res.cloudinary.com/dfs9wgjql/image/upload/v1753035080/rW/productImages/dvqf3slpjbdbkjvjncmq.jpg"
                             imageAlt="Redemption Week Gift Card"
                             backgroundColor="bg-gradient-to-br from-gold-600 to-gold-400" // Soft spiritual colors
                             textColor="text-white"
                             imagePosition="left"
                             className="rounded-xl hover:scale-[1.01] transition-transform duration-300 shadow-md hover:shadow-lg"
+                            ctaHref={`${SHOP}/687d324f0152c4dd55c3a5bc`}
                             // Optional additions:
                             // verse="'It is more blessed to give than to receive' - Acts 20:35"
                             // icon={<CrossIcon className="w-5 h-5 ml-2 text-purple-600" />}
@@ -88,23 +90,25 @@ export function PromoSection2() {
                     >
                         <PromoBanner
                             type="small"
-                            title="Redemption Week Devotional"
-                            headline="Special 25% Discount"
+                            // title="LIGHT WEAVER"
+                            title="Weave Light Into Everyday Life"
+                            headline="LIGHT WEAVER"
                             badgeText="Bestseller"
                             badgeColor="bg-blue-600" // Blue = faith, revelation
-                            description="Deepen your walk with God through our 7-day devotional guide, featuring daily scriptures, reflections, and prayer points for Redemption Week."
-                            ctaText="Get Your Copy"
+                            description="This faith-forward set includes a water-resistant tote bag, jotter, keyholder, and wristband — daily reminders to keep shining Christ in darkness wherever you go."
+                            ctaText="Own the Set"
                             ctaVariant="glow"
-                            imageSrc="/assets/merch/redemption-devotional.jpg"
-                            imageAlt="Redemption Week Devotional Book"
+                            imageSrc="https://res.cloudinary.com/dfs9wgjql/image/upload/v1753051534/rW/productImages/cwkqjwigrh92szxheyhp.jpg"
+                            imageAlt="Light Weaver Gift Pack"
                             backgroundColor="bg-gradient-to-br from-teal-dark to-white" // Heavenly/peaceful colors
                             textColor="text-gray-900"
                             imagePosition="right"
                             className="rounded-xl hover:scale-[1.01] transition-transform duration-300 shadow-md hover:shadow-lg"
+                            ctaHref={`${SHOP}/687d72b10152c4dd55c3a5c6`}
                             // Optional faith elements:
-                            // verse="'Your word is a lamp to my feet' - Psalm 119:105"
-                            // icon={<BibleIcon className="w-5 h-5 ml-2 text-blue-600" />}
-                            // author="RCF FUTA Prayer Team"
+                            // verse="'In Him was life, and that life was the light of men.' - John 1:4"
+                            // icon={<CandleIcon className="w-5 h-5 ml-2 text-yellow-500" />}
+                            // author="RCF FUTA Creative Team"
                         />
                     </motion.div>
                 </div>

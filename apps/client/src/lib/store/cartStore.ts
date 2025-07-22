@@ -3,6 +3,7 @@ import { makeAutoObservable, toJS } from "mobx";
 import { OrderItem, OrderRecord, ProductRecord, ProductVariant, Order, MerchPackageRecord, PackageItem, OrderVariant } from "@rcffuta/ict-lib";
 import { CheckoutFormData } from "../validators/checkout.validator";
 import productStore from "./productStore";
+import { loadCartFromStorage } from "./cart-utils";
 
 export type OrderType = "product" | "package";
 export interface StoredCart {
@@ -31,6 +32,10 @@ export class CartStore {
     if (initial?.billing) {
       this.billing = initial.billing;
     }
+  }
+
+  async initilizeStores() {
+    loadCartFromStorage();
   }
 
   get order(): OrderRecord | null {

@@ -8,6 +8,7 @@ import authStore from "@/lib/store/authStore";
 import { observer } from "mobx-react-lite";
 import { ACCOUNT, CART, CONTACT, SHOP, SIGNIN, WISHLIST } from "@/constants";
 import Link from "next/link";
+import { redirectToLogin } from "@rcffuta/ict-lib";
 
 
 const AppLinks = observer(() => {
@@ -32,7 +33,11 @@ const AppLinks = observer(() => {
                     <li>
                         <Link
                             className="ease-out duration-200 hover:text-blue"
-                            href={SIGNIN}
+                            href={'/#'}
+                            onClick={(e) => {
+                                e.preventDefault()
+                                redirectToLogin()
+                            }}
                         >
                             Login / Register
                         </Link>

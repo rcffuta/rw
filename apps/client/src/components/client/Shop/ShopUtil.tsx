@@ -13,6 +13,7 @@ import { PackageDisplayItem } from '@/components/ui/DisplayItem'
 import { observer } from 'mobx-react-lite'
 
 import { usePackageCart, useProductCart } from '@/hooks/useCart'
+import productStore from '@/lib/store/productStore'
 
 export const  ProductDisplay = observer(({ product }: { product: ProductRecord }) => {
 
@@ -244,26 +245,31 @@ export function ProductCard({ item, className }: { item: ListingItem; className?
                             Includes {item.items.length} item{item.items.length !== 1 ? 's' : ''}
                         </p>
                         <div className="flex flex-wrap gap-2">
-                            {item.items.slice(0, 4).map((pkgItem, index) => (
-                                <div
-                                    key={index}
-                                    className="relative w-8 h-8 rounded-md overflow-hidden border border-gray-200"
-                                    title={pkgItem.name}
-                                >
-                                    <ProductImage
-                                        src={'/default-product-image.jpg'} // Fallback image
-                                        alt={pkgItem.name}
-                                        width={32}
-                                        height={32}
-                                        className="w-full h-full object-cover"
-                                    />
-                                    {pkgItem.quantity > 1 && (
-                                        <div className="absolute -top-1 -right-1 bg-gray-800 text-white text-xs rounded-full w-4 h-4 flex items-center justify-center">
-                                            {pkgItem.quantity}
-                                        </div>
-                                    )}
-                                </div>
-                            ))}
+                            {item.items.slice(0, 4).map((pkgItem, index) => {
+                                const prod = productStore.productItems.find(p => p.id === pkgItem.productId);
+                                const name = prod?.name || "Package Item";
+                                const image = prod?.variants.at(0).image || '/default-product-image.jpg';
+                                return (
+                                    <div
+                                        key={index}
+                                        className="relative w-8 h-8 rounded-md overflow-hidden border border-gray-200"
+                                        title={name}
+                                    >
+                                        <ProductImage
+                                            src={image}
+                                            alt={name}
+                                            width={32}
+                                            height={32}
+                                            className="w-full h-full object-cover"
+                                        />
+                                        {pkgItem.quantity > 1 && (
+                                            <div className="absolute -top-1 -right-1 bg-gray-800 text-white text-xs rounded-full w-4 h-4 flex items-center justify-center">
+                                                {pkgItem.quantity}
+                                            </div>
+                                        )}
+                                    </div>
+                                )
+                            })}
                             {item.items.length > 4 && (
                                 <div className="w-8 h-8 bg-gray-100 rounded-md flex items-center justify-center text-xs text-gray-500">
                                     +{item.items.length - 4}
@@ -276,14 +282,16 @@ export function ProductCard({ item, className }: { item: ListingItem; className?
                 {/* Product variants if applicable */}
                 {!isPackage && item.variants.length > 1 && (
                     <div className="mt-3 flex gap-1">
-                        {item.variants.slice(0, 4).map((variant, index) => (
-                            <div
-                                key={index}
-                                className="w-4 h-4 rounded-full border border-gray-200"
-                                style={{ backgroundColor: variant.color }}
-                                title={variant.color}
-                            />
-                        ))}
+                        {item.variants.slice(0, 4).map((variant, index) => {
+                            return (
+                                <div
+                                    key={index}
+                                    className="w-4 h-4 rounded-full border border-gray-200"
+                                    style={{ backgroundColor: variant.color }}
+                                    title={variant.color}
+                                />
+                            )
+                        })}
                         {item.variants.length > 4 && (
                             <div className="text-xs text-gray-500 flex items-center">
                                 +{item.variants.length - 4}

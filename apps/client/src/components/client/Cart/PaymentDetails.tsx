@@ -4,7 +4,7 @@ import { observer } from 'mobx-react-lite'
 import { useState } from 'react'
 import toast, { ToastOptions } from 'react-hot-toast'
 import { CheckIcon, CopyIcon } from '@/components/Common/Icons'
-import { OrderRecord, updateOrder } from '@rcffuta/ict-lib'
+import { OrderRecord, sendOrderReceivedNotification, updateOrder } from '@rcffuta/ict-lib'
 import { cartStore, clearOrderState } from '@/lib/store/cart-utils'
 import OrderSummary from './OrderSummary';
 import { OrderCompleted } from './OrderComplete';
@@ -30,6 +30,7 @@ export const PaymentDetails = observer(() => {
     )
     const [copiedField, setCopiedField] = useState<string | null>(null);
     const [completed, setCompleted] = useState<boolean>(false);
+    const [loading, setLoading] = useState<boolean>(false);
 
 
     const order = cartStore.order;
@@ -54,6 +55,12 @@ export const PaymentDetails = observer(() => {
         }
 
 
+        if (loading) return;
+
+
+        setLoading(true);
+
+
         toast.loading('Completing order...', {...toastConfig, duration: 0})
 
         try {
@@ -70,6 +77,13 @@ export const PaymentDetails = observer(() => {
             }
 
             toast.success('Payment proof submitted successfully!', toastConfig)
+
+            try{
+
+                sendOrderReceivedNotification(order);
+            } catch (error) {
+                console.error('Failed to send order received notification:', error);
+            }
             setCompleted(true);
             clearOrderState(cartStore);
             // Here you would typically send to your backend:
@@ -77,6 +91,9 @@ export const PaymentDetails = observer(() => {
         } catch (error) {
             toast.error('Failed to submit payment proof', toastConfig)
             console.error('Payment submission error:', error)
+        } finally {
+            setLoading(false);
+            toast.dismiss(toastConfig.id)
         }
     }
 

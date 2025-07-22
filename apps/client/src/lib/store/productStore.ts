@@ -2,8 +2,8 @@
 import { makeAutoObservable, toJS } from "mobx";
 // import { ProductItem } from "@rw/shared";
 import { Option } from "@/hooks/useCategories";
-import { fetchPackages, getCategoryProducts, loadProducts } from "@/actions/product.action";
-import { ProductRecord } from "@rcffuta/ict-lib";
+import { fetchPackages, getCategoryProducts, loadPackages, loadProducts } from "@/actions/product.action";
+import { MerchPackage, MerchPackageRecord, ProductRecord } from "@rcffuta/ict-lib";
 // import { getAllProductList } from "@/actions/product.action";
 
 export const defaultOption = {
@@ -18,6 +18,7 @@ class ProductStore {
     productDetails: ProductItem | null = null;
 
     _productItems: ProductItem[] = [];
+    _packageItems: MerchPackageRecord[] = [];
 
     selectedCategory: Option = defaultOption;
 
@@ -26,7 +27,11 @@ class ProductStore {
 
     constructor() {
         makeAutoObservable(this);
-        this.loadAllProducts();
+    }
+
+
+    async initilizeStores() {
+        await this.loadAllProducts();
     }
 
 
@@ -36,6 +41,13 @@ class ProductStore {
 
     get productItems() {
         return toJS(this._productItems);
+    }
+    
+    set packageItems(dat: MerchPackageRecord[]) {
+        this._packageItems = dat;
+    }
+    get packageItems() {
+        return toJS(this._packageItems);
     }
 
     setSelectedCategory(option: Option) {
@@ -51,14 +63,16 @@ class ProductStore {
     }
 
 
-    async loadAllProducts(){
+    private async loadAllProducts(){
         if (this.loading) return;
         if (this.loaded) return;
         this.loading = true;
 
         const dt = await loadProducts();
+        const pkgdt = await loadPackages();
 
         this.productItems = dt;
+        this.packageItems = pkgdt;
 
         this.loading = false;
         this.loaded = dt.length > 0;

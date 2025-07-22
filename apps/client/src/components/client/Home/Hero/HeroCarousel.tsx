@@ -10,6 +10,7 @@ import Image from "next/image";
 import { CarouselAdverts } from "@/data/advertisement";
 import { BasicImage, formatNaira } from "@rw/shared";
 import {motion} from "framer-motion";
+import { SHOP } from "@/constants";
 
 
 
@@ -73,7 +74,7 @@ const HeroCarousal = () => {
                                     <motion.a
                                         whileHover={{ scale: 1.05 }}
                                         whileTap={{ scale: 0.95 }}
-                                        href="#"
+                                        href={`${SHOP}/${advert.id}`}
                                         className="inline-block bg-blue hover:bg-blue-600 text-white font-semibold px-8 py-3 rounded-lg shadow-md transition-all duration-300"
                                     >
                                         Get Yours Now →
@@ -101,18 +102,25 @@ const HeroCarousal = () => {
 
                             {/* Image */}
                             <motion.div
-                                initial={{ opacity: 0, scale: 0.9 }}
+                                initial={{ opacity: 0, scale: 0.95 }}
                                 animate={{ opacity: 1, scale: 1 }}
                                 transition={{ duration: 0.8 }}
                                 className="flex-1 order-1 lg:order-2 flex justify-center"
                             >
-                                <div className="relative w-full max-w-md aspect-square">
-                                    <Image
-                                        src={advert.image}
-                                        alt={advert.name}
-                                        fill
-                                        className="object-contain"
-                                        priority={index === 0}
+                                <div className="relative w-full max-w-lg sm:max-w-md lg:max-w-lg">
+                                    <div className="relative z-10 rounded-xl overflow-hidden shadow-xl">
+                                        <Image
+                                            src={advert.image}
+                                            alt={advert.name}
+                                            width={500}
+                                            height={500}
+                                            className="object-contain w-full h-auto rounded-xl"
+                                            priority={index === 0}
+                                        />
+                                    </div>
+                                    <div
+                                        className="absolute inset-0 bg-gradient-radial from-blue/10 to-transparent blur-3xl -z-10"
+                                        aria-hidden
                                     />
                                 </div>
                             </motion.div>

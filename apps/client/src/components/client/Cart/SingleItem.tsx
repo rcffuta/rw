@@ -9,6 +9,7 @@ import { observer } from 'mobx-react-lite'
 import { OrderItem } from '@rcffuta/ict-lib'
 import { cartStore } from '@/lib/store/cart-utils'
 import { PencilIcon } from 'lucide-react'
+import productStore from '@/lib/store/productStore'
 interface SingleItemProps {
     item: OrderItem;
 }
@@ -26,7 +27,46 @@ const SingleItem = observer(({ item }: SingleItemProps) => {
     const handleEdit = () => navigate(productLink)
     const handleDelete = () => cartStore.deleteFromCart(item.itemId)
 
-    
+
+    let productImage = "";
+    const isPackage = item.itemType === 'package';
+
+    if (item.itemType === 'product') {
+        productImage = item.variant?.image;
+    } else if (item.itemType === 'package') {
+        const pkg = productStore.packageItems.find(pkg => pkg.id === item.itemId);
+        if (pkg) {
+            productImage = pkg.image;
+        }
+    }
+
+    const subDisplay = (
+        <>
+            {isPackage && (
+                <div className="mt-3">
+                    {/* <p className="text-sm text-gray-600 mb-2">
+                    </p> */}
+                    <div className="flex flex-wrap gap-2">
+                        {item.variant.map((pkgItem, index) => (
+                            <div
+                                key={index}
+                                className="relative w-8 h-8 rounded-md overflow-hidden border border-gray-200"
+                                // title={pkgItem.}
+                            >
+                                <ProductImage
+                                    src={pkgItem.image} // Fallback image
+                                    alt={pkgItem.image}
+                                    width={32}
+                                    height={32}
+                                    className="w-full h-full object-cover"
+                                />
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            )}
+        </>
+    )
 
     return (
         <div className="flex items-center border-t border-gray-3 py-5 px-7.5">
@@ -34,17 +74,13 @@ const SingleItem = observer(({ item }: SingleItemProps) => {
             <div className="min-w-[400px]">
                 <div className="flex items-center gap-5.5 my-5">
                     <div className="flex items-center justify-center rounded-[5px] bg-gray-2 max-w-[80px] w-full h-17.5">
-                        <ProductImage
-                            width={100}
-                            height={100}
-                            src={item.variant.image}
-                            alt={item.name}
-                        />
+                        <ProductImage width={100} height={100} src={productImage} alt={item.name} />
                     </div>
 
                     <div>
                         <h3 className="text-dark hover:text-blue transition-colors">
                             <Link href={productLink}>{item.name}</Link>
+                            {subDisplay}
                         </h3>
                     </div>
                 </div>

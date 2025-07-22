@@ -1,0 +1,286 @@
+export const ads = [
+    {
+        id: '687cf74f13ca4febb1d672f0',
+        updatedAt: '2025-07-20T14:03:59.177Z',
+        createdAt: '2025-07-20T14:03:59.177Z',
+        image: 'https://res.cloudinary.com/dfs9wgjql/image/upload/v1753019928/rW/productImages/ktio1keqpsvxqv1vow2s.jpg',
+        name: 'ARCHITECT OF RADIANCE 1',
+        description:
+            'Architect of Radiance 1\nShine boldly and build with purpose. This pack includes a faith-filled hoodie, face cap, jotter, and keyholder — all designed to reflect your calling as a Light Bearer and live out the creed “Shining Christ in Darkness.”\n',
+        totalPrice: 14300,
+        items: [
+            {
+                name: 'FACE CAP',
+                price: 3000,
+                productId: '687bf4180152c4dd55c3a53c',
+                quantity: 0,
+            },
+            {
+                name: 'JOTTER',
+                price: 1500,
+                productId: '687bfb8f13ca4febb1d67291',
+                quantity: 0,
+            },
+            {
+                name: 'HOODIE',
+                price: 10000,
+                productId: '687c021f13ca4febb1d6729e',
+                quantity: 0,
+            },
+            {
+                name: 'KEYHOLDER',
+                price: 500,
+                productId: '687cf09413ca4febb1d672e9',
+                quantity: 0,
+            },
+        ],
+        isActive: true,
+    },
+    {
+        id: '687cf7c84df590cd2ee02965',
+        updatedAt: '2025-07-20T14:06:00.677Z',
+        createdAt: '2025-07-20T14:06:00.677Z',
+        image: 'https://res.cloudinary.com/dfs9wgjql/image/upload/v1753020261/rW/productImages/tqkkzadkmhboigy6hf4c.jpg',
+        name: 'ARCHITECT OF RADIANCE 2',
+        description:
+            'Architect of Radiance 2\nShine boldly and build with purpose. This pack includes a powerful sweatshirt, face cap, jotter, and keyholder, all designed to reflect your identity as a Light Bearer and live out the creed “Shining Christ in Darkness.”\n',
+        totalPrice: 14300,
+        items: [
+            {
+                name: 'FACE CAP',
+                price: 3000,
+                productId: '687bf4180152c4dd55c3a53c',
+                quantity: 0,
+            },
+            {
+                name: 'JOTTER',
+                price: 1500,
+                productId: '687bfb8f13ca4febb1d67291',
+                quantity: 0,
+            },
+            {
+                name: 'SWEATSHIRT',
+                price: 10000,
+                productId: '687cecc80152c4dd55c3a5a0',
+                quantity: 0,
+            },
+            {
+                name: 'KEYHOLDER',
+                price: 500,
+                productId: '687cf09413ca4febb1d672e9',
+                quantity: 0,
+            },
+        ],
+        isActive: true,
+    },
+    {
+        id: '687d311b13ca4febb1d672ff',
+        updatedAt: '2025-07-20T18:10:35.185Z',
+        createdAt: '2025-07-20T18:10:35.185Z',
+        image: 'https://res.cloudinary.com/dfs9wgjql/image/upload/v1753034663/rW/productImages/mttqhbqdr0loa2mfqjmm.jpg',
+        name: 'LUMINARI OFFICER ',
+        description:
+            'LUMINARI OFFICER\nStep out in purpose and presence. This set includes a bold jacket, roundneck, face cap, jotter, and wristband — all designed to reflect your identity as a Light Bearer and live the creed “Shining Christ in Darkness.”\n',
+        totalPrice: 22700,
+        items: [
+            {
+                name: 'FACE CAP',
+                price: 3000,
+                productId: '687bf4180152c4dd55c3a53c',
+                quantity: 0,
+            },
+            {
+                name: 'JOTTER',
+                price: 1500,
+                productId: '687bfb8f13ca4febb1d67291',
+                quantity: 0,
+            },
+            {
+                name: 'ROUND NECK',
+                price: 6000,
+                productId: '687ce5210152c4dd55c3a59b',
+                quantity: 0,
+            },
+            {
+                name: 'JACKET',
+                price: 12000,
+                productId: '687cedd24df590cd2ee02958',
+                quantity: 0,
+            },
+            {
+                name: 'WRIST BAND',
+                price: 800,
+                productId: '687cf3104df590cd2ee02960',
+                quantity: 0,
+            },
+        ],
+        isActive: true,
+    },
+    {
+        id: '687d324f0152c4dd55c3a5bc',
+        updatedAt: '2025-07-20T18:15:43.511Z',
+        createdAt: '2025-07-20T18:15:43.511Z',
+        image: 'https://res.cloudinary.com/dfs9wgjql/image/upload/v1753035080/rW/productImages/dvqf3slpjbdbkjvjncmq.jpg',
+        name: 'SHINE SPECIALIST',
+        description:
+            'SHINE SPECIALIST\nCarry light with style. This set includes a bold roundneck, face cap, water-resistant tote bag, and wristband, all designed to help you live the creed “Shining Christ in Darkness” wherever you go.\n',
+        totalPrice: 13900,
+        items: [
+            {
+                name: 'FACE CAP',
+                price: 3000,
+                productId: '687bf4180152c4dd55c3a53c',
+                quantity: 0,
+            },
+            {
+                name: 'TOTE BAG',
+                price: 4500,
+                productId: '687bf52d13ca4febb1d67282',
+                quantity: 0,
+            },
+            {
+                name: 'ROUND NECK',
+                price: 6000,
+                productId: '687ce72d4df590cd2ee02955',
+                quantity: 0,
+            },
+            {
+                name: 'WRIST BAND',
+                price: 800,
+                productId: '687cf3104df590cd2ee02960',
+                quantity: 0,
+            },
+        ],
+        isActive: true,
+    },
+    {
+        id: '687d72b10152c4dd55c3a5c6',
+        updatedAt: '2025-07-20T22:50:25.670Z',
+        createdAt: '2025-07-20T22:50:25.670Z',
+        image: 'https://res.cloudinary.com/dfs9wgjql/image/upload/v1753051534/rW/productImages/cwkqjwigrh92szxheyhp.jpg',
+        name: 'LIGHT WEAVER ',
+        description:
+            'LIGHT WEAVER\nWeave light into your everyday life. This pack includes a water-resistant tote bag, jotter, keyholder, and wristband, all serving as daily tools and reminders to keep shining Christ in darkness.\n',
+        totalPrice: 7300,
+        items: [
+            {
+                name: 'TOTE BAG',
+                price: 4500,
+                productId: '687bf52d13ca4febb1d67282',
+                quantity: 0,
+            },
+            {
+                name: 'JOTTER',
+                price: 1500,
+                productId: '687bfb8f13ca4febb1d67291',
+                quantity: 0,
+            },
+            {
+                name: 'KEYHOLDER',
+                price: 500,
+                productId: '687cf09413ca4febb1d672e9',
+                quantity: 0,
+            },
+            {
+                name: 'WRIST BAND',
+                price: 800,
+                productId: '687cf3104df590cd2ee02960',
+                quantity: 0,
+            },
+        ],
+        isActive: true,
+    },
+    {
+        id: '687d73a513ca4febb1d6730c',
+        updatedAt: '2025-07-20T22:54:29.736Z',
+        createdAt: '2025-07-20T22:54:29.736Z',
+        image: 'https://res.cloudinary.com/dfs9wgjql/image/upload/v1753051848/rW/productImages/x1y5opbsskm5saiaaaql.jpg',
+        name: 'GLOW GETTER 1',
+        description:
+            'GLOW GETTER 1\nFor those who shine with purpose. Includes a face cap, jotter, and wristband, all designed to help you live out “Shining Christ in Darkness.”\n',
+        totalPrice: 5100,
+        items: [
+            {
+                name: 'FACE CAP',
+                price: 3000,
+                productId: '687bf4180152c4dd55c3a53c',
+                quantity: 0,
+            },
+            {
+                name: 'JOTTER',
+                price: 1500,
+                productId: '687bfb8f13ca4febb1d67291',
+                quantity: 0,
+            },
+            {
+                name: 'WRIST BAND',
+                price: 800,
+                productId: '687cf3104df590cd2ee02960',
+                quantity: 0,
+            },
+        ],
+        isActive: true,
+    },
+    {
+        id: '687d747d0152c4dd55c3a5ca',
+        updatedAt: '2025-07-20T22:58:05.835Z',
+        createdAt: '2025-07-20T22:58:05.835Z',
+        image: 'https://res.cloudinary.com/dfs9wgjql/image/upload/v1753052100/rW/productImages/qupju2g5vajmeijrf4l0.jpg',
+        name: 'GLOW GETTER 2',
+        description:
+            'GLOW GETTER 2\nStay sharp, stay shining. This set of a face cap, jotter, and keyholder keeps you repping Christ boldly, wherever you go.\n',
+        totalPrice: 4800,
+        items: [
+            {
+                name: 'FACE CAP',
+                price: 3000,
+                productId: '687bf4180152c4dd55c3a53c',
+                quantity: 0,
+            },
+            {
+                name: 'JOTTER',
+                price: 1500,
+                productId: '687bfb8f13ca4febb1d67291',
+                quantity: 0,
+            },
+            {
+                name: 'KEYHOLDER',
+                price: 500,
+                productId: '687cf09413ca4febb1d672e9',
+                quantity: 0,
+            },
+        ],
+        isActive: true,
+    },
+    {
+        id: '687d755d4df590cd2ee0297d',
+        updatedAt: '2025-07-20T23:01:49.464Z',
+        createdAt: '2025-07-20T23:01:49.464Z',
+        image: 'https://res.cloudinary.com/dfs9wgjql/image/upload/v1753052330/rW/productImages/ufm0pczykorpcylg48ss.jpg',
+        name: 'SPARK',
+        description:
+            'SPARK \nSmall pieces, strong impact. The wristband, jotter, and keyholder in this set are designed to ignite purpose and reflect your calling to shine Christ in darkness wherever you are.\n',
+        totalPrice: 2800,
+        items: [
+            {
+                name: 'JOTTER',
+                price: 1500,
+                productId: '687bfb8f13ca4febb1d67291',
+                quantity: 0,
+            },
+            {
+                name: 'KEYHOLDER',
+                price: 500,
+                productId: '687cf09413ca4febb1d672e9',
+                quantity: 0,
+            },
+            {
+                name: 'WRIST BAND',
+                price: 800,
+                productId: '687cf3104df590cd2ee02960',
+                quantity: 0,
+            },
+        ],
+        isActive: true,
+    },
+]
