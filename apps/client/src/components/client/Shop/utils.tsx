@@ -10,7 +10,7 @@ import clsx from "clsx";
 import { observer } from "mobx-react-lite";
 import { useState } from "react";
 import { ProductInfo, MerchPackage, ProductRecord } from "@rcffuta/ict-lib";
-
+import { formatNaira } from '@rw/shared'
 
 // utils.tsx
 
@@ -23,7 +23,7 @@ export function Price({
 }) {
   return (
     <div className={`font-bold ${className}`}>
-      ${price.toFixed(2)}
+      {formatNaira(price)}
     </div>
   );
 }
