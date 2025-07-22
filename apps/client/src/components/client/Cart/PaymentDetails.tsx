@@ -8,6 +8,7 @@ import { OrderRecord, updateOrder } from '@rcffuta/ict-lib'
 import { cartStore, clearOrderState } from '@/lib/store/cart-utils'
 import OrderSummary from './OrderSummary';
 import { OrderCompleted } from './OrderComplete';
+import { formatNaira } from '@rw/shared';
 
 const BANK_DETAILS = {
     name: 'GT Bank',
@@ -94,10 +95,10 @@ export const PaymentDetails = observer(() => {
     )
 
     return (
-        <section
-            className="flex flex-col lg:flex-row gap-7.5 xl:gap-11 mt-9"
-        >
-            {completed ? <OrderCompleted/> : (
+        <section className="flex flex-col lg:flex-row gap-7.5 xl:gap-11 mt-9">
+            {completed ? (
+                <OrderCompleted />
+            ) : (
                 <>
                     <div className="lg:max-w-[555px] w-full mx-auto">
                         <div className="bg-white shadow-1 rounded-[10px]">
@@ -113,7 +114,9 @@ export const PaymentDetails = observer(() => {
                                         <div className="flex justify-between items-center">
                                             <span className="text-gray-6">Order ID:</span>
                                             <div className="flex items-center gap-2">
-                                                <span className="font-medium text-blue">{orderId}</span>
+                                                <span className="font-medium text-blue">
+                                                    {orderId}
+                                                </span>
                                                 {renderCopyButton(orderId, 'Order ID')}
                                             </div>
                                         </div>
@@ -126,20 +129,29 @@ export const PaymentDetails = observer(() => {
 
                                 {/* Bank Details */}
                                 <div className="mb-6">
-                                    <h4 className="font-medium text-dark mb-3">Bank Transfer Details</h4>
+                                    <h4 className="font-medium text-dark mb-3">
+                                        Bank Transfer Details
+                                    </h4>
                                     <div className="bg-gray-1 p-4 rounded-md">
                                         <div className="flex justify-between items-center py-2 border-b border-gray-2">
                                             <span className="text-gray-6">Bank Name:</span>
                                             <div className="flex items-center gap-2">
-                                                <span className="font-medium">{BANK_DETAILS.name}</span>
+                                                <span className="font-medium">
+                                                    {BANK_DETAILS.name}
+                                                </span>
                                                 {renderCopyButton(BANK_DETAILS.name, 'Bank Name')}
                                             </div>
                                         </div>
                                         <div className="flex justify-between items-center py-2 border-b border-gray-2">
                                             <span className="text-gray-6">Account Name:</span>
                                             <div className="flex items-center gap-2">
-                                                <span className="font-medium">{BANK_DETAILS.user}</span>
-                                                {renderCopyButton(BANK_DETAILS.user, 'Account Name')}
+                                                <span className="font-medium">
+                                                    {BANK_DETAILS.user}
+                                                </span>
+                                                {renderCopyButton(
+                                                    BANK_DETAILS.user,
+                                                    'Account Name'
+                                                )}
                                             </div>
                                         </div>
                                         <div className="flex justify-between items-center py-2">
@@ -148,25 +160,35 @@ export const PaymentDetails = observer(() => {
                                                 <span className="font-medium">
                                                     {BANK_DETAILS.accountNumber}
                                                 </span>
-                                                {renderCopyButton(BANK_DETAILS.accountNumber, 'Account Number')}
+                                                {renderCopyButton(
+                                                    BANK_DETAILS.accountNumber,
+                                                    'Account Number'
+                                                )}
                                             </div>
                                         </div>
                                     </div>
                                     <p className="text-xs text-gray-5 mt-2">
-                                        Click the copy icon to easily paste these details into your banking app.
+                                        Click the copy icon to easily paste these details into your
+                                        banking app.
                                     </p>
                                 </div>
 
                                 {/* Payment Proof */}
                                 <div className="mb-6">
-                                    <h4 className="font-medium text-dark mb-3">Upload Proof of Payment</h4>
+                                    <h4 className="font-medium text-dark mb-3">
+                                        Upload Proof of Payment
+                                    </h4>
                                     <p className="text-sm text-gray-5 mb-2">
-                                        After making the transfer, please upload a screenshot or photo of your:
+                                        After making the transfer, please upload a screenshot or
+                                        photo of your:
                                     </p>
                                     <ul className="text-sm text-gray-5 list-disc pl-5 mb-3">
                                         <li>Bank transfer confirmation</li>
                                         <li>Showing the Order ID in the reference/description</li>
-                                        <li>Showing the payment amount ({cartStore.totalPrice})</li>
+                                        <li>
+                                            Showing the payment amount{' '}
+                                            <strong>({formatNaira(cartStore.totalPrice)})</strong>
+                                        </li>
                                     </ul>
 
                                     <PhotoUploader
@@ -182,7 +204,9 @@ export const PaymentDetails = observer(() => {
                                     disabled={!picture}
                                     onClick={handleSubmitProof}
                                     className={`w-full flex justify-center font-medium text-white py-3 px-6 rounded-md transition-colors mt-4 ${
-                                        !picture ? 'bg-gray-4 cursor-not-allowed' : 'bg-blue hover:bg-blue-dark'
+                                        !picture
+                                            ? 'bg-gray-4 cursor-not-allowed'
+                                            : 'bg-blue hover:bg-blue-dark'
                                     }`}
                                 >
                                     Submit Proof

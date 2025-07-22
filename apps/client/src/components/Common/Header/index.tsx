@@ -16,7 +16,7 @@ type HeaderProps = {
     // setNavigationOpen: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-const HeaderTop = ({ stickyMenu=true }: HeaderProps) => {
+const Header = ({ stickyMenu=true }: HeaderProps) => {
     const { totalPrice } = cartStore;
     const cartItems = [];
     const { openCartModal } = useCartModalContext()
@@ -171,4 +171,4 @@ const HeaderTop = ({ stickyMenu=true }: HeaderProps) => {
     )
 }
 
-export default observer(HeaderTop)
+export default observer(Header)

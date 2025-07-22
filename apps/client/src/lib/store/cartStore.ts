@@ -106,7 +106,9 @@ export class CartStore {
   }
 
   addToCart(product: ProductRecord, itemType: OrderType): boolean {
-    if (this._order_items.has(product.id)) return false;
+    // if (this._order_items.has(product.id)) return {
+    //   this.ad
+    // };
 
     const item = this.createOrderItem(product, itemType);
     this._order_items.set(product.id, item);
