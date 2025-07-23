@@ -2,11 +2,23 @@ import { cn } from '@/utils/utils'
 import { DonutChart } from './chart-items'
 import { fetchOrderStatusStats } from '@/actions/analytics.actions'
 import { Info } from 'lucide-react'
+import { OrderStatus } from '@rcffuta/ict-lib'
 
 type PropsType = {
 	className?: string
 	timeFrame?: 'weekly' | 'monthly' | 'yearly'
 }
+
+
+const statusColorArray: Record<OrderStatus, string> = {
+	cart: '#F59E0B',
+	pending: '#EF4444',
+	paid: '#10B981',
+	shipped: '#3B82F6',
+	delivered: '#8B5CF6',
+	cancelled: '#64748B'
+}
+
 
 export async function TrendChart({ className, timeFrame = 'monthly' }: PropsType) {
 	const data = await fetchOrderStatusStats()
@@ -44,16 +56,8 @@ export async function TrendChart({ className, timeFrame = 'monthly' }: PropsType
 				<div className="h-[350px]">
 					<DonutChart
 						data={data}
-						title="Orders"
-						colors={[
-							'#10B981', // Paid - Emerald
-							'#3B82F6', // Disbursed - Blue
-							'#F59E0B', // In Cart - Amber
-							'#EF4444', // Pending - Red
-							'#8B5CF6', // Shipped - Violet
-							'#EC4899', // Delivered - Pink
-							'#64748B' // Cancelled - Slate
-						]}
+						title="Order Status"
+						colors={Object.values(statusColorArray)}
 					/>
 				</div>
 			) : (

@@ -3,7 +3,7 @@ import { MerchPackageRecord } from '@rcffuta/ict-lib'
 import { Button } from '../ui-elements/button'
 import { Eye, Pencil, Plus } from 'lucide-react'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '../ui/table'
-import { CategoryImage, formatNaira } from '../../../../../packages/shared'
+import { CategoryImage, formatNaira, openInNewTab } from '../../../../../packages/shared'
 import { compactFormat } from '@/utils/format-number'
 import toast from 'react-hot-toast'
 
@@ -54,7 +54,10 @@ export function PackagesTable({ categories }: { categories: MerchPackageRecord[]
 							<Button
 								label=""
 								className="mr-2"
-								onClick={() => toast.error('Not Implemented')}
+								onClick={() => {
+									const link = `https://rw.rcffuta.com/shop/${category.id}`
+									openInNewTab(link)
+								}}
 							>
 								<Eye className="h-4 w-4" />
 							</Button>

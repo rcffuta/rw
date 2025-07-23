@@ -9,7 +9,7 @@ import {
 	TableHeader,
 	TableRow
 } from '@/components/ui/table'
-import { formatCurrency, useNavigate } from '../../../../../packages/shared'
+import { formatCurrency, formatNaira, useNavigate } from '../../../../../packages/shared'
 import { TableRowItem } from '../ui/types'
 import clsx from 'clsx'
 import toast from 'react-hot-toast'
@@ -17,6 +17,8 @@ import { sendProductToCustomer } from '@/actions/order.action'
 import { Order, OrderItem, OrderRecord, OrderStatus, wait } from '@rcffuta/ict-lib'
 import { MarkAsDeliveredButton, MarkAsShippingButton, MarkForPickupButton } from './StatusActionButton'
 import { observer } from 'mobx-react-lite'
+import Link from 'next/link'
+import PaymentProofPreview from './PaymentProofPreview'
 
 type OrderType = OrderRecord
 
@@ -41,10 +43,7 @@ export const OrderTableHead: TableRowItem[] = [
 		label: 'Amount'
 	},
 	{
-		label: 'Payment Reference'
-	},
-	{
-		label: 'Payment Date'
+		label: 'Payment Proof'
 	},
 	{
 		label: 'Status'
@@ -100,34 +99,62 @@ function RowItem({ orders }: { orders: OrderType[] }) {
 		}
 	}
 
+
+	function parserderItems(orderItems: OrderItem[]): string {
+		return orderItems.reduce((acc, item) => {
+			if (item.itemType === 'product') {
+				return (
+					acc +
+					`x${item.quantity} ${item.name} ( ${item.variant.color} | ${item.variant.size} )\n`
+				)
+			}
+			if (item.itemType === 'package') {
+				return acc + `${item.name} (x${item.quantity})\n` + item.variant.reduce((variantAcc, variantItem) => {
+					return variantAcc + `${variantItem.color} ${variantItem.size}\n`
+				}, '')
+			}
+			return acc;
+		}, "");
+	}
+
 	return (
 		<>
 			{orders.map((order, index) => {
-				const orderId = `ORD-${order.id}`
+				const orderId = `${order.id}`
 				return (
 					<TableRow key={index} className="border-[#eee] dark:border-dark-3">
 						<TableCell className="text-center">
-							<h5 className="text-dark dark:text-white">{orderId}</h5>
+							<a
+								href={`rw.rcffuta.com/order/${orderId}`}
+								target='_blank'
+								rel="noopener noreferrer"
+								onClick={(e) => {
+									e.preventDefault()
+									toast.error('This feature is not available yet')
+								}}
+								className="cursor-pointer text-primary hover:underline"
+								title='View Order Details'
+							>
+								{orderId}
+							</a>
 						</TableCell>
 
 						<TableCell className="min-w-[155px] text-center text-dark dark:text-white xl:pl-7.5">
 							<p className="mt-[3px] text-body-sm font-medium">
-								{order.item.name}{' '}
-								{order.item.quantity > 1 ? `(x${order.item.quantity})` : null}
+								{parserderItems(order.items)}
 							</p>
 						</TableCell>
 
 						<TableCell className="text-center font-mono font-semibold text-dark dark:text-white">
-							{formatCurrency(order.item.price * order.item.quantity)}
+							{formatNaira(order.totalAmount)}
 						</TableCell>
 
 						<TableCell className="text-center text-dark dark:text-white">
-							{order.paymentRef || 'No Payment'}
-						</TableCell>
-
-						<TableCell className="text-center text-dark dark:text-white">
-							{/* {item.payment?.paidAt?.toDateString() || null} */}
-							-- Payment Date --
+							{order.paymentRef ? (
+								<PaymentProofPreview paymentRef={order.paymentRef} />
+							) : (
+								'No Payment'
+							)}
 						</TableCell>
 
 						<TableCell>
@@ -141,8 +168,9 @@ function RowItem({ orders }: { orders: OrderType[] }) {
 											order.status === 'cancelled',
 										'bg-[#FFA70B]/[0.08] text-[#FFA70B]':
 											order.status === 'paid',
-										'bg-[#FFA70B]/[0.08] text-gray-6':
-											order.status === 'pending'
+										'bg-[#FFA70B]/[0.08] text-gray-2':
+											order.status === 'pending',
+										'bg-neutral-900 text-gray-6': order.status === 'cart'
 									}
 								)}
 							>

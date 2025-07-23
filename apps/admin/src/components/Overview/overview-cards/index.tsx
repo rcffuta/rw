@@ -22,7 +22,7 @@ export async function OverviewCardsGroup() {
 				label={revenue.label}
 				data={{
 					...revenue,
-					value: '$' + compactFormat(revenue.value)
+					value: '₦' + compactFormat(revenue.value)
 				}}
 				// TODO: Change Icon
 				Icon={icons.Profit}
@@ -32,7 +32,7 @@ export async function OverviewCardsGroup() {
 				label={users.label}
 				data={{
 					...users,
-					value: compactFormat(users.value)
+					value: users.value
 				}}
 				// TODO: Change Icon
 				Icon={icons.Product}

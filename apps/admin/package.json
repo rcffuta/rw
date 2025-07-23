@@ -10,7 +10,7 @@
 		"format": "prettier --write . && eslint --fix ."
 	},
 	"dependencies": {
-		"@rcffuta/ict-lib": "^2.1.2",
+		"@rcffuta/ict-lib": "2.4.0",
 		"@react-email/components": "^0.0.41",
 		"@react-email/render": "^1.1.2",
 		"@react-pdf/renderer": "^4.3.0",

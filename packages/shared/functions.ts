@@ -95,3 +95,8 @@ export function normalizeQuantity(quantity?: number, prev?:number): number {
   if (quantity < 0) return 0;
   return quantity;
 }
+
+
+export function openInNewTab(url: string) {
+  window.open(url, '_blank', 'noopener,noreferrer');
+};

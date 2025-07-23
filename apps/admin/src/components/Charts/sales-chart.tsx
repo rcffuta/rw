@@ -3,7 +3,7 @@ import { standardFormat } from '@/utils/format-number'
 import { cn } from '@/utils/utils'
 import { getPaymentStatsChart, getWeeklyStats, WeekStat } from '@/actions/analytics.actions'
 import { AreaChart, BarChart } from './chart-items'
-import { formatCurrency } from '../../../../../packages/shared'
+import { formatCurrency, formatNaira } from '../../../../../packages/shared'
 
 type StatTimeFrame = any
 type PropsType = {
@@ -26,7 +26,7 @@ export async function SalesOverview({ timeFrame = 'monthly', className }: PropsT
 					Sales Overview
 				</h2>
 
-				<PeriodPicker defaultValue={timeFrame} sectionKey="payments_overview" />
+				{/* <PeriodPicker defaultValue={timeFrame} sectionKey="payments_overview" /> */}
 			</div>
 
 			<AreaChart data={data} />
@@ -35,7 +35,7 @@ export async function SalesOverview({ timeFrame = 'monthly', className }: PropsT
 				<div className="dark:border-dark-3 max-sm:mb-3 max-sm:border-b max-sm:pb-3">
 					<dt className="text-xl font-bold text-dark dark:text-white">
 						{/* $ */}
-						{formatCurrency(data.received.reduce((acc, { y }) => acc + y, 0))}
+						{formatNaira(data.received.reduce((acc, { y }) => acc + y, 0))}
 					</dt>
 					<dd className="font-medium dark:text-dark-6">Received Amount</dd>
 				</div>
@@ -43,7 +43,7 @@ export async function SalesOverview({ timeFrame = 'monthly', className }: PropsT
 				<div>
 					<dt className="text-xl font-bold text-dark dark:text-white">
 						{/* $ */}
-						{formatCurrency(data.due.reduce((acc, { y }) => acc + y, 0))}
+						{formatNaira(data.due.reduce((acc, { y }) => acc + y, 0))}
 					</dt>
 					<dd className="font-medium dark:text-dark-6">Due Amount</dd>
 				</div>

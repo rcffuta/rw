@@ -112,7 +112,7 @@ importers:
   apps/admin:
     dependencies:
       '@rcffuta/ict-lib':
-        specifier: ^2.1.2
+        specifier: 2.4.0
         version: 2.4.0
       '@react-email/components':
         specifier: ^0.0.41

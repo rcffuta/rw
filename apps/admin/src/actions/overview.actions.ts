@@ -1,6 +1,6 @@
 // lib/dummyOverview.ts
 
-import { fetchOrders } from '@/utils/actionUtils'
+import { fetchFulfilledOrders } from '@/utils/actionUtils'
 
 // Dummy data generator
 const generateDummyOverview = () => {
@@ -29,7 +29,7 @@ let previousOverviewData: {
 export async function getOverviewData() {
 	// Fetch all necessary data in parallel
 	const [orders, products, allUsers] = await Promise.all([
-		fetchOrders(),
+		fetchFulfilledOrders(),
 		Promise.resolve([]),
 		Promise.resolve([])
 		//   fetchProducts(),
@@ -40,8 +40,8 @@ export async function getOverviewData() {
 	const currentRevenue = orders.reduce((sum, order) => sum + order.totalAmount, 0)
 
 	// Estimate unique users from orders (replace with real user count if available)
-	const uniqueUserIds = new Set(orders.map((order) => order.customer.userId).filter(Boolean))
-	const currentUsers = uniqueUserIds.size || orders.length * 0.7 // Fallback estimation
+	const uniqueUserIds = new Set(orders.map((order) => order.customer.email).filter(Boolean))
+	const currentUsers = uniqueUserIds.size || 0// Fallback estimation
 
 	// Calculate conversion rate (sales/users)
 	const currentConversionRate =
@@ -104,17 +104,17 @@ export async function getOverviewData() {
 
 // Dummy implementations of the original functions
 export async function getTotalOrders() {
-	const orders = await fetchOrders()
+	const orders = await fetchFulfilledOrders()
 	return orders.length
 }
 
 export async function getTotalRevenue() {
-	const orders = await fetchOrders()
+	const orders = await fetchFulfilledOrders()
 	return orders.reduce((sum, order) => sum + order.totalAmount, 0)
 }
 
 export async function getTotalUsers() {
-	const orders = await fetchOrders()
+	const orders = await fetchFulfilledOrders()
 	const uniqueUserIds = new Set(orders.map((order) => order.customer.userId).filter(Boolean))
 	return uniqueUserIds.size
 }
