@@ -29,6 +29,15 @@ export async function fetchFulfilledOrders() {
 	// return mockOrders
 }
 
+export async function fetchPendingOrders() {
+	const data = await fetchOrders()
+
+	return data.filter(e=>{
+		return e.status === "pending";
+	})
+	// return mockOrders
+}
+
 export async function fetchProducts() {
 	const { data = [] } = await getProducts()
 

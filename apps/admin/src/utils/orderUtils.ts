@@ -22,77 +22,75 @@ export function filterOrderByState(orders: OrderRecord[], status: OrderStatus) {
 }
 
 
-type VariantOrder = {
-  orderId: string;
-  quantity: number;
-  customerName: string;
-  customerEmail: string;
-  status: string;
+export interface ProductAggregate {
+  name: string;
+  deliverables: {
+    color: string;
+    sizes: {
+      size: string;
+      quantity: number;
+    }[];
+    total: number;
+  }[];
+  overallTotal: number;
 }
 
-// export interface VariantAggregate {
-//   variantKey: string;
-//   name: string;
-//   color?: string;
-//   size?: string;
-//   quantity: number;
-//   totalAmount: number;
-//   orders: VariantOrder[];
-// }
+export const aggregateProducts = (orders: OrderRecord[]): ProductAggregate[] => {
+  const productMap = new Map<string, ProductAggregate>();
 
+  orders.forEach(order => {
+    order.items.forEach(item => {
+      const productName = item.name;
+      const quantity = item.quantity;
+      
+      // Handle both product and package variants
+      const variants = item.itemType === "product" 
+        ? [item.variant] 
+        : item.variant;
 
-export const aggregateByVariants = (orders: OrderRecord[]): any[] => {
-    // const variantMap = new Map<string, VariantAggregate>();
+      // Get or create product aggregate
+      let productAggregate = productMap.get(productName);
+      if (!productAggregate) {
+        productAggregate = {
+          name: productName,
+          deliverables: [],
+          overallTotal: 0
+        };
+        productMap.set(productName, productAggregate);
+      }
 
-    // orders.map(order => {
+      // Process each variant
+      variants.forEach(variant => {
+        // Find or create color entry
+        let colorEntry = productAggregate!.deliverables.find(d => d.color === variant.color);
+        if (!colorEntry) {
+          colorEntry = {
+            color: variant.color,
+            sizes: [],
+            total: 0
+          };
+          productAggregate!.deliverables.push(colorEntry);
+        }
 
+        // Find or create size entry
+        let sizeEntry = colorEntry.sizes.find(s => s.size === variant.size);
+        if (!sizeEntry) {
+          sizeEntry = {
+            size: variant.size,
+            quantity: 0
+          };
+          colorEntry.sizes.push(sizeEntry);
+        }
 
-    //   const customer = {
-    //     customerEmail: order.customer.email,
-    //     customerName: order.customer.name,
-    //     orderId: order.id,
-    //   }
+        // Update quantities
+        sizeEntry.quantity += quantity;
+        colorEntry.total += quantity;
+        productAggregate!.overallTotal += quantity;
+      });
+    });
+  });
 
-    //     // if (order.item.itemType !== 'product' || !order.item.variant) return;
-    //     // const orderData: VariantOrder[] = {
-    //     //   quantity: order.
-    //     // }
-
-
-
-    //     order.items.reduce((acc, item)=>{
-
-    //     }, {});
-
-    //     const { color, size } = order.item.variant;
-    //     const variantKey = `${order.item.name}-${color}-${size}`;
-    //     const variantName = `${order.item.name} (${color}, ${size})`;
-
-    //     if (!variantMap.has(variantKey)) {
-    //         variantMap.set(variantKey, {
-    //             variantKey,
-    //             name: variantName,
-    //             color,
-    //             size,
-    //             quantity: 0,
-    //             totalAmount: 0,
-    //             orders: []
-    //         });
-    //     }
-
-    //     const aggregate = variantMap.get(variantKey)!;
-    //     aggregate.quantity += order.item.quantity;
-    //     aggregate.totalAmount += order.item.price * order.item.quantity;
-    //     aggregate.orders.push({
-    //         orderId: `ORD-${order.id}`,
-    //         quantity: order.item.quantity,
-    //         customerName: order.customer.name,
-    //         customerEmail: order.customer.email,
-    //         status: order.status
-    //     });  
-    // });
-
-    return [] //Array.from(variantMap.values());
+  return Array.from(productMap.values());
 };
 
 export const mockOrders: OrderRecord[] = []

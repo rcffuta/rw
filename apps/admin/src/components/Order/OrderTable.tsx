@@ -3,6 +3,7 @@
 import { CheckIcon } from '@/components/Icons'
 import {
 	Table,
+	TableAction,
 	TableBody,
 	TableCell,
 	TableHead,
@@ -15,10 +16,13 @@ import clsx from 'clsx'
 import toast from 'react-hot-toast'
 import { sendProductToCustomer } from '@/actions/order.action'
 import { Order, OrderItem, OrderRecord, OrderStatus, wait } from '@rcffuta/ict-lib'
-import { MarkAsDeliveredButton, MarkAsShippingButton, MarkForPickupButton } from './StatusActionButton'
+import { MarkAsCanceledButton, MarkAsDeliveredButton, MarkAsShippingButton, MarkForPickupButton } from './StatusActionButton'
 import { observer } from 'mobx-react-lite'
 import Link from 'next/link'
 import PaymentProofPreview from './PaymentProofPreview'
+import { useState } from 'react'
+import { OrderModal } from './OrderModal'
+import { Button } from '../ui-elements/button'
 
 type OrderType = OrderRecord
 
@@ -64,57 +68,79 @@ export const OrderTableHead: TableRowItem[] = [
 
 
 export const OrderTable = observer(({ orders }: OrderProps) => {
-	return (
-		<Table>
-			<TableHeader>
-				<TableRow className="border-none bg-[#F7F9FC] dark:bg-dark-2 [&>th]:py-4 [&>th]:text-base [&>th]:text-dark [&>th]:dark:text-white">
-					{OrderTableHead.map((item, i) => (
-						<TableHead key={i} className="text-center">
-							{item.label}
-						</TableHead>
-					))}
-				</TableRow>
-			</TableHeader>
+	const [selectedOrder, setSelectedOrder] = useState<OrderRecord | null>(null)
 
-			<TableBody>
-				<RowItem orders={orders} />
-			</TableBody>
-		</Table>
-	)
-}
-)
-
-function RowItem({ orders }: { orders: OrderType[] }) {
-	// const { updateOrderStatus } = useOrderContext()
-
-	const handleStatusChange = async (orderId: string, newStatus: OrderStatus) => {
+	const handleStatusChange = async (order: OrderRecord, newStatus: OrderStatus) => {
 		try {
-			// In a real app, you would call your API here
-			// await api.patch(`/orders/${orderId}`, { status: newStatus });
 
-			// Update local state
-			// updateOrderStatus(orderId, newStatus)
+			switch (newStatus) {
+				default:
+					toast.error(`Set to "${newStatus}" Action Not Available`, {
+						id: order.id + newStatus
+					});
+			}
+
 		} catch (error) {
 			throw error
 		}
 	}
+	return (
+		<>
+			<Table>
+				<TableHeader>
+					<TableRow className="border-none bg-[#F7F9FC] dark:bg-dark-2 [&>th]:py-4 [&>th]:text-base [&>th]:text-dark [&>th]:dark:text-white">
+						{OrderTableHead.map((item, i) => (
+							<TableHead key={i} className="text-center">
+								{item.label}
+							</TableHead>
+						))}
+					</TableRow>
+				</TableHeader>
 
+				<TableBody>
+					<RowItem orders={orders} onViewOrder={(order) => setSelectedOrder(order)} />
+				</TableBody>
+			</Table>
 
+			{selectedOrder && (
+				<OrderModal
+					order={selectedOrder}
+					onClose={() => setSelectedOrder(null)}
+					onStatusChange={async (newStatus) => {
+						await handleStatusChange(selectedOrder, newStatus)
+					}}
+				/>
+			)}
+		</>
+	)
+}
+)
+
+function RowItem({
+	orders,
+	onViewOrder
+}: {
+	orders: OrderType[]
+	onViewOrder: (order: OrderRecord) => void
+}) {
 	function parserderItems(orderItems: OrderItem[]): string {
 		return orderItems.reduce((acc, item) => {
 			if (item.itemType === 'product') {
 				return (
 					acc +
-					`x${item.quantity} ${item.name} ( ${item.variant.color} | ${item.variant.size} )\n`
+					// `x${item.quantity} ${item.name} ( ${item.variant.color} | ${item.variant.size} )\n`
+					`x${item.quantity} ${item.name}\n`
 				)
 			}
 			if (item.itemType === 'package') {
-				return acc + `${item.name} (x${item.quantity})\n` + item.variant.reduce((variantAcc, variantItem) => {
-					return variantAcc + `${variantItem.color} ${variantItem.size}\n`
-				}, '')
+				return acc + `${item.name} (x${item.quantity})\n` + ''
+
+				// item.variant.reduce((variantAcc, variantItem) => {
+				// 	return variantAcc + `${variantItem.color} ${variantItem.size}\n`
+				// }, '')
 			}
-			return acc;
-		}, "");
+			return acc
+		}, '')
 	}
 
 	return (
@@ -122,18 +148,18 @@ function RowItem({ orders }: { orders: OrderType[] }) {
 			{orders.map((order, index) => {
 				const orderId = `${order.id}`
 				return (
-					<TableRow key={index} className="border-[#eee] dark:border-dark-3">
+					<TableRow key={index} className="z-9 border-[#eee] dark:border-dark-3">
 						<TableCell className="text-center">
 							<a
 								href={`rw.rcffuta.com/order/${orderId}`}
-								target='_blank'
+								target="_blank"
 								rel="noopener noreferrer"
 								onClick={(e) => {
 									e.preventDefault()
 									toast.error('This feature is not available yet')
 								}}
 								className="cursor-pointer text-primary hover:underline"
-								title='View Order Details'
+								title="View Order Details"
 							>
 								{orderId}
 							</a>
@@ -158,7 +184,7 @@ function RowItem({ orders }: { orders: OrderType[] }) {
 						</TableCell>
 
 						<TableCell>
-							<div
+							<p
 								className={clsx(
 									'mx-auto max-w-fit rounded-full px-3.5 py-1 text-sm font-medium',
 									{
@@ -175,36 +201,21 @@ function RowItem({ orders }: { orders: OrderType[] }) {
 								)}
 							>
 								{order.status}
-							</div>
+							</p>
 						</TableCell>
 
-						<TableCell className="xl:pr-7.5">
-							<div className="flex items-center justify-center gap-2">
-								<MarkAsShippingButton
-									order={order}
-									customerEmail={order.customer.email}
-									currentStatus={order.status}
-									onStatusChange={(newStatus) =>
-										handleStatusChange(order.id, newStatus)
-									}
-								/>
-								<MarkForPickupButton
-									order={order}
-									customerEmail={order.customer.email}
-									currentStatus={order.status}
-									onStatusChange={(newStatus) =>
-										handleStatusChange(order.id, newStatus)
-									}
-								/>
-								<MarkAsDeliveredButton
-									order={order}
-									customerEmail={order.customer.email}
-									currentStatus={order.status}
-									onStatusChange={(newStatus) =>
-										handleStatusChange(order.id, newStatus)
-									}
-								/>
-							</div>
+						<TableCell className="text-center xl:pr-7.5">
+							<Button
+								label="View Order"
+								// size={'default'}
+								variant={'primary'}
+								onClick={() => {
+									onViewOrder(order)
+								}}
+								// disabled={isDisabled || isLoading}
+								className="mx-auto gap-1.5"
+								aria-label="Mark as shipping"
+							/>
 						</TableCell>
 					</TableRow>
 				)

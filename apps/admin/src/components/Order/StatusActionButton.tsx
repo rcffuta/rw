@@ -1,11 +1,13 @@
 "use client";
 import { ExportAsPDF } from "@/utils/exportAsPdf"
-import { aggregateByVariants } from "@/utils/orderUtils"
-import { OrderRecord, OrderStatus, sendDeliveryNotification, sendPickupNotification, sendShippingNotification } from "@rcffuta/ict-lib";
-import { useEffect, useState } from "react";
+import { aggregateProducts, ProductAggregate } from '@/utils/orderUtils'
+import { OrderRecord, OrderStatus, sendDeliveryNotification, sendOrderCancelledNotification, sendPickupNotification, sendShippingNotification } from "@rcffuta/ict-lib";
+import { useCallback, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { Button } from "../ui-elements/button";
-import { CheckCircle, Loader2, Store, Truck } from "lucide-react";
+import { CheckCircle, CrossIcon, Loader2, Store, Truck } from "lucide-react";
+import { observer } from "mobx-react-lite";
+import { fetchPendingOrders } from "@/utils/actionUtils";
 
 
 interface StatusActionButtonProps {
@@ -14,6 +16,59 @@ interface StatusActionButtonProps {
   currentStatus: OrderStatus;
   onStatusChange: (newStatus: OrderStatus) => Promise<void>;
 }
+
+export const MarkAsCanceledButton = ({
+  order,
+    currentStatus,
+  onStatusChange,
+}: StatusActionButtonProps) => {
+  const [isLoading, setIsLoading] = useState(false);
+  const isDisabled = false; //currentStatus !== "paid";
+
+  const toastId = "statusToast";
+
+  const handleClick = async () => {
+    setIsLoading(true);
+    try {
+      // Update status
+      await onStatusChange("cancelled");
+
+      // Send email notification
+      await sendOrderCancelledNotification(order);
+
+      toast.success('Order marked as Cancelled and notification sent', { id: toastId })
+    } catch (error) {
+      toast.error('Failed to update order status', { id: toastId })
+      console.error(error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  if (isDisabled) return null;
+
+  return (
+		<Button
+			label=""
+			//   variant="outline"
+			//   size="sm"
+			size={'small'}
+			variant={'outlinePrimary'}
+			onClick={handleClick}
+			disabled={isDisabled || isLoading}
+			className="gap-1.5"
+			aria-label="Mark as shipping"
+		>
+			{isLoading ? (
+				<Loader2 className="h-3.5 w-3.5 animate-spin" />
+			) : (
+				<CrossIcon className="h-3.5 w-3.5" />
+			)}
+			<span>Mark as Cancelled</span>
+		</Button>
+  )
+};
+
 
 export const MarkAsShippingButton = ({
   order,
@@ -166,24 +221,29 @@ export const MarkAsDeliveredButton = ({
 }
 
 
-export const ExportButton = () => {
-    // const { orders } = useOrderContext() // Assuming you have access to orders
+export const ExportButton = observer(() => {
+    const [orders, setOrders] = useState<ProductAggregate[] | null>(null);
 
-    const [preorders, setPreOrders] = useState<any[]>([]);
-      function loadPreorders() {
-      const aggregates = aggregateByVariants([])
-      setPreOrders(() => aggregates)
-    }
+
+    const loadOrder = useCallback(async ()=>{
+      if (Array.isArray(orders)) return;
+
+      const dt = await fetchPendingOrders();
+
+      const aggregate = aggregateProducts(dt);
+
+      setOrders(() => aggregate)
+    }, [orders])
 
     useEffect(()=>{
-        
-
-        loadPreorders()
+        loadOrder();
     },[])
 
 
-    if(preorders.length < 1) return null;
+    if (orders === null) return <p>Loading...</p>;
+
+    if(orders.length < 1) return null;
 
 
-    return <ExportAsPDF aggregates={preorders} />
-}
+    return <ExportAsPDF aggregates={orders} />
+})
