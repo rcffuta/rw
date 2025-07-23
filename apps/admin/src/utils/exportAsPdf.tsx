@@ -3,7 +3,7 @@
 
 
 import { PDFDownloadLink, Document, Page, Text, View, StyleSheet } from '@react-pdf/renderer'
-import { VariantAggregate } from './orderUtils';
+// import { VariantAggregate } from './orderUtils';
 
 const styles = StyleSheet.create({
   page: { padding: 30 },
@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
   }
 });
 
-const AggregatesDocument = ({ aggregates }: { aggregates: VariantAggregate[] }) => (
+const AggregatesDocument = ({ aggregates }: { aggregates: any[] }) => (
   <Document>
     <Page style={styles.page}>
       <Text style={styles.header}>Variant Aggregation Report</Text>
@@ -48,7 +48,7 @@ const AggregatesDocument = ({ aggregates }: { aggregates: VariantAggregate[] }) 
               <Text style={styles.headerCell}>Status</Text>
             </View>
             
-            {variant.orders.map((order) => (
+            {variant.orders.map((order: any) => (
               <View style={styles.tableRow} key={order.orderId}>
                 <Text style={styles.cell}>{order.orderId}</Text>
                 <Text style={styles.cell}>{order.customerName}</Text>
@@ -63,7 +63,7 @@ const AggregatesDocument = ({ aggregates }: { aggregates: VariantAggregate[] }) 
   </Document>
 );
 
-export const ExportAsPDF = ({aggregates}: { aggregates: VariantAggregate[] }) => {
+export const ExportAsPDF = ({aggregates}: { aggregates: any[] }) => {
 	return (
 		<PDFDownloadLink
 			document={<AggregatesDocument aggregates={aggregates} />}

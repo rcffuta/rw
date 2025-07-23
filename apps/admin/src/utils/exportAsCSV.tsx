@@ -1,14 +1,14 @@
-import { VariantAggregate } from "./orderUtils"
+// import { VariantAggregate } from "./orderUtils"
 
 // src/utils/exportAsCSV.ts
-export const exportAsCSV = (aggregates: VariantAggregate[]) => {
+export const exportAsCSV = (aggregates: any[]) => {
 	let csvContent = 'data:text/csv;charset=utf-8,'
 
 	// Header
 	csvContent += 'Variant,Color,Size,Total Quantity,Total Amount,Order IDs\n'
 
 	aggregates.forEach((variant) => {
-		const orderIds = variant.orders.map((o) => o.orderId).join('; ')
+		const orderIds = variant.orders.map((o: any) => o.orderId).join('; ')
 		csvContent += `"${variant.name}","${variant.color}","${variant.size}",${variant.quantity},${variant.totalAmount},"${orderIds}"\n`
 	})
 

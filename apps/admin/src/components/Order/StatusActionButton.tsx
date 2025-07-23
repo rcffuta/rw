@@ -1,6 +1,6 @@
 "use client";
 import { ExportAsPDF } from "@/utils/exportAsPdf"
-import { aggregateByVariants, VariantAggregate } from "@/utils/orderUtils"
+import { aggregateByVariants } from "@/utils/orderUtils"
 import { OrderRecord, OrderStatus, sendDeliveryNotification, sendPickupNotification, sendShippingNotification } from "@rcffuta/ict-lib";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
@@ -169,7 +169,7 @@ export const MarkAsDeliveredButton = ({
 export const ExportButton = () => {
     // const { orders } = useOrderContext() // Assuming you have access to orders
 
-    const [preorders, setPreOrders] = useState<VariantAggregate[]>([]);
+    const [preorders, setPreOrders] = useState<any[]>([]);
       function loadPreorders() {
       const aggregates = aggregateByVariants([])
       setPreOrders(() => aggregates)
