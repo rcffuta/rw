@@ -1,6 +1,6 @@
 import { MerchPackage } from "@rcffuta/ict-lib";
 
-export const CarouselAdverts: MerchPackage[] = [
+export const CarouselAdverts: any[] = [
   {
     id: '687cf74f13ca4febb1d672f0',
     image: "https://res.cloudinary.com/dfs9wgjql/image/upload/v1753019928/rW/productImages/ktio1keqpsvxqv1vow2s.jpg",
