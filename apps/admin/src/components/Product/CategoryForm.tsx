@@ -9,14 +9,30 @@ import { observer } from 'mobx-react-lite'
 import { TextAreaGroup } from '../FormElements/InputGroup/text-area'
 import packageStore from '@/store/packageStore'
 import MultiSelect from '../FormElements/MultiSelect'
+import { MerchPackageRecord } from '@rcffuta/ict-lib'
+import { useEffect } from 'react'
 
 type Props = {
-	redirect?: string
+	redirect?: string;
+	pkg?: MerchPackageRecord;
 }
 
-const PackageForm = observer(({ redirect }: Props) => {
+const PackageForm = observer(({ redirect, pkg }: Props) => {
 
-	const { navigate } = useNavigate()
+	const { navigate } = useNavigate();
+
+
+	useEffect(() => {
+		if (pkg) {
+			setTimeout(() => {
+				packageStore.populatePpkgInfo(pkg)
+			}, 1000)
+		}
+
+		return () => {
+			packageStore.reset()
+		}
+	}, [])
 
 	async function handleSubmit(e: React.FormEvent) {
 		e.preventDefault()
@@ -37,7 +53,7 @@ const PackageForm = observer(({ redirect }: Props) => {
 		} catch (err) {
 			console.error('Failed to create package:', err)
 			// alert("Error creating product");
-			toast.error('Package could not bre created!', { id: toastId })
+			toast.error((err as Error).message || 'Package could not bre created!', { id: toastId })
 		}
 	}
 

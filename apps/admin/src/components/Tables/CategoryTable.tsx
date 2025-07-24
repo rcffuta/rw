@@ -6,6 +6,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '.
 import { CategoryImage, formatNaira, openInNewTab } from '../../../../../packages/shared'
 import { compactFormat } from '@/utils/format-number'
 import toast from 'react-hot-toast'
+import { PACKAGE_LINK } from '@/data/links';
 
 export function PackagesTable({ categories }: { categories: MerchPackageRecord[] }) {
 	return (
@@ -64,19 +65,13 @@ export function PackagesTable({ categories }: { categories: MerchPackageRecord[]
 							<Button
 								label=""
 								className="mr-2"
-								onClick={() => toast.error('Not Implemented')}
+								onClick={() => {
+									const link = `${PACKAGE_LINK}/edit/${category.id}`;
+									window.location.href = link;
+								}}
 							>
 								<Pencil className="h-4 w-4" />
 							</Button>
-							{/* <Button
-									// variant="ghost"
-									// size="sm"
-									label=""
-									className="text-red-600 hover:text-red-700 dark:text-red-400"
-									onClick={() => toast.error('Not Implemented')}
-								>
-									<Trash2 className="h-4 w-4" />
-								</Button> */}
 						</TableCell>
 					</TableRow>
 				))}

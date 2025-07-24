@@ -1,12 +1,19 @@
 
 import { Option } from '@/types/form.types'
-import { createPackage, getProducts, MerchPackage, PackageItem } from '@rcffuta/ict-lib'
+import { createPackage, getProducts, MerchPackage, MerchPackageRecord, PackageItem } from '@rcffuta/ict-lib'
 import { makeAutoObservable, toJS } from 'mobx'
 import toast, { ToastOptions } from 'react-hot-toast'
 
 // "https://res.cloudinary.com/con-so-nant/image/upload/v1752769553/rW/images/mkyfylugetjeofamjdhq.png"
 
 
+async function updatePackage(id:string, data: Partial<MerchPackage>) {
+	return {
+		success: false,
+		message: "Package Update Not Implemented",
+		data: null,
+	}
+}
 
 class PackageStore {
 	// Basic product info
@@ -14,25 +21,28 @@ class PackageStore {
 	name = ''
 	description = ''
 	totalPrice = ''
-	_items: PackageItem[] = [];
+	_items: PackageItem[] = []
 
-	options: Option[] = [{
-		text: "-- Select Item --",
-		value: "",
-		data: {
-			name: "-- Select Item --",
-			price: 0,
-			productId: "-12",
-			quantity: 0,
+	private id = ''
+
+	options: Option[] = [
+		{
+			text: '-- Select Item --',
+			value: '',
+			data: {
+				name: '-- Select Item --',
+				price: 0,
+				productId: '-12',
+				quantity: 0
+			}
 		}
-	}]
+	]
 
-
-	loading = false;
+	loading = false
 
 	constructor() {
 		makeAutoObservable(this)
-		this.loadProductOptions();
+		this.loadProductOptions()
 	}
 
 	set items(data: PackageItem[]) {
@@ -48,42 +58,36 @@ class PackageStore {
 		this[key] = value
 	}
 
-
 	private async loadProductOptions() {
 		const toastConfig: ToastOptions = {
-			id: "toastIdForLoadingProduct",
-			duration: 5000,
+			id: 'toastIdForLoadingProduct',
+			duration: 5000
 		}
 
-		if (this.loading) return;
+		if (this.loading) return
 
-		this.loading = true;
+		this.loading = true
 
-		toast.loading("Loading products...", {...toastConfig, duration: 0})
-		const {
-			message,
-			success,
-			data
-		} = await getProducts();
-
+		toast.loading('Loading products...', { ...toastConfig, duration: 0 })
+		const { message, success, data } = await getProducts()
 
 		if (!success) {
 			toast.error(`Could not load products: ${message}`, toastConfig)
 		} else {
-			toast.success("Loaded Products", toastConfig);
-			this.options = data.map((each)=>({
+			toast.success('Loaded Products', toastConfig)
+			this.options = data.map((each) => ({
 				text: each.name,
 				value: each.id,
 				data: {
 					name: each.name,
 					price: each.price,
 					productId: each.id,
-					quantity: 0,
+					quantity: 0
 				}
 			}))
 		}
 
-		this.loading = false;
+		this.loading = false
 	}
 
 	addItem = (item: PackageItem) => {
@@ -125,7 +129,19 @@ class PackageStore {
 
 		// await wait(5);
 
-		const { success, message, data: prod } = await createPackage(data)
+		
+
+		let resp;
+		
+		if (this.id) {
+			resp = updatePackage(this.id, data);
+		} else {
+			resp = createPackage(data);
+		}
+
+
+		const { success, message, data: prod } = await resp;
+
 
 		if (!success) {
 			throw new Error(message)
@@ -141,7 +157,7 @@ class PackageStore {
 		this.description = ''
 		this.totalPrice = ''
 		this.items = []
-		this.image = "";
+		this.image = ''
 	}
 
 	// Computed values
@@ -152,9 +168,20 @@ class PackageStore {
 			description: this.description,
 			totalPrice: parseFloat(this.totalPrice) || 0,
 			items: toJS(this.items),
-			isActive: true,
+			isActive: true
 		}
 	}
+
+	populatePpkgInfo(info: MerchPackageRecord) {
+			this.image = info.image;
+			this.name = info.name;
+			this.description = info.description || "";
+			this.totalPrice = info.totalPrice.toString();
+			this.items = info.items;
+	
+			this.id = info.id;
+		}
+	
 }
 
 const packageStore = new PackageStore()

@@ -7,17 +7,6 @@ import toast from 'react-hot-toast'
 // "https://res.cloudinary.com/con-so-nant/image/upload/v1752769553/rW/images/mkyfylugetjeofamjdhq.png"
 
 
-async function updateProductInfo(id: string, product: Partial<ProductInfo>) {
-	await wait(2)
-
-	return {
-		success: false,
-		message: 'Product Update not available',
-		data: null
-	}
-}
-
-
 class ProductStore {
 	// Basic product info
 	private id = "";
