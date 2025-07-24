@@ -1,6 +1,6 @@
 
 import { deleteProfileImage } from '@/actions/storage.action'
-import { createProduct, ProductInfo, ProductRecord, ProductVariant, wait } from '@rcffuta/ict-lib'
+import { createProduct, ProductInfo, ProductRecord, ProductVariant, updateProduct, wait } from '@rcffuta/ict-lib'
 import { makeAutoObservable, toJS } from 'mobx'
 import toast from 'react-hot-toast'
 
@@ -103,7 +103,7 @@ class ProductStore {
 		let resp;
 
 		if (this.id) {
-			resp = updateProductInfo(this.id, data);
+			resp = updateProduct(this.id, data);
 		} else {
 			resp = createProduct(data);
 		}

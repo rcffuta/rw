@@ -112,8 +112,8 @@ importers:
   apps/admin:
     dependencies:
       '@rcffuta/ict-lib':
-        specifier: 2.5.1
-        version: 2.5.1
+        specifier: 2.6.0
+        version: 2.6.0
       '@react-email/components':
         specifier: ^0.0.41
         version: 0.0.41(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
@@ -797,8 +797,8 @@ packages:
   '@rcffuta/ict-lib@2.5.0':
     resolution: {integrity: sha512-D8SV8GuJue/rmE4BbeqDD4Hq87GwfoG8G2J/d4GuFOknByxxH/96doNhVjCEZnPpjiKzoRJgsusDM59j0EfMLw==, tarball: https://npm.pkg.github.com/download/@rcffuta/ict-lib/2.5.0/48deb8f6ef18e2f3fbacc63f5d836b0f61a600f1}
 
-  '@rcffuta/ict-lib@2.5.1':
-    resolution: {integrity: sha512-RJlV+COHywIqjZO0JEypByx0uXN4iQ96X++zrqxSFIc073EHf/KUuGbauUxwx5D8SDLv86coL/RzaB4JAl3sAw==, tarball: https://npm.pkg.github.com/download/@rcffuta/ict-lib/2.5.1/863085ff306118407caf00e4ed3c67b0d0a814aa}
+  '@rcffuta/ict-lib@2.6.0':
+    resolution: {integrity: sha512-yuBsLKH7rdAi7V78udM8OYwME0mX9qM9dUxMvz2AA0ArkzfS6qSd5RAa0M3iB7SsikXqFZJQHi3vaeuE/DhQVg==, tarball: https://npm.pkg.github.com/download/@rcffuta/ict-lib/2.6.0/31865cc5c17f0cb39537a65874d1eb6b09a6aff1}
 
   '@react-email/body@0.0.11':
     resolution: {integrity: sha512-ZSD2SxVSgUjHGrB0Wi+4tu3MEpB4fYSbezsFNEJk2xCWDBkFiOeEsjTmR5dvi+CxTK691hQTQlHv0XWuP7ENTg==}
@@ -3935,7 +3935,7 @@ snapshots:
     transitivePeerDependencies:
       - debug
 
-  '@rcffuta/ict-lib@2.5.1':
+  '@rcffuta/ict-lib@2.6.0':
     dependencies:
       '@react-email/components': 0.0.33(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       '@react-email/render': 1.1.3(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
