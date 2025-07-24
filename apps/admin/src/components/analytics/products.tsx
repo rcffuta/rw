@@ -12,7 +12,7 @@ import clsx from 'clsx'
 import { slugify } from '@/utils/format-text'
 import { TableRowItem } from '../ui/types'
 import { fetchTopSellingProducts } from '@/actions/analytics.actions'
-import { CategoryImage, formatCurrency } from '../../../../../packages/shared'
+import { CategoryImage, formatNaira } from '@rw/shared'
 import { Info } from 'lucide-react'
 
 const TableHeads: TableRowItem[] = [
@@ -100,7 +100,7 @@ export async function TopSellingProducts({ className }: { className?: string }) 
 									</TableCell>
 
 									<TableCell className="whitespace-nowrap px-4 py-3 text-right text-sm font-medium text-green-600 dark:text-green-400">
-										{formatCurrency(item.revenue)}
+										{formatNaira(item.revenue)}
 									</TableCell>
 								</TableRow>
 							))}

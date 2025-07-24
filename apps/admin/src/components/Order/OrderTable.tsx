@@ -80,6 +80,9 @@ export const OrderTable = observer(({ orders }: OrderProps) => {
 					});
 			}
 
+
+			setSelectedOrder((e) => e ? { ...e, status: newStatus } : null);
+
 		} catch (error) {
 			throw error
 		}
