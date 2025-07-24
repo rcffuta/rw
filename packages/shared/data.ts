@@ -8,6 +8,7 @@ export const APP_ADMIN_DESCRIPTION = `Manage ${APP_NAME} from behind`;
 
 export const APP_ADMIN_USERNAME = "Melchizedeck";
 export const APP_ADMIN_EMAIL = "ict@rcffuta.com";
-export const APP_ADMIN_CONTACT = "+234 8122137834";
+export const APP_ADMIN_CONTACT = "+234 813 101 7998";
+export const APP_ADMIN_CONTACT_FULL = "VP Tabitha: +234 813 101 7998";
 export const APP_ADMIN_ADDRESS = "South gate FUTA, Akure";
 

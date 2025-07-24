@@ -14,11 +14,19 @@ import { MerchPackageRecord, ProductRecord } from "@rcffuta/ict-lib";
 const RecentlyViewdItems = ({
     categoryType,
     productId,
+    title,
+    description,
 }: {
     categoryType: 'product' | 'package'
     productId: string
+    title?: string
+    description?: string;
 }) => {
-    const sliderRef = useRef(null)
+    const sliderRef = useRef(null);
+
+    const dTitle = title || (categoryType === "product" ? "Products":"Packages")
+    const dDescription =
+        description || (categoryType === 'product' ? 'Check other products' : 'Check other packages')
 
     const [products, setProducts] = useState<
         | {
@@ -81,10 +89,10 @@ const RecentlyViewdItems = ({
                                     height={17}
                                     alt="icon"
                                 />
-                                Categories
+                                {dTitle}
                             </span>
                             <h2 className="font-semibold text-xl xl:text-heading-5 text-dark">
-                                Browse by Category
+                                {dDescription}
                             </h2>
                         </div>
 
@@ -129,24 +137,33 @@ const RecentlyViewdItems = ({
 
                     <Swiper
                         ref={sliderRef}
-                        slidesPerView={4}
                         spaceBetween={20}
+                        // slidesPerView={2} // Fallback/default
+                        breakpoints={{
+                            0: {
+                                slidesPerView: 2, // Mobile: 2 slides
+                            },
+                            768: {
+                                slidesPerView: 3, // Tablet / small laptops: 3 slides
+                            },
+                            1024: {
+                                slidesPerView: 4, // Desktops and up: 4 slides
+                            },
+                        }}
                         className="justify-between"
                     >
                         {products.type === 'product' ? (
                             <>
                                 {products.data.map((item: ProductRecord, key) => (
                                     <SwiperSlide key={key}>
-                                        {
-                                            <ProductDisplayItem
-                                                item={{
-                                                    id: item.id,
-                                                    name: item.name,
-                                                    price: item.price,
-                                                    image: item.variants.at(0).image,
-                                                }}
-                                            />
-                                        }
+                                        <ProductDisplayItem
+                                            item={{
+                                                id: item.id,
+                                                name: item.name,
+                                                price: item.price,
+                                                image: item.variants.at(0).image,
+                                            }}
+                                        />
                                     </SwiperSlide>
                                 ))}
                             </>
@@ -154,16 +171,14 @@ const RecentlyViewdItems = ({
                             <>
                                 {products.data.map((item: MerchPackageRecord, key: number) => (
                                     <SwiperSlide key={key}>
-                                        {
-                                            <ProductDisplayItem
-                                                item={{
-                                                    id: item.id,
-                                                    name: item.name,
-                                                    price: item.totalPrice,
-                                                    image: item.image,
-                                                }}
-                                            />
-                                        }
+                                        <ProductDisplayItem
+                                            item={{
+                                                id: item.id,
+                                                name: item.name,
+                                                price: item.totalPrice,
+                                                image: item.image,
+                                            }}
+                                        />
                                     </SwiperSlide>
                                 ))}
                             </>

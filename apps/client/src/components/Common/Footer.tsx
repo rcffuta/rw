@@ -3,7 +3,7 @@
 import React from "react";
 import Image from "next/image";
 import { CallIcon, LocationIcon, MailIcon } from "./Icons";
-import { APP_ADMIN_ADDRESS, APP_ADMIN_CONTACT, APP_ADMIN_EMAIL, APP_NAME } from "@rw/shared";
+import { APP_ADMIN_ADDRESS, APP_ADMIN_CONTACT, APP_ADMIN_CONTACT_FULL, APP_ADMIN_EMAIL, APP_NAME } from "@rw/shared";
 import authStore from "@/lib/store/authStore";
 import { observer } from "mobx-react-lite";
 import { ACCOUNT, CART, CONTACT, SHOP, SIGNIN, WISHLIST } from "@/constants";
@@ -177,10 +177,12 @@ const Footer = () => {
               </li>
 
               <li>
-                <a href="#" className="flex items-center gap-4.5">
+                <span className="flex items-center gap-4.5">
                   <CallIcon/>
-                  {APP_ADMIN_CONTACT}
-                </a>
+                  <a href={`tel:${APP_ADMIN_CONTACT}`}>
+                      {APP_ADMIN_CONTACT_FULL}
+                  </a>
+                </span>
               </li>
 
               <li>

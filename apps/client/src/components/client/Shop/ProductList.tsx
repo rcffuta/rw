@@ -21,7 +21,7 @@ export async function ProductList(props: Props) {
             ctaLink={''}
             ctaText="" //"View More"
             data={data}
-            subTitle="Merch available for you"
+            subTitle="Merch Products available for you"
             title="Products"
         />
     )
@@ -38,8 +38,8 @@ export async function PackageList(props: Props) {
             ctaLink={""}
             ctaText="" //"View More"
             data={data}
-            subTitle="Merch available for you"
-            title="Products"
+            subTitle="Packages available for you"
+            title="Packages"
         />
     );
 };

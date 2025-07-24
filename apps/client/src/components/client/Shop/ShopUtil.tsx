@@ -318,33 +318,33 @@ export function ProductSkeleton() {
             <div className="flex flex-col lg:flex-row gap-8">
                 {/* Image Gallery Skeleton */}
                 <div className="w-full lg:w-1/2">
-                    <div className="aspect-square bg-gray-200 rounded-lg"></div>
+                    <div className="aspect-square bg-gray-6 rounded-lg"></div>
                     <div className="flex gap-2 mt-4">
                         {[...Array(4)].map((_, i) => (
-                            <div key={i} className="w-16 h-16 bg-gray-200 rounded"></div>
+                            <div key={i} className="w-16 h-16 bg-gray-6 rounded"></div>
                         ))}
                     </div>
                 </div>
 
                 {/* Product Info Skeleton */}
                 <div className="w-full lg:w-1/2 space-y-4">
-                    <div className="h-8 bg-gray-200 rounded w-3/4"></div>
-                    <div className="h-6 bg-gray-200 rounded w-1/4"></div>
-                    <div className="h-4 bg-gray-200 rounded w-full"></div>
-                    <div className="h-4 bg-gray-200 rounded w-5/6"></div>
-                    <div className="h-4 bg-gray-200 rounded w-4/6"></div>
-                    <div className="h-12 bg-gray-200 rounded w-full mt-8"></div>
+                    <div className="h-8 bg-gray-6 rounded w-3/4"></div>
+                    <div className="h-6 bg-gray-6 rounded w-1/4"></div>
+                    <div className="h-4 bg-gray-6 rounded w-full"></div>
+                    <div className="h-4 bg-gray-6 rounded w-5/6"></div>
+                    <div className="h-4 bg-gray-6 rounded w-4/6"></div>
+                    <div className="h-12 bg-gray-6 rounded w-full mt-8"></div>
                 </div>
             </div>
 
             {/* Tabs Skeleton */}
             <div className="mt-12">
-                <div className="flex border-b border-gray-200">
+                <div className="flex border-b border-gray-6">
                     {['Description', 'Details', 'Reviews'].map((tab) => (
-                        <div key={tab} className="h-10 bg-gray-200 rounded w-24 mr-4"></div>
+                        <div key={tab} className="h-10 bg-gray-6 rounded w-24 mr-4"></div>
                     ))}
                 </div>
-                <div className="h-64 bg-gray-100 rounded mt-4"></div>
+                <div className="h-64 bg-gray-5 rounded mt-4"></div>
             </div>
         </div>
     )
