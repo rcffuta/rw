@@ -4,9 +4,15 @@ import { useState } from 'react'
 
 import { deleteProfileImage, uploadProfileImage } from '@/actions/storage.action'
 import { UploadIcon } from '@/components/Icons'
-import toast from 'react-hot-toast'
-import { CustomImage } from '@rw/shared'
+import toast, { ToastOptions } from 'react-hot-toast'
+import { extractPublicId } from 'cloudinary-build-url'
 import { cn } from '@/utils/utils'
+
+
+const toastConfig: ToastOptions = {
+	id: 'deleteToast',
+	position: "bottom-right"
+}
 
 export default function PhotoUploader({
 	imageUrl,
@@ -37,32 +43,44 @@ export default function PhotoUploader({
 			const result: any = await uploadProfileImage(formData, folder)
 			onUpload(result.secure_url)
 			setPublicId(result.public_id)
-			toast.success('Uploaded Image')
+			toast.success('Uploaded Image', toastConfig)
 		} catch (err) {
 			console.dir(err)
 			console.error('Upload failed', err)
-			toast.error('Upload failed')
+			toast.error('Upload failed', toastConfig)
 		} finally {
 			setIsUploading(false)
 		}
 	}
 
-	const handleDelete = async () => {
-		if (!publicId) return
+	const handleDelete = async (link?: string) => {
+		let pid = publicId;
+
+		if (!pid) {
+			if (link) {
+				pid = extractPublicId(link);
+			}
+		}
+
+		if (!pid) {
+			toast.error("No Image To Delete", toastConfig);
+			return;
+		}
+
 		if (isDeleting) return;
-		const toastId = 'deleteToast'
+		
 
 		setIsDeleting(true);
 
-		toast.loading('Deleting image', { id: toastId, duration: 0 })
+		toast.loading('Deleting image', { ...toastConfig, duration: 0})
 
 		try {
-			await deleteProfileImage(publicId)
+			await deleteProfileImage(pid)
 			onUpload(null)
 			setPublicId(null)
-			toast.success('Deleted Image', { id: toastId })
+			toast.success('Deleted Image', toastConfig)
 		} catch (err) {
-			toast.error('Delete failed', { id: toastId })
+			toast.error('Delete failed', toastConfig)
 			console.error('Failed to delete image:', err)
 		} finally {
 			setIsDeleting(false);
@@ -99,7 +117,7 @@ export default function PhotoUploader({
 								<button
 									type="button"
 									className="text-body-sm hover:text-red"
-									onClick={handleDelete}
+									onClick={()=>handleDelete(imageUrl)}
 								>
 									Delete
 								</button>

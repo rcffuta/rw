@@ -37,13 +37,13 @@ const PackageForm = observer(({ redirect, pkg }: Props) => {
 	async function handleSubmit(e: React.FormEvent) {
 		e.preventDefault()
 
-		const toastId = 'saveCategoryToast'
+		const toastId = 'saveCategoryToast';
 
-		toast.loading('Creating Package...', { id: toastId })
+		toast.loading('Saving Package...', { id: toastId })
 
 		try {
 			await packageStore.savePackage();
-			toast.success('Package created!', { id: toastId })
+			toast.success('Package Saved!', { id: toastId })
 
 			setTimeout(() => {
 				if (!redirect) return
@@ -51,9 +51,9 @@ const PackageForm = observer(({ redirect, pkg }: Props) => {
 				navigate(redirect)
 			}, 1500)
 		} catch (err) {
-			console.error('Failed to create package:', err)
+			console.error('Failed to save package:', err)
 			// alert("Error creating product");
-			toast.error((err as Error).message || 'Package could not bre created!', { id: toastId })
+			toast.error((err as Error).message || 'Package could not bre saved!', { id: toastId })
 		}
 	}
 
