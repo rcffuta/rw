@@ -18,7 +18,7 @@ export const CarouselAdverts: any[] = [
   },
   {
     id: '687cf7c84df590cd2ee02965',
-    image: "https://res.cloudinary.com/dfs9wgjql/image/upload/v1753020261/rW/productImages/tqkkzadkmhboigy6hf4c.jpg",
+    image: "https://res.cloudinary.com/dfs9wgjql/image/upload/v1753354295/rW/productImages/muea3o05skhtkhic1xmu.jpg",
     name: "ARCHITECT OF RADIANCE 2",
     description:
       "Architect of Radiance 2\nShine boldly and build with purpose. This pack includes a powerful sweatshirt, face cap, jotter, and keyholder, all designed to reflect your identity as a Light Bearer and live out the creed \"Shining Christ in Darkness.\"\n",
