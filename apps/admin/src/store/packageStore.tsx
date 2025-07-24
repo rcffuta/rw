@@ -112,7 +112,7 @@ class PackageStore {
 	}
 
 	removeItem = (index: number) => {
-		this._items.splice(index, 1)
+		this._items.splice(index, 1);
 	}
 
 	updateVariantStock = (index: number, value: string) => {

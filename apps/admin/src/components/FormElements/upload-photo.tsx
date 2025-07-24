@@ -22,6 +22,7 @@ export default function PhotoUploader({
 	// const [imageUrl, setImageUrl] = useState<string | null>(null);
 	const [isUploading, setIsUploading] = useState(false)
 	const [publicId, setPublicId] = useState<string | null>(null)
+	const [isDeleting, setIsDeleting] = useState(false);
 
 	const handleChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
 		const file = e.target.files?.[0]
@@ -48,9 +49,12 @@ export default function PhotoUploader({
 
 	const handleDelete = async () => {
 		if (!publicId) return
+		if (isDeleting) return;
 		const toastId = 'deleteToast'
 
-		toast.loading('Deleting image', { id: toastId })
+		setIsDeleting(true);
+
+		toast.loading('Deleting image', { id: toastId, duration: 0 })
 
 		try {
 			await deleteProfileImage(publicId)
@@ -60,6 +64,8 @@ export default function PhotoUploader({
 		} catch (err) {
 			toast.error('Delete failed', { id: toastId })
 			console.error('Failed to delete image:', err)
+		} finally {
+			setIsDeleting(false);
 		}
 	}
 
