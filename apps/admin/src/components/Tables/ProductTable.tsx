@@ -9,6 +9,7 @@ import { ChevronUpIcon } from '../Icons'
 import { ReactNode, useState } from 'react';
 import toast from 'react-hot-toast';
 import { useRouter } from 'next/navigation';
+import { PRODUCTS_LINK } from '@/data/links';
 
 export const productTableHeadings: TableRowItem[] = [
 	{
@@ -40,6 +41,8 @@ export const productTableHeadings: TableRowItem[] = [
 
 
 export default function ProductTable({ products }: { products: ProductRecord[] }) {
+
+	const {navigate} = useNavigate();
 
 	return (
 		<Table>
@@ -117,9 +120,11 @@ export default function ProductTable({ products }: { products: ProductRecord[] }
 										{
 											label: 'Edit',
 											onClick() {
-												toast.error('Edit not available yet', {
-													id: product.id
-												})
+												// toast.error('Edit not available yet', {
+												// 	id: product.id
+												// })
+												const link = `${PRODUCTS_LINK}/edit/${product.id}`;
+												window.location.href = link;
 											}
 										}
 									]}

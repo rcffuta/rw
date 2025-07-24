@@ -9,10 +9,10 @@ import productStore from '@/store/productStore'
 import { useNavigate } from '@rw/shared'
 import ProductWrapperForm from './ProductFormWrapper'
 import toast from 'react-hot-toast'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { PillInput } from '../FormElements/PillInput'
 import { VariantDisplay } from '../ui/VariantDisplay'
-import { ProductVariant } from '@rcffuta/ict-lib'
+import { ProductRecord, ProductVariant } from '@rcffuta/ict-lib'
 import { cn } from '@/utils/utils'
 import { PRODUCTS_LINK } from '@/data/links'
 
@@ -47,13 +47,14 @@ const ProductForm = observer(() => {
 				className="mb-4.5"
 				value={productStore.description}
 				handleChange={(e) => productStore.setField('description', e.target.value)}
-				
 			/>
 			<br />
 			<hr />
 			<br />
 
-			<VariantDisplay variants={variants} />
+			<VariantDisplay variants={variants} editable onRemove={(index:number)=>{
+				productStore.removeVariant(index)
+			}}/>
 		</ShowcaseSection>
 	)
 })
@@ -147,8 +148,25 @@ const MainProductForm = observer(() => {
 	)
 })
 
-export default function AddProductForm() {
-	const { navigate} = useNavigate()
+function ProductInputForm({product}:{product?: ProductRecord}) {
+	const { navigate} = useNavigate();
+
+
+	
+
+	useEffect(()=>{
+		if (product) {
+
+			setTimeout(()=>{
+
+				productStore.populateProductInfo(product)
+			}, 1000)
+		}
+
+		return ()=>{
+			productStore.reset();
+		}
+	},[])
 
 	return (
 		<ProductWrapperForm
@@ -190,3 +208,6 @@ export default function AddProductForm() {
 		</ProductWrapperForm>
 	)
 }
+
+
+export default observer(ProductInputForm)

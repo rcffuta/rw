@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react-lite'
 import { cn } from '@/utils/utils'
 import { ProductVariant } from '@rcffuta/ict-lib'
-import { CustomImage } from '@rw/shared'
+import { CustomImage, truncateText } from '@rw/shared'
 
 interface VariantDisplayProps {
 	variants: ProductVariant[]
@@ -63,7 +63,7 @@ export const VariantDisplay = observer(
 								{/* Size */}
 								<div className="flex items-center text-sm text-dark dark:text-white">
 									<span className="mr-1 font-medium">Size:</span>
-									{variant.sizes.join(",")}
+									{truncateText(variant.sizes.join(","), 10)}
 								</div>
 							</div>
 
