@@ -1,19 +1,19 @@
 
 import { Option } from '@/types/form.types'
-import { createPackage, getProducts, MerchPackage, MerchPackageRecord, PackageItem } from '@rcffuta/ict-lib'
+import { createPackage, getProducts, MerchPackage, MerchPackageRecord, PackageItem, updatePackage } from '@rcffuta/ict-lib'
 import { makeAutoObservable, toJS } from 'mobx'
 import toast, { ToastOptions } from 'react-hot-toast'
 
 // "https://res.cloudinary.com/con-so-nant/image/upload/v1752769553/rW/images/mkyfylugetjeofamjdhq.png"
 
 
-async function updatePackage(id:string, data: Partial<MerchPackage>) {
-	return {
-		success: false,
-		message: "Package Update Not Implemented",
-		data: null,
-	}
-}
+// async function updatePackage(id:string, data: Partial<MerchPackage>) {
+// 	return {
+// 		success: false,
+// 		message: "Package Update Not Implemented",
+// 		data: null,
+// 	}
+// }
 
 class PackageStore {
 	// Basic product info
@@ -68,13 +68,13 @@ class PackageStore {
 
 		this.loading = true
 
-		toast.loading('Loading products...', { ...toastConfig, duration: 0 })
+		toast.loading('Loading packages...', { ...toastConfig, duration: 0 })
 		const { message, success, data } = await getProducts()
 
 		if (!success) {
-			toast.error(`Could not load products: ${message}`, toastConfig)
+			toast.error(`Could not load package: ${message}`, toastConfig)
 		} else {
-			toast.success('Loaded Products', toastConfig)
+			toast.success('Loaded package', toastConfig)
 			this.options = data.map((each) => ({
 				text: each.name,
 				value: each.id,
