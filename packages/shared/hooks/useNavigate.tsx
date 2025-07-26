@@ -72,9 +72,15 @@ export function useNavigate() {
     };
 
 
+    const refresh = useCallback(() => {
+        router.refresh()
+    }, [])
+
+
     return {
         navigate,
         redirect,
         makeRedirectUrl,
-    };
+        refresh,
+    }
 }

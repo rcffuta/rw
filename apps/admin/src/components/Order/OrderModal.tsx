@@ -6,13 +6,13 @@ import { useState } from 'react'
 interface OrderModalProps {
 	order: OrderRecord
 	onClose: () => void
-	onStatusChange?: (newStatus: OrderStatus) => void
+	onStatusChange?: (newStatus: OrderStatus, reason?:string) => void
 }
 
 const statusActions: Record<OrderStatus, string[]> = {
 	cart: ['Mark as Paid', 'Cancel Order'],
 	paid: ['Mark for Shipping', 'Cancel Order'],
-	pending: ['Mark as Shipped', 'Cancel Order'],
+	pending: ['Mark for Pickup', 'Cancel Order'],
 	shipped: ['Mark as Delivered', 'Cancel Order'],
 	delivered: [],
 	cancelled: []
@@ -28,22 +28,26 @@ const statusColors: Record<OrderStatus, string> = {
 }
 
 export const OrderModal = ({ order, onClose, onStatusChange }: OrderModalProps) => {
-	const [isProcessing, setIsProcessing] = useState(false)
+	const [isProcessing, setIsProcessing] = useState(false);
+	const [selectedAction, setSelectedAction] = useState<string | null>(null)
+	const [showConfirmModal, setShowConfirmModal] = useState(false)
+	const [cancelReason, setCancelReason] = useState('')
+	const [showReasonInput, setShowReasonInput] = useState(false)
 
-	const handleAction = async (action: string) => {
-		setIsProcessing(true)
+
+	const handleAction = async () => {
 		try {
 			// Determine what status change this action represents
 			let newStatus: OrderStatus | null = null
 
-			switch (action) {
+			switch (selectedAction) {
 				case 'Mark as Paid':
 					newStatus = 'paid'
 					break
 				case 'Mark for Shipping':
 					newStatus = 'pending'
 					break
-				case 'Mark as Shipped':
+				case 'Mark for Pickup':
 					newStatus = 'shipped'
 					break
 				case 'Mark as Delivered':
@@ -56,13 +60,19 @@ export const OrderModal = ({ order, onClose, onStatusChange }: OrderModalProps) 
 			}
 
 			if (newStatus && onStatusChange) {
-				await onStatusChange(newStatus)
+				await onStatusChange(newStatus, cancelReason || undefined)
 			}
 
 			// Handle other non-status actions here
 			// ...
 		} finally {
 			setIsProcessing(false)
+			setShowConfirmModal(false);
+			setCancelReason('')
+			setShowReasonInput(false)
+			setSelectedAction(null)
+
+			onClose()
 		}
 	}
 
@@ -236,21 +246,31 @@ export const OrderModal = ({ order, onClose, onStatusChange }: OrderModalProps) 
 
 					{/* Footer with CTAs */}
 					<div className="sticky bottom-0 z-10 bg-white px-4 py-3 dark:bg-gray-800 sm:flex sm:flex-row-reverse sm:px-6">
-						{statusActions[order.status].map((action) => (
-							<button
-								key={action}
-								type="button"
-								disabled={isProcessing}
-								onClick={() => handleAction(action)}
-								className={`inline-flex w-full justify-center gap-2 rounded-md border border-transparent px-4 py-2 text-base font-medium text-white shadow-sm sm:ml-3 sm:w-auto sm:font-medium ${
-									action.includes('Cancel') || action.includes('Delete')
-										? 'bg-red-600 hover:bg-red-700'
-										: 'my-2 bg-indigo-600 hover:bg-indigo-700 md:my-0'
-								} ${isProcessing ? 'cursor-not-allowed opacity-70' : ''}`}
-							>
-								{isProcessing ? 'Processing...' : action}
-							</button>
-						))}
+						{statusActions[order.status].map((action) => {
+							const isCancel = action.includes('Cancel') || action.includes('Delete');
+							return (
+								<button
+									key={action}
+									type="button"
+									disabled={isProcessing}
+									onClick={() => {
+										setSelectedAction(action)
+										setShowConfirmModal(true)
+
+										if (isCancel) {
+											setShowReasonInput(true)
+										}
+									}}
+									className={`inline-flex w-full justify-center gap-2 rounded-md border border-transparent px-4 py-2 text-base font-medium text-white shadow-sm sm:ml-3 sm:w-auto sm:font-medium ${
+										isCancel
+											? 'bg-red-600 hover:bg-red-700'
+											: 'my-2 bg-indigo-600 hover:bg-indigo-700 md:my-0'
+									} ${isProcessing ? 'cursor-not-allowed opacity-70' : ''}`}
+								>
+									{isProcessing ? 'Processing...' : action}
+								</button>
+							)
+						})}
 						<button
 							type="button"
 							onClick={onClose}
@@ -261,6 +281,58 @@ export const OrderModal = ({ order, onClose, onStatusChange }: OrderModalProps) 
 					</div>
 				</div>
 			</div>
+
+			{showConfirmModal && (
+				<div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
+					<div className="w-full max-w-md rounded-lg bg-white p-6 shadow-lg dark:bg-gray-800">
+						<h2 className="mb-4 text-lg font-semibold text-gray-900 dark:text-white">
+							Confirm Action
+						</h2>
+						<p className="mb-6 text-gray-700 dark:text-gray-300">
+							Are you sure you want to{' '}
+							<span className="font-bold" style={{ textTransform: 'capitalize' }}>
+								{selectedAction}
+							</span>
+							?
+						</p>
+						{showReasonInput && (
+							<div className="px-4 pb-4">
+								<label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+									Cancellation Reason
+								</label>
+								<textarea
+									value={cancelReason}
+									onChange={(e) => setCancelReason(e.target.value)}
+									rows={3}
+									className="mt-1 w-full rounded-md border border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-900 dark:text-white sm:text-sm px-4 py-5"
+									placeholder="Optional, but recommended for accountability"
+								/>
+							</div>
+						)}
+						<div className="flex justify-end gap-3">
+							<button
+								className="rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 dark:bg-gray-700 dark:text-white"
+								onClick={() => {
+									setShowConfirmModal(false)
+									setSelectedAction(null)
+								}}
+							>
+								Cancel
+							</button>
+							<button
+								className="rounded-md bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-indigo-700"
+								onClick={() => {
+									setIsProcessing(true)
+									handleAction()
+								}}
+								disabled={isProcessing}
+							>
+								{isProcessing ? 'Processing...' : 'Yes, Confirm'}
+							</button>
+						</div>
+					</div>
+				</div>
+			)}
 		</div>
 	)
 }

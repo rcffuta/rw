@@ -10,15 +10,12 @@ import {
 	TableHeader,
 	TableRow
 } from '@/components/ui/table'
-import { formatCurrency, formatNaira, useNavigate } from '../../../../../packages/shared'
+import { formatNaira, useNavigate } from '@rw/shared'
 import { TableRowItem } from '../ui/types'
 import clsx from 'clsx'
 import toast from 'react-hot-toast'
-import { sendProductToCustomer } from '@/actions/order.action'
-import { Order, OrderItem, OrderRecord, OrderStatus, wait } from '@rcffuta/ict-lib'
-import { MarkAsCanceledButton, MarkAsDeliveredButton, MarkAsShippingButton, MarkForPickupButton } from './StatusActionButton'
+import { OrderItem, OrderRecord, OrderStatus, sendDeliveryNotification, sendOrderCancelledNotification, sendOrderPaymentApprovedNotification, sendPickupNotification, sendShippingNotification, updateOrder } from '@rcffuta/ict-lib'
 import { observer } from 'mobx-react-lite'
-import Link from 'next/link'
 import PaymentProofPreview from './PaymentProofPreview'
 import { useState } from 'react'
 import { OrderModal } from './OrderModal'
@@ -68,12 +65,43 @@ export const OrderTableHead: TableRowItem[] = [
 
 
 export const OrderTable = observer(({ orders }: OrderProps) => {
-	const [selectedOrder, setSelectedOrder] = useState<OrderRecord | null>(null)
+	const [selectedOrder, setSelectedOrder] = useState<OrderRecord | null>(null);
+	const { refresh } = useNavigate()
 
-	const handleStatusChange = async (order: OrderRecord, newStatus: OrderStatus) => {
+	const handleStatusChange = async (order: OrderRecord, newStatus: OrderStatus, reason?: string) => {
 		try {
 
 			switch (newStatus) {
+				case "cancelled":
+					await updateOrder(order.id, {
+						status: newStatus
+					})
+					await sendOrderCancelledNotification(order, reason || "Please reach out to the committee");
+					break;
+				case "delivered":
+					await updateOrder(order.id, {
+						status: newStatus
+					})
+					await sendDeliveryNotification(order);
+					break;
+				case "paid":
+					await updateOrder(order.id, {
+						status: newStatus
+					})
+					await sendOrderPaymentApprovedNotification(order);
+					break;
+				case "pending":
+					await updateOrder(order.id, {
+						status: newStatus
+					})
+					await sendShippingNotification(order);
+					break;
+				case "shipped":
+					await updateOrder(order.id, {
+						status: newStatus
+					})
+					await sendPickupNotification(order);
+					break;
 				default:
 					toast.error(`Set to "${newStatus}" Action Not Available`, {
 						id: order.id + newStatus
@@ -81,7 +109,13 @@ export const OrderTable = observer(({ orders }: OrderProps) => {
 			}
 
 
-			setSelectedOrder((e) => e ? { ...e, status: newStatus } : null);
+			// setSelectedOrder((e) => e ? { ...e, status: newStatus } : null);
+
+
+			setTimeout(()=>{
+				refresh();
+			}, 1000)
+			
 
 		} catch (error) {
 			throw error
@@ -109,8 +143,8 @@ export const OrderTable = observer(({ orders }: OrderProps) => {
 				<OrderModal
 					order={selectedOrder}
 					onClose={() => setSelectedOrder(null)}
-					onStatusChange={async (newStatus) => {
-						await handleStatusChange(selectedOrder, newStatus)
+					onStatusChange={async (newStatus, reason?: string) => {
+						await handleStatusChange(selectedOrder, newStatus, reason)
 					}}
 				/>
 			)}
