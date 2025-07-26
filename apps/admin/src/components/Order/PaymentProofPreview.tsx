@@ -18,8 +18,8 @@ const PaymentProofPreview = ({ paymentRef }: { paymentRef: string }) => {
 
 			{/* Modal */}
 			{isOpen && (
-				<div className="fixed inset-0 top-12 z-[99999999999999] flex items-center justify-center bg-black bg-opacity-80 p-4">
-					<div className="relative max-h-[90vh] w-full max-w-4xl overflow-auto rounded-lg bg-white dark:bg-dark-2">
+				<div className="fixed inset-0 z-[99999999999999] flex items-center justify-center bg-black bg-opacity-80">
+					<div className="relative mt-0 md:mt-25 max-h-[90vh] w-full max-w-4xl overflow-y-auto rounded-lg bg-white dark:bg-dark-2">
 						<div className="sticky top-0 flex justify-end bg-white p-4 dark:bg-dark-2">
 							<button
 								onClick={() => setIsOpen(false)}
@@ -42,11 +42,11 @@ const PaymentProofPreview = ({ paymentRef }: { paymentRef: string }) => {
 							</button>
 						</div>
 
-						<div className="flex justify-center p-4">
+						<div className="flex justify-center p-4 max-h-[55vh] md:max-h-[70vh]">
 							<img
 								src={paymentRef}
 								alt="Payment Proof"
-								className="max-h-[70vh] max-w-full object-contain"
+								className="h-auto max-w-full object-contain"
 							/>
 						</div>
 

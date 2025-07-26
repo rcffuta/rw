@@ -87,7 +87,7 @@ export const OrderModal = ({ order, onClose, onStatusChange }: OrderModalProps) 
 				/>
 
 				{/* Modal container */}
-				<div className="relative z-10 mt-20 max-h-screen w-full max-w-4xl overflow-y-auto rounded-lg bg-white py-18 shadow-xl dark:bg-gray-dark md:mt-0 md:py-0">
+				<div className="relative z-10 mt-18 max-h-screen w-full max-w-4xl overflow-y-auto rounded-lg bg-white py-5 shadow-xl dark:bg-gray-dark md:mt-0 md:py-0">
 					<div className="px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
 						<div className="sm:flex sm:items-start">
 							<div className="mt-3 w-full text-center sm:mt-0 sm:text-left">
