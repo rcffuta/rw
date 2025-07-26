@@ -80,7 +80,7 @@ export const PaymentDetails = observer(() => {
 
             try{
 
-                sendOrderReceivedNotification(order);
+                await sendOrderReceivedNotification(order);
             } catch (error) {
                 console.error('Failed to send order received notification:', error);
             }

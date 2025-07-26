@@ -3,8 +3,8 @@
 
 import toast from "react-hot-toast";
 import { createCartStore } from "./cartStore";
-import { createNewOrder, updateOrderInfo } from "@/actions/cart.action";
-import { MerchPackageRecord, Order, OrderItem, OrderRecord, ProductRecord } from "@rcffuta/ict-lib";
+import { createNewOrder } from "@/actions/cart.action";
+import { isEmpty, MerchPackageRecord, Order, OrderItem, ProductRecord, deleteOrderById} from "@rcffuta/ict-lib";
 import { CheckoutFormData } from "../validators/checkout.validator";
 
 const LOCAL_CART_KEY = "guest_cart";
@@ -31,7 +31,6 @@ export const cartStore = createCartStore(loadCartFromStorage());
 
 
 export function clearOrderState(cart: typeof cartStore) {
-
     cart.clearCart();
     localStorage.removeItem(LOCAL_CART_KEY);
 }
@@ -58,9 +57,6 @@ export async function persistOrder(cart: typeof cartStore, billing: CheckoutForm
     paymentRef: "",
     totalAmount: cart.totalPrice,
   };
-
-
-  console.dir(orderData);
 
   const {
     message,
@@ -101,7 +97,13 @@ export function setPackageInCart(cart: typeof cartStore, pkg: MerchPackageRecord
   });
 }
 
-export function clearCart(cart: typeof cartStore) {
-  cart.clearCart();
+export async function clearCart(cart: typeof cartStore) {
+  // cart.clearCart();
+
+  const order = cart.order;
+
+  if (!isEmpty(order)) {
+    await deleteOrderById(order.id)
+  }
   clearOrderState(cart);
 }

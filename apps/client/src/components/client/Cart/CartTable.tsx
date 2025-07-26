@@ -15,7 +15,6 @@ function CartTable () {
 
 
     const handleClearCart = () => {
-
         clearCart(cartStore);
     }
 
