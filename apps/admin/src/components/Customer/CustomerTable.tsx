@@ -18,6 +18,16 @@ import { TableRowItem } from '../ui/types'
 import { GroupedOrdersByCustomer } from '@/types/analytics.types'
 import { GroupedCustomerOrderModal } from './CustomerOrderModal'
 
+export function sortGroupedOrdersByAmount(
+	data: GroupedOrdersByCustomer[],
+	order: 'asc' | 'desc' = 'desc'
+): GroupedOrdersByCustomer[] {
+	return [...data].sort((a, b) => {
+		return order === 'asc' ? a.amount - b.amount : b.amount - a.amount
+	})
+}
+
+
 type Props = {
 	groupedOrders: GroupedOrdersByCustomer[];
 }
@@ -47,6 +57,7 @@ export const CustomerTableHead: TableRowItem[] = [
 export function CustomerTable({ groupedOrders }: Props) {
 	const [selectedOrder, setSelectedOrder] = useState<GroupedOrdersByCustomer | null>(null)
 
+	const data = sortGroupedOrdersByAmount(groupedOrders);
 	return (
 		<>
 			<Table>
@@ -61,7 +72,7 @@ export function CustomerTable({ groupedOrders }: Props) {
 				</TableHeader>
 
 				<TableBody>
-					{groupedOrders.map((order, idx) => (
+					{data.map((order, idx) => (
 						<TableRow key={idx}>
 							<TableCell className="text-center font-semibold">
 								{order.customer.name}

@@ -71,12 +71,22 @@ export async function groupOrdersByCustomer(): Promise<GroupedOrdersByCustomer[]
       map.set(customerId, {
         customer: order.customer,
 		id: order.customer.email,
-        orders: [],
-		amount: order.totalAmount
+        orders: [order],
+		amount: order.totalAmount,
       });
-    }
-
-    map.get(customerId)!.orders.push(order);
+    } else {
+		const dt = map.get(customerId)!
+		const amt = dt.amount + order.totalAmount;
+		
+		map.set(customerId, {
+			...dt,
+			orders: [
+				...dt.orders,
+				order
+			],
+			amount: amt,
+		})
+	}
   }
 
   return Array.from(map.values());
