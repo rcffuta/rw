@@ -27,6 +27,7 @@ export async function TrendChart({ className, timeFrame = 'monthly' }: PropsType
 		<div
 			className={cn(
 				'rounded-xl border border-gray-100 bg-white p-6 shadow-sm dark:border-gray-800 dark:bg-gray-dark',
+				'flex flex-col',
 				className
 			)}
 		>
@@ -53,7 +54,7 @@ export async function TrendChart({ className, timeFrame = 'monthly' }: PropsType
 			</div>
 
 			{data.length > 0 ? (
-				<div className="h-[350px]">
+				<div className="flex flex-1 items-center justify-center">
 					<DonutChart
 						data={data}
 						title="Order Status"

@@ -28,13 +28,8 @@ let previousOverviewData: {
 
 export async function getOverviewData() {
 	// Fetch all necessary data in parallel
-	const [orders, products, allUsers] = await Promise.all([
-		fetchFulfilledOrders(),
-		Promise.resolve([]),
-		Promise.resolve([])
-		//   fetchProducts(),
-		//   fetchMembers()
-	])
+	const orders = await fetchFulfilledOrders();
+
 	// Calculate current metrics
 	const currentSales = orders.length
 	const currentRevenue = orders.reduce((sum, order) => sum + order.totalAmount, 0)

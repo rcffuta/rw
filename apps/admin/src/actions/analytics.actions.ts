@@ -1,7 +1,8 @@
 // lib/dummyStats.ts
-import { OrderStatus } from '@rcffuta/ict-lib'
-import { fetchFulfilledOrders, fetchProducts } from '@/utils/actionUtils'
+import { MerchPackageRecord, OrderStatus, ProductRecord } from '@rcffuta/ict-lib'
+import { fetchFulfilledOrders, fetchPackages, fetchProducts } from '@/utils/actionUtils'
 import { formatOrderStatus } from '@/utils/orderUtils'
+import { StockMap, StockSale } from '@/types/analytics.types'
 type StatTimeFrame = any
 
 const monthLabels = [
@@ -134,54 +135,84 @@ export async function getWeeklyStats(timeFrame: StatTimeFrame = 'this week') {
 	}
 }
 
-export async function fetchTopSellingProducts(limit: number = 10) {
-	const orders = await fetchFulfilledOrders()
-	const products = await fetchProducts()
 
-	const productSales = products.map((product) => {
-		const productOrders = orders.flatMap((order) => {
+export async function fetchTopSellingProducts(limit: number = 11): Promise<StockSale[]> {
+	const orders = await fetchFulfilledOrders();
+	const products = await fetchProducts();
+	const packages = await fetchPackages();
 
-			if (order.items.find(e=>e.itemId === product.id)) {
-				return order;
-			}else {
-				return [];
+	const salesMap = new Map<string, StockMap>();
+	
+	orders.forEach((order) => {
+		console.debug("Orders:", {orders: order.items})
+		order.items.forEach((item) => {
+			
+			if (item.itemType === "product") {
+				const product = products.find((p) => {
+					const id = p.id.replace(/-/g, "").slice(0, 24);
+					return id === item.itemId
+				});
+				if (!product) {
+					console.debug("Found NOne", {item})
+					return;
+				};
+
+				const cached = salesMap.get(item.itemId);
+				salesMap.set(item.itemId, {
+					unitsSold: (cached?.unitsSold || 0) + item.quantity,
+					revenue: (cached?.revenue || 0) + item.quantity * item.price,
+					id: item.itemId,
+					image: item.variant.image,
+					name: product.name,
+					price: item.price
+				});
+			} else if (item.itemType === "package") {
+				const matchedPackage = packages.find((pkg) => {
+					const id = pkg.id.replace(/-/g, "").slice(0, 24);
+					return id === item.itemId
+				});
+				if (!matchedPackage) return;
+
+				matchedPackage.items.forEach((pkgItem) => {
+					const cached = salesMap.get(pkgItem.productId);
+					salesMap.set(pkgItem.productId, {
+						unitsSold: (cached?.unitsSold || 0) + item.quantity * pkgItem.quantity,
+						revenue: (cached?.revenue || 0) + item.quantity * pkgItem.quantity * pkgItem.price,
+						id: item.itemId,
+						image: matchedPackage.image,
+						name: matchedPackage.name,
+						price: item.price
+					});
+				});
+			}
+		});
+	});
+
+	const productSales: StockSale[] = Array.from(salesMap.values())
+		// .map((stock) => {
+		// 	const sales = salesMap.get(product.id);
+		// 	return {
+		// 		...product,
+		// 		unitsSold: sales?.unitsSold || 0,
+		// 		revenue: sales?.revenue || 0,
+		// 	};
+		// })
+		// .filter((e) => e.unitsSold >= 1)
+		.sort((a, b) => b.unitsSold - a.unitsSold)
+		.slice(0, limit)
+		.map((stock, index) => {
+
+			return {
+				...stock,
+				rank: index + 1,
 			}
 		});
 
-		const unitsSold = productOrders.reduce((sum, item) => {
-			const qty = item.items.reduce((acc, each)=>{
-				return acc + each.quantity
-			}, 0);
-			return sum + qty
-		}, 0)
+	console.debug("Sales", JSON.stringify({ productSales, salesMap, }, null, 2));
 
-		const revenue = productOrders.reduce((sum, item) => {
-			const qty = item.items.reduce((acc, each)=>{
-				return acc + (each.price * each.quantity)
-			}, 0);
-			return sum + qty
-		}, 0)
-
-		return {
-			...product,
-			unitsSold,
-			revenue
-		}
-	})
-
-	return productSales
-		.filter((e)=>e.unitsSold >= 1)
-		.sort((a, b) => b.unitsSold - a.unitsSold)
-		.slice(0, limit)
-		.map((product, index) => ({
-			rank: index + 1,
-			id: product.id,
-			name: product.name,
-			image: product.variants.at(0)?.image,
-			unitsSold: product.unitsSold,
-			revenue: product.revenue
-		}))
+	return productSales;
 }
+
 
 export async function fetchOrderStatusStats() {
 	const orders = await fetchFulfilledOrders()

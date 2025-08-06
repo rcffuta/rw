@@ -21,6 +21,7 @@ const TableHeads: TableRowItem[] = [
 		label: 'Product',
 		side: 'left'
 	},
+	{ label: 'Price', className: 'text-center' },
 	{ label: 'Units Sold', className: 'text-center' },
 	{ label: 'Revenue', className: 'text-right' }
 ]
@@ -95,6 +96,9 @@ export async function TopSellingProducts({ className }: { className?: string }) 
 										</div>
 									</TableCell>
 
+									<TableCell className="whitespace-nowrap px-4 py-3 text-center text-sm text-gray-500 dark:text-gray-400">
+										{formatNaira(item.price)}
+									</TableCell>
 									<TableCell className="whitespace-nowrap px-4 py-3 text-center text-sm text-gray-500 dark:text-gray-400">
 										{item.unitsSold}
 									</TableCell>
