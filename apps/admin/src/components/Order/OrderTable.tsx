@@ -28,6 +28,32 @@ type OrderProps = {
 }
 
 
+export function sortOrdersByAmount(orders: OrderType[], order: 'asc' | 'desc' = 'desc'): OrderType[] {
+	const statusPriority: OrderStatus[] = ['pending', 'paid', 'cart', 'shipped']
+
+	return [...orders].sort((a, b) => {
+		const aPriority = statusPriority.indexOf(a.status)
+		const bPriority = statusPriority.indexOf(b.status)
+
+		const hasAPriority = aPriority !== -1
+		const hasBPriority = bPriority !== -1
+
+		// 1. Sort by priority if both statuses are known
+		if (hasAPriority && hasBPriority && aPriority !== bPriority) {
+			return aPriority - bPriority
+		}
+
+		// 2. Known status before unknown status
+		if (hasAPriority !== hasBPriority) {
+			return hasAPriority ? -1 : 1
+		}
+
+		// 3. If same priority or both unknown, sort by amount
+		return order === 'asc' ? a.totalAmount - b.totalAmount : b.totalAmount - a.totalAmount
+	})
+}
+
+
 
 
 
@@ -121,6 +147,8 @@ export const OrderTable = observer(({ orders }: OrderProps) => {
 			throw error
 		}
 	}
+
+	const data = sortOrdersByAmount(orders);
 	return (
 		<>
 			<Table>
@@ -135,7 +163,7 @@ export const OrderTable = observer(({ orders }: OrderProps) => {
 				</TableHeader>
 
 				<TableBody>
-					<RowItem orders={orders} onViewOrder={(order) => setSelectedOrder(order)} />
+					<RowItem orders={data} onViewOrder={(order) => setSelectedOrder(order)} />
 				</TableBody>
 			</Table>
 
@@ -143,7 +171,7 @@ export const OrderTable = observer(({ orders }: OrderProps) => {
 				<OrderModal
 					order={selectedOrder}
 					onClose={() => setSelectedOrder(null)}
-					onStatusChange={async (newStatus, reason?: string) => {
+					onStatusChange={async (id, newStatus, reason?: string) => {
 						await handleStatusChange(selectedOrder, newStatus, reason)
 					}}
 				/>
