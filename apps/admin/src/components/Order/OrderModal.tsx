@@ -1,5 +1,5 @@
 import { OrderRecord, OrderStatus } from '@rcffuta/ict-lib'
-import { formatNaira, openInNewTab } from '@rw/shared'
+import { formatNaira, openInNewTab, revertId } from '@rw/shared'
 import Link from 'next/link'
 import { useState } from 'react'
 
@@ -94,7 +94,7 @@ export const OrderModal = ({ order, onClose, onStatusChange }: OrderModalProps) 
 								{/* Header */}
 								<div className="mb-4 flex flex-wrap items-center justify-between gap-3">
 									<h3 className="text-lg font-medium leading-6 text-gray-900 dark:text-white">
-										Order #{order.id || order.paymentRef?.slice(0, 8)}
+										Order #{revertId(order.id) || order.paymentRef?.slice(0, 8)}
 									</h3>
 									<span
 										className={`rounded-full px-2 py-1 text-xs font-semibold ${statusColors[order.status]}`}

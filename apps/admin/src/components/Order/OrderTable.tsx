@@ -10,7 +10,7 @@ import {
 	TableHeader,
 	TableRow
 } from '@/components/ui/table'
-import { formatNaira, useNavigate } from '@rw/shared'
+import { formatNaira, revertId, useNavigate } from '@rw/shared'
 import { TableRowItem } from '../ui/types'
 import clsx from 'clsx'
 import toast from 'react-hot-toast'
@@ -183,12 +183,12 @@ function RowItem({
 	return (
 		<>
 			{orders.map((order, index) => {
-				const orderId = `${order.id}`
+				// const orderId = revertId(order.id);
 				return (
 					<TableRow key={index} className="z-9 border-[#eee] dark:border-dark-3">
 						<TableCell className="text-center">
 							<a
-								href={`rw.rcffuta.com/order/${orderId}`}
+								href={`rw.rcffuta.com/order/${order.id}`}
 								target="_blank"
 								rel="noopener noreferrer"
 								onClick={(e) => {
@@ -198,7 +198,7 @@ function RowItem({
 								className="cursor-pointer text-primary hover:underline"
 								title="View Order Details"
 							>
-								{orderId}
+								{revertId(order.id)}
 							</a>
 						</TableCell>
 

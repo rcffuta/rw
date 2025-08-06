@@ -3,6 +3,7 @@ import { MerchPackageRecord, OrderStatus, ProductRecord } from '@rcffuta/ict-lib
 import { fetchFulfilledOrders, fetchPackages, fetchProducts } from '@/utils/actionUtils'
 import { formatOrderStatus } from '@/utils/orderUtils'
 import { StockMap, StockSale } from '@/types/analytics.types'
+import { revertId } from '@rw/shared'
 type StatTimeFrame = any
 
 const monthLabels = [
@@ -149,8 +150,7 @@ export async function fetchTopSellingProducts(limit: number = 11): Promise<Stock
 			
 			if (item.itemType === "product") {
 				const product = products.find((p) => {
-					const id = p.id.replace(/-/g, "").slice(0, 24);
-					return id === item.itemId
+					return revertId(p.id) === item.itemId
 				});
 				if (!product) {
 					console.debug("Found NOne", {item})
@@ -168,8 +168,7 @@ export async function fetchTopSellingProducts(limit: number = 11): Promise<Stock
 				});
 			} else if (item.itemType === "package") {
 				const matchedPackage = packages.find((pkg) => {
-					const id = pkg.id.replace(/-/g, "").slice(0, 24);
-					return id === item.itemId
+					return revertId(pkg.id) === item.itemId
 				});
 				if (!matchedPackage) return;
 

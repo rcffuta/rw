@@ -100,3 +100,8 @@ export function normalizeQuantity(quantity?: number, prev?:number): number {
 export function openInNewTab(url: string) {
   window.open(url, '_blank', 'noopener,noreferrer');
 };
+
+
+export function revertId(newId:string): string {
+  return newId.replace(/-/g, "").slice(0, 24);
+}
