@@ -34,7 +34,7 @@ export const MarkAsCanceledButton = ({
       await onStatusChange("cancelled");
 
       // Send email notification
-      await sendOrderCancelledNotification(order);
+      await sendOrderCancelledNotification(order, "");
 
       toast.success('Order marked as Cancelled and notification sent', { id: toastId })
     } catch (error) {
