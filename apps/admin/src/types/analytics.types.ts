@@ -1,4 +1,4 @@
-import { MerchPackageRecord, ProductRecord } from "@rcffuta/ict-lib";
+import { CustomerInfo, MerchPackageRecord, OrderRecord, ProductRecord } from "@rcffuta/ict-lib";
 
 export type Stock = ProductRecord & MerchPackageRecord;
 export type StockMap = {
@@ -17,4 +17,12 @@ export type StockSale = {
     image: string,
     unitsSold: number,
     revenue: number,
+};
+
+
+export type GroupedOrdersByCustomer = {
+    id: string;
+    customer: CustomerInfo;
+    orders: OrderRecord[];
+    amount: number;
 };

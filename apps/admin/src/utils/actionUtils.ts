@@ -6,8 +6,11 @@ import {
 	findUnderGraduates,
 	getPackages,
 	OrderStatus,
+	OrderRecord,
+	CustomerInfo,
 } from '@rcffuta/ict-lib'
 import { mockOrders } from './orderUtils';
+import { GroupedOrdersByCustomer } from '@/types/analytics.types';
 
 export async function fetchOrders() {
 	const { data = [] } = await getOrders()
@@ -56,3 +59,25 @@ export async function fetchMembers() {
 	return data ?? []
 }
 
+
+export async function groupOrdersByCustomer(): Promise<GroupedOrdersByCustomer[]> {	
+	const map = new Map<string, GroupedOrdersByCustomer>();
+	const orders = await fetchOrders();
+
+  for (const order of orders) {
+    const customerId = order.customer.email;
+
+    if (!map.has(customerId)) {
+      map.set(customerId, {
+        customer: order.customer,
+		id: order.customer.email,
+        orders: [],
+		amount: order.totalAmount
+      });
+    }
+
+    map.get(customerId)!.orders.push(order);
+  }
+
+  return Array.from(map.values());
+}

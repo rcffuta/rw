@@ -1,4 +1,5 @@
 export const ORDER_LINK = '/orders'
+export const CUSTOMER_LINK = '/customers'
 export const PRODUCTS_LINK = '/products'
 export const ADD_PACKAGE_LINK = "/packages/add"
 export const PACKAGE_LINK = "/packages"
