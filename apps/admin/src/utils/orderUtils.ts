@@ -1,4 +1,4 @@
-import { OrderRecord, OrderStatus } from "@rcffuta/ict-lib"
+import { OrderItem, OrderRecord, OrderStatus, OrderType, OrderVariant } from "@rcffuta/ict-lib"
 
 export function formatOrderStatus(status: OrderStatus): string {
 	switch (status) {
@@ -33,65 +33,90 @@ export interface ProductAggregate {
     total: number;
   }[];
   overallTotal: number;
+  type: OrderType;
 }
 
 export const aggregateProducts = (orders: OrderRecord[]): ProductAggregate[] => {
   const productMap = new Map<string, ProductAggregate>();
 
-  orders.forEach(order => {
-    order.items.forEach(item => {
-      const productName = item.name;
+  for (const order of orders) {
+    for (const item of order.items) {
       const quantity = item.quantity;
-      
-      // Handle both product and package variants
-      const variants = item.itemType === "product" 
-        ? [item.variant] 
-        : item.variant;
 
-      // Get or create product aggregate
-      let productAggregate = productMap.get(productName);
-      if (!productAggregate) {
-        productAggregate = {
-          name: productName,
-          deliverables: [],
-          overallTotal: 0
-        };
-        productMap.set(productName, productAggregate);
+      if (item.itemType === "product") {
+        const name = item.name;
+        const variant = item.variant;
+        handleProduct(name, variant.color, variant.size, quantity);
+      } else {
+        // It's a package → track only the package name and quantity
+        const packageName = item.name;
+        handlePackage(packageName, quantity);
       }
+    }
+  }
 
-      // Process each variant
-      variants.forEach(variant => {
-        // Find or create color entry
-        let colorEntry = productAggregate!.deliverables.find(d => d.color === variant.color);
-        if (!colorEntry) {
-          colorEntry = {
-            color: variant.color,
+  function handleProduct(name: string, color: string, size: string, quantity: number) {
+    let productAggregate = productMap.get(name);
+    if (!productAggregate) {
+      productAggregate = {
+        name,
+        deliverables: [],
+        overallTotal: 0,
+        type: "product"
+      };
+      productMap.set(name, productAggregate);
+    }
+
+    let colorEntry = productAggregate.deliverables.find((d) => d.color === color);
+    if (!colorEntry) {
+      colorEntry = {
+        color,
+        sizes: [],
+        total: 0,
+      };
+      productAggregate.deliverables.push(colorEntry);
+    }
+
+    let sizeEntry = colorEntry.sizes.find((s) => s.size === size);
+    if (!sizeEntry) {
+      sizeEntry = {
+        size,
+        quantity: 0,
+      };
+      colorEntry.sizes.push(sizeEntry);
+    }
+
+    sizeEntry.quantity += quantity;
+    colorEntry.total += quantity;
+    productAggregate.overallTotal += quantity;
+  }
+
+  function handlePackage(name: string, quantity: number) {
+    let packageAggregate = productMap.get(name);
+    if (!packageAggregate) {
+      packageAggregate = {
+        name,
+        deliverables: [
+          {
+            color: "-", // Not applicable
             sizes: [],
-            total: 0
-          };
-          productAggregate!.deliverables.push(colorEntry);
-        }
+            total: 0,
+          },
+        ],
+        overallTotal: 0,
+        type: "package"
+      };
+      productMap.set(name, packageAggregate);
+    }
 
-        // Find or create size entry
-        let sizeEntry = colorEntry.sizes.find(s => s.size === variant.size);
-        if (!sizeEntry) {
-          sizeEntry = {
-            size: variant.size,
-            quantity: 0
-          };
-          colorEntry.sizes.push(sizeEntry);
-        }
-
-        // Update quantities
-        sizeEntry.quantity += quantity;
-        colorEntry.total += quantity;
-        productAggregate!.overallTotal += quantity;
-      });
-    });
-  });
+    packageAggregate.deliverables[0].total += quantity;
+    packageAggregate.overallTotal += quantity;
+  }
 
   return Array.from(productMap.values());
 };
+
+
 
 export const mockOrders: OrderRecord[] = []
 //   {

@@ -221,6 +221,15 @@ export const MarkAsDeliveredButton = ({
 }
 
 
+export function sortProductAggregatesByType(aggregates: ProductAggregate[]): ProductAggregate[] {
+	return [...aggregates].sort((a, b) => {
+		if (a.type === 'package' && b.type === 'product') return -1
+		if (a.type === 'product' && b.type === 'package') return 1
+		return 0 // same type, keep original order
+	})
+}
+  
+
 export const ExportButton = observer(() => {
     const [orders, setOrders] = useState<ProductAggregate[] | null>(null);
 
@@ -245,5 +254,5 @@ export const ExportButton = observer(() => {
     if(orders.length < 1) return null;
 
 
-    return <ExportAsPDF aggregates={orders} />
+    return <ExportAsPDF aggregates={sortProductAggregatesByType(orders)} />
 })
