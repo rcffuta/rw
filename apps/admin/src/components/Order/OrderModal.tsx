@@ -62,7 +62,7 @@ export const OrderModal = ({ order, onClose, onStatusChange }: OrderModalProps) 
 							updateConfirm(false)
 							updateAction(null)
 						}}
-						onAction={(reason) => handleAction(reason)}
+						onAction={(reason) => handleAction(order.id, reason)}
 					/>
 				}
 			>
@@ -326,7 +326,7 @@ export function ConfirmActionModal(props: ConfirmActionModalProps) {
 							value={reason}
 							onChange={(e) => setReason(e.target.value)}
 							rows={3}
-							className="mt-1 w-full rounded-md border border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-900 dark:text-white sm:text-sm px-4 py-5"
+							className="mt-1 w-full rounded-md border border-gray-300 px-4 py-5 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-900 dark:text-white sm:text-sm"
 							placeholder="Optional, but recommended for accountability"
 						/>
 					</div>
@@ -335,12 +335,13 @@ export function ConfirmActionModal(props: ConfirmActionModalProps) {
 					<button
 						className="rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 dark:bg-gray-700 dark:text-white"
 						onClick={onCancel}
+						disabled={loading}
 					>
 						Cancel
 					</button>
 					<button
 						className="rounded-md bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-indigo-700"
-						onClick={()=>onAction(reason)}
+						onClick={() => onAction(reason)}
 						disabled={loading}
 					>
 						{loading ? 'Processing...' : 'Yes, Confirm'}

@@ -13,13 +13,13 @@ export function useManageOrder({onClose, onStatusChange}: Props) {
 	const [isProcessing, setIsProcessing] = useState(false)
 	const [showConfirmModal, setShowConfirmModal] = useState(false)
 	const [showReasonInput, setShowReasonInput] = useState(false);
-    const [activeOrderId, setActiveOrderId] = useState<string | null>(null);
+    // const [activeOrderId, setActiveOrderId] = useState<string | null>(null);
 
-	const handleAction = async (reason?:string) => {
-        if (!activeOrderId || !action) return
+	const handleAction = async (activeOrderId:string, reason?: string) => {
+		if (!activeOrderId || !action) return
 
-        if (isProcessing) return;
-        setIsProcessing(true);
+		if (isProcessing) return
+		setIsProcessing(true)
 		try {
 			// Determine what status change this action represents
 			let newStatus: OrderStatus | null = null
@@ -55,7 +55,7 @@ export function useManageOrder({onClose, onStatusChange}: Props) {
 
 			setShowReasonInput(false)
 			setAction(null)
-            setActiveOrderId(null)
+			// setActiveOrderId(null)
 			onClose()
 		}
 	}

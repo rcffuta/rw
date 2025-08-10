@@ -68,7 +68,7 @@ export function GroupedCustomerOrderModal({
 						updateConfirm(false)
 						updateAction(null)
 					}}
-					onAction={() => handleAction()}
+					onAction={() => handleAction(group.id)}
 				/>
 			}
 		>
